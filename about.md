@@ -37,3 +37,7 @@ E-mail: [mail@lisongqian.cn](maito:mail@lisongqian.cn)
 [http://exam.ujnxgzx.com]() 新生入学考试系统
 
 [http://new.ujnxgzx.com]() OA办公系统
+
+#### Publication
+
+- 软件著作权(2018SR940876,2018-11-26). OA办公系统. 著作权人: 济南大学,联系人:李松谦、马坤
