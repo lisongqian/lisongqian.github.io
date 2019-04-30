@@ -203,6 +203,7 @@ cat /tmp/panelBoot.pl
 
 ```bash
 pip install psutil
+pip install web.py
 ```
 
 #### 挂载硬盘
