@@ -30,6 +30,14 @@ E-mail: [mail@lisongqian.cn](maito:mail@lisongqian.cn)
 
 2017 Excellent Student Cadres in University of Jinan 济南大学优秀学生干部
 
+#### Competition
+
+国家级大学生创新创业训练计划两项
+
+全国大学生数学建模竞赛山东赛区一等奖一项
+
+山东省大学生软件设计大赛二等奖三项
+
 #### Experiences:
 
 [http://xgc.ujn.edu.cn]() 济南大学学工在线
