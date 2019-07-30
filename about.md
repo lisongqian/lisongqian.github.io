@@ -42,7 +42,7 @@ E-mail: [mail@lisongqian.cn](maito:mail@lisongqian.cn)
 
 #### Experiences:
 
-[http://xgc.ujn.edu.cn]() 济南大学学工在线
+[http://xgc.ujn.edu.cn]() 济南大学学工处
 
 [http://exam.ujnxgzx.com]() 新生入学考试系统
 
