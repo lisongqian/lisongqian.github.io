@@ -16,8 +16,6 @@ Education: Undergraduate (2016-)，School of Information Science and Engineering
 
 E-mail: [mail@lisongqian.cn](maito:mail@lisongqian.cn)
 
-CV:[cv.pdf](http://pan.lisongqian.cn:20190/papers/cv.pdf)
-
 CV:[cv.pdf](http://blog.lisongqian.cn/cv.pdf)
 
 #### Prizes:
