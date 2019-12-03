@@ -20,17 +20,13 @@ CV:[cv.pdf](http://blog.lisongqian.cn/cv.pdf)
 
 #### Prizes:
 
-2016 University of Jinan three class scholarship 济南大学三等奖学金
+National Endeavor Fellowship 国家励志奖学金
 
-2016 National Endeavor Fellowship 国家励志奖学金
+University of Jinan one class scholarship 济南大学一等奖学金
 
-2017 Excellent League members of University of Jinan 济南大学校级优秀团员
+Excellent students in University of Jinan 济南大学优秀学生
 
-2017 University of Jinan two class scholarship 济南大学二等奖学金
-
-2017 Excellent students in University of Jinan 济南大学优秀学生
-
-2017 Excellent Student Cadres in University of Jinan 济南大学优秀学生干部
+Excellent Student Cadres in University of Jinan 济南大学优秀学生干部
 
 #### Competitions
 
