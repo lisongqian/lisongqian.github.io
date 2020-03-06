@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>
+        
+            pregel有向图数据模型 | 李松谦的博客 | Lisongqian&#39;s Blog
+        
+    </title>
+    <meta name="author" content="Li Songqian">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+    <!-- css -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+
+    <!-- jquery -->
+    
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+    <script>
+        const CONFIG_BGIMAGE = {
+            mode: 'normal',
+            normalSrc: 'http://cdn.lisongqian.cn/2020/03/06/20200306-113226-vpwMIm5o5ULabTRg.jfif',
+            randomYouMax: 110,
+            randomYouSrc: 'https://sariay.github.io/Random-img/',
+            randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+            preloaderEnable: false
+        }
+
+        const CONFIG_LEACLOUD_COUNT = {
+            enable: true,
+            appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+            appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+            serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+        }
+    </script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="李松谦的博客 | Lisongqian's Blog" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="">
+	<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+		<div class="banner-frame border-image" style="border-image-source: url(https://sariay.github.io/hexo-theme-Annie/presentation/img/background_.jpg);"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li's blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「pregel有向图数据模型」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo" style="display: none;">
+			<img src="/favicon.ico">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/lisongqian/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/u/5260692609" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" itemprop="url">
+		pregel有向图数据模型
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" itemprop="url">
+		<time datetime="2018-01-31T16:00:00.000Z" itemprop="dateUpdated">
+	  		2020-03-03
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/BigData/" class=" ">
+			BigData
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/_visitors" data-url="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" data-title="pregel有向图数据模型">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/_likes" data-url="/2018/02/01/pregel%E6%9C%89%E5%90%91%E5%9B%BE%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B/" data-title="pregel有向图数据模型" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h2 id="I-引言"><a href="#I-引言" class="headerlink" title="I.引言"></a>I.引言</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><blockquote>
+<p>Pregel是一种基于BSP模型实现的并行图处理系统</p>
+<a id="more"></a>
+<blockquote>
+<p>为了解决大型图的分布式计算问题，Pregel搭建了一套可扩展的、有容错机制的平台，该平台提供了一套非常灵活的API，可以描述各种各样的图计算</p>
+<p>Pregel作为分布式图计算的计算框架，主要用于图遍历、最短路径、PageRank计算等等</p>
+</blockquote>
+</blockquote>
+<h2 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h2><h3 id="1、有向图顶点"><a href="#1、有向图顶点" class="headerlink" title="1、有向图顶点"></a>1、有向图顶点</h3><p><img src="http://cdn.lisongqian.cn/1517450859206rohzv82s.png?imageslim" alt="paste image"></p>
+<p>Pregel计算模型以有向图作为输入</p>
+<p>有向图的每个顶点都有一个String类型的顶点ID</p>
+<p>每个顶点都有一个可修改的用户自定义值与之关联</p>
+<p>每条有向边都和其源顶点关联，并记录了其目标顶点ID</p>
+<p>边上有一个可修改的用户自定义值与之关联</p>
+<h3 id="2、超步"><a href="#2、超步" class="headerlink" title="2、超步"></a>2、超步</h3><p>所谓超步就是计算中的一次迭代，每个超步主要包括三个组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">局部计算：每个参与的处理器都有自身的计算任务</span><br><span class="line">通讯：处理器群相互交换数据</span><br><span class="line">栅栏同步(Barrier Synchronization)：当一个处理器遇到“路障”（或栅栏），会等到其他所有处理器完成它们的计算步骤</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.lisongqian.cn/1517454632223wlkyf87n.png?imageslim" alt="paste image"></p>
+<p><img src="http://cdn.lisongqian.cn/15174512744729aoifhmy.png?imageslim" alt="paste image"></p>
+<p>在每个超步S中，图中的所有顶点都会并行执行相同的用户自定义函数</p>
+<p>每个顶点可以接收前一个超步(S-1)中发送给它的消息，修改其自身及其出射边的状态，并发送消息给其他顶点，甚至是修改整个图的拓扑结构</p>
+<p>在这种计算模式中，“边”并不是核心对象，在边上面不会运行相应的计算，只有<strong>顶点</strong>才会执行用户自定义函数进行相应计算</p>
+<h3 id="3、传递消息方法"><a href="#3、传递消息方法" class="headerlink" title="3、传递消息方法"></a>3、传递消息方法</h3><p>消息传递的基本方法有<code>远程读取</code>和<code>基于共享内存</code>。<br>但是Pregel采用的方法是<code>消息传递模型</code></p>
+<p><img src="http://cdn.lisongqian.cn/1517451712272diwp53ir.png?imageslim" alt="paste image"></p>
+<p>因为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">（1）消息传递具有足够的表达能力，没有必要使用远程读取或共享内存的方式</span><br><span class="line">（2）有助于提升系统整体性能</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、计算过程"><a href="#4、计算过程" class="headerlink" title="4、计算过程"></a>4、计算过程</h3><p>在每个超步中，每个顶点上面都会并行执行用户自定义的函数，该函数描述了一个顶点V在一个超步S中需要执行的操作该函数可以读取前一个超步(S-1)中其他顶点发送给顶点V的消息，执行相应计算后，修改顶点V及其出射边的状态，然后沿着顶点V的出射边发送消息给其他顶点，而且，一个消息可能经过多条边的传递后被发送到任意已知ID的目标顶点上去这些消息将会在下一个超步(S+1)中被目标顶点接收，然后象上述过程一样开始下一个超步(S+1)的迭代过程在第0个超步，所有顶点处于活跃状态当一个顶点不需要继续执行进一步的计算时，就会把自己的状态设置为“停机”，进入非活跃状态</p>
+<p><strong>计算实例：（求最大值）</strong></p>
+<p><img src="http://cdn.lisongqian.cn/1517452349809brmsw5n8.png?imageslim" alt="paste image"></p>
+<p>超步0：不需计算，各个顶点将自身的值通过出射边向外发送。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A将3发送给B</span><br><span class="line">B将6发送给A和D</span><br><span class="line">C将2发送给B和D</span><br><span class="line">D将1发送给C</span><br></pre></td></tr></table></figure>
+
+<p>超步1：首先读取上一超步中发送过来的消息队列，经过自定义函数计算后，如果值发生变化，则顶点保持活跃状态；不变，则顶点变为非活跃状态。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A读取队列消息6，自定义函数为比较函数，3&lt;6，所以A的值变为6，A保持活跃，并将当前值向外发送。</span><br><span class="line">B读取队列消息3,6&gt;3，值不变；读取队列消息2,6&gt;2，值不变，B进入停机状态。</span><br><span class="line">C读取队列消息1,2&gt;1，值不变，进入停机状态。</span><br><span class="line">D读取队列消息6,1&lt;6，值改变为6;读取队列消息2,6&gt;2，值不变，B保持活跃状态，并将当前值向外发送。</span><br></pre></td></tr></table></figure>
+
+<p>超步2：迭代执行超步1。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A读取消息队列为空，A的值不发生改变，A进入停机状态。</span><br><span class="line">B读取消息队列6,6&#x3D;6，B的值不发生改变，B保持停机状态。</span><br><span class="line">C读取消息队列6,2&lt;6,C的值变为6，C被激活，变为活跃状态。</span><br><span class="line">D读取消息队列为空，的值不发生改变，D进入停机状态。</span><br></pre></td></tr></table></figure>
+
+<p>超步3：迭代执行超步1。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A读取消息队列为空，A保持停机状态。</span><br><span class="line">B读取消息队列6,6&#x3D;6，B的值不发生改变，B保持停机状态。</span><br><span class="line">C读取消息队列为空，C进入停机状态。</span><br><span class="line">D读取消息队列6,6&#x3D;6，D的值不发生改变，D保持停机状态。</span><br></pre></td></tr></table></figure>
+
+<p><strong>此时A,B,C,D全部进入非活跃状态，且无消息发出，此时算法顺利结束，求得最大值为6。</strong></p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2018/02/09/(Analog-login)%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E7%9F%A5%E4%B9%8E/" title="Analog login zhihu" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/02/27/EDGE/" title="EDGE">
+								EDGE			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 27日, 2020				
+							</p>
+							<p class="relate-post-content">
+								
+
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/02/27/EDGE/" title="EDGE">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="EDGE"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2020, Powered by Li Songqian
+			
+				& <a href="https://github.com/Sariay/hexo-theme-Annie" title="Sariay" target="_blank" rel="noopener">Sariay</a>.
+
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

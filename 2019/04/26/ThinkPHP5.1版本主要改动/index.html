@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>
+        
+            ThinkPHP5.1版本主要改动 | 李松谦的博客 | Lisongqian&#39;s Blog
+        
+    </title>
+    <meta name="author" content="Li Songqian">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+    <!-- css -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+
+    <!-- jquery -->
+    
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+    <script>
+        const CONFIG_BGIMAGE = {
+            mode: 'normal',
+            normalSrc: 'http://cdn.lisongqian.cn/2020/03/06/20200306-113226-vpwMIm5o5ULabTRg.jfif',
+            randomYouMax: 110,
+            randomYouSrc: 'https://sariay.github.io/Random-img/',
+            randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+            preloaderEnable: false
+        }
+
+        const CONFIG_LEACLOUD_COUNT = {
+            enable: true,
+            appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+            appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+            serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+        }
+    </script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="李松谦的博客 | Lisongqian's Blog" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="">
+	<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+		<div class="banner-frame border-image" style="border-image-source: url(https://sariay.github.io/hexo-theme-Annie/presentation/img/background_.jpg);"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li's blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「ThinkPHP5.1版本主要改动」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo" style="display: none;">
+			<img src="/favicon.ico">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/lisongqian/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/u/5260692609" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/" itemprop="url">
+		ThinkPHP5.1版本主要改动
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/" itemprop="url">
+		<time datetime="2019-04-25T16:00:00.000Z" itemprop="dateUpdated">
+	  		2020-03-03
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/ThinkPHP/" class=" ">
+			ThinkPHP
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/_visitors" data-url="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/" data-title="ThinkPHP5.1版本主要改动">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/_likes" data-url="/2019/04/26/ThinkPHP5.1%E7%89%88%E6%9C%AC%E4%B8%BB%E8%A6%81%E6%94%B9%E5%8A%A8/" data-title="ThinkPHP5.1版本主要改动" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="默认模板渲染规则改进"><a href="#默认模板渲染规则改进" class="headerlink" title="默认模板渲染规则改进"></a>默认模板渲染规则改进</h3><p>由于<code>fetch</code>方法和<code>view</code>函数的默认模板规则调整为操作方法的名称（不含操作后缀）转换为小写+下划线方式，而不是原来的直接把操作名称转小写。</p>
+<p>举个例子，你的控制器操作方法名如果是<code>helloWorld</code>，渲染输出的时候会定位到 <code>helloworld.html</code>模板文件，而新版会自动定位到<code>hello_world.html</code>模板文件。</p>
+<h3 id="命名空间调整"><a href="#命名空间调整" class="headerlink" title="命名空间调整"></a>命名空间调整</h3><table>
+<thead>
+<tr>
+<th align="left">5.0系统</th>
+<th align="left">5.1系统（可用“或者”）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">think\App</td>
+<td align="left">think\facade\App （或者 App ）</td>
+</tr>
+<tr>
+<td align="left">think\Cache</td>
+<td align="left">think\facade\Cache （或者 Cache ）</td>
+</tr>
+<tr>
+<td align="left">think\Config</td>
+<td align="left">think\facade\Config （或者 Config ）</td>
+</tr>
+<tr>
+<td align="left">think\Cookie</td>
+<td align="left">think\facade\Cookie （或者 Cookie ）</td>
+</tr>
+<tr>
+<td align="left">think\Debug</td>
+<td align="left">think\facade\Debug （或者 Debug ）</td>
+</tr>
+<tr>
+<td align="left">think\Env</td>
+<td align="left">think\facade\Env （或者 Env ）</td>
+</tr>
+<tr>
+<td align="left">think\Hook</td>
+<td align="left">think\facade\Hook （或者 Hook ）</td>
+</tr>
+<tr>
+<td align="left">think\Lang</td>
+<td align="left">think\facade\Lang （或者 Lang ）</td>
+</tr>
+<tr>
+<td align="left">think\Log</td>
+<td align="left">think\facade\Log （或者 Log ）</td>
+</tr>
+<tr>
+<td align="left">think\Request</td>
+<td align="left">think\facade\Request （或者 Request ）</td>
+</tr>
+<tr>
+<td align="left">think\Response</td>
+<td align="left">think\facade\Response （或者 Response ）</td>
+</tr>
+<tr>
+<td align="left">think\Route</td>
+<td align="left">think\facade\Route （或者 Route ）</td>
+</tr>
+<tr>
+<td align="left">think\Session</td>
+<td align="left">think\facade\Session （或者 Session ）</td>
+</tr>
+<tr>
+<td align="left">think\Url</td>
+<td align="left">think\facade\Url （或者 Url ）</td>
+</tr>
+<tr>
+<td align="left">think\Validate</td>
+<td align="left">think\facade\Validate （或者 Validate ）</td>
+</tr>
+<tr>
+<td align="left">think\View</td>
+<td align="left">think\facade\View （或者 View ）</td>
+</tr>
+</tbody></table>
+<a id="more"></a>
+
+<h3 id="数据库调整"><a href="#数据库调整" class="headerlink" title="数据库调整"></a>数据库调整</h3><ul>
+<li>取消了Query类的<code>getTableInfo</code>方法，可以用更加具体的<code>getTableFields</code><br>或者<code>getFieldsType</code>方法替代；</li>
+<li>数据库查询后<code>5.1</code>不会清空查询条件；</li>
+<li>取消了<code>select(false)</code> 用法，使用 <code>fetchSql()-&gt;select()</code> 替代；</li>
+<li>如果使用了mysql的JSON查询语法，<code>user$.name</code> 需要改为 <code>user-&gt;name</code>；</li>
+<li>改变了查询构造器的数组多字段批量查询，从原来的</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">where([</span><br><span class="line">	'name'	=&gt;	['like','think%'],</span><br><span class="line">    'id'	=&gt;	['&gt;',0],</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>需要调整为</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">where([</span><br><span class="line">	['name','like','think%'],</span><br><span class="line">    ['id','&gt;',0],</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+
+<p>对于纯等于的数组条件则无需调整</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">where(['name'=&gt;'think', 'type'=&gt;1])</span><br></pre></td></tr></table></figure>
+
+<h3 id="模型调整"><a href="#模型调整" class="headerlink" title="模型调整"></a>模型调整</h3><p>为了确保模型的用法统一，对模型进行了一些调整，包括：</p>
+<ul>
+<li>模型的数据集查询始终返回<strong>数据集对象</strong>而不再是数组；※</li>
+<li>模型的数据表主键如果不是<code>id</code>，则必须设置模型的<code>pk</code>属性；</li>
+<li>软删除trait引入更改为 <code>use think\model\concern\SoftDelete</code>；※</li>
+<li>全局查询范围<code>base</code>方法中无需添加软删除条件；</li>
+<li>聚合模型功能废除，使用关联模型配合关联自动写入功能替代，更灵活；※</li>
+<li>模型的查询范围<code>scope</code>方法调用后只能使用数据库的查询方法；</li>
+<li>取消模型的数据验证功能，请使用控制器验证或者路由验证替代；※</li>
+</ul>
+<h3 id="验证类调整"><a href="#验证类调整" class="headerlink" title="验证类调整"></a>验证类调整</h3><p>验证规则的错误信息定义不再支持规则和错误信息定义在一起，例如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">index</span>\<span class="title">validate</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Validate</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Validate</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $rule = [</span><br><span class="line">        [<span class="string">'name'</span>,<span class="string">'require|max:25'</span>,<span class="string">'名称必须|名称最多不能超过25个字符'</span>],</span><br><span class="line">        [<span class="string">'age'</span>,<span class="string">'number|between:1,120'</span>,<span class="string">'年龄必须是数字|年龄必须在1~120之间'</span>],</span><br><span class="line">        [<span class="string">'email'</span>,<span class="string">'email'</span>,<span class="string">'邮箱格式错误'</span>]</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要调整为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">app</span>\<span class="title">index</span>\<span class="title">validate</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">think</span>\<span class="title">Validate</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Validate</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $rule = [</span><br><span class="line">      <span class="string">'name'</span>  =&gt; <span class="string">'require|max:25'</span>,</span><br><span class="line">      <span class="string">'age'</span>   =&gt; <span class="string">'number|between:1,120'</span>,</span><br><span class="line">      <span class="string">'email'</span> =&gt; <span class="string">'email'</span>,</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> $message = [</span><br><span class="line">      <span class="string">'name.require'</span> =&gt; <span class="string">'名称必须'</span>,</span><br><span class="line">      <span class="string">'name.max'</span>     =&gt; <span class="string">'名称最多不能超过25个字符'</span>,</span><br><span class="line">      <span class="string">'age.number'</span>   =&gt; <span class="string">'年龄必须是数字'</span>,</span><br><span class="line">      <span class="string">'age.between'</span>  =&gt; <span class="string">'年龄必须在1~120之间'</span>,</span><br><span class="line">      <span class="string">'email'</span>        =&gt; <span class="string">'邮箱格式错误'</span>,</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="官方扩展"><a href="#官方扩展" class="headerlink" title="官方扩展"></a>官方扩展</h3><p><code>composer</code>扩展需升级到最新的<code>2.0</code>版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">topthink&#x2F;think-captcha</span><br><span class="line">topthink&#x2F;think-mongo</span><br><span class="line">topthink&#x2F;think-migration</span><br><span class="line">topthink&#x2F;think-testing</span><br><span class="line">topthink&#x2F;think-queue</span><br></pre></td></tr></table></figure>
+
+<h3 id="助手函数"><a href="#助手函数" class="headerlink" title="助手函数"></a>助手函数</h3><table>
+<thead>
+<tr>
+<th align="left">助手函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>abort</strong></td>
+<td align="left"><strong>中断执行并发送HTTP状态码</strong></td>
+</tr>
+<tr>
+<td align="left">action</td>
+<td align="left">调用控制器类的操作</td>
+</tr>
+<tr>
+<td align="left">app</td>
+<td align="left">快速获取容器中的实例 支持依赖注入</td>
+</tr>
+<tr>
+<td align="left">behavior</td>
+<td align="left">执行某个行为</td>
+</tr>
+<tr>
+<td align="left">bind</td>
+<td align="left">快速绑定对象实例</td>
+</tr>
+<tr>
+<td align="left">cache</td>
+<td align="left">缓存管理</td>
+</tr>
+<tr>
+<td align="left">call</td>
+<td align="left">调用反射执行callable 支持依赖注入</td>
+</tr>
+<tr>
+<td align="left">class_basename</td>
+<td align="left">获取类名(不包含命名空间)</td>
+</tr>
+<tr>
+<td align="left">class_uses_recursive</td>
+<td align="left">获取一个类里所有用到的trait</td>
+</tr>
+<tr>
+<td align="left"><strong>config</strong></td>
+<td align="left"><strong>获取和设置配置参数</strong></td>
+</tr>
+<tr>
+<td align="left">container</td>
+<td align="left">获取容器对象实例</td>
+</tr>
+<tr>
+<td align="left">controller</td>
+<td align="left">实例化控制器</td>
+</tr>
+<tr>
+<td align="left">cookie</td>
+<td align="left">Cookie管理</td>
+</tr>
+<tr>
+<td align="left"><strong>db</strong></td>
+<td align="left"><strong>实例化数据库类</strong></td>
+</tr>
+<tr>
+<td align="left">debug</td>
+<td align="left">调试时间和内存占用</td>
+</tr>
+<tr>
+<td align="left"><strong>dump</strong></td>
+<td align="left"><strong>浏览器友好的变量输出</strong></td>
+</tr>
+<tr>
+<td align="left">env</td>
+<td align="left">获取环境变量（<code>V5.1.3+</code>）</td>
+</tr>
+<tr>
+<td align="left"><strong>exception</strong></td>
+<td align="left"><strong>抛出异常处理</strong></td>
+</tr>
+<tr>
+<td align="left">halt</td>
+<td align="left">变量调试输出并中断执行</td>
+</tr>
+<tr>
+<td align="left">input</td>
+<td align="left">获取输入数据 支持默认值和过滤</td>
+</tr>
+<tr>
+<td align="left"><strong>json</strong></td>
+<td align="left"><strong>JSON数据输出</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>jsonp</strong></td>
+<td align="left"><strong>JSONP数据输出</strong></td>
+</tr>
+<tr>
+<td align="left">lang</td>
+<td align="left">获取语言变量值</td>
+</tr>
+<tr>
+<td align="left"><strong>model</strong></td>
+<td align="left"><strong>实例化Model</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>parse_name</strong></td>
+<td align="left"><strong>字符串命名风格转换</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>redirect</strong></td>
+<td align="left"><strong>重定向输出</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>request</strong></td>
+<td align="left"><strong>实例化Request对象</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>response</strong></td>
+<td align="left"><strong>实例化Response对象</strong></td>
+</tr>
+<tr>
+<td align="left">route</td>
+<td align="left">注册路由规则（<code>V5.1.3+</code>）</td>
+</tr>
+<tr>
+<td align="left"><strong>session</strong></td>
+<td align="left"><strong>Session管理</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>token</strong></td>
+<td align="left"><strong>生成表单令牌输出</strong></td>
+</tr>
+<tr>
+<td align="left"><strong>trace</strong></td>
+<td align="left"><strong>记录日志信息</strong></td>
+</tr>
+<tr>
+<td align="left">trait_uses_recursive</td>
+<td align="left">获取一个trait里所有引用到的trait</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="left">Url生成</td>
+</tr>
+<tr>
+<td align="left">validate</td>
+<td align="left">实例化验证器</td>
+</tr>
+<tr>
+<td align="left">view</td>
+<td align="left">渲染模板输出</td>
+</tr>
+<tr>
+<td align="left">widget</td>
+<td align="left">渲染输出Widget</td>
+</tr>
+<tr>
+<td align="left">xml</td>
+<td align="left">XML数据输出</td>
+</tr>
+</tbody></table>
+<h3 id="批量生成模块"><a href="#批量生成模块" class="headerlink" title="批量生成模块"></a>批量生成模块</h3><p>如果需要批量生成多个模块的目录和文件，需要定义规则文件<code>build.php</code>并放入应用目录下面。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 定义demo模块的自动生成</span></span><br><span class="line">    <span class="string">'demo'</span>   =&gt; [</span><br><span class="line">        <span class="string">'__file__'</span>   =&gt; [<span class="string">'tags.php'</span>, <span class="string">'user.php'</span>, <span class="string">'hello.php'</span>],</span><br><span class="line">        <span class="string">'__dir__'</span>    =&gt; [<span class="string">'config'</span>, <span class="string">'controller'</span>, <span class="string">'model'</span>, <span class="string">'view'</span>],</span><br><span class="line">        <span class="string">'controller'</span> =&gt; [<span class="string">'Index'</span>, <span class="string">'Test'</span>, <span class="string">'UserType'</span>],</span><br><span class="line">        <span class="string">'model'</span>      =&gt; [],</span><br><span class="line">        <span class="string">'view'</span>       =&gt; [<span class="string">'index/index'</span>],</span><br><span class="line">    ],    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 定义test模块的自动生成</span></span><br><span class="line">    <span class="string">'test'</span>=&gt;[</span><br><span class="line">        <span class="string">'__dir__'</span>   =&gt;  [<span class="string">'config'</span>,<span class="string">'controller'</span>,<span class="string">'model'</span>,<span class="string">'widget'</span>],</span><br><span class="line">        <span class="string">'controller'</span>=&gt;  [<span class="string">'Index'</span>,<span class="string">'Test'</span>,<span class="string">'UserType'</span>],</span><br><span class="line">        <span class="string">'model'</span>     =&gt;   [<span class="string">'User'</span>,<span class="string">'UserType'</span>],</span><br><span class="line">        <span class="string">'view'</span>      =&gt;  [<span class="string">'index/index'</span>,<span class="string">'index/test'</span>],</span><br><span class="line">    ],</span><br><span class="line"> ];</span><br></pre></td></tr></table></figure>
+
+<p>定义好生成规则文件后，我们在命令行下面输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">php think build</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="几个注意点"><a href="#几个注意点" class="headerlink" title="几个注意点"></a>几个注意点</h3><ul>
+<li><code>Request</code>类不再需要<code>instance</code>方法，直接调用类的方法即可；</li>
+<li>模板的变量输出默认添加了<code>htmlentities</code>安全过滤，如果你需要输出html内容的话，请使用<code>{$var|raw}</code>方式替换，并且<code>date</code>方法已经做了内部封装，无需再使用<code>###</code>变量替换；</li>
+<li>不要用国内镜像！</li>
+</ul>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2019/04/30/CentOS6%E4%B8%8Byum%E4%BF%AE%E5%A4%8D%E5%8F%8Apython%E5%AE%89%E8%A3%85/" title="CentOS6下yum修复及python安装" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2019/04/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" title="机器学习常用算法原理" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/02/27/EDGE/" title="EDGE">
+								EDGE			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 27日, 2020				
+							</p>
+							<p class="relate-post-content">
+								
+
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/02/27/EDGE/" title="EDGE">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="EDGE"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2020, Powered by Li Songqian
+			
+				& <a href="https://github.com/Sariay/hexo-theme-Annie" title="Sariay" target="_blank" rel="noopener">Sariay</a>.
+
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

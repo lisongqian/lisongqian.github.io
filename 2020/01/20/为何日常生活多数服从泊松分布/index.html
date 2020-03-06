@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>
+        
+            为何日常生活多数服从泊松分布 | 李松谦的博客 | Lisongqian&#39;s Blog
+        
+    </title>
+    <meta name="author" content="Li Songqian">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+    <!-- css -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+
+    <!-- jquery -->
+    
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+    <script>
+        const CONFIG_BGIMAGE = {
+            mode: 'normal',
+            normalSrc: 'http://cdn.lisongqian.cn/2020/03/06/20200306-113226-vpwMIm5o5ULabTRg.jfif',
+            randomYouMax: 110,
+            randomYouSrc: 'https://sariay.github.io/Random-img/',
+            randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+            preloaderEnable: false
+        }
+
+        const CONFIG_LEACLOUD_COUNT = {
+            enable: true,
+            appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+            appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+            serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+        }
+    </script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="李松谦的博客 | Lisongqian's Blog" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="">
+	<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+		<div class="banner-frame border-image" style="border-image-source: url(https://sariay.github.io/hexo-theme-Annie/presentation/img/background_.jpg);"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li's blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「为何日常生活多数服从泊松分布」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo" style="display: none;">
+			<img src="/favicon.ico">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/lisongqian/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/u/5260692609" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" itemprop="url">
+		为何日常生活多数服从泊松分布
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" itemprop="url">
+		<time datetime="2020-01-19T16:00:00.000Z" itemprop="dateUpdated">
+	  		2020-03-03
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Math/" class=" ">
+			Math
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/_visitors" data-url="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" data-title="为何日常生活多数服从泊松分布">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/_likes" data-url="/2020/01/20/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" data-title="为何日常生活多数服从泊松分布" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="I-前提"><a href="#I-前提" class="headerlink" title="I 前提"></a>I 前提</h3><p>首先，我们讲服从泊松分布的事件要满足：</p>
+<ol>
+<li>事件的发生是独立的且事件的发生概率很小</li>
+<li>在<code>相同大小的时间或空间</code>内, 事件的发生的概率是相同的</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="II-开始——二项分布"><a href="#II-开始——二项分布" class="headerlink" title="II 开始——二项分布"></a>II 开始——二项分布</h3><p>把事件的发生当做$n$次伯努利试验,那么事件发生$k$次的概率满足二项分布：</p>
+<p>$$P(X=k)=C_{n}^{k}p^k(1-p)^{n-k} \tag{1}$$</p>
+<p>我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为$n$份，每个时间间隔中事件至多发生一次。</p>
+<h3 id="III-正题——泊松分布"><a href="#III-正题——泊松分布" class="headerlink" title="III 正题——泊松分布"></a>III 正题——泊松分布</h3><p>针对上述理解，当$n \to \infty$时：</p>
+<p>$ \displaystyle \lim \limits_{n \to \infty}C_{n}^{k}p^k(1-p)^{n-k} \tag{2} $​</p>
+<p>众所周知，二项分布中：$EX = np$，则$\displaystyle p=\frac{EX}{n}$；我们将样本均值$\mu$近似看做期望，得到：</p>
+<p>$$\displaystyle p = \frac{\mu}{n} \tag{3}$$</p>
+<p>所以$(2)$式等于：</p>
+<p>$\displaystyle P(X=k)=  \lim \limits_{n \to \infty}C_{n}^{k}p^k(1-p)^{n-k}=\lim \limits_{n \to \infty} \frac{n(n-1)(n-2) \cdots(n-k+1)}{k!} (\frac{\mu}{n})^k(1-\frac{\mu}{n})^{n-k}$</p>
+<p>$$\displaystyle =\lim \limits_{n \to \infty}\frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-k+1}{n}\frac{\mu^k}{k!}(1-\frac{\mu}{n})^{n-k}  \tag{4}$$</p>
+<p>由于：</p>
+<p>$$\displaystyle \lim \limits_{n \to \infty}\frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-k+1}{n}=1  \tag{5}$$</p>
+<p>$$\displaystyle \lim \limits_{n \to \infty}(1-\frac{\mu}{n})^{-k}=1  \tag{6}$$</p>
+<p>$$\displaystyle \lim \limits_{n \to \infty}(1-\frac{\mu}{n})^{n}=   e^{\lim \limits_{n \to \infty} n \cdot (-\frac{\mu}{n})}=e^{-\mu} \tag{7}$$</p>
+<p>所以$(4)$式等于：</p>
+<p>$$\displaystyle P(X=k)=\frac{\mu^k}{k!}e^{-\mu} \tag{8}$$</p>
+<p>从而得到上述泊松分布的概率密度函数表达式。因此：</p>
+<blockquote>
+<p>泊松分布描述的是某段时间内，事件具体的发生概率。</p>
+</blockquote>
+<h3 id="IV-延伸——指数分布"><a href="#IV-延伸——指数分布" class="headerlink" title="IV 延伸——指数分布"></a>IV 延伸——指数分布</h3><blockquote>
+<p>指数分布描述的是事件发生的时间间隔的概率</p>
+</blockquote>
+<p>指数分布描述的是一个事件发生后，间隔时间$t$后该时间再次发生的概率。</p>
+<p>也就是在时间段$t$内没有事件发生，用公式表示为：</p>
+<p>$$\displaystyle P(X&gt;t)=P{N(t)=0}= \frac{(\lambda t)^0 e^{-\lambda t}}{0!}=e^{-\lambda t}$$</p>
+<p>那么在时间$t$内发生的概率即为指数分布的分布函数表达式：</p>
+<p>$$P(x \leqslant t)= 1-P(X&gt;t)=1-e^{-\lambda t}$$</p>
+<h3 id="V-延伸——正态分布"><a href="#V-延伸——正态分布" class="headerlink" title="V 延伸——正态分布"></a>V 延伸——正态分布</h3><p>如果 $np $存在有限极限 $λ$，则这列二项分布就趋于参数为 $λ$ 的 泊松分布。反之，如果 $np $趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。</p>
+<p><img src="http://cdn.lisongqian.cn/gailvfenbu.jpg" alt=""></p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2020/01/21/2020%E5%B9%B4%E5%BC%BA%E7%83%88%E6%8E%A8%E8%8D%90%E7%9A%84ML%E5%92%8CNLP%E7%9B%B8%E5%85%B3%E8%AF%BE%E7%A8%8B/" title="2020年强烈推荐的ML和NLP相关课程" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2019/12/03/k2pdfopt%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0/" title="k2pdfopt常用参数" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/02/27/EDGE/" title="EDGE">
+								EDGE			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 27日, 2020				
+							</p>
+							<p class="relate-post-content">
+								
+
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/02/27/EDGE/" title="EDGE">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="EDGE"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2020, Powered by Li Songqian
+			
+				& <a href="https://github.com/Sariay/hexo-theme-Annie" title="Sariay" target="_blank" rel="noopener">Sariay</a>.
+
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

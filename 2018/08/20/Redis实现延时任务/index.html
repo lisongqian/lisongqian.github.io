@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <title>
+        
+            Redis实现延时任务 | 李松谦的博客 | Lisongqian&#39;s Blog
+        
+    </title>
+    <meta name="author" content="Li Songqian">
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+    <!-- css -->
+    
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+
+    <!-- jquery -->
+    
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+    <script>
+        const CONFIG_BGIMAGE = {
+            mode: 'normal',
+            normalSrc: 'http://cdn.lisongqian.cn/2020/03/06/20200306-113226-vpwMIm5o5ULabTRg.jfif',
+            randomYouMax: 110,
+            randomYouSrc: 'https://sariay.github.io/Random-img/',
+            randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+            preloaderEnable: false
+        }
+
+        const CONFIG_LEACLOUD_COUNT = {
+            enable: true,
+            appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+            appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+            serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+        }
+    </script>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="李松谦的博客 | Lisongqian's Blog" type="application/atom+xml">
+</head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="">
+	<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+		<div class="banner-frame border-image" style="border-image-source: url(https://sariay.github.io/hexo-theme-Annie/presentation/img/background_.jpg);"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li's blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Redis实现延时任务」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<span class="logo" style="display: none;">
+			<img src="/favicon.ico">
+		</span>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="https://github.com/lisongqian/" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="https://weibo.com/u/5260692609" target="_blank">
+				<span class="icon-sina-weibo "></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" itemprop="url">
+		Redis实现延时任务
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" itemprop="url">
+		<time datetime="2018-08-19T16:00:00.000Z" itemprop="dateUpdated">
+	  		2020-03-03
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/DelayedTask/" class=" ">
+			DelayedTask
+		</a>
+	
+		
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/_visitors" data-url="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" data-title="Redis实现延时任务">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/_likes" data-url="/2018/08/20/Redis%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" data-title="Redis实现延时任务" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h1 id="Redis实现延时任务"><a href="#Redis实现延时任务" class="headerlink" title="Redis实现延时任务"></a>Redis实现延时任务</h1><h3 id="创建Redis集群"><a href="#创建Redis集群" class="headerlink" title="创建Redis集群"></a>创建Redis集群</h3><p>在Redis3以上版本支持集群</p>
+<a id="more"></a>
+
+<h4 id="安装ruby"><a href="#安装ruby" class="headerlink" title="安装ruby"></a>安装ruby</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt-get install ruby</span><br><span class="line">apt-get install rubygems</span><br></pre></td></tr></table></figure>
+
+<h4 id="创建redis-conf配置文件"><a href="#创建redis-conf配置文件" class="headerlink" title="创建redis.conf配置文件"></a>创建redis.conf配置文件</h4><p>由于redis是指定配置文件启动的，所以这里我们只需要指定多个配置文件就可以了。</p>
+<p>例如：我要使用7000-7005这6个端口，我创建了6个文件夹分别用端口号命名，文件夹内放入redis.conf配置文件</p>
+<p>文件配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">port  7000  #端口号7000-7005</span><br><span class="line">bind 127.0.0.1  </span><br><span class="line">daemonize    yes  </span><br><span class="line">pidfile  &#x2F;var&#x2F;run&#x2F;redis_7000.pid # 文件名redis_7000-redis_7005</span><br><span class="line">cluster-enabled  yes</span><br><span class="line">cluster-config-file  nodes_7000.conf #文件名 nodes_7000-nodes_7005</span><br><span class="line">cluster-node-timeout  15000</span><br><span class="line">appendonly  yes</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="创建sh启动脚本"><a href="#创建sh启动脚本" class="headerlink" title="创建sh启动脚本"></a>创建sh启动脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7000&#x2F;redis.conf</span><br><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7001&#x2F;redis.conf</span><br><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7002&#x2F;redis.conf</span><br><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7003&#x2F;redis.conf</span><br><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7004&#x2F;redis.conf</span><br><span class="line">..&#x2F;src&#x2F;redis-server .&#x2F;7005&#x2F;redis.conf</span><br></pre></td></tr></table></figure>
+
+<h4 id="开启Redis服务"><a href="#开启Redis服务" class="headerlink" title="开启Redis服务"></a>开启Redis服务</h4><p>赋予脚本可执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x start-cluster.sh</span><br></pre></td></tr></table></figure>
+
+<p>执行脚本</p>
+<p><a href="http://cdn.lisongqian.cn/15347500416201hjtue96.png?imageslim" target="_blank" rel="noopener"><img src="http://cdn.lisongqian.cn/15347500416201hjtue96.png?imageslim" alt="paste image"></a></p>
+<h4 id="创建Redis集群-1"><a href="#创建Redis集群-1" class="headerlink" title="创建Redis集群"></a>创建Redis集群</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">..&#x2F;src&#x2F;redis-trib.rb create --replicas 1 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>这时可能会报错：</p>
+<p>原因是Ruby的redis接口没有安装，我们执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gem install redis</span><br></pre></td></tr></table></figure>
+
+<p>然后重新执行创建集群命令，出现下图所示，一切便大功告成。</p>
+</li>
+</ul>
+<p><a href="http://cdn.lisongqian.cn/1534750476728e6097vmp.png?imageslim" target="_blank" rel="noopener"><img src="http://cdn.lisongqian.cn/1534750476728e6097vmp.png?imageslim" alt="paste image"></a></p>
+<h3 id="Redis实现延时任务-1"><a href="#Redis实现延时任务-1" class="headerlink" title="Redis实现延时任务"></a>Redis实现延时任务</h3><p>有序集合(Sorted Set)是Redis提供的一种数据结构，具有set和hash的特点。<br>其中每个元素都关联一个score，并以这个score来排序。<br>其内部实现用到了两个数据结构:hash table和 skip list(跳跃表)</p>
+<p><a href="http://cdn.lisongqian.cn/1534750526871wkai9gfm.png?imageslim" target="_blank" rel="noopener"><img src="http://cdn.lisongqian.cn/1534750526871wkai9gfm.png?imageslim" alt="paste image"></a></p>
+<h4 id="skip-list的特点"><a href="#skip-list的特点" class="headerlink" title="skip list的特点"></a>skip list的特点</h4><ul>
+<li>由很多层结构组成，level是通过一定的概率随机产生的</li>
+<li>每一层都是一个有序的链表，默认是升序</li>
+<li>最底层的链表包含所有元素</li>
+<li>如果一个元素出现在Level i的链表中，则它在Level i之下的链表也都会出现</li>
+<li>每个节点包含两个指针，一个指向同一链表中的下一个元素，一个指向下面一层的元素</li>
+<li>插入和删除的时间复杂度是O(logn)，当达到了一定的数据规模之后，它的效率与红黑树差不多</li>
+</ul>
+<h4 id="主要命令"><a href="#主要命令" class="headerlink" title="主要命令"></a>主要命令</h4><ul>
+<li>zadd:向Sorted Set中添加元素</li>
+<li>zrem:删除Sorted Set中的指定元素</li>
+<li>zrange:按照从小到大的顺序返回指定区间内的元素</li>
+</ul>
+<h4 id="实现延迟队列"><a href="#实现延迟队列" class="headerlink" title="实现延迟队列"></a>实现延迟队列</h4><ol>
+<li>将延迟任务加到Sorted Set，将延迟时间设为score</li>
+<li>启动一个线程不断判断Sorted Set中第一个元素的score是否大于当前时间</li>
+<li>如果大于，从Sorted Set中移除任务并添加到执行队列中</li>
+<li>如果小于，进行短暂休眠后重试<strong>（会出现时间开销，在休眠时间中到达延时任务执行时间，影响到任务精准度）</strong></li>
+</ol>
+<h4 id="实例操作"><a href="#实例操作" class="headerlink" title="实例操作"></a>实例操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_93_197_centos ~]# redis-cli</span><br><span class="line">127.0.0.1:6379&gt; zrange delayqueue 0 -1</span><br><span class="line">(empty list or set)</span><br><span class="line">127.0.0.1:6379&gt; zadd dq 1 task1</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd dq 2 task2</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd dq 4 task4</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zadd dq 3 task3</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:6379&gt; zrange dq 0 0</span><br><span class="line">1) &quot;task1&quot;</span><br><span class="line">127.0.0.1:6379&gt; zrange dq 0 -1</span><br><span class="line">1) &quot;task1&quot;</span><br><span class="line">2) &quot;task2&quot;</span><br><span class="line">3) &quot;task3&quot;</span><br><span class="line">4) &quot;task4&quot;</span><br><span class="line">127.0.0.1:6379&gt; zrange dq 0 -1 withscores</span><br><span class="line">1) &quot;task1&quot;</span><br><span class="line">2) &quot;1&quot;</span><br><span class="line">3) &quot;task2&quot;</span><br><span class="line">4) &quot;2&quot;</span><br><span class="line">5) &quot;task3&quot;</span><br><span class="line">6) &quot;3&quot;</span><br><span class="line">7) &quot;task4&quot;</span><br><span class="line">8) &quot;4&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="分布式操作"><a href="#分布式操作" class="headerlink" title="分布式操作"></a>分布式操作</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@slave1:&#x2F;www&#x2F;server&#x2F;redis&#x2F;redis-cluster# ..&#x2F;src&#x2F;redis-cli -h 127.0.0.1 -c -p 7000</span><br><span class="line">127.0.0.1:7000&gt; zadd dq 1 task1</span><br><span class="line">-&gt; Redirected to slot [10584] located at 127.0.0.1:7001</span><br><span class="line">(integer) 1</span><br><span class="line">127.0.0.1:7001&gt; zrange dq 0 -1</span><br><span class="line">1) &quot;task1&quot;</span><br></pre></td></tr></table></figure>
+
+<p>简单说明：</p>
+<ol>
+<li>redis cluster本身集群方案，客户端可以任一连接一个节点</li>
+<li>redis-trib.rb脚本为集群的管理工具，比如自动添加节点，规划槽位，迁移数据等一系列操作（ruby语言）</li>
+<li>每个节点都和N-1个节点通信，所以要维护好这个集群架构的每个节点信息，不然会导致整个集群不可工作</li>
+</ol>
+<h4 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h4><ul>
+<li>实现简单</li>
+<li>任务可管理（可删除、修改任务）</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>需要有短轮询线程不断判断第一个元素是否过期，造成CPU空耗</li>
+<li>分布式场景中，容易引起多个节点读取到相同任务</li>
+</ul>
+<h4 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a>REFERENCES</h4><ul>
+<li><a href="https://www.cnblogs.com/xiong63/p/7017488.html" target="_blank" rel="noopener">Ubantu之redis集群配置</a></li>
+<li><a href="http://rdc.hundsun.com/portal/article/669.html" target="_blank" rel="noopener">Redis集群架构</a></li>
+<li><a href="https://blog.csdn.net/agzhchren/article/details/53727040" target="_blank" rel="noopener">Redis分布式集群架构</a></li>
+</ul>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2018/08/20/Dubbo-Zookeeper-%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" title="Dubbo Zookeeper实现延时任务" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2018/08/07/%E6%AD%A3%E5%88%99%E5%8C%96/" title="正则化" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/08/20/Dubbo-Zookeeper-%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" title="Dubbo Zookeeper实现延时任务">
+								Dubbo Zookeeper实现延时任务			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 20日, 2018				
+							</p>
+							<p class="relate-post-content">
+								前言什么是RPC协议
+RPC，全称Remote Procedure Call，远程过程调用，它是一种通过网络从远程计算机程序上请求服务。RPC采用客户机/服务器模式。请求程序就是一个客户机，而服务提供程序就是一个服务器。
+
+
+
+什么是...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/08/20/Dubbo-Zookeeper-%E5%AE%9E%E7%8E%B0%E5%BB%B6%E6%97%B6%E4%BB%BB%E5%8A%A1/" title="Dubbo Zookeeper实现延时任务">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Dubbo Zookeeper实现延时任务"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	 
+	
+<script src="/plugin/clipboard/clipboard.js"></script>
+
+	<script>
+		// Copy code !
+	    function preprocessing() {
+	        $("#article-content .highlight").each(function() {
+	            $(this).wrap('<div id="post-code"></div>');
+	        })
+
+	        $("#article-content #post-code").each(function() {
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            let languageClass = $(this).next().attr('class'),
+	                language = ((languageClass.length > 9) && (languageClass != null)) ? languageClass.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+	            $(this).append('<span class="copy-btn icon-paste"></span>');
+	        });
+	    }
+
+		function copy() {
+		    $('#article-content #post-code').each(function(i) {
+		        let codeCopyId = 'codeCopy-' + i;
+
+		        let codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+   
+			let clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn icon-clipboard1');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn icon-paste');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');   
+			});
+			
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		}
+		
+		(function copyCode(){
+			if ($('.layout-post').length) {
+			    preprocessing();
+			    copy();
+			} 
+		})();
+	</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_self">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archive" class="menu-item-archive" target="_self">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_self">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_self">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_self">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+			<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2020, Powered by Li Songqian
+			
+				& <a href="https://github.com/Sariay/hexo-theme-Annie" title="Sariay" target="_blank" rel="noopener">Sariay</a>.
+
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
