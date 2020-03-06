@@ -436,29 +436,6 @@
   </entry>
   
   <entry>
-    <title>CQL</title>
-    <link href="https://blog.lisongqian.cn/2018/05/06/CQL/"/>
-    <id>https://blog.lisongqian.cn/2018/05/06/CQL/</id>
-    <published>2018-05-05T16:00:00.000Z</published>
-    <updated>2020-03-03T12:08:54.659Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Neo4j常用语句"><a href="#Neo4j常用语句" class="headerlink" title="Neo4j常用语句"></a>Neo4j常用语句</h2><h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE (embiid: Node &#123;name: &#39;游客服务中心&#39;, startTime:&#39;9:00&#39;, endTime:&#39;16:00&#39;, seeStart:&#39;10&#39;, seeEnd:&#39;30&#39;&#125;);</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="创建关系"><a href="#创建关系" class="headerlink" title="创建关系"></a>创建关系</h4><ul><li>创建单向关系</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match (a),(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;游客服务中心&#39;</span><br><span class="line">create (a)-[r:relationship&#123;length:300&#125;]-&gt;(b);</span><br></pre></td></tr></table></figure><ul><li>创建双向关系</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">match (a),(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;阳光草坪&#39;</span><br><span class="line">create (a)-[r1:relationship&#123;length:360&#125;]-&gt;(b)</span><br><span class="line">create (b)-[r2:relationship&#123;length:360&#125;]-&gt;(a);</span><br></pre></td></tr></table></figure><h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><ul><li>删除孤立节点</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n:Node) WHERE NOT (n)-[:relationship]-() delete n;</span><br></pre></td></tr></table></figure><ul><li>删除所有节点</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n) delete n;</span><br></pre></td></tr></table></figure><h4 id="删除关系"><a href="#删除关系" class="headerlink" title="删除关系"></a>删除关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match (a)-[r:relationship&#123;length:360&#125;]-&gt;(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;儿童戏水场&#39;</span><br><span class="line">delete r</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;Neo4j常用语句&quot;&gt;&lt;a href=&quot;#Neo4j常用语句&quot; class=&quot;headerlink&quot; title=&quot;Neo4j常用语句&quot;&gt;&lt;/a&gt;Neo4j常用语句&lt;/h2&gt;&lt;h4 id=&quot;创建节点&quot;&gt;&lt;a href=&quot;#创建节点&quot; class=&quot;headerlink&quot; title=&quot;创建节点&quot;&gt;&lt;/a&gt;创建节点&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CREATE (embiid: Node &amp;#123;name: &amp;#39;游客服务中心&amp;#39;, startTime:&amp;#39;9:00&amp;#39;, endTime:&amp;#39;16:00&amp;#39;, seeStart:&amp;#39;10&amp;#39;, seeEnd:&amp;#39;30&amp;#39;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-      <category term="Neo4j" scheme="https://blog.lisongqian.cn/category/Neo4j/"/>
-    
-    
-      <category term="Neo4j" scheme="https://blog.lisongqian.cn/tags/Neo4j/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SQL常见问题</title>
     <link href="https://blog.lisongqian.cn/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/"/>
     <id>https://blog.lisongqian.cn/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/</id>
@@ -478,6 +455,29 @@
     
     
       <category term="SQL" scheme="https://blog.lisongqian.cn/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CQL</title>
+    <link href="https://blog.lisongqian.cn/2018/05/06/CQL/"/>
+    <id>https://blog.lisongqian.cn/2018/05/06/CQL/</id>
+    <published>2018-05-05T16:00:00.000Z</published>
+    <updated>2020-03-03T12:08:54.659Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Neo4j常用语句"><a href="#Neo4j常用语句" class="headerlink" title="Neo4j常用语句"></a>Neo4j常用语句</h2><h4 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE (embiid: Node &#123;name: &#39;游客服务中心&#39;, startTime:&#39;9:00&#39;, endTime:&#39;16:00&#39;, seeStart:&#39;10&#39;, seeEnd:&#39;30&#39;&#125;);</span><br></pre></td></tr></table></figure><a id="more"></a><h4 id="创建关系"><a href="#创建关系" class="headerlink" title="创建关系"></a>创建关系</h4><ul><li>创建单向关系</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match (a),(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;游客服务中心&#39;</span><br><span class="line">create (a)-[r:relationship&#123;length:300&#125;]-&gt;(b);</span><br></pre></td></tr></table></figure><ul><li>创建双向关系</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">match (a),(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;阳光草坪&#39;</span><br><span class="line">create (a)-[r1:relationship&#123;length:360&#125;]-&gt;(b)</span><br><span class="line">create (b)-[r2:relationship&#123;length:360&#125;]-&gt;(a);</span><br></pre></td></tr></table></figure><h4 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h4><ul><li>删除孤立节点</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MATCH (n:Node) WHERE NOT (n)-[:relationship]-() delete n;</span><br></pre></td></tr></table></figure><ul><li>删除所有节点</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">match (n) delete n;</span><br></pre></td></tr></table></figure><h4 id="删除关系"><a href="#删除关系" class="headerlink" title="删除关系"></a>删除关系</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">match (a)-[r:relationship&#123;length:360&#125;]-&gt;(b)</span><br><span class="line">where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;儿童戏水场&#39;</span><br><span class="line">delete r</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Neo4j常用语句&quot;&gt;&lt;a href=&quot;#Neo4j常用语句&quot; class=&quot;headerlink&quot; title=&quot;Neo4j常用语句&quot;&gt;&lt;/a&gt;Neo4j常用语句&lt;/h2&gt;&lt;h4 id=&quot;创建节点&quot;&gt;&lt;a href=&quot;#创建节点&quot; class=&quot;headerlink&quot; title=&quot;创建节点&quot;&gt;&lt;/a&gt;创建节点&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;CREATE (embiid: Node &amp;#123;name: &amp;#39;游客服务中心&amp;#39;, startTime:&amp;#39;9:00&amp;#39;, endTime:&amp;#39;16:00&amp;#39;, seeStart:&amp;#39;10&amp;#39;, seeEnd:&amp;#39;30&amp;#39;&amp;#125;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+    
+      <category term="Neo4j" scheme="https://blog.lisongqian.cn/category/Neo4j/"/>
+    
+    
+      <category term="Neo4j" scheme="https://blog.lisongqian.cn/tags/Neo4j/"/>
     
   </entry>
   
