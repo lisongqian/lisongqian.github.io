@@ -225,22 +225,37 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
-	<a href="/2018/05/06/CQL/" itemprop="url">
-		CQL
+	<a href="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" itemprop="url">
+		SQL常见问题
 	</a>
 
 					</div>
 
 					<div class="post-content">
 						
-							Neo4j常用语句创建节点1CREATE (embiid: Node &#123;name: &#39;游客服务中心&#39;, startTime:&#39;9:00&#39;, endTime:&#39;16:00&#39;, seeStart:&#39;10&#39;, seeEnd:&#39;30&#39;&#125;);
+							SQL时间转字符串1select now();
 
 
 
-创建关系
-创建单向关系
 
-123match (a),(b)where a.name&#x3D;&#39;景石&#39; and b.name&#x3D;&#39;游客服务中心&#39;create (a)-[r:relationship&#123;len...
+结果：2018-06-26 21:29:50
+
+1select date_format(now(), '%Y-%m-%d %H:%i:%s');
+
+
+结果：2018-06-26 21:28:36
+
+时间戳转字符串1select from_unixtime(1530020032);
+
+
+结果：2018-06-26 21:33:52
+
+1select from_unixtime(1530020032,'%Y-%d');
+
+
+结果：2018-26
+
+字符串转时间1select str_to_date('2018-06-26', '%Y-%...
 						
 					</div>
 					
@@ -255,7 +270,7 @@
 
 
 
-	<a href="/2018/05/06/CQL/" itemprop="url">
+	<a href="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" itemprop="url">
 		<time datetime="2018-05-05T16:00:00.000Z" itemprop="datePublished">
 	  		2018-05-06
 	  </time>
@@ -267,7 +282,7 @@
 						
 
 	
-    <span class="leancloud_visitors" id="/2018/05/06/CQL/_visitors" data-url="/2018/05/06/CQL/" data-title="CQL">
+    <span class="leancloud_visitors" id="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/_visitors" data-url="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" data-title="SQL常见问题">
        	<i class="icon-eye"></i>
        	热度
         
@@ -279,7 +294,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2018/05/06/CQL/_likes" data-url="/2018/05/06/CQL/" data-title="CQL" rel="unlike">
+    <span class="leancloud_likes" id="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/_likes" data-url="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" data-title="SQL常见问题" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -288,7 +303,7 @@
 
 						
 							<span class="right">      	
-								<a href="/2018/05/06/CQL/" title="阅读全文" external="false">阅读全文</a>	
+								<a href="/2018/05/06/SQL%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
