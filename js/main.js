@@ -685,7 +685,7 @@ jQuery(document).ready(function ($) {
 	 *
 	 * @method   Annie_NiceScroll
 	 */
-	// const Annie_NiceScroll = function () {
+	const Annie_NiceScroll = function () {
 	// 	const niceScrollId = 'body, .highlight',
 	// 		niceScrollSetting = $(niceScrollId).niceScroll({
 	// 			cursorborder: "none",
