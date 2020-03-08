@@ -2815,11 +2815,11 @@ blockquote footer cite:before {
   margin: 0;
 }
 .nav-container .nav-body {
-  height: 80vh;
+  height: 70vh;
   text-align: center;
 }
 .nav-container .nav-body #global-nav {
-  margin-top: 10rem;
+  margin-top: 5rem;
   display: inline-block;
 }
 .nav-container .nav-footer {

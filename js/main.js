@@ -37,7 +37,7 @@ jQuery(document).ready(function ($) {
 		let mode = CONFIG_BGIMAGE.mode,
 			curImgSrc = ' ',
 			randomNum = 0,
-			randomYouMax = CONFIG_BGIMAGE.randomYouMax,			
+			randomYouMax = CONFIG_BGIMAGE.randomYouMax,
 			normalSrc = CONFIG_BGIMAGE.normalSrc,
 			randomYouSrc = CONFIG_BGIMAGE.randomYouSrc,
 			randomOtherSrc = CONFIG_BGIMAGE.randomOtherSrc;
@@ -77,7 +77,7 @@ jQuery(document).ready(function ($) {
 				}
 				break;
 		}
-		
+
 		/**
 		 * To set the background of the header.
 		 *
@@ -88,14 +88,14 @@ jQuery(document).ready(function ($) {
 			let backgroundImg = 'url(' + imgSrc + ')';
 			$('header').css('background-image', backgroundImg);
 		}
-		
+
 		Annie_SetBg(curImgSrc);
 
 		/**
 		 * To set & then remove the mask layer for html page!
 		 *
 		 * @method   Annie_Transition
-		 */		
+		 */
 		const PRELOADER = {
 			delayTime:　ANNIE.delayTimeG,
 			scrollSpeed: ANNIE.scrollSpeedG || 'normal',
@@ -108,18 +108,18 @@ jQuery(document).ready(function ($) {
 				$('html').removeClass('html-loading');
 			},
 			Scroll: function(scrollHeight){
-				let scrollSpeed = this.scrollSpeed;			
-				
+				let scrollSpeed = this.scrollSpeed;
+
 				if ($(postPageId).length) {
-			
+
 				} else{
 					//Other pages
 					scrollSpeed = 'normal';
 				}
-					
+
 				$('html, body').delay( this.delayTime / 2 ).animate({
 					scrollTop: scrollHeight
-				}, scrollSpeed, 'linear');				
+				}, scrollSpeed, 'linear');
 			},
 			setCookie: function(cName, cValue){
 				document.cookie = cName + "=" + escape(cValue) + ";";
@@ -138,37 +138,37 @@ jQuery(document).ready(function ($) {
 				if (window.performance.navigation.type == 1) {
 					return true;
 				} else {
-					return false;															
+					return false;
 				}
 			}
 		}
-		
+
 		let currentScrollHeight = 0,
 			currentScrollTop = 0,
 			browserRefreshStatus = PRELOADER.browserRefresh();
-			
-		$(window).scroll(function () {		
-			currentScrollTop = $(document).scrollTop();		
-			PRELOADER.setCookie('currentScrollTop', currentScrollTop);		
+
+		$(window).scroll(function () {
+			currentScrollTop = $(document).scrollTop();
+			PRELOADER.setCookie('currentScrollTop', currentScrollTop);
 		}).trigger('scroll');
-		
+
 		function singlePageScroll(){
 			if (browserRefreshStatus) {
 				currentScrollHeight = currentScrollTop || PRELOADER.getCookie('currentScrollTop');
 				console.info("This page is reloaded");
 			} else {
-				currentScrollHeight = ANNIE.headerH + 2;															
+				currentScrollHeight = ANNIE.headerH + 2;
 			}
-			PRELOADER.Scroll(currentScrollHeight);				
+			PRELOADER.Scroll(currentScrollHeight);
 		}
-		
+
 		function otherPageScroll(){
 			if (browserRefreshStatus) {
 				currentScrollHeight = currentScrollTop || PRELOADER.getCookie('currentScrollTop');
-			
-				PRELOADER.Scroll(currentScrollHeight);		
+
+				PRELOADER.Scroll(currentScrollHeight);
 				console.info("This page is reloaded");
-			} 
+			}
 		}
 
 		function globalScroll(){
@@ -179,21 +179,21 @@ jQuery(document).ready(function ($) {
 			} else{
 				//Other pages
 				otherPageScroll();
-			}			
+			}
 		}
-		
+
 		if(CONFIG_BGIMAGE.preloaderEnable && CONFIG_BGIMAGE.preloaderEnable != null){// 不设置预加载
 			// 10s以后
 			let stop = setTimeout(function () {
 				function timeoutCalled() {
-					PRELOADER.removePreloaderMask();		
+					PRELOADER.removePreloaderMask();
 					PRELOADER.removeHtmlHidden();
 					singlePageScroll();
 					console.log('timeout');
 				}
 				return timeoutCalled();
 			}, ANNIE.delayTimeG * 20); // delayTime = ANNIE.delayTimeG * 20 = 10s
-			
+
 			// 10s以前, The background iamge of header is already loaded.
 			/**
 			 * We use "https://github.com/desandro/imagesloaded plugin" to check img.load status!
@@ -201,14 +201,14 @@ jQuery(document).ready(function ($) {
 			 */
 			$("header").imagesLoaded({ background: true }, function () {
 				if (stop) {
-					clearTimeout(stop);	
-								
+					clearTimeout(stop);
+
 					globalScroll();
 				}
 			});
 		} else {// 设置预加载
 			globalScroll();
-		}	
+		}
 	};
 
 	/**
@@ -376,7 +376,7 @@ jQuery(document).ready(function ($) {
 					$('main').toggleClass("inline-flex");
 					setTimeout(function () {
 						$('#layout-toc').toggleClass("show").fadeToggle();
-					}, delayTime / 2); //delayTimeG = 500ms	
+					}, delayTime / 2); //delayTimeG = 500ms
 
 					clickCount = 2;
 				} else {
@@ -431,14 +431,14 @@ jQuery(document).ready(function ($) {
 				$(toTop).stop().fadeTo(delayTime, 0);
 			}
 		});
-		
+
 		function anchor(element, height, speed){
 			$(element).click(function () {
 				$('html, body').animate({
 					scrollTop: height
 				}, speed);
 				return false;
-			});			
+			});
 		}
 		anchor(toTop, 0, scrollSpeed);
 		anchor(toTop2, 0, scrollSpeed);
@@ -451,7 +451,7 @@ jQuery(document).ready(function ($) {
 	 * @method   Annie_Archive
 	 */
 	const Annie_Archive = function () {
-		
+
 		function getZodiac(year) {
 			let zodiac = 'rat';
 
@@ -540,7 +540,7 @@ jQuery(document).ready(function ($) {
 			leancloudCount = CONFIG_LEACLOUD_COUNT.enable || false;
 		const loaderTitle = $(paginationId).attr('data-title'),
 			loaderStatus = $(paginationId).attr('data-status');
-				
+
 		$('body').on('click', paginationId, function () {
 			let thisUrl = $(this).attr("href");
 			$(paginationId).text(" ").append(loadAnimation);
@@ -685,12 +685,12 @@ jQuery(document).ready(function ($) {
 	 *
 	 * @method   Annie_NiceScroll
 	 */
-	const Annie_NiceScroll = function () {
-		const niceScrollId = 'body, .highlight',
-			niceScrollSetting = $(niceScrollId).niceScroll({
-				cursorborder: "none",
-				autohidemode: true
-			});
+	// const Annie_NiceScroll = function () {
+	// 	const niceScrollId = 'body, .highlight',
+	// 		niceScrollSetting = $(niceScrollId).niceScroll({
+	// 			cursorborder: "none",
+	// 			autohidemode: true
+	// 		});
 
 		// PLUGIN: js/resizediv/resizediv.js
 		$(niceScrollId).resize(function (event) {
@@ -701,9 +701,9 @@ jQuery(document).ready(function ($) {
 	};
 
 	/**
-	 * Other js functions. An function example might be as follows: 
+	 * Other js functions. An function example might be as follows:
 	 */
-	/*  
+	/*
 		const Annie_XXX = function(argument) {
 			// body...
 		};
