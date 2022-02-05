@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      机器学习常用算法原理 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「机器学习常用算法原理」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" itemprop="url">
+		机器学习常用算法原理
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" itemprop="url">
+		<time datetime="2020-04-07T12:36:49.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/_visitors" data-url="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" data-title="机器学习常用算法原理">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/_likes" data-url="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" data-title="机器学习常用算法原理" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,21 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>逻辑回归的假设函数：</p>
+<p><img src="https://g.yuque.com/gr/latex?h_%7B%5Ctheta%7D(x)%20=%5Cfrac%7B1%7D%7B1+e%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&code=h_%7B%5Ctheta%7D%28x%29%20%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&height=53&width=166"></p>
+<p>其中<img src="https://g.yuque.com/gr/latex?x#card=math&code=x&height=14&width=12">是输入,<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&code=%5Ctheta&height=19&width=9">是要求解的参数。</p>
+<p>函数图像：</p>
+<p><img src="http://cdn.lisongqian.cn/1555825110196.png#align=left&display=inline&height=298&margin=%5Bobject%20Object%5D&originHeight=298&originWidth=582&status=done&style=none&width=582"></p>
+<p>一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：</p>
+<p><img src="https://g.yuque.com/gr/latex?P(y=1%7Cx;%5Ctheta)%20%20=%20g(%5Ctheta%5E%7BT%7Dx)=%5Cfrac%7B1%7D%7B1+e%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&code=P%28y%3D1%7Cx%3B%5Ctheta%29%20%20%3D%20g%28%5Ctheta%5E%7BT%7Dx%29%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&height=53&width=321"></p>
+<p>它的意思是在给定的<img src="https://g.yuque.com/gr/latex?x#card=math&code=x&height=14&width=12">和<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&code=%5Ctheta&height=19&width=9">条件下,<img src="https://g.yuque.com/gr/latex?y=1#card=math&code=y%3D1&height=22&width=48">的概率。</p>
+<h3 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h3><p>直观理解：将数据点通过<strong>某个函数</strong>映射到<strong>高维空间</strong>中（我们称这个函数为<strong>核函数</strong>），这时寻找一个<strong>平面</strong>（我们称这个平面为<strong>超平面</strong>）对空间进行切分，达到同类的数据点在同一面的效果，最后将该平面与空间曲面形成的交线投影到原维度中，得到分类结果。</p>
+<p>直观演示视频：<a href="">https://www.youtube.com/watch?v=3liCbRZPrZA</a></p>
+<p><img src="http://cdn.lisongqian.cn/svm.gif#align=left&display=inline&height=356&margin=%5Bobject%20Object%5D&originHeight=356&originWidth=444&status=done&style=none&width=444"></p>
+<blockquote>
+<p>不定期更新……</p>
+</blockquote>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +329,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" title="为何日常生活多数服从泊松分布" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/WordCount/" title="WordCount" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +352,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +580,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

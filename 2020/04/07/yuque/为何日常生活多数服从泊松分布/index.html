@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      为何日常生活多数服从泊松分布 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「为何日常生活多数服从泊松分布」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" itemprop="url">
+		为何日常生活多数服从泊松分布
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" itemprop="url">
+		<time datetime="2020-04-07T12:36:54.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/_visitors" data-url="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" data-title="为何日常生活多数服从泊松分布">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/_likes" data-url="/2020/04/07/yuque/%E4%B8%BA%E4%BD%95%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB%E5%A4%9A%E6%95%B0%E6%9C%8D%E4%BB%8E%E6%B3%8A%E6%9D%BE%E5%88%86%E5%B8%83/" data-title="为何日常生活多数服从泊松分布" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,39 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h3 id="I-前提"><a href="#I-前提" class="headerlink" title="I 前提"></a>I 前提</h3><p>首先，我们讲服从泊松分布的事件要满足：</p>
+<ol>
+<li><strong>事件的发生是独立的且事件的发生概率很小</strong></li>
+<li><strong>在相同大小的时间或空间内, 事件的发生的概率是相同的</strong></li>
+</ol>
+<h3 id="II-开始——二项分布"><a href="#II-开始——二项分布" class="headerlink" title="II 开始——二项分布"></a>II 开始——二项分布</h3><p>把事件的发生当做<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&width=12">次伯努利试验,那么事件发生<img src="https://g.yuque.com/gr/latex?k#card=math&code=k&height=19&width=10">次的概率满足二项分布：</p>
+<p><img src="https://g.yuque.com/gr/latex?P(X=k)=C_%7Bn%7D%5E%7Bk%7Dp%5Ek(1-p)%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A#card=math&code=P%28X%3Dk%29%3DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A&height=28&width=885"></p>
+<p>我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&width=12">份，每个时间间隔中事件至多发生一次。</p>
+<h3 id="III-正题——泊松分布"><a href="#III-正题——泊松分布" class="headerlink" title="III 正题——泊松分布"></a>III 正题——泊松分布</h3><p>针对上述理解，当<img src="https://g.yuque.com/gr/latex?n%20%5Cto%20%5Cinfty#card=math&code=n%20%5Cto%20%5Cinfty&height=16&width=65">时：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/394c864bf1b9dd8e6313701c43755795.svg#card=math&code=%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20&height=30&width=145"></p>
+<p>众所周知，二项分布中：<img src="https://g.yuque.com/gr/latex?EX%20=%20np#card=math&code=EX%20%3D%20np&height=22&width=83">，则<img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20p=%5Cfrac%7BEX%7D%7Bn%7D#card=math&code=%5Cdisplaystyle%20p%3D%5Cfrac%7BEX%7D%7Bn%7D&height=45&width=78">；我们将样本均值<img src="https://g.yuque.com/gr/latex?%5Cmu#card=math&code=%5Cmu&height=19&width=12">近似看做期望，得到：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/6dbca942dc50d2d19d154d64d9a21474.svg#card=math&code=%5Cdisplaystyle%20p%20%3D%20%5Cfrac%7B%5Cmu%7D%7Bn%7D%20%5Ctag%7B2%7D%0A&height=35&width=724"></p>
+<p>所以<img src="https://cdn.nlark.com/yuque/__latex/7acce3193127d4b71a6c2b140c22dc95.svg#card=math&code=%281%29&height=20&width=21">式等于：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/5b2dd558c02c15365e3a5f93b5b6f818.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%20%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20%5Cfrac%7Bn%28n-1%29%28n-2%29%20%5Ccdots%28n-k%2B1%29%7D%7Bk%21%7D%20%28%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5Ek%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%5Cdisplaystyle&height=42&width=642"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/eb54386d32ba90a975665b3c7fbeba18.svg#card=math&code=%5Cdisplaystyle%20%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%20%20%5Ctag%7B3%7D%0A&height=42&width=724"></p>
+<p>由于：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/0c82ac30ef17a60c91a83034ba9b5747.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%3D1%20%20%0A&height=38&width=238"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/18034630c63203f24847786adfd2fc9c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7B-k%7D%3D1%20%20%0A&height=35&width=137"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/7f5c9f7cbe8e18f1792304cb15618b8c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn%7D%3D%20%20%20e%5E%7B%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20n%20%5Ccdot%20%28-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%7D%3De%5E%7B-%5Cmu%7D%20%0A&height=37&width=247"></p>
+<p>所以<img src="https://cdn.nlark.com/yuque/__latex/38560d3d403d928e8b6a1e4e8f9e93e1.svg#card=math&code=%283%29&height=20&width=21">式等于：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/d2fb5eb22cc1c93826ec29d59d89e79f.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7De%5E%7B-%5Cmu%7D%20%5Ctag%7B4%7D%0A&height=42&width=724"></p>
+<p>从而得到上述泊松分布的概率密度函数表达式。因此：<strong>泊松分布描述的是某段时间内，事件具体的发生概率。</strong></p>
+<h3 id="IV-延伸——指数分布"><a href="#IV-延伸——指数分布" class="headerlink" title="IV 延伸——指数分布"></a>IV 延伸——指数分布</h3><blockquote>
+<p>指数分布描述的是事件发生的时间间隔的概率</p>
+</blockquote>
+<p><strong>指数分布描述的是一个事件发生后，间隔时间</strong><img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7"><strong>后该时间再次发生的概率。</strong></p>
+<p>也就是在时间段<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7">内没有事件发生，用公式表示为：</p>
+<p><img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20P(X%3Et)=P%7BN(t)=0%7D=%20%5Cfrac%7B(%5Clambda%20t)%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0!%7D=e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=%5Cdisplaystyle%20P%28X%3Et%29%3DP%7BN%28t%29%3D0%7D%3D%20%5Cfrac%7B%28%5Clambda%20t%29%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0%21%7D%3De%5E%7B-%5Clambda%20t%7D%0A&height=53&width=386"></p>
+<p>那么在时间<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7">内发生的概率即为指数分布的分布函数表达式：</p>
+<p><img src="https://g.yuque.com/gr/latex?P(x%20%5Cleqslant%20t)=%201-P(X%3Et)=1-e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=P%28x%20%5Cleqslant%20t%29%3D%201-P%28X%3Et%29%3D1-e%5E%7B-%5Clambda%20t%7D%0A&height=28&width=324"></p>
+<h3 id="V-延伸——正态分布"><a href="#V-延伸——正态分布" class="headerlink" title="V 延伸——正态分布"></a>V 延伸——正态分布</h3><p>如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&width=18">存在有限极限 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&width=12">，则这列二项分布就趋于参数为 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&width=12"> 的 泊松分布。反之，如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&width=18">趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。</p>
+<p><img src="http://cdn.lisongqian.cn/gailvfenbu.jpg#align=left&display=inline&height=960&margin=%5Bobject%20Object%5D&originHeight=960&originWidth=720&status=done&style=none&width=720"></p>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +347,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/%E6%AD%A3%E5%88%99%E5%8C%96/" title="正则化" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" title="机器学习常用算法原理" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +370,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +598,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

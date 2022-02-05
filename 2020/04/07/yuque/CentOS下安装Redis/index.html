@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      CentOS下安装Redis | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「CentOS下安装Redis」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" itemprop="url">
+		CentOS下安装Redis
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" itemprop="url">
+		<time datetime="2020-04-07T12:36:29.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/_visitors" data-url="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" data-title="CentOS下安装Redis">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/_likes" data-url="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" data-title="CentOS下安装Redis" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,71 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+<li>CentOS Linux release 7.2</li>
+<li>gcc 编译器 <code>yum install gcc-c++</code></li>
+<li>TCL <code>yum install -y tcl</code></li>
+<li>redis 安装包 <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-4.0.8.tar.gz">4.0.8 版本</a></li>
+</ul>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h4 id="下载-redis-安装包"><a href="#下载-redis-安装包" class="headerlink" title="下载 redis 安装包"></a>下载 redis 安装包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="将文件拷贝到公共目录"><a href="#将文件拷贝到公共目录" class="headerlink" title="将文件拷贝到公共目录"></a>将文件拷贝到公共目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv redis-4.0.8 /opt/redis-4.0.8</span><br></pre></td></tr></table></figure>
+
+<h4 id="编译代码"><a href="#编译代码" class="headerlink" title="编译代码"></a>编译代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装应用"><a href="#安装应用" class="headerlink" title="安装应用"></a>安装应用</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim"><img src="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim#align=left&display=inline&height=640&originHeight=640&originWidth=796&status=done&style=none&width=796"></a></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h4 id="启动-Redis-客户端"><a href="#启动-Redis-客户端" class="headerlink" title="启动 Redis 客户端"></a>启动 Redis 客户端</h4><p>在<code>/opt/redis-4.0.8/src/</code>路径下，输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli</span><br></pre></td></tr></table></figure>
+
+<p>进入 Redis 命令行，下图为使用测试。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim"><img src="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim#align=left&display=inline&height=141&originHeight=141&originWidth=658&status=done&style=none&width=658"></a></p>
+<h4 id="Redis-的命令"><a href="#Redis-的命令" class="headerlink" title="Redis 的命令"></a>Redis 的命令</h4><p>String &amp; Integer</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">incr num //将num自增1</span><br><span class="line">decrby num 2 //将num自减2</span><br></pre></td></tr></table></figure>
+
+<p>List(元素可重复)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lpush list1 12   //从左面添加一个“12”入list1</span><br><span class="line">rpush list1 12   //从右面添加一个“12”入list1</span><br><span class="line">lpop  list1 12   //从左面输出一个“12”出list1</span><br><span class="line">rpop  list1 12   //从右面输出一个“12”出list1</span><br><span class="line">llen  list       //输出list1的元素个数</span><br></pre></td></tr></table></figure>
+
+<p>Set(元素不可重复)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sadd      set1 12    //向set1中插入一个“12”</span><br><span class="line">scard     set1       //查看set中有多少元素</span><br><span class="line">sisnumber set1 12    //在set1中找“12”这个元素</span><br><span class="line">srem      set1 12    //将“12”从set1中删除</span><br></pre></td></tr></table></figure>
+
+<p>Hash(key&#x3D;&gt;value)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hset hash1 key1 1    //向hash1中添加键值对 key1:1</span><br><span class="line">hget hash1 key1      //从hash1中读取key1的值</span><br><span class="line">hlen hash1           //获取hash1的键值对的个数（即key的个数）</span><br><span class="line">hmget hash1 key1 key2//获取hash1中key1和key2的值</span><br></pre></td></tr></table></figure>
+
+<p>Sort set</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zadd   zset1  12 val1 //向zset1中添加元素</span><br><span class="line">zcard  zset1  //查看zset1中元素的个数</span><br><span class="line">zrange zset1 0 2 withscores //查看排序后的0-2号元素</span><br><span class="line">zrank  zset1 val1    //查看 val1元素的排名</span><br></pre></td></tr></table></figure>
+
+<h2 id="PHP-的-Redis-扩展"><a href="#PHP-的-Redis-扩展" class="headerlink" title="PHP 的 Redis 扩展"></a>PHP 的 Redis 扩展</h2><h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><p><strong>PHP 有安装 phpize 和 php-config 扩展，可以执行 which phpize 和 which php-config 来查看有无该扩展。</strong><br>安装该扩展：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install php-devel</span><br></pre></td></tr></table></figure>
+
+<h4 id="下载-Redis-扩展"><a href="#下载-Redis-扩展" class="headerlink" title="下载 Redis 扩展"></a>下载 Redis 扩展</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/phpredis/phpredis/archive/develop.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip develop.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成-configure-工具"><a href="#生成-configure-工具" class="headerlink" title="生成 configure 工具"></a>生成 configure 工具</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd phpredis-develop</span><br><span class="line">phpize</span><br></pre></td></tr></table></figure>
+
+<h4 id="进行编译和-Check"><a href="#进行编译和-Check" class="headerlink" title="进行编译和 Check"></a>进行编译和 Check</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -with-php-config=/usr/bin/php-config</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ul>
+<li><code>-with-php-config</code>参数后面填写<code>php-config</code>扩展的路径</li>
+</ul>
+<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>查看 php.ini 文件目录<code>php --ini</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/php.ini</span><br></pre></td></tr></table></figure>
+
+<p>在最后一行添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=redis.so</span><br></pre></td></tr></table></figure>
+
+<h4 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -m</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim"><img src="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim#align=left&display=inline&height=383&originHeight=383&originWidth=661&status=done&style=none&width=661"></a></p>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +379,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" title="FRP-windows客户端配置" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/CentOS6%E4%B8%8Byum%E4%BF%AE%E5%A4%8D%E5%8F%8Apython%E5%AE%89%E8%A3%85/" title="CentOS6下yum修复及python安装" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +402,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +630,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

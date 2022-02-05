@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      FRP-windows客户端配置 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「FRP-windows客户端配置」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" itemprop="url">
+		FRP-windows客户端配置
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" itemprop="url">
+		<time datetime="2020-04-07T12:36:34.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/_visitors" data-url="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" data-title="FRP-windows客户端配置">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/_likes" data-url="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" data-title="FRP-windows客户端配置" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,25 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<p>准备</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://pan.lisongqian.cn:20190/Softwares/frp_0.24.1_windows_winsw.zip">frp 客户端文件</a>，包括：frp 客户端，winsw</li>
+<li>局域网内可远程连接的 Windows 计算机</li>
+</ul>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h4 id="修改客户端配置"><a href="#修改客户端配置" class="headerlink" title="修改客户端配置"></a>修改客户端配置</h4><p>打开 frpc.ini 文件，将文件按照需求更改如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="comment"># 你的服务端IP地址</span></span><br><span class="line"><span class="attr">server_addr</span> = ×.×.×.×</span><br><span class="line"><span class="comment"># 服务端设置的bind_port端口号</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">5443</span></span><br><span class="line"><span class="comment"># 服务端设置的token</span></span><br><span class="line"><span class="attr">token</span> = YourToken</span><br><span class="line"></span><br><span class="line"><span class="comment">## 本地管理页面</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理页地址</span></span><br><span class="line"><span class="attr">admin_addr</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="comment"># 管理页端口</span></span><br><span class="line"><span class="attr">admin_port</span> = <span class="number">7400</span></span><br><span class="line"><span class="comment"># 管理页用户名</span></span><br><span class="line"><span class="attr">admin_user</span> = admin</span><br><span class="line"><span class="comment"># 管理页密码</span></span><br><span class="line"><span class="attr">admin_pwd</span> = admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># []内可自行设置名称</span></span><br><span class="line"><span class="section">[slave]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="comment">#客户端所在内网的IP地址</span></span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">192.168</span>.×.×</span><br><span class="line"><span class="attr">local_port</span> = <span class="number">3389</span></span><br><span class="line"><span class="comment">#远程连接的端口号，可自行设置</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">7500</span></span><br><span class="line"></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="更改启动脚本"><a href="#更改启动脚本" class="headerlink" title="更改启动脚本"></a>更改启动脚本</h4><p>编辑 frp.bat 文件：（第三行需更改）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">start  <span class="string">&quot;C:\Windows\System32\cmd.exe&quot;</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;文件所在目录地址，如C:\Users\name\Desktop\frp&quot;</span></span><br><span class="line">frpc -c frpc.ini</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="加入开机自动启动服务"><a href="#加入开机自动启动服务" class="headerlink" title="加入开机自动启动服务"></a>加入开机自动启动服务</h4><p>管理员命令创建一个 cmd 窗口，切换到 frp 目录，执行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winsw install</span><br><span class="line">winsw start</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>发现 frpc 进程没有运行或 frp 服务未启动时，请检查 winsw 的 log 文件，按照文件提示进行错误排查</li>
+</ul>
+<h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a>REFERENCES</h3><p><a target="_blank" rel="noopener" href="https://www.eyuyun.com/173.html#cl-22">https://www.eyuyun.com/173.html#cl-22</a></p>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +333,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" title="Windows下安装Vue-cli" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" title="CentOS下安装Redis" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +356,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +584,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

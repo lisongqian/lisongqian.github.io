@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      Windows下安装Vue-cli | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「Windows下安装Vue-cli」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" itemprop="url">
+		Windows下安装Vue-cli
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" itemprop="url">
+		<time datetime="2020-04-07T12:36:39.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/_visitors" data-url="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" data-title="Windows下安装Vue-cli">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/_likes" data-url="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" data-title="Windows下安装Vue-cli" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,52 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h4><p>从<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js 官网</a>上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。<br>注：</p>
+<ul>
+<li>使用 Win+R 输入 cmd 打开命令行输入<code>node -v</code>，出现版本号，则说明安装成功。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#align=left&display=inline&height=148&originHeight=148&originWidth=687&status=done&style=none&width=687"></a></p>
+<ul>
+<li>包管理工具<code>npm</code>在安装 Node.js 时会一起安装好。</li>
+</ul>
+<h4 id="安装-Webpack"><a href="#安装-Webpack" class="headerlink" title="安装 Webpack"></a>安装 Webpack</h4><p>在命令行中输入<code>npm install webpack -g</code>。</p>
+<p>注：</p>
+<ul>
+<li>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#align=left&display=inline&height=51&originHeight=51&originWidth=635&status=done&style=none&width=635"></a></p>
+<ul>
+<li>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim"><img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#align=left&display=inline&height=93&originHeight=93&originWidth=670&status=done&style=none&width=670"></a></p>
+<h4 id="安装-Vue-cli"><a href="#安装-Vue-cli" class="headerlink" title="安装 Vue-cli"></a>安装 Vue-cli</h4><p>在命令行中输入<code>npm install -g @vue/cli</code>。</p>
+<p>注：</p>
+<ul>
+<li>安装完成后输入<code>vue -V</code>(大写 V)，出现版本号，则说明安装成功。</li>
+</ul>
+<h3 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h3><p>我的项目都是使用的 Webstorm 搭建的</p>
+<p>我的工程地址在<code>C:\User\s5\WebstormProjects</code>，所以在命令行中执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> WebstormProjects</span><br><span class="line">vue init webpack projectname</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ul>
+<li>projectname 为项目名。</li>
+<li><code>package.json</code>配置过程：</li>
+</ul>
+<p>（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ vue init webpack exprice --------------------- 这个是那个安装vue脚手架的命令</span><br><span class="line">This will install Vue 2.x version of the template. ---------------------这里说明将要创建一个vue 2.x版本的项目</span><br><span class="line">For Vue 2.x use: vue init webpack</span><br><span class="line">? Project name (projectname) ---------------------项目名称</span><br><span class="line">? Project name projectname</span><br><span class="line">? Project description (A Vue.js project) ---------------------项目描述</span><br><span class="line">? Project description A Vue.js project</span><br><span class="line">? Author Datura --------------------- 项目创建者</span><br><span class="line">? Author Datura</span><br><span class="line">? Vue build (Use arrow keys)</span><br><span class="line">? Vue build standalone</span><br><span class="line">? Install vue-router? (Y/n) --------------------- 是否安装Vue路由，也就是以后是spa（但页面应用需要的模块）</span><br><span class="line">? Install vue-router? Yes</span><br><span class="line">? Use ESLint to lint your code? (Y/n) n ---------------------是否启用eslint检测规则，这里个人建议选no</span><br><span class="line">? Use ESLint to lint your code? No</span><br><span class="line">? Setup unit tests with Karma + Mocha? (Y/n)</span><br><span class="line">? Setup unit tests with Karma + Mocha? Yes</span><br><span class="line">? Setup e2e tests with Nightwatch? (Y/n)</span><br><span class="line">? Setup e2e tests with Nightwatch? Yes</span><br><span class="line">vue-cli · Generated &quot;projectname&quot;.</span><br></pre></td></tr></table></figure>
+
+<h4 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#align=left&display=inline&height=453&originHeight=453&originWidth=315&status=done&style=none&width=315"></a></p>
+<h2 id="项目运行"><a href="#项目运行" class="headerlink" title="项目运行"></a>项目运行</h2><p>命令行进入刚才创建的项目目录，然后执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectname</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim"><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#align=left&display=inline&height=200&originHeight=200&originWidth=963&status=done&style=none&width=963"></a></p>
+<p>此时可以在浏览器中输入<code>localhost:8080</code> 查看到实例页面。</p>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#align=left&display=inline&height=600&originHeight=600&originWidth=1154&status=done&style=none&width=1154"></a></p>
+<blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1626b8643676">Vue2.0 史上最全入坑教程</a></p>
+</blockquote>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +360,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/WordCount/" title="WordCount" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" title="FRP-windows客户端配置" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +383,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +611,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      容易忽视的C++知识 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「容易忽视的C++知识」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" itemprop="url">
+		容易忽视的C++知识
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" itemprop="url">
+		<time datetime="2021-03-17T02:45:52.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/_visitors" data-url="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" data-title="容易忽视的C++知识">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/_likes" data-url="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" data-title="容易忽视的C++知识" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,23 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h3 id="格式化输出的执行顺序"><a href="#格式化输出的执行顺序" class="headerlink" title="格式化输出的执行顺序"></a>格式化输出的执行顺序</h3><p>由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。</p>
+<h3 id="右值引用和左值引用"><a href="#右值引用和左值引用" class="headerlink" title="右值引用和左值引用"></a>右值引用和左值引用</h3><blockquote>
+<p>C++一共有三种基本值类型: 左值(lvalue), 纯右值(prvalue), 亡值(xvalue);<br>另外还有两种混合值类型: 泛左值(glvalue),右值(rvalue);<br>左值(lvalue)简单理解就是可以出现在&#x3D;的左边，所以是可以被赋值的值；<br>右值(rvalue)类似理解是只可以出现在&#x3D;的右边，所以是不可以被赋值的值；<br>左值(lvalue) &#x3D; {泛左值(glvalue)} - {亡值(xvalue)};<br>右值(rvalue) &#x3D; {亡值(xvalue)} ∪ {纯右值(prvalue)};<br>std::move 的作用是返回一个亡值(xvalue)；</p>
+</blockquote>
+<p>右值引用是 C++11 中引入的新特性 , 它实现了转移语义和精确传递。它的主要目的有两个方面：</p>
+<ol>
+<li>消除两个对象交互时不必要的对象拷贝，节省运算存储资源，提高效率。</li>
+<li>能够更简洁明确地定义泛型函数。</li>
+</ol>
+<p><strong>左值和右值的概念：</strong><br>左值：能对表达式取地址、或具名对象&#x2F;变量。一般指表达式结束后依然存在的持久对象。<br>右值：不能对表达式取地址，或匿名对象。一般指表达式结束就不再存在的临时对象。</p>
+<p><strong>右值引用和左值引用的区别：</strong></p>
+<ol>
+<li>左值可以寻址，而右值不可以。</li>
+<li>左值可以被赋值，右值不可以被赋值，可以用来给左值赋值。</li>
+<li>左值可变,右值不可变（仅对基础类型适用，用户自定义类型右值引用可以通过成员函数改变）。<br><a target="_blank" rel="noopener" href="https://guodong.plus/2020/0307-190855/">左值引用与右值引用</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d19fc8447eaa">[c++11]我理解的右值引用、移动语义和完美转发</a></li>
+</ol>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +331,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/" title="不知道这些知识还敢说自己做过前端？" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +354,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -355,30 +397,6 @@
 							<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Scriptable 小组件分享"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" title="容易忽视的C++知识">
-								容易忽视的C++知识			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								三月 17日, 2021				
-							</p>
-							<p class="relate-post-content">
-								格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
-右值引用和左值引用
-C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" title="容易忽视的C++知识">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="容易忽视的C++知识"/>
 							</a>
 						</div>
 					</li>												

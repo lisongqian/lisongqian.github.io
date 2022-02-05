@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      AMD的CUDA--ROCm配置 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「AMD的CUDA--ROCm配置」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/" itemprop="url">
+		AMD的CUDA--ROCm配置
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/" itemprop="url">
+		<time datetime="2020-04-07T12:36:19.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/_visitors" data-url="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/" data-title="AMD的CUDA--ROCm配置">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/_likes" data-url="/2020/04/07/yuque/AMD%E7%9A%84CUDA--ROCm%E9%85%8D%E7%BD%AE/" data-title="AMD的CUDA--ROCm配置" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,124 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><h4 id="支持的-GPUs"><a href="#支持的-GPUs" class="headerlink" title="支持的 GPUs"></a>支持的 GPUs</h4><p>ROCm 正式支持使用以下芯片的 AMD GPU：</p>
+<ul>
+<li>GFX8 GPUs<ul>
+<li>“Fiji” chips, such as on the AMD Radeon R9 Fury X and Radeon Instinct MI8</li>
+<li>“Polaris 10” chips, such as on the AMD Radeon RX 580 and Radeon Instinct MI6</li>
+<li>“Polaris 11” chips, such as on the AMD Radeon RX 570 and Radeon Pro WX 4100</li>
+<li>“Polaris 12” chips, such as on the AMD Radeon RX 550 and Radeon RX 540</li>
+</ul>
+</li>
+<li>GFX9 GPUs<ul>
+<li>“Vega 10” chips, such as on the AMD Radeon RX Vega 64 and Radeon Instinct MI25</li>
+<li>“Vega 7nm” chips</li>
+</ul>
+</li>
+</ul>
+<p>有关硬件支持的更详细列表，见<a target="_blank" rel="noopener" href="https://rocm.github.io/hardware.html">Hardware to Play ROCm</a></p>
+<h4 id="使用的-OS"><a href="#使用的-OS" class="headerlink" title="使用的 OS"></a>使用的 OS</h4><blockquote>
+<p>Ubuntu</p>
+</blockquote>
+<p>安装系统后保证系统是最新的：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade -y</span><br><span class="line">sudo apt install libnuma-dev -y</span><br><span class="line">sudo apt autoremove -y</span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<h4 id="快速的网络连接-可选"><a href="#快速的网络连接-可选" class="headerlink" title="快速的网络连接(可选)"></a>快速的网络连接(可选)</h4><ol>
+<li>系统连接 Shadowsocks 服务器。这里建议使用 shadowsocks-qt5 客户端，点击<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-qt5/releases/download/v3.0.1/Shadowsocks-Qt5-3.0.1-x86_64.AppImage">【这里】</a>下载 shadowsocks-qt5 可执行文件</li>
+<li>将下载完成的文件放到你喜欢的位置，然后在这个目录打开终端，给文件添加可执行权限：<br><code>chmod a+x Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
+<li>启动 shadowsocks-qt5 客户端：<br><code>./Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
+<li>在下图所示的客户端图形配置界面里面填写正确的服务器信息，注意本地代理类型推荐使用 socks5。完成后点击连接按钮。<br><img src="https://www.shenjc.net/images/190527-pytorch-on-rocm/figure_3.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&originHeight=538&originWidth=616&status=done&style=none&width=616"></li>
+<li>安装 tsocks。使用以下命令安装 tsocks：<code>sudo apt install tsocks -y</code>. 修改<code>/etc/tsocks.conf</code>文件使得最后三行设置和你 shadowsocks-qt5 中本地代理的设置相同，默认情况应该是这样：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server = 127.0.0.1</span><br><span class="line">server_type = 5</span><br><span class="line">server_port = 1080</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>安装 git。Ubuntu 默认是没有 git 的，所以使用以下命令安装 git：<code>sudo apt install git -y</code>.</li>
+<li>配置 git 使其通过 shadowsocks 加速。通过以下配置，让 git 走 shadowsocks 的 socks5 代理：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy <span class="string">&#x27;socks5://127.0.0.1:1080&#x27;</span></span><br><span class="line">git config --global https.proxy <span class="string">&#x27;socks5://127.0.0.1:1080&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><ol>
+<li>确保 ROCm 的包已经安装完全：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt updatesudo apt install rock-dkms rocm-dev rocm-libs miopen-hip hipsparse hip-thrust rccl</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>安装编译所需要的工具，编译完成后可以选择删除：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install git python-pip libopenblas-dev cmake libnuma-dev autoconf build-essential ca-certificates curl libgoogle-glog-dev libhiredis-dev libiomp-dev libleveldb-dev liblmdb-dev libopencv-dev libpthread-stubs0-dev libsnappy-dev sudo vim libprotobuf-dev protobuf-compiler</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>安装 anaconda(可选，建议)。具体步骤请参考<a target="_blank" rel="noopener" href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/">【这个链接】</a>。如果安装了 anaconda，使用以下命令创建并进入 pytorch 专用环境：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create --name pytorch python=3.6source activate pytorch</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>安装 PyTorch 的 Python 依赖包：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install enum34 numpy pyyaml setuptools typing cffi future hypothesis</span><br></pre></td></tr></table></figure>
+
+<h3 id="安装-AMD-ROCm-平台"><a href="#安装-AMD-ROCm-平台" class="headerlink" title="安装 AMD ROCm 平台"></a>安装 AMD ROCm 平台</h3><p>由于 AMD ROCm 包含了单独的驱动，而且和普通的游戏驱动不能共存，所以首先确保系统中不存在 AMD GPU-PRO 版显卡驱动。如果有，使用以下命令删除驱动并重新启动：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo amdgpu-pro-uninstallsudo apt autoremove -ysudo reboot</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>添加 ROCm 的 apt 仓库。使用以下命令将 ROCm 的官方 apt 仓库添加到你的 apt 源中：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -qO - http://repo.radeon.com/rocm/apt/debian/rocm.gpg.key | sudo apt-key add - <span class="built_in">echo</span> <span class="string">&#x27;deb [arch=amd64] http://repo.radeon.com/rocm/apt/debian/ xenial main&#x27;</span> | sudo tee /etc/apt/sources.list.d/rocm.list</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>通过 apt 安装 rocm-dkms 包。使用以下命令安装 rocm-dkms 包：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt updatesudo apt install rocm-dkms</span><br></pre></td></tr></table></figure>
+
+<p>安装大约要下载 400MB 的数据。如果你发现你的下载速度特别慢，这时候就可以用到上面安装和配置的 tsocks 来加速 apt。使用以下命令来代替刚才的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo tsocks apt updatesudo tsocks apt install rocm-dkms</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>为你的用户添加 GPU 访问权。使用以下命令将你的用户添加到可以访问 GPU 的用户组中：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -a -G video <span class="variable">$LOGNAME</span></span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令可以让你以后为系统新添加的用户都有 GPU 访问权：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;ADD_EXTRA_GROUPS=1&#x27;</span> | sudo tee -a /etc/adduser.confecho <span class="string">&#x27;EXTRA_GROUPS=video&#x27;</span> | sudo tee -a /etc/adduser.conf</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>将 ROCm 添加到 PATH 环境变量中</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=$PATH:/opt/rocm/bin:/opt/rocm/profiler/bin:/opt/rocm/opencl/bin/x86_64&#x27;</span> | sudo tee -a /etc/profile.d/rocm.sh</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>检查是否正确安装：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/rocm/bin/rocminfo /opt/rocm/opencl/bin/x86_64/clinfo</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><strong>可选</strong>。安装 radeontop 来监测 GPU 使用情况。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install radeontopsudo radeontop</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译安装-PyTorch-on-ROCm"><a href="#编译安装-PyTorch-on-ROCm" class="headerlink" title="编译安装 PyTorch on ROCm"></a>编译安装 PyTorch on ROCm</h3><ol>
+<li>正如最开始说的，目前 ROCm 平台还存在一些缺陷，因此编译 PyTorch 需要修改 ROCm 平台。修改后的 ROCm 平台可能不能编译或者运行其他深度学习框架。在 root 权限下运行以下命令：&#96;&#96;&#96;bash<br>sed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocsparse&#x2F;lib&#x2F;cmake&#x2F;rocsparse&#x2F;rocsparse-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocfft&#x2F;lib&#x2F;cmake&#x2F;rocfft&#x2F;rocfft-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;miopen&#x2F;lib&#x2F;cmake&#x2F;miopen&#x2F;miopen-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocblas&#x2F;lib&#x2F;cmake&#x2F;rocblas&#x2F;rocblas-config.cmake</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请各位读者注意，若新版的ROCm平台修复此问题，请忽略该步骤。</span><br><span class="line">2. **拉取PyTorch的源代码**。建议拉取AMD ROCm software团队的fork仓库：```bash</span><br><span class="line">git clone https://github.com/ROCmSoftwarePlatform/pytorch.git</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>拉取 PyTorch 的子模块</strong>&#96;&#96;&#96;bash<br>cd pytorchgit submodule update –init –recursive</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，步骤2和步骤3大约需要下载500MB的数据。</span><br><span class="line">4. **配置GPU类型**。通过设置环境变量，指明编译针对的GPU类型，例如我的RX 550为gfx803，则我的设置为：`export PYTORCH_ROCM_ARCH=gfx803`</span><br><span class="line">5. **(可选，仅针对使用anaconda)删除conda环境中的ld**。conda环境中自己有一个ld，会覆盖系统中自带的`/usr/bin/ld`，会导致编译出问题。通过重命名的方式使其不影响编译：```bash</span><br><span class="line">cd ~/anaconda3/envs/pytorch/compiler_compatmv ld ld-tmpcd -</span><br></pre></td></tr></table></figure>
+
+<p>在编译完成后可以改回。 6. 使用 AMD 提供的脚本将 PyTorch 中的 CUDA 函数重用为 ROCm 中的 hip 函数。&#96;&#96;&#96;bash<br>python tools&#x2F;amd_build&#x2F;build_amd.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. 编译安装PyTorch：```bash</span><br><span class="line">export USE_NINJA=1 # 可选USE_ROCM=1 USE_LMDB=1 BUILD_CAFFE2_OPS=0 BUILD_TEST=0 USE_OPENCV=1 MAX_JOBS=N python setup.py install</span><br></pre></td></tr></table></figure>
+
+<p>其中，N 为编译时使用的线程数。N 越大则编译速度越快，但是要注意的是，请不要把 N 设的太大，在编译过程中，进程最高会占用 5GB 的内存，因此请保证 5*N 小于你的内存总量。否则内存要是超出了可是会死机的。如果因为 N 设置过大导致编译失败，请使用命令<code>python setup.py clean</code>清空编译环境后再重新编译。 8. 编译会比较耗时间。在此期间请不要使用内存占用过高的程序，避免因为内存不足导致编译失败。 9. 编译安装 torchvision&#96;&#96;&#96;bash<br>git clone <a target="_blank" rel="noopener" href="https://github.com/pytorch/visioncd">https://github.com/pytorch/visioncd</a> visionpython setup.py installcd ..</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">10. 运行PyTorch测试```bash</span><br><span class="line">PYTORCH_TEST_WITH_ROCM=1 python test/run_test.py --verbose</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，通过的测试数量比上次 Docker 安装的更加多了。说明这次的 PyTorch 安装功能更加完整，理论上能提供更好的开发体验。 10. 将<code>～/anaconda3/envs/pytorch/bin/python</code>设置为你开发环境的解释器</p>
+<h4 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.shenjc.net/2019/06/02/190601_pytorch_on_rocm_native/">AMD 显卡上完美原生运行 PyTorch 教程，无需容器(Docker)</a></li>
+<li><a target="_blank" rel="noopener" href="https://rocm.github.io/ROCmInstall.html">ROCm Platform Installation Guide for Linux</a></li>
+</ul>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +432,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/CentOS6%E4%B8%8Byum%E4%BF%AE%E5%A4%8D%E5%8F%8Apython%E5%AE%89%E8%A3%85/" title="CentOS6下yum修复及python安装" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/(Analog-login)%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%E7%9F%A5%E4%B9%8E/" title="(Analog-login)模拟登录知乎" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +455,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +683,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												

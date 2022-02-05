@@ -1,0 +1,920 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta name="referrer" content="no-referrer"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      不知道这些知识还敢说自己做过前端？ | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="难得糊涂" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.png',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground bg-pan-br">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「不知道这些知识还敢说自己做过前端？」
+		
+	</p>
+
+	
+	
+		<span id="star-button" rel="unlike">
+			<i class="icon-heart"></i>
+		</span>
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/" itemprop="url">
+		不知道这些知识还敢说自己做过前端？
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/" itemprop="url">
+		<time datetime="2021-02-22T08:13:13.000Z" itemprop="dateUpdated">
+	  		2022-02-05
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+						
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/_visitors" data-url="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/" data-title="不知道这些知识还敢说自己做过前端？">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+	
+    <span class="leancloud_likes" id="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/_likes" data-url="/2021/02/22/yuque/%E4%B8%8D%E7%9F%A5%E9%81%93%E8%BF%99%E4%BA%9B%E7%9F%A5%E8%AF%86%E8%BF%98%E6%95%A2%E8%AF%B4%E8%87%AA%E5%B7%B1%E5%81%9A%E8%BF%87%E5%89%8D%E7%AB%AF%EF%BC%9F/" data-title="不知道这些知识还敢说自己做过前端？" rel="unlike">
+        <i class="icon-heart"></i>
+        喜欢
+        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
+    </span>
+	
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h3><p>Promise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;初始化&quot;</span>);</span><br><span class="line"></span><br><span class="line">  resolve();</span><br><span class="line">&#125;)</span><br><span class="line">  .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&quot;有哪里不对了&quot;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;执行「这个」”&quot;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;执行「那个」&quot;</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    log(<span class="string">&quot;执行「这个」，无论前面发生了什么&quot;</span>);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>函数可以访问由函数内部定义的变量。</p>
+<h3 id="JS-有多态吗"><a href="#JS-有多态吗" class="headerlink" title="JS 有多态吗"></a>JS 有多态吗</h3><p>有</p>
+<blockquote>
+<p>多态：同一个操作作用于不同的对象上，可以产生不同的解释和不同的执行结果。</p>
+</blockquote>
+<p>例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> makeSound = <span class="function"><span class="keyword">function</span> (<span class="params">animal</span>) </span>&#123;</span><br><span class="line">  animal.sound();</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Duck = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">Duck.prototype.sound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;嘎嘎嘎&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> Chiken = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">Chiken.prototype.sound = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;咯咯咯&quot;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">makeSound(<span class="keyword">new</span> Chicken());</span><br><span class="line">makeSound(<span class="keyword">new</span> Duck());</span><br></pre></td></tr></table></figure>
+
+<h3 id="一个进程能创建多少个线程"><a href="#一个进程能创建多少个线程" class="headerlink" title="一个进程能创建多少个线程"></a>一个进程能创建多少个线程</h3><p>Linux 下通过<code>ulimit -u</code>可以查看系统中的进程上限，通过<code>ulimit -s</code>查看线程的调用栈大小。假设一个进程的虚拟内存是 4G，在 Linux32 位平台下，内核分走了 1G，留给用户用的只有 3G，于是我们可以想到，创建一个线程占有了 10M 内存，总共有 3G 内存可以使用。于是可想而知，最多可以创建差不多 300 个左右的线程。<strong>因此，进程最多可以创建的线程数是根据分配给调用栈的大小，以及操作系统（32 位和 64 位不同）共同决定的。</strong><br>Windows 下默认情况下，一个线程的栈要预留 1M 的内存空间 ，而一个进程中可用的内存空间只有 2G，所以理论上一个进程中最多可以开<strong>2048 个线程</strong>。</p>
+<h3 id="三栏布局的实现方式，尽可能多写"><a href="#三栏布局的实现方式，尽可能多写" class="headerlink" title="三栏布局的实现方式，尽可能多写"></a>三栏布局的实现方式，尽可能多写</h3><p>三列布局又分为两种，两列定宽一列自适应，以及两侧定宽中间自适应<br>两列定宽一列自适应：<br>1、使用 float+margin：<br>给 div 设置 float：left，left 的 div 添加属性 margin-right：left 和 center 的间隔 px,right 的 div 添加属性 margin-left：left 和 center 的宽度之和加上间隔<br>2、使用 float+overflow：<br>给 div 设置 float：left，再给 right 的 div 设置 overflow:hidden。这样子两个盒子浮动，另一个盒子触发 bfc 达到自适应<br>3、使用 position：<br>父级 div 设置 position：relative，三个子级 div 设置 position：absolute，这个要计算好盒子的宽度和间隔去设置位置，兼容性比较好，<br>4、使用 table 实现：<br>父级 div 设置 display：table，设置 border-spacing：10px&#x2F;&#x2F;设置间距，取值随意,子级 div 设置 display:table-cell，这种方法兼容性好，适用于高度宽度未知的情况，但是 margin 失效，设计间隔比较麻烦，<br>5、flex 实现：<br>parent 的 div 设置 display：flex；left 和 center 的 div 设置 margin-right；然后 right 的 div 设置 flex：1；这样子 right 自适应，但是 flex 的兼容性不好<br>6、grid 实现：<br>parent 的 div 设置 display：grid，设置 grid-template-columns 属性，固定第一列第二列宽度，第三列 auto，<br>对于两侧定宽中间自适应的布局，对于这种布局需要把 center 放在前面，可以采用双飞翼布局：圣杯布局，来实现，也可以使用上述方法中的 grid，table，flex，position 实现</p>
+<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><ol>
+<li>原型链继承</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.prototype.name = <span class="string">&quot;cat&quot;</span>;</span><br><span class="line"><span class="comment">//　Test Code</span></span><br><span class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat();</span><br><span class="line"><span class="built_in">console</span>.log(cat.name);</span><br><span class="line"><span class="built_in">console</span>.log(cat.eat(<span class="string">&quot;fish&quot;</span>));</span><br><span class="line"><span class="built_in">console</span>.log(cat.sleep());</span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Animal); <span class="comment">//true</span></span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Cat); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>介绍：在这里我们可以看到 new 了一个空对象,这个空对象指向 Animal 并且 Cat.prototype 指向了这个空对象，这种就是基于原型链的继承。<br>特点：基于原型链，既是父类的实例，也是子类的实例<br>缺点：无法实现多继承</p>
+<ol start="2">
+<li>构造继承：使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  Animal.call(<span class="built_in">this</span>);</span><br><span class="line">  <span class="built_in">this</span>.name = name || <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Test Code</span></span><br><span class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat();</span><br><span class="line"><span class="built_in">console</span>.log(cat.name);</span><br><span class="line"><span class="built_in">console</span>.log(cat.sleep());</span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Animal); <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Cat); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>特点：可以实现多继承<br>缺点：只<strong>能继承父类实例的属性和方法</strong>，不能继承原型上的属性和方法。</p>
+<ol start="3">
+<li>实例继承和拷贝继承</li>
+</ol>
+<p>实例继承：为父类实例添加新特性，作为子类实例返回<br>拷贝继承：拷贝父类元素上的属性和方法<br>上述两个实用性不强，不一一举例。</p>
+<ol start="4">
+<li>组合继承：相当于构造继承和原型链继承的组合体。通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  Animal.call(<span class="built_in">this</span>);</span><br><span class="line">  <span class="built_in">this</span>.name = name || <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = <span class="keyword">new</span> Animal();</span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"><span class="comment">// Test Code</span></span><br><span class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat();</span><br><span class="line"><span class="built_in">console</span>.log(cat.name);</span><br><span class="line"><span class="built_in">console</span>.log(cat.sleep());</span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Animal); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Cat); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>特点：<strong>可以继承实例属性&#x2F;方法，也可以继承原型属性&#x2F;方法</strong><br>缺点：调用了两次父类构造函数，生成了两份实例</p>
+<ol start="5">
+<li>寄生组合继承：通过寄生方式，<strong>砍掉父类的实例属性</strong>，这样，在调用两次父类的构造的时候，就<strong>不会初始化两次实例方法&#x2F;属性</strong></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  Animal.call(<span class="built_in">this</span>);</span><br><span class="line">  <span class="built_in">this</span>.name = name || <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 创建一个没有实例方法的类</span></span><br><span class="line">  <span class="keyword">var</span> Super = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">  Super.prototype = Animal.prototype;</span><br><span class="line">  <span class="comment">//将实例作为子类的原型</span></span><br><span class="line">  Cat.prototype = <span class="keyword">new</span> Super();</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="comment">// Test Code</span></span><br><span class="line"><span class="keyword">var</span> cat = <span class="keyword">new</span> Cat();</span><br><span class="line"><span class="built_in">console</span>.log(cat.name);</span><br><span class="line"><span class="built_in">console</span>.log(cat.sleep());</span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Animal); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(cat <span class="keyword">instanceof</span> Cat); <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>较为推荐</p>
+<h3 id="输出程序结果"><a href="#输出程序结果" class="headerlink" title="输出程序结果"></a>输出程序结果</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;async1 start&quot;</span>);</span><br><span class="line">  <span class="keyword">await</span> async2();</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;async1 end&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;async2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script start&quot;</span>);</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;setTimeout&quot;</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;promise1&quot;</span>);</span><br><span class="line">  resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;promise2&quot;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script end&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>执行过程：</p>
+<ol>
+<li>输出”script start”(毋庸置疑)</li>
+<li>将<code>setTimeout</code>加入<strong>宏任务队列</strong></li>
+<li>执行<code>async1()</code>函数：输出”async1 start”,运行到<code>await</code>时，<code>async2()</code>立即执行，输出”async2”，然后将当前任务阻塞并加入到<strong>微任务队列中</strong>，继续执行其他代码；</li>
+<li>执行<code>Promise</code>，输出”promise1”，并将<code>.then()</code>方法加入到<strong>微任务队列</strong>；</li>
+<li>输出”script end”，当前微任务结束，依次执行当前宏任务中包含的微任务；</li>
+<li>输出”async1 end”</li>
+<li>输出”promise2”，当前宏任务的所有微任务执行结束，执行下一个宏任务；</li>
+<li>输出”setTimeout”，宏任务队列为空，执行结束。</li>
+</ol>
+<p>输出结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">script start</span><br><span class="line">async1 start</span><br><span class="line">async2</span><br><span class="line">promise1</span><br><span class="line">script end</span><br><span class="line">async1 end</span><br><span class="line">promise2</span><br><span class="line">setTimeout</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>setTimeout</code>就是作为宏任务来存在的，而<code>Promise.then</code>则是具有代表性的微任务</p>
+</blockquote>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" title="容易忽视的C++知识" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2021/02/22/yuque/%E4%BD%BF%E7%94%A8PyTor%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%84TensorBoard%E5%8F%82%E6%95%B0/" title="使用PyTor可视化必须知道的TensorBoard参数" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享">
+								Scriptable 小组件分享			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 28日, 2021				
+							</p>
+							<p class="relate-post-content">
+								https://github.com/lisongqian/Scriptable(GitHub 会一直更新，无法访问 GitHub 的话可以用文章末尾的百度网盘链接）
+2022-01-20 更新
+百度网盘文件已更新，目前支持 2020...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Scriptable 小组件分享"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" title="容易忽视的C++知识">
+								容易忽视的C++知识			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 17日, 2021				
+							</p>
+							<p class="relate-post-content">
+								格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
+右值引用和左值引用
+C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/03/17/yuque/%E5%AE%B9%E6%98%93%E5%BF%BD%E8%A7%86%E7%9A%84C++%E7%9F%A5%E8%AF%86/" title="容易忽视的C++知识">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="容易忽视的C++知识"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/%E4%BD%BF%E7%94%A8PyTor%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%84TensorBoard%E5%8F%82%E6%95%B0/" title="使用PyTor可视化必须知道的TensorBoard参数">
+								使用PyTor可视化必须知道的TensorBoard参数			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
+1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/%E4%BD%BF%E7%94%A8PyTor%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BF%85%E9%A1%BB%E7%9F%A5%E9%81%93%E7%9A%84TensorBoard%E5%8F%82%E6%95%B0/" title="使用PyTor可视化必须知道的TensorBoard参数">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="使用PyTor可视化必须知道的TensorBoard参数"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/%E4%BD%A0%E7%9C%8B%E4%B8%8D%E6%87%82%E7%9A%84BERT%E8%A7%A3%E8%AF%BB/" title="你看不懂的BERT解读">
+								你看不懂的BERT解读			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
+BERT: Bidirectional Encoder Representations f...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/%E4%BD%A0%E7%9C%8B%E4%B8%8D%E6%87%82%E7%9A%84BERT%E8%A7%A3%E8%AF%BB/" title="你看不懂的BERT解读">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="你看不懂的BERT解读"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/%E6%88%91%E5%8F%91%E7%8E%B0%E4%BA%86Transformer%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%A7%98%E5%AF%86/" title="我发现了Transformer模型的秘密">
+								我发现了Transformer模型的秘密			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Ref...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/%E6%88%91%E5%8F%91%E7%8E%B0%E4%BA%86Transformer%E6%A8%A1%E5%9E%8B%E7%9A%84%E7%A7%98%E5%AF%86/" title="我发现了Transformer模型的秘密">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="我发现了Transformer模型的秘密"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/28/yuque/Chrome%E8%87%AA%E5%8A%A8%E5%B0%86http%E5%88%87%E6%8D%A2%E4%B8%BAhttps/" title="Chrome自动将http切换为https">
+								Chrome自动将http切换为https			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 28日, 2021				
+							</p>
+							<p class="relate-post-content">
+								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/28/yuque/Chrome%E8%87%AA%E5%8A%A8%E5%B0%86http%E5%88%87%E6%8D%A2%E4%B8%BAhttps/" title="Chrome自动将http切换为https">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Chrome自动将http切换为https"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/27/yuque/Jetbrains%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="Jetbrains快捷键">
+								Jetbrains快捷键			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 27日, 2021				
+							</p>
+							<p class="relate-post-content">
+								代码整体向后缩进选中多行代码 - 按下 Tab
+代码整体向前缩进选中多行代码 - 按下 Shift + Tab
+查找下一条代码差异F7
+查找上一条代码差异Shift + F7
+
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/27/yuque/Jetbrains%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="Jetbrains快捷键">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Jetbrains快捷键"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">
+								小知识			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 16日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Nginx 跨域123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With;add_head...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
+								循序渐进实现C++的单例模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 16日, 2021				
+							</p>
+							<p class="relate-post-content">
+								
+注：本文引自：https://guodong.plus/2020/0529-002048/
+
+v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

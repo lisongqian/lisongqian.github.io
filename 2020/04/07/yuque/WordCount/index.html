@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      RESTART | Songqian Li&#39;s Blog
+      WordCount | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「RESTART」
+			「WordCount」
 		
 	</p>
 
@@ -242,8 +242,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		RESTART
+	<a href="/2020/04/07/yuque/WordCount/" itemprop="url">
+		WordCount
 	</a>
 
 		</div>
@@ -259,9 +259,9 @@
 
 	更新于
 
-	<a href="/2022/02/04/RESTART/" itemprop="url">
-		<time datetime="2022-02-04T01:40:02.550Z" itemprop="dateUpdated">
-	  		2022-02-04
+	<a href="/2020/04/07/yuque/WordCount/" itemprop="url">
+		<time datetime="2020-04-07T12:36:44.000Z" itemprop="dateUpdated">
+	  		2022-02-05
 	  </time>
 	</a> 
 
@@ -275,7 +275,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2022/02/04/RESTART/_visitors" data-url="/2022/02/04/RESTART/" data-title="RESTART">
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/WordCount/_visitors" data-url="/2020/04/07/yuque/WordCount/" data-title="WordCount">
        	<i class="icon-eye"></i>
        	热度
         
@@ -287,7 +287,7 @@
 
 
 	
-    <span class="leancloud_likes" id="/2022/02/04/RESTART/_likes" data-url="/2022/02/04/RESTART/" data-title="RESTART" rel="unlike">
+    <span class="leancloud_likes" id="/2020/04/07/yuque/WordCount/_likes" data-url="/2020/04/07/yuque/WordCount/" data-title="WordCount" rel="unlike">
         <i class="icon-heart"></i>
         喜欢
         <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
@@ -297,7 +297,31 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="NEW-BLOG-SITE"><a href="#NEW-BLOG-SITE" class="headerlink" title="NEW BLOG SITE"></a>NEW BLOG SITE</h2>	
+			<h3 id="I-引言"><a href="#I-引言" class="headerlink" title="I.引言"></a>I.引言</h3><blockquote>
+<p>值此情人节之际，祝天下有情人终成眷属。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The knowledage of this article is shallow. Please read it in an ornamental angle.</span><br></pre></td></tr></table></figure>
+
+<p>本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。</p>
+<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim"><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#align=left&display=inline&height=52&margin=%5Bobject%20Object%5D&originHeight=52&originWidth=167&status=done&style=none&width=167"></a><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_patten = &quot;.*([0-9]&#123;4&#125;[-/][0-9]&#123;1,2&#125;[/-][0-9]&#123;1,2&#125;?)[\s]*([\d]*:[\d]*:[\d]&#123;2&#125;?)[\s]*(.*)?&quot; #时间正则表达式</span><br><span class="line">article_patten = &quot;[\n\r\f\t\s]*(.*)&quot; # 内容正则表达式</span><br></pre></td></tr></table></figure>
+
+<p>整理成如下格式：<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim"><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#align=left&display=inline&height=43&margin=%5Bobject%20Object%5D&originHeight=43&originWidth=475&status=done&style=none&width=475"></a><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Probably the following word is dog food.</span><br></pre></td></tr></table></figure>
+
+<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/lisongqian_count.png"><img src="http://cdn.lisongqian.cn/lisongqian_count.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women.png"><img src="http://cdn.lisongqian.cn/women.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png"><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
+<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png"><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png"><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png"><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a>原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
+<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/men_keywords.png"><img src="http://cdn.lisongqian.cn/men_keywords.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这是我的聊天关键词<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women_keywords.png"><img src="http://cdn.lisongqian.cn/women_keywords.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这是小姐儿的</p>
+<p>不知道为啥子哦，<code>不</code>字为啥子出现的频度这么高哦</p>
+<p><strong>来一张词云！</strong><br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/wordcloud.png"><img src="http://cdn.lisongqian.cn/wordcloud.png#align=left&display=inline&height=496&margin=%5Bobject%20Object%5D&originHeight=496&originWidth=504&status=done&style=none&width=504"></a><br>哇，不行，这不够优雅！过滤重来！</p>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/wordcloud2.png"><img src="http://cdn.lisongqian.cn/wordcloud2.png#align=left&display=inline&height=496&margin=%5Bobject%20Object%5D&originHeight=496&originWidth=504&status=done&style=none&width=504"></a><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">感觉我喜欢和学姐在宿舍玩手机。</span><br></pre></td></tr></table></figure>
+
+<h4 id="心情分析"><a href="#心情分析" class="headerlink" title="心情分析"></a>心情分析</h4><p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women_emotion.png"><img src="http://cdn.lisongqian.cn/women_emotion.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/men_emotion.png"><img src="http://cdn.lisongqian.cn/men_emotion.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
+	
 		</div>
 		
 		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
@@ -315,8 +339,12 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
+			<a href="/2020/04/07/yuque/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" title="机器学习常用算法原理" rel="prev">
+				&laquo;上一篇
+			</a>
 		
-			<a href="/2021/04/28/yuque/Scriptable%20%E5%B0%8F%E7%BB%84%E4%BB%B6%E5%88%86%E4%BA%AB/" title="Scriptable 小组件分享" rel="next">
+		
+			<a href="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" title="Windows下安装Vue-cli" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -334,6 +362,28 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/04/RESTART/" title="RESTART">
+								RESTART			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 4日, 2022				
+							</p>
+							<p class="relate-post-content">
+								NEW BLOG SITE
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/04/RESTART/" title="RESTART">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="RESTART"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -540,31 +590,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">
-								循序渐进实现C++的单例模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 16日, 2021				
-							</p>
-							<p class="relate-post-content">
-								
-注：本文引自：https://guodong.plus/2020/0529-002048/
-
-v1.0——基本实现12345678910111213class Singleton &#123; public:  static Sin...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/16/yuque/%E5%BE%AA%E5%BA%8F%E6%B8%90%E8%BF%9B%E5%AE%9E%E7%8E%B0C++%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" title="循序渐进实现C++的单例模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
 							</a>
 						</div>
 					</li>												
