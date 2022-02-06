@@ -3850,3 +3850,7 @@ header .header-wrapper #global-nav a {
   -webkit-box-orient: vertical;
   color: #808080;
 }
+p.relate-post-content {
+  word-break: break-word; /* 文本行的任意字内断开 */
+  word-wrap: break-word; /* IE */
+}
