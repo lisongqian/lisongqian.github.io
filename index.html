@@ -238,9 +238,10 @@
 一个腾讯云账号
 hexo 安装了 yuque-hexo 插件且能正常运行
 
-实现思路：利用语雀的webhook触发腾讯云云函数，云函数触发GitHub Action，Github Action 执行 hexo 的一系列命令从而实现自动同步。
-详见：https://yichen115.github.io/2020/07/16/gtb5ck/
-
+实现思路：利用语雀的webhook触发腾讯云云函数，云函数触发GitHub Action，Github Action 执行 hexo 的一系列命令从而实现自动同步。具体步骤详见：https://yichen115.github.io/2020/07/16/gtb5ck/
+注意
+云函数是有免费额度的，正常使用不会超出。
+日志服务是收费的，建议调试成功后删除日志资源。具体位置：点开具体函数后，在函数管理 &...
 						
 					</div>
 					

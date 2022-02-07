@@ -257,7 +257,7 @@
 
 	<a href="/2022/02/06/yuque/%E8%AF%AD%E9%9B%80%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E5%88%B0hexo%E5%8D%9A%E5%AE%A2/" itemprop="url">
 		<time datetime="2022-02-06T02:53:31.000Z" itemprop="dateUpdated">
-	  		2022-02-06
+	  		2022-02-07
 	  </time>
 	</a> 
 
@@ -291,8 +291,13 @@
 <li>一个腾讯云账号</li>
 <li>hexo 安装了 yuque-hexo 插件且能正常运行</li>
 </ol>
-<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>利用语雀的<code>webhook</code>触发腾讯云<code>云函数</code>，云函数触发<code>GitHub Action</code>，Github Action 执行 hexo 的一系列命令从而实现自动同步。</p>
-<p>详见：<a target="_blank" rel="noopener" href="https://yichen115.github.io/2020/07/16/gtb5ck/">https://yichen115.github.io/2020/07/16/gtb5ck/</a></p>
+<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>利用语雀的<code>webhook</code>触发腾讯云<code>云函数</code>，云函数触发<code>GitHub Action</code>，Github Action 执行 hexo 的一系列命令从而实现自动同步。<br>具体步骤详见：<a target="_blank" rel="noopener" href="https://yichen115.github.io/2020/07/16/gtb5ck/">https://yichen115.github.io/2020/07/16/gtb5ck/</a></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>云函数是有免费额度的，正常使用不会超出。</li>
+<li>日志服务是收费的，建议调试成功后删除日志资源。具体位置：点开具体函数后，在<strong>函数管理</strong> &gt; <strong>函数配置</strong>的<strong>日志配置</strong>下，有<strong>日志集</strong>和<strong>日志主题</strong>，建议都删除掉。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://yichen115.github.io/2020/07/16/gtb5ck/">
+</a></p>
 	
 		</div>
 		
