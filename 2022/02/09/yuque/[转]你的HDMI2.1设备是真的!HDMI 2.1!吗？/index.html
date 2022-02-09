@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      FRP-windows客户端配置 | Songqian Li&#39;s Blog
+      [转]你的HDMI2.1设备是真的HDMI 2.1吗？ | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「FRP-windows客户端配置」
+			「[转]你的HDMI2.1设备是真的HDMI 2.1吗？」
 		
 	</p>
 
@@ -219,27 +219,14 @@
 		插件作者：KELEN
 		插件来源: https://github.com/KELEN/katelog
 -->
-
-	
-		<div class="layout-toc">
-			<div id="layout-toc">
-				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
-			</div>
-		</div>
-
-		
-<script src="/plugin/toc/katelog.min.js"></script>
-
-
-		
 	 
 
 <div class="layout-post">
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" itemprop="url">
-		FRP-windows客户端配置
+	<a href="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/" itemprop="url">
+		[转]你的HDMI2.1设备是真的HDMI 2.1吗？
 	</a>
 
 		</div>
@@ -255,8 +242,8 @@
 
 	更新于
 
-	<a href="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" itemprop="url">
-		<time datetime="2020-04-07T12:36:34.000Z" itemprop="dateUpdated">
+	<a href="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/" itemprop="url">
+		<time datetime="2022-02-09T01:22:38.000Z" itemprop="dateUpdated">
 	  		2022-02-09
 	  </time>
 	</a> 
@@ -271,7 +258,7 @@
 			
 
 	
-    <span class="leancloud_visitors" id="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/_visitors" data-url="/2020/04/07/yuque/FRP-windows%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE/" data-title="FRP-windows客户端配置">
+    <span class="leancloud_visitors" id="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/_visitors" data-url="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/" data-title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">
        	<i class="icon-eye"></i>
        	热度
         
@@ -285,24 +272,10 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p>准备</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://pan.lisongqian.cn:20190/Softwares/frp_0.24.1_windows_winsw.zip">frp 客户端文件</a>，包括：frp 客户端，winsw</li>
-<li>局域网内可远程连接的 Windows 计算机</li>
-</ul>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h4 id="修改客户端配置"><a href="#修改客户端配置" class="headerlink" title="修改客户端配置"></a>修改客户端配置</h4><p>打开 frpc.ini 文件，将文件按照需求更改如下：</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="comment"># 你的服务端IP地址</span></span><br><span class="line"><span class="attr">server_addr</span> = ×.×.×.×</span><br><span class="line"><span class="comment"># 服务端设置的bind_port端口号</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="number">5443</span></span><br><span class="line"><span class="comment"># 服务端设置的token</span></span><br><span class="line"><span class="attr">token</span> = YourToken</span><br><span class="line"></span><br><span class="line"><span class="comment">## 本地管理页面</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 管理页地址</span></span><br><span class="line"><span class="attr">admin_addr</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="comment"># 管理页端口</span></span><br><span class="line"><span class="attr">admin_port</span> = <span class="number">7400</span></span><br><span class="line"><span class="comment"># 管理页用户名</span></span><br><span class="line"><span class="attr">admin_user</span> = admin</span><br><span class="line"><span class="comment"># 管理页密码</span></span><br><span class="line"><span class="attr">admin_pwd</span> = admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># []内可自行设置名称</span></span><br><span class="line"><span class="section">[slave]</span></span><br><span class="line"><span class="attr">type</span> = tcp</span><br><span class="line"><span class="comment">#客户端所在内网的IP地址</span></span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">192.168</span>.×.×</span><br><span class="line"><span class="attr">local_port</span> = <span class="number">3389</span></span><br><span class="line"><span class="comment">#远程连接的端口号，可自行设置</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="number">7500</span></span><br><span class="line"></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="更改启动脚本"><a href="#更改启动脚本" class="headerlink" title="更改启动脚本"></a>更改启动脚本</h4><p>编辑 frp.bat 文件：（第三行需更改）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">start  <span class="string">&quot;C:\Windows\System32\cmd.exe&quot;</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;文件所在目录地址，如C:\Users\name\Desktop\frp&quot;</span></span><br><span class="line">frpc -c frpc.ini</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="加入开机自动启动服务"><a href="#加入开机自动启动服务" class="headerlink" title="加入开机自动启动服务"></a>加入开机自动启动服务</h4><p>管理员命令创建一个 cmd 窗口，切换到 frp 目录，执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winsw install</span><br><span class="line">winsw start</span><br></pre></td></tr></table></figure>
-
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>发现 frpc 进程没有运行或 frp 服务未启动时，请检查 winsw 的 log 文件，按照文件提示进行错误排查</li>
-</ul>
-<h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a>REFERENCES</h3><p><a target="_blank" rel="noopener" href="https://www.eyuyun.com/173.html#cl-22">https://www.eyuyun.com/173.html#cl-22</a></p>
+			<blockquote>
+<p>HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用<br>HDMI 2.0 的功能现在是 2.1 的子集<br>与 HDMI 2.1 相关的所有新功能和特性都是<strong>可选的</strong>（包括 FRL、更高带宽、VRR、ALLM 和其他所有内容）</p>
+</blockquote>
+<p>例如(<a target="_blank" rel="noopener" href="https://item.jd.com/100028616132.html#product-detail">小米 24.5 英寸 240Hz 高刷版</a>) 中描述：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1644370215371-a5845bcf-ecd5-4534-b06d-6550fc9bc9e2.png#clientId=uf8c9eabd-55ca-4&from=paste&height=98&id=ubae2ad34&margin=%5Bobject%20Object%5D&name=image.png&originHeight=98&originWidth=624&originalType=binary%E2%88%B6=1&size=31432&status=done&style=none&taskId=u0af627c5-2d58-47b9-9a11-24dfdf05e66&width=624" alt="image.png"><br>这意味着所有 HDMI 2.0 的设备如今都可以并且应该被标记为 HDMI 2.1 的设备。<br>文章分析：<a target="_blank" rel="noopener" href="https://www.cnbeta.com/articles/tech/1215181.htm">令人困惑的 HDMI 2.1</a><br>因此，消费者应了解商品所支持的 HDMI 2.1 是否支持 FRL(固定速率链接)、VRR(可变刷新率)、ALLM(自动低延迟模式)等功能。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1644370661372-e4bdf1d5-db9d-471e-98d7-cb67d1ce942f.png#clientId=uf8c9eabd-55ca-4&from=paste&id=ud6c63248&margin=%5Bobject%20Object%5D&name=image.png&originHeight=388&originWidth=640&originalType=url%E2%88%B6=1&size=180502&status=done&style=none&taskId=u8ff05aff-26ec-4481-aaa6-14a96aceec7" alt="image.png"></p>
 	
 		</div>
 		
@@ -321,12 +294,8 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2020/04/07/yuque/Windows%E4%B8%8B%E5%AE%89%E8%A3%85Vue-cli/" title="Windows下安装Vue-cli" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2020/04/07/yuque/CentOS%E4%B8%8B%E5%AE%89%E8%A3%85Redis/" title="CentOS下安装Redis" rel="next">
+			<a href="/2022/02/06/yuque/%E8%AF%AD%E9%9B%80%E6%96%87%E6%A1%A3%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5%E5%88%B0hexo%E5%8D%9A%E5%AE%A2/" title="语雀文档自动同步到hexo博客" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -344,29 +313,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">
-								[转]你的HDMI2.1设备是真的HDMI 2.1吗？			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 9日, 2022				
-							</p>
-							<p class="relate-post-content">
-								
-HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用HDMI 2.0 的功能现在是 2.1 的子集与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、ALLM 和其他所有内容）...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/02/09/yuque/%5B%E8%BD%AC%5D%E4%BD%A0%E7%9A%84HDMI2.1%E8%AE%BE%E5%A4%87%E6%98%AF%E7%9C%9F%E7%9A%84!HDMI%202.1!%E5%90%97%EF%BC%9F/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="[转]你的HDMI2.1设备是真的HDMI 2.1吗？"/>
-							</a>
-						</div>
-					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -579,6 +525,28 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/01/27/yuque/Jetbrains%E5%BF%AB%E6%8D%B7%E9%94%AE/" title="Jetbrains快捷键">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Jetbrains快捷键"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">
+								小知识			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 16日, 2021				
+							</p>
+							<p class="relate-post-content">
+								Nginx 跨域123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With;add_head...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/01/16/yuque/%E5%B0%8F%E7%9F%A5%E8%AF%86/" title="小知识">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="小知识"/>
 							</a>
 						</div>
 					</li>												
