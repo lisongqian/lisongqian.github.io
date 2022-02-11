@@ -1,0 +1,901 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta name="referrer" content="no-referrer"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Windows下安装Vue-cli | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="难得糊涂" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.png',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.0.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">难得糊涂</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「Windows下安装Vue-cli」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="http://github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2020/04/07/yuque/ney5k3/" itemprop="url">
+		Windows下安装Vue-cli
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2020/04/07/yuque/ney5k3/" itemprop="url">
+		<time datetime="2020-04-07T12:36:39.000Z" itemprop="dateUpdated">
+	  		2022-02-11
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+						
+			</span>
+			
+			
+
+	
+    <span class="leancloud_visitors" id="/2020/04/07/yuque/ney5k3/_visitors" data-url="/2020/04/07/yuque/ney5k3/" data-title="Windows下安装Vue-cli">
+       	<i class="icon-eye"></i>
+       	热度
+        
+            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
+                   
+    </span>
+    
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><h4 id="安装-Node-js"><a href="#安装-Node-js" class="headerlink" title="安装 Node.js"></a>安装 Node.js</h4><p>从<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js 官网</a>上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。<br>注：</p>
+<ul>
+<li>使用 Win+R 输入 cmd 打开命令行输入<code>node -v</code>，出现版本号，则说明安装成功。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#align=left&display=inline&height=148&originHeight=148&originWidth=687&status=done&style=none&width=687"></a></p>
+<ul>
+<li>包管理工具<code>npm</code>在安装 Node.js 时会一起安装好。</li>
+</ul>
+<h4 id="安装-Webpack"><a href="#安装-Webpack" class="headerlink" title="安装 Webpack"></a>安装 Webpack</h4><p>在命令行中输入<code>npm install webpack -g</code>。</p>
+<p>注：</p>
+<ul>
+<li>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#align=left&display=inline&height=51&originHeight=51&originWidth=635&status=done&style=none&width=635"></a></p>
+<ul>
+<li>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim"><img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#align=left&display=inline&height=93&originHeight=93&originWidth=670&status=done&style=none&width=670"></a></p>
+<h4 id="安装-Vue-cli"><a href="#安装-Vue-cli" class="headerlink" title="安装 Vue-cli"></a>安装 Vue-cli</h4><p>在命令行中输入<code>npm install -g @vue/cli</code>。</p>
+<p>注：</p>
+<ul>
+<li>安装完成后输入<code>vue -V</code>(大写 V)，出现版本号，则说明安装成功。</li>
+</ul>
+<h3 id="项目准备"><a href="#项目准备" class="headerlink" title="项目准备"></a>项目准备</h3><p>我的项目都是使用的 Webstorm 搭建的</p>
+<p>我的工程地址在<code>C:\User\s5\WebstormProjects</code>，所以在命令行中执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> WebstormProjects</span><br><span class="line">vue init webpack projectname</span><br></pre></td></tr></table></figure>
+
+<p>注：</p>
+<ul>
+<li>projectname 为项目名。</li>
+<li><code>package.json</code>配置过程：</li>
+</ul>
+<p>（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ vue init webpack exprice --------------------- 这个是那个安装vue脚手架的命令</span><br><span class="line">This will install Vue 2.x version of the template. ---------------------这里说明将要创建一个vue 2.x版本的项目</span><br><span class="line">For Vue 2.x use: vue init webpack</span><br><span class="line">? Project name (projectname) ---------------------项目名称</span><br><span class="line">? Project name projectname</span><br><span class="line">? Project description (A Vue.js project) ---------------------项目描述</span><br><span class="line">? Project description A Vue.js project</span><br><span class="line">? Author Datura --------------------- 项目创建者</span><br><span class="line">? Author Datura</span><br><span class="line">? Vue build (Use arrow keys)</span><br><span class="line">? Vue build standalone</span><br><span class="line">? Install vue-router? (Y/n) --------------------- 是否安装Vue路由，也就是以后是spa（但页面应用需要的模块）</span><br><span class="line">? Install vue-router? Yes</span><br><span class="line">? Use ESLint to lint your code? (Y/n) n ---------------------是否启用eslint检测规则，这里个人建议选no</span><br><span class="line">? Use ESLint to lint your code? No</span><br><span class="line">? Setup unit tests with Karma + Mocha? (Y/n)</span><br><span class="line">? Setup unit tests with Karma + Mocha? Yes</span><br><span class="line">? Setup e2e tests with Nightwatch? (Y/n)</span><br><span class="line">? Setup e2e tests with Nightwatch? Yes</span><br><span class="line">vue-cli · Generated &quot;projectname&quot;.</span><br></pre></td></tr></table></figure>
+
+<h4 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#align=left&display=inline&height=453&originHeight=453&originWidth=315&status=done&style=none&width=315"></a></p>
+<h2 id="项目运行"><a href="#项目运行" class="headerlink" title="项目运行"></a>项目运行</h2><p>命令行进入刚才创建的项目目录，然后执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectname</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim"><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#align=left&display=inline&height=200&originHeight=200&originWidth=963&status=done&style=none&width=963"></a></p>
+<p>此时可以在浏览器中输入<code>localhost:8080</code> 查看到实例页面。</p>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#align=left&display=inline&height=600&originHeight=600&originWidth=1154&status=done&style=none&width=1154"></a></p>
+<blockquote>
+<p>参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1626b8643676">Vue2.0 史上最全入坑教程</a></p>
+</blockquote>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2020/04/07/yuque/xyem8g/" title="WordCount" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2020/04/07/yuque/bqi836/" title="FRP-windows客户端配置" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">
+								[转]你想住在中国哪里？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+科技爱好者周刊（第 180 期）：你想住在中国哪里？
+
+​
+
+如果希望赚取高收入，愿意忍受大城市的高竞争、高压力、狭小嘈杂，那么选择一线大城市；
+如果希望竞争小一些、生活轻松一点，可以选择沿海省份和中西部的中心城市；
+如果希望享受宁...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="[转]你想住在中国哪里？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">
+								滑坡谬误			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="滑坡谬误"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ccic59/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">
+								[转]你的HDMI2.1设备是真的HDMI 2.1吗？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								HDMI 许可管理员：
+
+HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用HDMI 2.0 的功能现在是 2.1 的子集与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、A...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ccic59/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="[转]你的HDMI2.1设备是真的HDMI 2.1吗？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
+								语雀文档自动同步到hexo博客			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 6日, 2022				
+							</p>
+							<p class="relate-post-content">
+								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
+一个 GitHub 账号
+一个腾讯云账号
+hexo 安装了 yuque-hexo 插件且能正常运行
+
+实现思路：利用语雀的webhook触发腾讯云云...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">
+								Scriptable 小组件分享			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 28日, 2021				
+							</p>
+							<p class="relate-post-content">
+								https://github.com/lisongqian/Scriptable(GitHub 会一直更新，无法访问 GitHub 的话可以用文章末尾的百度网盘链接）
+2022-01-20 更新
+百度网盘文件已更新，目前支持 2022...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="Scriptable 小组件分享"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/03/17/yuque/tu1bg6/" title="容易忽视的C++知识">
+								容易忽视的C++知识			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								三月 17日, 2021				
+							</p>
+							<p class="relate-post-content">
+								格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
+右值引用和左值引用
+C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/03/17/yuque/tu1bg6/" title="容易忽视的C++知识">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="容易忽视的C++知识"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">
+								不知道这些知识还敢说自己做过前端？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								PromisePromise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
+123456789101112131415new Promise((resolve, reject) =&gt; &#123;  c...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="不知道这些知识还敢说自己做过前端？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/qsv094/" title="使用PyTor可视化必须知道的TensorBoard参数">
+								使用PyTor可视化必须知道的TensorBoard参数			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
+1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/qsv094/" title="使用PyTor可视化必须知道的TensorBoard参数">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="使用PyTor可视化必须知道的TensorBoard参数"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">
+								你看不懂的BERT解读			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
+BERT: Bidirectional Encoder Representations f...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="你看不懂的BERT解读"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">
+								我发现了Transformer模型的秘密			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Ref...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="我发现了Transformer模型的秘密"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+		<div class="config-info">
+			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
+		</div>	
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
