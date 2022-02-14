@@ -19,7 +19,7 @@
   </title>
   <meta name="author" content="Songqian Li">
   <meta name="keywords" content="" />
-  <meta name="description" content="难得糊涂" />
+  <meta name="description" content="Try to discover the beauty of details in life &amp; enjoy life." />
 	<!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
@@ -101,7 +101,7 @@
 					<div class="align">
 						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
 						<div class="empty-space col-xs-b15"></div>
-						<div class="sa light large">难得糊涂</div>
+						<div class="sa light large">Try to discover the beauty of details in life &amp; enjoy life.</div>
 						<div class="empty-space col-xs-b30"></div>
 					</div>
 				</div>
@@ -194,7 +194,7 @@
 		<ul id="global-social">
 	
 		<li>
-			<a href="http://github.com/lisongqian" target="_blank">
+			<a href="//github.com/lisongqian" target="_blank">
 				<span class="icon-github"></span>
 			</a>
 		</li>
@@ -244,7 +244,7 @@
 
 	<a href="/2022/02/11/yuque/hlgqdt/" itemprop="url">
 		<time datetime="2022-02-11T06:08:29.000Z" itemprop="dateUpdated">
-	  		2022-02-11
+	  		2022-02-14
 	  </time>
 	</a> 
 
@@ -267,16 +267,6 @@
 			</span>
 			
 			
-
-	
-    <span class="leancloud_visitors" id="/2022/02/11/yuque/hlgqdt/_visitors" data-url="/2022/02/11/yuque/hlgqdt/" data-title="[转]你想住在中国哪里？">
-       	<i class="icon-eye"></i>
-       	热度
-        
-            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
-                   
-    </span>
-    
 
 
 
@@ -581,9 +571,81 @@ BERT: Bidirectional Encoder Representations f...
 					<div class="layout-comment">
 
 	
-		<div class="config-info">
-			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
-		</div>	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
 	
 
 </div>
@@ -592,9 +654,18 @@ BERT: Bidirectional Encoder Representations f...
 					<div class="layout-share">
 	
 	
-		<div class="config-info">
-			Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
-		</div>	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
 	
 </div>
 
