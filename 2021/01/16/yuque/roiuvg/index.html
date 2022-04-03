@@ -244,7 +244,7 @@
 
 	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
 		<time datetime="2021-01-16T09:00:20.000Z" itemprop="dateUpdated">
-	  		2022-02-14
+	  		2022-04-03
 	  </time>
 	</a> 
 
@@ -262,11 +262,13 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="Nginx-跨域"><a href="#Nginx-跨域" class="headerlink" title="Nginx 跨域"></a>Nginx 跨域</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin *;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br></pre></td></tr></table></figure>
+			<h3 id="Nginx-跨域（不安全，但快捷）"><a href="#Nginx-跨域（不安全，但快捷）" class="headerlink" title="Nginx 跨域（不安全，但快捷）"></a>Nginx 跨域（不安全，但快捷）</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin *;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br></pre></td></tr></table></figure>
 
 <h3 id="更改-npm-源"><a href="#更改-npm-源" class="headerlink" title="更改 npm 源"></a>更改 npm 源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
 
 <h3 id="docker-加速"><a href="#docker-加速" class="headerlink" title="docker 加速"></a>docker 加速</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://gckih6c6.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Clion-无法使用-Ctrl-左键进行代码跳转"><a href="#Clion-无法使用-Ctrl-左键进行代码跳转" class="headerlink" title="Clion 无法使用 Ctrl+左键进行代码跳转"></a>Clion 无法使用 Ctrl+左键进行代码跳转</h3><p>右键项目根目录，点击<code>Mark Directory as</code>-&gt;<code>Projects Sources and Headers</code></p>
 	
 		</div>
 		
