@@ -244,7 +244,7 @@
 
 	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
 		<time datetime="2021-01-16T09:00:20.000Z" itemprop="dateUpdated">
-	  		2022-04-03
+	  		2022-04-20
 	  </time>
 	</a> 
 
@@ -269,6 +269,7 @@
 <h3 id="docker-加速"><a href="#docker-加速" class="headerlink" title="docker 加速"></a>docker 加速</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://gckih6c6.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 <h3 id="Clion-无法使用-Ctrl-左键进行代码跳转"><a href="#Clion-无法使用-Ctrl-左键进行代码跳转" class="headerlink" title="Clion 无法使用 Ctrl+左键进行代码跳转"></a>Clion 无法使用 Ctrl+左键进行代码跳转</h3><p>右键项目根目录，点击<code>Mark Directory as</code>-&gt;<code>Projects Sources and Headers</code></p>
+<h3 id="Git-配置使用-Clash-本地代理"><a href="#Git-配置使用-Clash-本地代理" class="headerlink" title="Git 配置使用 Clash 本地代理"></a>Git 配置使用 Clash 本地代理</h3><p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地代理，当然也可以开启系统的全局代理<br>添加代理：<code>git config --global http.proxy 127.0.0.1:7890</code><br>解除代理：<code>git config --global --unset http.proxy</code></p>
 	
 		</div>
 		
@@ -310,6 +311,33 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">
+								每周阅读推荐			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="每周阅读推荐"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -527,28 +555,6 @@ BERT: Bidirectional Encoder Representations f...
 							<a href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="你看不懂的BERT解读"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">
-								我发现了Transformer模型的秘密			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2021				
-							</p>
-							<p class="relate-post-content">
-								本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Ref...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="我发现了Transformer模型的秘密"/>
 							</a>
 						</div>
 					</li>												
