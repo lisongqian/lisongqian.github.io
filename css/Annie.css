@@ -3757,12 +3757,12 @@ header .header-wrapper #global-nav a {
   position: relative;
 }
 .align {
-  height: 750px;
+  height: 85vh;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
   width: 10000px;
-  padding: 90px 0 110px 0;
+  padding: 10vh 0 0 0;
 }
 .sa.light h1,
 .sa.light .h1,
@@ -3853,4 +3853,7 @@ header .header-wrapper #global-nav a {
 p.relate-post-content {
   word-break: break-word; /* 文本行的任意字内断开 */
   word-wrap: break-word; /* IE */
+}
+header {
+  overflow: hidden;
 }
