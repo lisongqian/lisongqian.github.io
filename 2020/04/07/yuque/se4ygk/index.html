@@ -252,7 +252,14 @@
 
 			</span>
 			<span>
-						
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Thought/" class=" ">
+			Thought
+		</a>
+	
+		
 			</span>
 			
 			
@@ -267,33 +274,33 @@
 <li><strong>事件的发生是独立的且事件的发生概率很小</strong></li>
 <li><strong>在相同大小的时间或空间内, 事件的发生的概率是相同的</strong></li>
 </ol>
-<h3 id="II-开始——二项分布"><a href="#II-开始——二项分布" class="headerlink" title="II 开始——二项分布"></a>II 开始——二项分布</h3><p>把事件的发生当做<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&width=12">次伯努利试验,那么事件发生<img src="https://g.yuque.com/gr/latex?k#card=math&code=k&height=19&width=10">次的概率满足二项分布：</p>
-<p><img src="https://g.yuque.com/gr/latex?P(X=k)=C_%7Bn%7D%5E%7Bk%7Dp%5Ek(1-p)%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A#card=math&code=P%28X%3Dk%29%3DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A&height=28&width=885"></p>
-<p>我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&width=12">份，每个时间间隔中事件至多发生一次。</p>
-<h3 id="III-正题——泊松分布"><a href="#III-正题——泊松分布" class="headerlink" title="III 正题——泊松分布"></a>III 正题——泊松分布</h3><p>针对上述理解，当<img src="https://g.yuque.com/gr/latex?n%20%5Cto%20%5Cinfty#card=math&code=n%20%5Cto%20%5Cinfty&height=16&width=65">时：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/394c864bf1b9dd8e6313701c43755795.svg#card=math&code=%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20&height=30&width=145"></p>
-<p>众所周知，二项分布中：<img src="https://g.yuque.com/gr/latex?EX%20=%20np#card=math&code=EX%20%3D%20np&height=22&width=83">，则<img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20p=%5Cfrac%7BEX%7D%7Bn%7D#card=math&code=%5Cdisplaystyle%20p%3D%5Cfrac%7BEX%7D%7Bn%7D&height=45&width=78">；我们将样本均值<img src="https://g.yuque.com/gr/latex?%5Cmu#card=math&code=%5Cmu&height=19&width=12">近似看做期望，得到：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/6dbca942dc50d2d19d154d64d9a21474.svg#card=math&code=%5Cdisplaystyle%20p%20%3D%20%5Cfrac%7B%5Cmu%7D%7Bn%7D%20%5Ctag%7B2%7D%0A&height=35&width=724"></p>
-<p>所以<img src="https://cdn.nlark.com/yuque/__latex/7acce3193127d4b71a6c2b140c22dc95.svg#card=math&code=%281%29&height=20&width=21">式等于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/5b2dd558c02c15365e3a5f93b5b6f818.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%20%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20%5Cfrac%7Bn%28n-1%29%28n-2%29%20%5Ccdots%28n-k%2B1%29%7D%7Bk%21%7D%20%28%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5Ek%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%5Cdisplaystyle&height=42&width=642"></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/eb54386d32ba90a975665b3c7fbeba18.svg#card=math&code=%5Cdisplaystyle%20%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%20%20%5Ctag%7B3%7D%0A&height=42&width=724"></p>
+<h3 id="II-开始——二项分布"><a href="#II-开始——二项分布" class="headerlink" title="II 开始——二项分布"></a>II 开始——二项分布</h3><p>把事件的发生当做<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&id=XlmK5">次伯努利试验,那么事件发生<img src="https://g.yuque.com/gr/latex?k#card=math&code=k&height=19&id=TTPPV">次的概率满足二项分布：</p>
+<p><img src="https://g.yuque.com/gr/latex?P(X=k)=C_%7Bn%7D%5E%7Bk%7Dp%5Ek(1-p)%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A#card=math&code=P%28X%3Dk%29%3DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A&height=28&id=g2m1P"></p>
+<p>我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为<img src="https://g.yuque.com/gr/latex?n#card=math&code=n&height=14&id=drCs9">份，每个时间间隔中事件至多发生一次。</p>
+<h3 id="III-正题——泊松分布"><a href="#III-正题——泊松分布" class="headerlink" title="III 正题——泊松分布"></a>III 正题——泊松分布</h3><p>针对上述理解，当<img src="https://g.yuque.com/gr/latex?n%20%5Cto%20%5Cinfty#card=math&code=n%20%5Cto%20%5Cinfty&height=16&id=VGwyF">时：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/394c864bf1b9dd8e6313701c43755795.svg#card=math&code=%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20&height=30&id=aGzLn"></p>
+<p>众所周知，二项分布中：<img src="https://g.yuque.com/gr/latex?EX%20=%20np#card=math&code=EX%20%3D%20np&height=22&id=rDmmB">，则<img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20p=%5Cfrac%7BEX%7D%7Bn%7D#card=math&code=%5Cdisplaystyle%20p%3D%5Cfrac%7BEX%7D%7Bn%7D&height=45&id=wYP83">；我们将样本均值<img src="https://g.yuque.com/gr/latex?%5Cmu#card=math&code=%5Cmu&height=19&id=Iaq5x">近似看做期望，得到：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/6dbca942dc50d2d19d154d64d9a21474.svg#card=math&code=%5Cdisplaystyle%20p%20%3D%20%5Cfrac%7B%5Cmu%7D%7Bn%7D%20%5Ctag%7B2%7D%0A&height=35&id=wzbSi"></p>
+<p>所以<img src="https://cdn.nlark.com/yuque/__latex/7acce3193127d4b71a6c2b140c22dc95.svg#card=math&code=%281%29&height=20&id=OTkiq">式等于：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/5b2dd558c02c15365e3a5f93b5b6f818.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%20%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20%5Cfrac%7Bn%28n-1%29%28n-2%29%20%5Ccdots%28n-k%2B1%29%7D%7Bk%21%7D%20%28%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5Ek%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%5Cdisplaystyle&height=42&id=HApZA"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/eb54386d32ba90a975665b3c7fbeba18.svg#card=math&code=%5Cdisplaystyle%20%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%20%20%5Ctag%7B3%7D%0A&height=42&id=SsRun"></p>
 <p>由于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/0c82ac30ef17a60c91a83034ba9b5747.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%3D1%20%20%0A&height=38&width=238"></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/18034630c63203f24847786adfd2fc9c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7B-k%7D%3D1%20%20%0A&height=35&width=137"></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/7f5c9f7cbe8e18f1792304cb15618b8c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn%7D%3D%20%20%20e%5E%7B%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20n%20%5Ccdot%20%28-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%7D%3De%5E%7B-%5Cmu%7D%20%0A&height=37&width=247"></p>
-<p>所以<img src="https://cdn.nlark.com/yuque/__latex/38560d3d403d928e8b6a1e4e8f9e93e1.svg#card=math&code=%283%29&height=20&width=21">式等于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/d2fb5eb22cc1c93826ec29d59d89e79f.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7De%5E%7B-%5Cmu%7D%20%5Ctag%7B4%7D%0A&height=42&width=724"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/0c82ac30ef17a60c91a83034ba9b5747.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%3D1%20%20%0A&height=38&id=cStC8"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/18034630c63203f24847786adfd2fc9c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7B-k%7D%3D1%20%20%0A&height=35&id=WXOq5"></p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/7f5c9f7cbe8e18f1792304cb15618b8c.svg#card=math&code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn%7D%3D%20%20%20e%5E%7B%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20n%20%5Ccdot%20%28-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%7D%3De%5E%7B-%5Cmu%7D%20%0A&height=37&id=Yf0wv"></p>
+<p>所以<img src="https://cdn.nlark.com/yuque/__latex/38560d3d403d928e8b6a1e4e8f9e93e1.svg#card=math&code=%283%29&height=20&id=ByXNz">式等于：</p>
+<p><img src="https://cdn.nlark.com/yuque/__latex/d2fb5eb22cc1c93826ec29d59d89e79f.svg#card=math&code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7De%5E%7B-%5Cmu%7D%20%5Ctag%7B4%7D%0A&height=42&id=Yhw2G"></p>
 <p>从而得到上述泊松分布的概率密度函数表达式。因此：<strong>泊松分布描述的是某段时间内，事件具体的发生概率。</strong></p>
 <h3 id="IV-延伸——指数分布"><a href="#IV-延伸——指数分布" class="headerlink" title="IV 延伸——指数分布"></a>IV 延伸——指数分布</h3><blockquote>
 <p>指数分布描述的是事件发生的时间间隔的概率</p>
 </blockquote>
-<p><strong>指数分布描述的是一个事件发生后，间隔时间</strong><img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7"><strong>后该时间再次发生的概率。</strong></p>
-<p>也就是在时间段<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7">内没有事件发生，用公式表示为：</p>
-<p><img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20P(X%3Et)=P%7BN(t)=0%7D=%20%5Cfrac%7B(%5Clambda%20t)%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0!%7D=e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=%5Cdisplaystyle%20P%28X%3Et%29%3DP%7BN%28t%29%3D0%7D%3D%20%5Cfrac%7B%28%5Clambda%20t%29%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0%21%7D%3De%5E%7B-%5Clambda%20t%7D%0A&height=53&width=386"></p>
-<p>那么在时间<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&width=7">内发生的概率即为指数分布的分布函数表达式：</p>
-<p><img src="https://g.yuque.com/gr/latex?P(x%20%5Cleqslant%20t)=%201-P(X%3Et)=1-e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=P%28x%20%5Cleqslant%20t%29%3D%201-P%28X%3Et%29%3D1-e%5E%7B-%5Clambda%20t%7D%0A&height=28&width=324"></p>
-<h3 id="V-延伸——正态分布"><a href="#V-延伸——正态分布" class="headerlink" title="V 延伸——正态分布"></a>V 延伸——正态分布</h3><p>如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&width=18">存在有限极限 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&width=12">，则这列二项分布就趋于参数为 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&width=12"> 的 泊松分布。反之，如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&width=18">趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。</p>
-<p><img src="http://cdn.lisongqian.cn/gailvfenbu.jpg#align=left&display=inline&height=960&margin=%5Bobject%20Object%5D&originHeight=960&originWidth=720&status=done&style=none&width=720"></p>
+<p><strong>指数分布描述的是一个事件发生后，间隔时间</strong><img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&id=YVEBP"><strong>后该时间再次发生的概率。</strong></p>
+<p>也就是在时间段<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&id=kRh7S">内没有事件发生，用公式表示为：</p>
+<p><img src="https://g.yuque.com/gr/latex?%5Cdisplaystyle%20P(X%3Et)=P%7BN(t)=0%7D=%20%5Cfrac%7B(%5Clambda%20t)%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0!%7D=e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=%5Cdisplaystyle%20P%28X%3Et%29%3DP%7BN%28t%29%3D0%7D%3D%20%5Cfrac%7B%28%5Clambda%20t%29%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0%21%7D%3De%5E%7B-%5Clambda%20t%7D%0A&height=53&id=X6pxs"></p>
+<p>那么在时间<img src="https://g.yuque.com/gr/latex?t#card=math&code=t&height=17&id=JO6Fb">内发生的概率即为指数分布的分布函数表达式：</p>
+<p><img src="https://g.yuque.com/gr/latex?P(x%20%5Cleqslant%20t)=%201-P(X%3Et)=1-e%5E%7B-%5Clambda%20t%7D%0A#card=math&code=P%28x%20%5Cleqslant%20t%29%3D%201-P%28X%3Et%29%3D1-e%5E%7B-%5Clambda%20t%7D%0A&height=28&id=fbA8d"></p>
+<h3 id="V-延伸——正态分布"><a href="#V-延伸——正态分布" class="headerlink" title="V 延伸——正态分布"></a>V 延伸——正态分布</h3><p>如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&id=ncT7w">存在有限极限 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&id=IhjdA">，则这列二项分布就趋于参数为 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&code=%CE%BB&height=19&id=ULMl4"> 的 泊松分布。反之，如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&code=np&height=14&id=oupLf">趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。</p>
+<p><img src="http://cdn.lisongqian.cn/gailvfenbu.jpg#crop=0&crop=0&crop=1&crop=1&height=960&id=Rm9ML&originHeight=960&originWidth=720&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=720"></p>
 	
 		</div>
 		
@@ -335,56 +342,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
-								为什么Proactor比Reactor模式更优？			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 5日, 2022				
-							</p>
-							<p class="relate-post-content">
-								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">
-								每周阅读推荐			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 20日, 2022				
-							</p>
-							<p class="relate-post-content">
-								
-怎样设计出一个让面试官满意的架构
-
-扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
-
-《Effective C++》笔记 - 条款...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="每周阅读推荐"/>
-							</a>
-						</div>
-					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -432,6 +389,56 @@
 							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="滑坡谬误"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
+								为什么Proactor比Reactor模式更优？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 5日, 2022				
+							</p>
+							<p class="relate-post-content">
+								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
+什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">
+								每周阅读推荐			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="每周阅读推荐"/>
 							</a>
 						</div>
 					</li>												

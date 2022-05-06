@@ -252,7 +252,18 @@
 
 			</span>
 			<span>
-						
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/MachineLearning/" class=" ">
+			MachineLearning
+		</a>
+	
+		<a href="/tags/Regularization/" class=" ">
+			Regularization
+		</a>
+	
+		
 			</span>
 			
 			
@@ -265,21 +276,21 @@
 			<blockquote>
 <p>模型越复杂越容易出现<strong>过拟合</strong>状态，所以需要一种机制来保证我们模型的“简单”，这样我们的模型才能有较好的泛化能力，正则化是这类机制之一。</p>
 </blockquote>
-<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20=%20%5Csum_%7Bj=1%7D%5E%7Bn_x%7Dw_j%5E2%20=%20%20w%5ETw#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&originHeight=66&originWidth=204&status=done&style=none&width=249"></p>
-<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w,b)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y,%20%5Chat%7By%7D)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#align=left&display=inline&height=59&margin=%5Bobject%20Object%5D&originHeight=48&originWidth=308&status=done&style=none&width=376"></p>
-<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj=1%7D%5E%7Bu_x%7D%7Cw_j%7C=%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#align=left&display=inline&height=81&margin=%5Bobject%20Object%5D&originHeight=66&originWidth=220&status=done&style=none&width=269"></p>
-<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#align=left&display=inline&height=139&margin=%5Bobject%20Object%5D&originHeight=139&originWidth=387&status=done&style=none&width=387"></p>
+<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20=%20%5Csum_%7Bj=1%7D%5E%7Bn_x%7Dw_j%5E2%20=%20%20w%5ETw#crop=0&crop=0&crop=1&crop=1&height=81&id=KrMmK&originHeight=66&originWidth=204&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=249"></p>
+<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w,b)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y,%20%5Chat%7By%7D)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#crop=0&crop=0&crop=1&crop=1&height=59&id=xnvUu&originHeight=48&originWidth=308&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=376"></p>
+<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj=1%7D%5E%7Bu_x%7D%7Cw_j%7C=%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#crop=0&crop=0&crop=1&crop=1&height=81&id=aNMUj&originHeight=66&originWidth=220&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=269"></p>
+<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=139&id=TUiES&originHeight=139&originWidth=387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=387"></p>
 <h4 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h4><blockquote>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20=%20%5Cfrac%7Bf(a)%7D%7B0!%7D+%5Cfrac%7Bf%27(a)%7D%7B1!%7D(x-a)+%5Cfrac%7Bf%27%27(a)%7D%7B2!%7D(x-a)%5E2+...+%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20+R_n(x)#align=left&display=inline&height=68&margin=%5Bobject%20Object%5D&originHeight=56&originWidth=701&status=done&style=none&width=856"></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20=%20%5Cfrac%7Bf(a)%7D%7B0!%7D+%5Cfrac%7Bf%27(a)%7D%7B1!%7D(x-a)+%5Cfrac%7Bf%27%27(a)%7D%7B2!%7D(x-a)%5E2+...+%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20+R_n(x)#crop=0&crop=0&crop=1&crop=1&height=68&id=XQ4HN&originHeight=56&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=856"></p>
 </blockquote>
-<h4 id="为什么可以减少过拟合"><a href="#为什么可以减少过拟合" class="headerlink" title="为什么可以减少过拟合"></a>为什么可以减少过拟合</h4><p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D,b%5E%7B%5B%5Cell%5D%7D)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei,%20%5Chat%7By%7D%5Ei)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#align=left&display=inline&height=59&margin=%5Bobject%20Object%5D&originHeight=48&originWidth=372&status=done&style=none&width=454"></p>
-<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#align=left&display=inline&height=25&margin=%5Bobject%20Object%5D&originHeight=20&originWidth=12&status=done&style=none&width=15">增加到足够大，<img src="https://g.yuque.com/gr/latex?w#align=left&display=inline&height=18&margin=%5Bobject%20Object%5D&originHeight=15&originWidth=15&status=done&style=none&width=18">会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
-<h4 id="正则化结果"><a href="#正则化结果" class="headerlink" title="正则化结果"></a>正则化结果</h4><p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#align=left&display=inline&height=32&margin=%5Bobject%20Object%5D&originHeight=26&originWidth=31&status=done&style=none&width=38">很小，<img src="https://g.yuque.com/gr/latex?z#align=left&display=inline&height=18&margin=%5Bobject%20Object%5D&originHeight=15&originWidth=10&status=done&style=none&width=12"> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#align=left&display=inline&height=18&margin=%5Bobject%20Object%5D&originHeight=15&originWidth=10&status=done&style=none&width=12">的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
+<h4 id="为什么可以减少过拟合"><a href="#为什么可以减少过拟合" class="headerlink" title="为什么可以减少过拟合"></a>为什么可以减少过拟合</h4><p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D,b%5E%7B%5B%5Cell%5D%7D)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei,%20%5Chat%7By%7D%5Ei)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#crop=0&crop=0&crop=1&crop=1&height=59&id=KNyJB&originHeight=48&originWidth=372&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=454"></p>
+<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#crop=0&crop=0&crop=1&crop=1&height=25&id=I9HRH&originHeight=20&originWidth=12&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=15">增加到足够大，<img src="https://g.yuque.com/gr/latex?w#crop=0&crop=0&crop=1&crop=1&height=18&id=VLdqA&originHeight=15&originWidth=15&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=18">会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
+<h4 id="正则化结果"><a href="#正则化结果" class="headerlink" title="正则化结果"></a>正则化结果</h4><p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#crop=0&crop=0&crop=1&crop=1&height=32&id=d5ur0&originHeight=26&originWidth=31&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=38">很小，<img src="https://g.yuque.com/gr/latex?z#crop=0&crop=0&crop=1&crop=1&height=18&id=UimEY&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12"> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#crop=0&crop=0&crop=1&crop=1&height=18&id=OsUAE&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12">的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
 <h2 id="Dropout-正则化"><a href="#Dropout-正则化" class="headerlink" title="Dropout 正则化"></a>Dropout 正则化</h2><p>Dropout 正则化是随机减少每层的神经元来实现的。</p>
 <h4 id="Dropout-方法——Inverted-Dropout"><a href="#Dropout-方法——Inverted-Dropout" class="headerlink" title="Dropout 方法——Inverted Dropout"></a>Dropout 方法——Inverted Dropout</h4><ol>
-<li>定义一个向量<img src="https://g.yuque.com/gr/latex?d#align=left&display=inline&height=24&margin=%5Bobject%20Object%5D&originHeight=20&originWidth=11&status=done&style=none&width=13">，<img src="https://g.yuque.com/gr/latex?d3#align=left&display=inline&height=25&margin=%5Bobject%20Object%5D&originHeight=20&originWidth=21&status=done&style=none&width=26">表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#align=left&display=inline&height=28&margin=%5Bobject%20Object%5D&originHeight=23&originWidth=106&status=done&style=none&width=129"> 表示保留某个隐藏单元的概率：</li>
+<li>定义一个向量<img src="https://g.yuque.com/gr/latex?d#crop=0&crop=0&crop=1&crop=1&height=24&id=Iy6BP&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">，<img src="https://g.yuque.com/gr/latex?d3#crop=0&crop=0&crop=1&crop=1&height=25&id=pCQ7v&originHeight=20&originWidth=21&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#crop=0&crop=0&crop=1&crop=1&height=28&id=TvIzB&originHeight=23&originWidth=106&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=129"> 表示保留某个隐藏单元的概率：</li>
 </ol>
-<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#align=left&display=inline&height=24&margin=%5Bobject%20Object%5D&originHeight=20&originWidth=11&status=done&style=none&width=13">的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#align=left&display=inline&height=24&margin=%5Bobject%20Object%5D&originHeight=20&originWidth=22&status=done&style=none&width=26">：</p>
+<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#crop=0&crop=0&crop=1&crop=1&height=24&id=Dl3Hs&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#crop=0&crop=0&crop=1&crop=1&height=24&id=EOvOX&originHeight=20&originWidth=22&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">：</p>
 <p><code>a3=np.multply(a3,d3) # a3*=d3</code> 3. 由于我们随机的移除了一些节点，这样最终的预测值会发生改变，所以在这一步骤中对期望值进行补偿：</p>
 <p><code>a/=keep-prob</code></p>
 <p>在测试集中不需要使用 Dropout。</p>
@@ -332,6 +343,103 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/qsv094/" title="使用PyTorch可视化必须知道的TensorBoard参数">
+								使用PyTorch可视化必须知道的TensorBoard参数			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
+1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/qsv094/" title="使用PyTorch可视化必须知道的TensorBoard参数">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="使用PyTorch可视化必须知道的TensorBoard参数"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">
+								你看不懂的BERT解读			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
+BERT: Bidirectional Encoder Representations f...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="你看不懂的BERT解读"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">
+								我发现了Transformer模型的秘密			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Ref...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/aih1sz/" title="我发现了Transformer模型的秘密">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="我发现了Transformer模型的秘密"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/04/07/yuque/ehef5p/" title="机器学习常用算法原理">
+								机器学习常用算法原理			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								Logistic Regression逻辑回归的假设函数：
+
+其中是输入,是要求解的参数。
+函数图像：
+
+一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
+
+它的意思是在给定的...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/04/07/yuque/ehef5p/" title="机器学习常用算法原理">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="机器学习常用算法原理"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -481,100 +589,6 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">
-								Scriptable 小组件分享			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 28日, 2021				
-							</p>
-							<p class="relate-post-content">
-								https://github.com/lisongqian/Scriptable(GitHub 会一直更新，无法访问 GitHub 的话可以用文章末尾的百度网盘链接）
-2022-01-20 更新
-百度网盘文件已更新，目前支持 2022...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Scriptable 小组件分享"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/03/17/yuque/tu1bg6/" title="容易忽视的C++知识">
-								容易忽视的C++知识			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								三月 17日, 2021				
-							</p>
-							<p class="relate-post-content">
-								格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
-右值引用和左值引用
-C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/03/17/yuque/tu1bg6/" title="容易忽视的C++知识">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="容易忽视的C++知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">
-								不知道这些知识还敢说自己做过前端？			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2021				
-							</p>
-							<p class="relate-post-content">
-								PromisePromise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
-123456789101112131415new Promise((resolve, reject) =&gt; &#123;  c...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="不知道这些知识还敢说自己做过前端？"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/02/22/yuque/qsv094/" title="使用PyTorch可视化必须知道的TensorBoard参数">
-								使用PyTorch可视化必须知道的TensorBoard参数			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2021				
-							</p>
-							<p class="relate-post-content">
-								亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
-1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/02/22/yuque/qsv094/" title="使用PyTorch可视化必须知道的TensorBoard参数">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="使用PyTorch可视化必须知道的TensorBoard参数"/>
 							</a>
 						</div>
 					</li>												
