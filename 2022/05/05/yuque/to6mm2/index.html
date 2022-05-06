@@ -14,7 +14,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      WordCount | Songqian Li&#39;s Blog
+      为什么Proactor比Reactor模式更优？ | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -133,7 +133,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「WordCount」
+			「为什么Proactor比Reactor模式更优？」
 		
 	</p>
 
@@ -225,8 +225,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2020/04/07/yuque/xyem8g/" itemprop="url">
-		WordCount
+	<a href="/2022/05/05/yuque/to6mm2/" itemprop="url">
+		为什么Proactor比Reactor模式更优？
 	</a>
 
 		</div>
@@ -242,8 +242,8 @@
 
 	更新于
 
-	<a href="/2020/04/07/yuque/xyem8g/" itemprop="url">
-		<time datetime="2020-04-07T12:36:44.000Z" itemprop="dateUpdated">
+	<a href="/2022/05/05/yuque/to6mm2/" itemprop="url">
+		<time datetime="2022-05-05T11:54:58.000Z" itemprop="dateUpdated">
 	  		2022-05-06
 	  </time>
 	</a> 
@@ -252,7 +252,18 @@
 
 			</span>
 			<span>
-						
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Linux/" class=" ">
+			Linux
+		</a>
+	
+		<a href="/tags/I-O/" class=" ">
+			I/O
+		</a>
+	
+		
 			</span>
 			
 			
@@ -262,30 +273,14 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="I-引言"><a href="#I-引言" class="headerlink" title="I.引言"></a>I.引言</h3><blockquote>
-<p>值此情人节之际，祝天下有情人终成眷属。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The knowledage of this article is shallow. Please read it in an ornamental angle.</span><br></pre></td></tr></table></figure>
-
-<p>本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。</p>
-<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim"><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#align=left&display=inline&height=52&margin=%5Bobject%20Object%5D&originHeight=52&originWidth=167&status=done&style=none&width=167"></a><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_patten = &quot;.*([0-9]&#123;4&#125;[-/][0-9]&#123;1,2&#125;[/-][0-9]&#123;1,2&#125;?)[\s]*([\d]*:[\d]*:[\d]&#123;2&#125;?)[\s]*(.*)?&quot; #时间正则表达式</span><br><span class="line">article_patten = &quot;[\n\r\f\t\s]*(.*)&quot; # 内容正则表达式</span><br></pre></td></tr></table></figure>
-
-<p>整理成如下格式：<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim"><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#align=left&display=inline&height=43&margin=%5Bobject%20Object%5D&originHeight=43&originWidth=475&status=done&style=none&width=475"></a><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Probably the following word is dog food.</span><br></pre></td></tr></table></figure>
-
-<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/lisongqian_count.png"><img src="http://cdn.lisongqian.cn/lisongqian_count.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women.png"><img src="http://cdn.lisongqian.cn/women.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png"><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
-<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png"><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png"><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png"><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a>原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
-<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/men_keywords.png"><img src="http://cdn.lisongqian.cn/men_keywords.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这是我的聊天关键词<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women_keywords.png"><img src="http://cdn.lisongqian.cn/women_keywords.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这是小姐儿的</p>
-<p>不知道为啥子哦，<code>不</code>字为啥子出现的频度这么高哦</p>
-<p><strong>来一张词云！</strong><br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/wordcloud.png"><img src="http://cdn.lisongqian.cn/wordcloud.png#align=left&display=inline&height=496&margin=%5Bobject%20Object%5D&originHeight=496&originWidth=504&status=done&style=none&width=504"></a><br>哇，不行，这不够优雅！过滤重来！</p>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/wordcloud2.png"><img src="http://cdn.lisongqian.cn/wordcloud2.png#align=left&display=inline&height=496&margin=%5Bobject%20Object%5D&originHeight=496&originWidth=504&status=done&style=none&width=504"></a><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">感觉我喜欢和学姐在宿舍玩手机。</span><br></pre></td></tr></table></figure>
-
-<h4 id="心情分析"><a href="#心情分析" class="headerlink" title="心情分析"></a>心情分析</h4><p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/women_emotion.png"><img src="http://cdn.lisongqian.cn/women_emotion.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/men_emotion.png"><img src="http://cdn.lisongqian.cn/men_emotion.png#align=left&display=inline&height=400&margin=%5Bobject%20Object%5D&originHeight=400&originWidth=1000&status=done&style=none&width=1000"></a><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
+			<p>首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。</p>
+<h2 id="什么是-Reactor-模式和-Proactor-模式？"><a href="#什么是-Reactor-模式和-Proactor-模式？" class="headerlink" title="什么是 Reactor 模式和 Proactor 模式？"></a>什么是 Reactor 模式和 Proactor 模式？</h2><h4 id="Reactor-模式"><a href="#Reactor-模式" class="headerlink" title="Reactor 模式"></a>Reactor 模式</h4><p>Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O 以及业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828848070-f4704732-8989-4782-90b0-dc50f2b4ea63.png#clientId=ue65ecce2-aea6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u14ee7955&margin=%5Bobject%20Object%5D&name=image.png&originHeight=421&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=160919&status=done&style=none&taskId=u9771c5b1-7dfe-4401-975f-356c3d1acb8&title=" alt="image.png"></p>
+<h4 id="Proactor-模式"><a href="#Proactor-模式" class="headerlink" title="Proactor 模式"></a>Proactor 模式</h4><p>Proactor 模式是指主线程负责监听、分发事件以及 I&#x2F;O 操作，工作线程只负责业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828800448-dac4771c-545f-4701-b40e-df231f859937.png#clientId=ue65ecce2-aea6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ucdb09718&margin=%5Bobject%20Object%5D&name=image.png&originHeight=330&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=119605&status=done&style=none&taskId=ud09e076b-5e0a-4656-b3fb-732074638c9&title=" alt="image.png"></p>
+<h2 id="为什么会分为这两种事件处理模式？"><a href="#为什么会分为这两种事件处理模式？" class="headerlink" title="为什么会分为这两种事件处理模式？"></a>为什么会分为这两种事件处理模式？</h2><p>我们都知道 Proactor 和 Reactor 都是 I&#x2F;O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I&#x2F;O，Proactor 是异步 I&#x2F;O。</p>
+<h2 id="那什么是同步-I-x2F-O，什么是异步-I-x2F-O？"><a href="#那什么是同步-I-x2F-O，什么是异步-I-x2F-O？" class="headerlink" title="那什么是同步 I&#x2F;O，什么是异步 I&#x2F;O？"></a>那什么是同步 I&#x2F;O，什么是异步 I&#x2F;O？</h2><p><strong>同步 I&#x2F;O</strong>是指用户进程发起一个 I&#x2F;O 操作后，需要等待数据从内核态拷贝到用户程序的缓冲区，这个过程中用户程序始终在同步的等待着 I&#x2F;O 的完成。<br>而<strong>异步 I&#x2F;O</strong>是指用户进程发起一个 I&#x2F;O 操作后，无需等待内核完成数据拷贝，待 I&#x2F;O 完成时，内核会通知用户程序 I&#x2F;O 完成。</p>
+<h2 id="为什么-Proactor-比-Reactor-模式更优？"><a href="#为什么-Proactor-比-Reactor-模式更优？" class="headerlink" title="为什么 Proactor 比 Reactor 模式更优？"></a>为什么 Proactor 比 Reactor 模式更优？</h2><p>我们先来理一下 Reactor 模式和 Proactor 模式。<br>Reactor 模式是同步 I&#x2F;O 模型，所以用户进程在进行 I&#x2F;O 操作时需要等待 I&#x2F;O 操作完成，只有当前事件 I&#x2F;O 操作完成后才能进行处理其他事件。<br>Proactor 模式是异步 I&#x2F;O 模型，所以用户进程无需等待内核 I&#x2F;O 操作，省出来的时间可以处理其他事件。待内核 I&#x2F;O 完成后内核通知用户进程再对当前事件进行后续处理。<strong>由于 Proactor 模式相比 Reactor 模式节省了 I&#x2F;O 等待时间，所以 Proactor 模式会比 Reactor 更优。</strong></p>
+<h2 id="如何优化？"><a href="#如何优化？" class="headerlink" title="如何优化？"></a>如何优化？</h2><p>对 Reactor 模式来说，性能瓶颈在于 I&#x2F;O 操作占用进程资源，故可使用线程池来解决相应问题。而使用线程池之后由于只有主进程进行事件的监听转发，在面对高并发的场景时也容易遇到性能瓶颈。这时可以使用多进程来对事件进行监听转发，也就是多 Reactor、多线程模型。<br>对 Proactor 模式来说，性能瓶颈就不再是 I&#x2F;O 时间，而是业务逻辑操作，所以此时可以使用线程池处理多个事件的业务逻辑。</p>
+<h4 id="相关："><a href="#相关：" class="headerlink" title="相关："></a>相关：</h4><p>[1] <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26943938">如何深刻理解 Reactor 和 Proactor？</a><br>[2] <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018331509">Proactor 与 Reactor</a><br>[3] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNzU2MzcwMw==%E2%88%A3=2649274278&idx=4&sn=caa323faf0c51d882453c0e0c6a62282&chksm=83ffbefeb48837e841a6dbff292217475d9075e91cbe14042ad6e55b87437dcd01e6d9219e7d&scene=0&xtrack=1#rd">最新版 Web 服务器项目详解 - 02 半同步半反应堆线程池（上）</a></p>
 	
 		</div>
 		
@@ -304,12 +299,8 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2020/04/07/yuque/ehef5p/" title="机器学习常用算法原理" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2020/04/07/yuque/ney5k3/" title="Windows下安装Vue-cli" rel="next">
+			<a href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -327,29 +318,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
-								为什么Proactor比Reactor模式更优？			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								五月 5日, 2022				
-							</p>
-							<p class="relate-post-content">
-								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
-							</a>
-						</div>
-					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -570,6 +538,29 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
 							<a href="/2021/02/22/yuque/qsv094/" title="使用PyTor可视化必须知道的TensorBoard参数">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="使用PyTor可视化必须知道的TensorBoard参数"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">
+								你看不懂的BERT解读			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 22日, 2021				
+							</p>
+							<p class="relate-post-content">
+								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
+BERT: Bidirectional Encoder Representations f...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/02/22/yuque/ecdpur/" title="你看不懂的BERT解读">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="你看不懂的BERT解读"/>
 							</a>
 						</div>
 					</li>												
