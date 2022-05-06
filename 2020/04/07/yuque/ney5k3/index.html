@@ -266,20 +266,16 @@
 <ul>
 <li>使用 Win+R 输入 cmd 打开命令行输入<code>node -v</code>，出现版本号，则说明安装成功。</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#align=left&display=inline&height=148&originHeight=148&originWidth=687&status=done&style=none&width=687"></a></p>
+<p><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=148&id=uTI1x&originHeight=148&originWidth=687&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=687"></p>
 <ul>
 <li>包管理工具<code>npm</code>在安装 Node.js 时会一起安装好。</li>
 </ul>
 <h4 id="安装-Webpack"><a href="#安装-Webpack" class="headerlink" title="安装 Webpack"></a>安装 Webpack</h4><p>在命令行中输入<code>npm install webpack -g</code>。</p>
 <p>注：</p>
 <ul>
-<li>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。</li>
+<li>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。<br><img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=51&id=jKSJW&originHeight=51&originWidth=635&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=635"></li>
+<li>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。<br><img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=93&id=aznF7&originHeight=93&originWidth=670&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=670"></li>
 </ul>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim"><img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#align=left&display=inline&height=51&originHeight=51&originWidth=635&status=done&style=none&width=635"></a></p>
-<ul>
-<li>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。</li>
-</ul>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim"><img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#align=left&display=inline&height=93&originHeight=93&originWidth=670&status=done&style=none&width=670"></a></p>
 <h4 id="安装-Vue-cli"><a href="#安装-Vue-cli" class="headerlink" title="安装 Vue-cli"></a>安装 Vue-cli</h4><p>在命令行中输入<code>npm install -g @vue/cli</code>。</p>
 <p>注：</p>
 <ul>
@@ -292,18 +288,17 @@
 <p>注：</p>
 <ul>
 <li>projectname 为项目名。</li>
-<li><code>package.json</code>配置过程：</li>
+<li><code>package.json</code>配置过程：<br>（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</li>
 </ul>
-<p>（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ vue init webpack exprice --------------------- 这个是那个安装vue脚手架的命令</span><br><span class="line">This will install Vue 2.x version of the template. ---------------------这里说明将要创建一个vue 2.x版本的项目</span><br><span class="line">For Vue 2.x use: vue init webpack</span><br><span class="line">? Project name (projectname) ---------------------项目名称</span><br><span class="line">? Project name projectname</span><br><span class="line">? Project description (A Vue.js project) ---------------------项目描述</span><br><span class="line">? Project description A Vue.js project</span><br><span class="line">? Author Datura --------------------- 项目创建者</span><br><span class="line">? Author Datura</span><br><span class="line">? Vue build (Use arrow keys)</span><br><span class="line">? Vue build standalone</span><br><span class="line">? Install vue-router? (Y/n) --------------------- 是否安装Vue路由，也就是以后是spa（但页面应用需要的模块）</span><br><span class="line">? Install vue-router? Yes</span><br><span class="line">? Use ESLint to lint your code? (Y/n) n ---------------------是否启用eslint检测规则，这里个人建议选no</span><br><span class="line">? Use ESLint to lint your code? No</span><br><span class="line">? Setup unit tests with Karma + Mocha? (Y/n)</span><br><span class="line">? Setup unit tests with Karma + Mocha? Yes</span><br><span class="line">? Setup e2e tests with Nightwatch? (Y/n)</span><br><span class="line">? Setup e2e tests with Nightwatch? Yes</span><br><span class="line">vue-cli · Generated &quot;projectname&quot;.</span><br></pre></td></tr></table></figure>
 
-<h4 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h4><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#align=left&display=inline&height=453&originHeight=453&originWidth=315&status=done&style=none&width=315"></a></p>
+<h4 id="目录结构："><a href="#目录结构：" class="headerlink" title="目录结构："></a>目录结构：</h4><p><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=453&id=vj1XW&originHeight=453&originWidth=315&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=315"></p>
 <h2 id="项目运行"><a href="#项目运行" class="headerlink" title="项目运行"></a>项目运行</h2><p>命令行进入刚才创建的项目目录，然后执行命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectname</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim"><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#align=left&display=inline&height=200&originHeight=200&originWidth=963&status=done&style=none&width=963"></a></p>
+<p><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=200&id=XiMNh&originHeight=200&originWidth=963&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=963"></p>
 <p>此时可以在浏览器中输入<code>localhost:8080</code> 查看到实例页面。</p>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim"><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#align=left&display=inline&height=600&originHeight=600&originWidth=1154&status=done&style=none&width=1154"></a></p>
+<p><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=600&id=v8xHq&originHeight=600&originWidth=1154&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1154"></p>
 <blockquote>
 <p>参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1626b8643676">Vue2.0 史上最全入坑教程</a></p>
 </blockquote>
