@@ -252,7 +252,22 @@
 
 			</span>
 			<span>
-						
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/amd/" class=" ">
+			amd
+		</a>
+	
+		<a href="/tags/cuda/" class=" ">
+			cuda
+		</a>
+	
+		<a href="/tags/rocm/" class=" ">
+			rocm
+		</a>
+	
+		
 			</span>
 			
 			
@@ -288,7 +303,7 @@
 <li>系统连接 Shadowsocks 服务器。这里建议使用 shadowsocks-qt5 客户端，点击<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-qt5/releases/download/v3.0.1/Shadowsocks-Qt5-3.0.1-x86_64.AppImage">【这里】</a>下载 shadowsocks-qt5 可执行文件</li>
 <li>将下载完成的文件放到你喜欢的位置，然后在这个目录打开终端，给文件添加可执行权限：<br><code>chmod a+x Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
 <li>启动 shadowsocks-qt5 客户端：<br><code>./Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
-<li>在下图所示的客户端图形配置界面里面填写正确的服务器信息，注意本地代理类型推荐使用 socks5。完成后点击连接按钮。<br><img src="https://www.shenjc.net/images/190527-pytorch-on-rocm/figure_3.png#align=left&display=inline&height=538&margin=%5Bobject%20Object%5D&originHeight=538&originWidth=616&status=done&style=none&width=616"></li>
+<li>在下图所示的客户端图形配置界面里面填写正确的服务器信息，注意本地代理类型推荐使用 socks5。完成后点击连接按钮。<br><img src="https://www.shenjc.net/images/190527-pytorch-on-rocm/figure_3.png#crop=0&crop=0&crop=1&crop=1&height=538&id=W4WFm&originHeight=538&originWidth=616&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=616"></li>
 <li>安装 tsocks。使用以下命令安装 tsocks：<code>sudo apt install tsocks -y</code>. 修改<code>/etc/tsocks.conf</code>文件使得最后三行设置和你 shadowsocks-qt5 中本地代理的设置相同，默认情况应该是这样：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server = 127.0.0.1</span><br><span class="line">server_type = 5</span><br><span class="line">server_port = 1080</span><br></pre></td></tr></table></figure>
@@ -359,22 +374,55 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install radeontopsudo radeontop</span><br></pre></td></tr></table></figure>
 
 <h3 id="编译安装-PyTorch-on-ROCm"><a href="#编译安装-PyTorch-on-ROCm" class="headerlink" title="编译安装 PyTorch on ROCm"></a>编译安装 PyTorch on ROCm</h3><ol>
-<li>正如最开始说的，目前 ROCm 平台还存在一些缺陷，因此编译 PyTorch 需要修改 ROCm 平台。修改后的 ROCm 平台可能不能编译或者运行其他深度学习框架。在 root 权限下运行以下命令：&#96;&#96;&#96;bash<br>sed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocsparse&#x2F;lib&#x2F;cmake&#x2F;rocsparse&#x2F;rocsparse-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocfft&#x2F;lib&#x2F;cmake&#x2F;rocfft&#x2F;rocfft-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;miopen&#x2F;lib&#x2F;cmake&#x2F;miopen&#x2F;miopen-config.cmakesed -i ‘s&#x2F;find_dependency(hip)&#x2F;find_dependency(HIP)&#x2F;g’ &#x2F;opt&#x2F;rocm&#x2F;rocblas&#x2F;lib&#x2F;cmake&#x2F;rocblas&#x2F;rocblas-config.cmake</li>
+<li>正如最开始说的，目前 ROCm 平台还存在一些缺陷，因此编译 PyTorch 需要修改 ROCm 平台。修改后的 ROCm 平台可能不能编译或者运行其他深度学习框架。在 root 权限下运行以下命令：</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">请各位读者注意，若新版的ROCm平台修复此问题，请忽略该步骤。</span><br><span class="line">2. **拉取PyTorch的源代码**。建议拉取AMD ROCm software团队的fork仓库：```bash</span><br><span class="line">git clone https://github.com/ROCmSoftwarePlatform/pytorch.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocsparse/lib/cmake/rocsparse/rocsparse-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocfft/lib/cmake/rocfft/rocfft-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/miopen/lib/cmake/miopen/miopen-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocblas/lib/cmake/rocblas/rocblas-config.cmake</span><br></pre></td></tr></table></figure>
+
+<p>请各位读者注意，若新版的 ROCm 平台修复此问题，请忽略该步骤。</p>
+<ol start="2">
+<li><strong>拉取 PyTorch 的源代码</strong>。建议拉取 AMD ROCm software 团队的 fork 仓库：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ROCmSoftwarePlatform/pytorch.git</span><br></pre></td></tr></table></figure>
 
 <ol start="3">
-<li><strong>拉取 PyTorch 的子模块</strong>&#96;&#96;&#96;bash<br>cd pytorchgit submodule update –init –recursive</li>
+<li><strong>拉取 PyTorch 的子模块</strong></li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">正常情况下，步骤2和步骤3大约需要下载500MB的数据。</span><br><span class="line">4. **配置GPU类型**。通过设置环境变量，指明编译针对的GPU类型，例如我的RX 550为gfx803，则我的设置为：`export PYTORCH_ROCM_ARCH=gfx803`</span><br><span class="line">5. **(可选，仅针对使用anaconda)删除conda环境中的ld**。conda环境中自己有一个ld，会覆盖系统中自带的`/usr/bin/ld`，会导致编译出问题。通过重命名的方式使其不影响编译：```bash</span><br><span class="line">cd ~/anaconda3/envs/pytorch/compiler_compatmv ld ld-tmpcd -</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> pytorchgit submodule update --init --recursive</span><br></pre></td></tr></table></figure>
 
-<p>在编译完成后可以改回。 6. 使用 AMD 提供的脚本将 PyTorch 中的 CUDA 函数重用为 ROCm 中的 hip 函数。&#96;&#96;&#96;bash<br>python tools&#x2F;amd_build&#x2F;build_amd.py</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">7. 编译安装PyTorch：```bash</span><br><span class="line">export USE_NINJA=1 # 可选USE_ROCM=1 USE_LMDB=1 BUILD_CAFFE2_OPS=0 BUILD_TEST=0 USE_OPENCV=1 MAX_JOBS=N python setup.py install</span><br></pre></td></tr></table></figure>
+<p>正常情况下，步骤 2 和步骤 3 大约需要下载 500MB 的数据。</p>
+<ol start="4">
+<li><strong>配置 GPU 类型</strong>。通过设置环境变量，指明编译针对的 GPU 类型，例如我的 RX 550 为 gfx803，则我的设置为：<code>export PYTORCH_ROCM_ARCH=gfx803</code></li>
+<li><strong>(可选，仅针对使用 anaconda)删除 conda 环境中的 ld</strong>。conda 环境中自己有一个 ld，会覆盖系统中自带的<code>/usr/bin/ld</code>，会导致编译出问题。通过重命名的方式使其不影响编译：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/anaconda3/envs/pytorch/compiler_compatmv ld ld-tmpcd -</span><br></pre></td></tr></table></figure>
 
-<p>其中，N 为编译时使用的线程数。N 越大则编译速度越快，但是要注意的是，请不要把 N 设的太大，在编译过程中，进程最高会占用 5GB 的内存，因此请保证 5*N 小于你的内存总量。否则内存要是超出了可是会死机的。如果因为 N 设置过大导致编译失败，请使用命令<code>python setup.py clean</code>清空编译环境后再重新编译。 8. 编译会比较耗时间。在此期间请不要使用内存占用过高的程序，避免因为内存不足导致编译失败。 9. 编译安装 torchvision&#96;&#96;&#96;bash<br>git clone <a target="_blank" rel="noopener" href="https://github.com/pytorch/visioncd">https://github.com/pytorch/visioncd</a> visionpython setup.py installcd ..</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">10. 运行PyTorch测试```bash</span><br><span class="line">PYTORCH_TEST_WITH_ROCM=1 python test/run_test.py --verbose</span><br></pre></td></tr></table></figure>
+<p>在编译完成后可以改回。</p>
+<ol start="6">
+<li>使用 AMD 提供的脚本将 PyTorch 中的 CUDA 函数重用为 ROCm 中的 hip 函数。</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python tools/amd_build/build_amd.py</span><br></pre></td></tr></table></figure>
 
-<p>可以发现，通过的测试数量比上次 Docker 安装的更加多了。说明这次的 PyTorch 安装功能更加完整，理论上能提供更好的开发体验。 10. 将<code>～/anaconda3/envs/pytorch/bin/python</code>设置为你开发环境的解释器</p>
+<ol start="7">
+<li>编译安装 PyTorch：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> USE_NINJA=1 <span class="comment"># 可选USE_ROCM=1 USE_LMDB=1 BUILD_CAFFE2_OPS=0 BUILD_TEST=0 USE_OPENCV=1 MAX_JOBS=N python setup.py install</span></span><br></pre></td></tr></table></figure>
+
+<p>其中，N 为编译时使用的线程数。N 越大则编译速度越快，但是要注意的是，请不要把 N 设的太大，在编译过程中，进程最高会占用 5GB 的内存，因此请保证 5*N 小于你的内存总量。否则内存要是超出了可是会死机的。如果因为 N 设置过大导致编译失败，请使用命令<code>python setup.py clean</code>清空编译环境后再重新编译。</p>
+<ol start="8">
+<li>编译会比较耗时间。在此期间请不要使用内存占用过高的程序，避免因为内存不足导致编译失败。</li>
+<li>编译安装 torchvision</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/pytorch/visioncd visionpython setup.py installcd ..</span><br></pre></td></tr></table></figure>
+
+<ol start="10">
+<li>运行 PyTorch 测试</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PYTORCH_TEST_WITH_ROCM=1 python <span class="built_in">test</span>/run_test.py --verbose</span><br></pre></td></tr></table></figure>
+
+<p>可以发现，通过的测试数量比上次 Docker 安装的更加多了。说明这次的 PyTorch 安装功能更加完整，理论上能提供更好的开发体验。</p>
+<ol start="11">
+<li>将<code>～/anaconda3/envs/pytorch/bin/python</code>设置为你开发环境的解释器</li>
+</ol>
 <h4 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h4><ul>
 <li><a target="_blank" rel="noopener" href="https://www.shenjc.net/2019/06/02/190601_pytorch_on_rocm_native/">AMD 显卡上完美原生运行 PyTorch 教程，无需容器(Docker)</a></li>
 <li><a target="_blank" rel="noopener" href="https://rocm.github.io/ROCmInstall.html">ROCm Platform Installation Guide for Linux</a></li>
@@ -420,6 +468,84 @@
 <div class="relate-post">
 	
 		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
+								语雀文档自动同步到hexo博客			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 6日, 2022				
+							</p>
+							<p class="relate-post-content">
+								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
+一个 GitHub 账号
+一个腾讯云账号
+hexo 安装了 yuque-hexo 插件且能正常运行
+
+实现思路：利用语雀的webhook触发腾讯云云...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">
+								CentOS下安装Redis			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								准备
+CentOS Linux release 7.2
+gcc 编译器 yum install gcc-c++
+TCL yum install -y tcl
+redis 安装包 4.0.8 版本
+
+安装下载 redis 安装包1wge...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS下安装Redis"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">
+								CentOS6下yum修复及python安装			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								CentOS6 中自带的 yum 依赖的 python 版本是 2.6.6 版本，而 python core team 已不再提供支持，且 pip 至少要求 2.7 版本,因此系统上应该有 2.6,2.7 两个版本的 python 并...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS6下yum修复及python安装"/>
+							</a>
+						</div>
+					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -547,34 +673,6 @@ HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
-								语雀文档自动同步到hexo博客			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 6日, 2022				
-							</p>
-							<p class="relate-post-content">
-								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
-
-一个 GitHub 账号
-一个腾讯云账号
-hexo 安装了 yuque-hexo 插件且能正常运行
-
-实现思路：利用语雀的webhook触发腾讯云云...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
 							<a class="relate-post-title" href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">
 								Scriptable 小组件分享			
 							</a>
@@ -617,52 +715,6 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
 							<a href="/2021/03/17/yuque/tu1bg6/" title="容易忽视的C++知识">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="容易忽视的C++知识"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">
-								不知道这些知识还敢说自己做过前端？			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2021				
-							</p>
-							<p class="relate-post-content">
-								PromisePromise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
-123456789101112131415new Promise((resolve, reject) =&gt; &#123;  c...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/02/22/yuque/gvdw6p/" title="不知道这些知识还敢说自己做过前端？">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="不知道这些知识还敢说自己做过前端？"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/02/22/yuque/qsv094/" title="使用PyTor可视化必须知道的TensorBoard参数">
-								使用PyTor可视化必须知道的TensorBoard参数			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 22日, 2021				
-							</p>
-							<p class="relate-post-content">
-								亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
-1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/02/22/yuque/qsv094/" title="使用PyTor可视化必须知道的TensorBoard参数">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="使用PyTor可视化必须知道的TensorBoard参数"/>
 							</a>
 						</div>
 					</li>												
