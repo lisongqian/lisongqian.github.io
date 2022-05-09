@@ -1060,6 +1060,7 @@ footer .copyright p {
 .fixbackground {
 /* header Background parallax */
   background-attachment: fixed;
+  background-color: #6e9fd8;
 }
 header {
   display: flex;
