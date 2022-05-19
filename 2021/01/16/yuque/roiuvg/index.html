@@ -244,7 +244,7 @@
 
 	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
 		<time datetime="2021-01-16T09:00:20.000Z" itemprop="dateUpdated">
-	  		2022-05-18
+	  		2022-05-19
 	  </time>
 	</a> 
 
@@ -292,7 +292,7 @@
 <h3 id="docker-加速"><a href="#docker-加速" class="headerlink" title="docker 加速"></a>docker 加速</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://gckih6c6.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
 <h3 id="Clion-无法使用-Ctrl-左键进行代码跳转"><a href="#Clion-无法使用-Ctrl-左键进行代码跳转" class="headerlink" title="Clion 无法使用 Ctrl+左键进行代码跳转"></a>Clion 无法使用 Ctrl+左键进行代码跳转</h3><p>右键项目根目录，点击<code>Mark Directory as</code>-&gt;<code>Projects Sources and Headers</code></p>
-<h3 id="Git-配置使用-Clash-本地代理"><a href="#Git-配置使用-Clash-本地代理" class="headerlink" title="Git 配置使用 Clash 本地代理"></a>Git 配置使用 Clash 本地代理</h3><p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地代理，当然也可以开启系统的全局代理<br>添加代理：<code>git config --global http.proxy 127.0.0.1:7890</code><br>解除代理：<code>git config --global --unset http.proxy</code></p>
+<h3 id="Git-配置使用-Clash-本地-proxy"><a href="#Git-配置使用-Clash-本地-proxy" class="headerlink" title="Git 配置使用 Clash 本地 proxy"></a>Git 配置使用 Clash 本地 proxy</h3><p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地 proxy，当然也可以开启系统的全局 proxy<br>添加 proxy：<code>git config --global http.proxy 127.0.0.1:7890</code><br>解除 proxy：<code>git config --global --unset http.proxy</code></p>
 <h3 id="QT-国内源"><a href="#QT-国内源" class="headerlink" title="QT 国内源"></a>QT 国内源</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/qt/online/qtsdkrepository/windows_x86/root/qt/</span><br><span class="line"></span><br><span class="line">https://mirrors.ustc.edu.cn/qtproject/online/qtsdkrepository/windows_x86/root/qt/</span><br></pre></td></tr></table></figure>
 
 <h3 id="Linux-上使用-awk-或者-tr-更换换行符后结果消失"><a href="#Linux-上使用-awk-或者-tr-更换换行符后结果消失" class="headerlink" title="Linux 上使用 awk 或者 tr 更换换行符后结果消失"></a>Linux 上使用 awk 或者 tr 更换换行符后结果消失</h3><p>检查换行符是否为 LF(\n)，若是 CR(\r)或者 CRLF(\r\n)请更换为 LF。</p>
