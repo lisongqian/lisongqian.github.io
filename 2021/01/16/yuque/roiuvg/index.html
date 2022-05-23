@@ -244,7 +244,7 @@
 
 	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
 		<time datetime="2021-01-16T09:00:20.000Z" itemprop="dateUpdated">
-	  		2022-05-19
+	  		2022-05-23
 	  </time>
 	</a> 
 
@@ -275,6 +275,10 @@
 			git
 		</a>
 	
+		<a href="/tags/hyper-v/" class=" ">
+			hyper-v
+		</a>
+	
 		
 			</span>
 			
@@ -298,6 +302,8 @@
 <h3 id="Linux-上使用-awk-或者-tr-更换换行符后结果消失"><a href="#Linux-上使用-awk-或者-tr-更换换行符后结果消失" class="headerlink" title="Linux 上使用 awk 或者 tr 更换换行符后结果消失"></a>Linux 上使用 awk 或者 tr 更换换行符后结果消失</h3><p>检查换行符是否为 LF(\n)，若是 CR(\r)或者 CRLF(\r\n)请更换为 LF。</p>
 <h3 id="Windows-clone-linux-源码报错-invalid-path-XXX-aux-c-39"><a href="#Windows-clone-linux-源码报错-invalid-path-XXX-aux-c-39" class="headerlink" title="Windows clone linux 源码报错 invalid path XXX/aux.c&#39;"></a>Windows clone linux 源码报错 <code>invalid path XXX/aux.c&#39;</code></h3><p>在项目目录执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config core.protectNTFS <span class="literal">false</span></span><br><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure>
+
+<h2 id="VMware-和-wsl2-的-hyper-v-冲突问题"><a href="#VMware-和-wsl2-的-hyper-v-冲突问题" class="headerlink" title="VMware 和 wsl2 的 hyper-v 冲突问题"></a>VMware 和 wsl2 的 hyper-v 冲突问题</h2><p>启用 VMware<br><code>bcdedit /set hypervisorlaunchtype off</code><br>启用 WSL<br><code>bcdedit /set hypervisorlaunchtype auto</code></p>
 	
 		</div>
 		
