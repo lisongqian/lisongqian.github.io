@@ -1,0 +1,950 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta name="referrer" content="no-referrer"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      《操作系统真象还原》：第2章 编写 MBR | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="enjoy life." />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">enjoy life.</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「《操作系统真象还原》：第2章 编写 MBR」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2022/05/23/yuque/bfwmot/" itemprop="url">
+		《操作系统真象还原》：第2章 编写 MBR
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2022/05/23/yuque/bfwmot/" itemprop="url">
+		<time datetime="2022-05-23T06:48:28.000Z" itemprop="dateUpdated">
+	  		2022-05-24
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/OS/" class=" ">
+			OS
+		</a>
+	
+		<a href="/tags/Reading/" class=" ">
+			Reading
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="先了解-CPU-的两种工作模式：实模式和保护模式"><a href="#先了解-CPU-的两种工作模式：实模式和保护模式" class="headerlink" title="先了解 CPU 的两种工作模式：实模式和保护模式"></a>先了解 CPU 的两种工作模式：实模式和保护模式</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9C%9F%E5%AF%A6%E6%A8%A1%E5%BC%8F">实模式</a>（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F">保护模式</a>：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1653299138964-ceaa9c6c-9550-4ada-83cc-a4402d7a04cd.png#clientId=ua8790fd7-a1d7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=616&id=u490d3777&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=1211&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=487094&status=done&style=none&taskId=udd2f2e71-b415-4a6e-ae8e-6cab2c8b5e8&title=&width=1211" alt="image.png"><br>实模式的寻址方式是：<code>cs&lt;4+ip</code><br>MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰好出现在该扇区的最后两个字节处。由于 bochs 模拟的是 x86 平台，所以是小端字节序，故最后两个字节的内容是 0xaa55.</p>
+<h3 id="编写-MBR："><a href="#编写-MBR：" class="headerlink" title="编写 MBR："></a>编写 MBR：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">;主引导程序</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">SECTION MBR vstart=0x7c00</span><br><span class="line">	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov ss,ax</span><br><span class="line">	mov fs,ax</span><br><span class="line">	mov sp,0x7c00</span><br><span class="line"></span><br><span class="line">; 清屏利用0x06号功能，上卷全部行，则可清屏</span><br><span class="line">; -----------------------------------------------------</span><br><span class="line">; INT 0x10	功能号：0x06		功能描述:上卷窗口</span><br><span class="line">;输入：</span><br><span class="line">;AH 功能号=0x06</span><br><span class="line">;AL = 上卷的行数</span><br><span class="line">;BH = 上卷行属性</span><br><span class="line">;(CL,CH) = 窗口左下角的(X,Y)位置</span><br><span class="line">;(DL,DH) = 窗口右下角的(X,Y)位置</span><br><span class="line">;无返回值</span><br><span class="line">	mov ax,0x600</span><br><span class="line">	mov bx,0x700</span><br><span class="line">	mov cx,0			; 左上角: (0,0)</span><br><span class="line">	mov dx,0x184f		; 右下角：(80,25)</span><br><span class="line">						; 下标从0开始,所以0x18=24,0x4f=79</span><br><span class="line">	int 0x10			; int 0x10</span><br><span class="line"></span><br><span class="line">;;;;;;;;	下面这三行代码获取光标位置		;;;;;;;;</span><br><span class="line">;.get_cursor获取当前光标位置，在光标位置处打印字符。</span><br><span class="line">	mov ah,3			; 输入：3号子功能是获取光标位置，需要存入ah寄存器</span><br><span class="line">	mov bh,0 			; bh寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">	int 0x10			; 输出：ch=光标开始行，c1=光标结束行</span><br><span class="line">						; dh=光标所在行号，dl=光标所在列号</span><br><span class="line"></span><br><span class="line">;;;;;;;;		获取光标位置结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">;;;;;;;;		打印字符串			;;;;;;;;</span><br><span class="line">	; 还是用10h中断，不过这次调用13号子功能打印字符串</span><br><span class="line">	mov ax, message</span><br><span class="line">	mov bp,ax			; es:bp 为串首地址,es此时同cs一致,</span><br><span class="line">                ; 开头时已经为sreg初始化</span><br><span class="line"></span><br><span class="line">	; 光标位置要用到dx寄存器中内容，cx中的光标位置可忽略</span><br><span class="line">	mov cx,11 			; cx为串长度，不包括结束符0的字符个数</span><br><span class="line">	mov ax, 0x1301		; 子功能号13显示字符及属性，要存入ah寄存器，</span><br><span class="line">                ; al 设置写字符方式 ah=01：显示字符串，光标跟随移动</span><br><span class="line">	mov bx, 0x2			; bh存储要显示的页号，此处是第0页,</span><br><span class="line">						; bl中是字符属性，属性黑底绿字(bl= 02h)</span><br><span class="line">	int 0x10			; 执行BIOS 0x10号中断</span><br><span class="line">;;;;;;;;		打印字符串结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">	jmp $				; 程序悬停在此</span><br><span class="line"></span><br><span class="line">	message db &quot;Hello World&quot;</span><br><span class="line">	times 510-($-$$) db 0</span><br><span class="line">	db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p><code>nasm mbr.S -o mbr.bin</code></p>
+<h3 id="将-MBR-写入磁盘"><a href="#将-MBR-写入磁盘" class="headerlink" title="将 MBR 写入磁盘"></a>将 MBR 写入磁盘</h3><p><code>dd if=./mbr.bin of=./hd60M.img bs=512 count=1 conv=notrunc</code><br>输出下述结果，证明写入成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">512 bytes copied, 0.000183707 s, 2.8 MB/s</span><br></pre></td></tr></table></figure>
+
+<p>启动 bochs，在命令行输入 c 回车，此时窗口中显示出打印的字符。</p>
+<h3 id="附-1：dd-命令参数解释"><a href="#附-1：dd-命令参数解释" class="headerlink" title="附 1：dd 命令参数解释"></a>附 1：dd 命令参数解释</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>=FILE					<span class="comment">#指定要读取的文件</span></span><br><span class="line">of=FILE					<span class="comment">#指定要输出到的文件</span></span><br><span class="line">bs=BYTES				<span class="comment">#指定块的大小，dd是以块为单位来进行IO操作的，此项是同时配置了输入块大小ibs和输出块大小obs</span></span><br><span class="line">count=BLOCKS		<span class="comment">#指定拷贝的块数</span></span><br><span class="line">seek=BLOCKS			<span class="comment">#指定当把块输出到文件时想跳过多少块</span></span><br><span class="line">conv=CONVS			<span class="comment">#指定如何转换文件</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ol>
+<li>《操作系统真象还原》第 2 章</li>
+</ol>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2022/05/17/yuque/yz7sg7/" title="每周阅读推荐-5月第三周" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
+								《操作系统真象还原》：第1章 环境配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
+
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/17/yuque/yz7sg7/" title="每周阅读推荐-5月第三周">
+								每周阅读推荐-5月第三周			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 17日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+现代 C++ 教程：高速上手 C++ 11&#x2F;14&#x2F;17&#x2F;20
+linux-5.10.y-prjc-lts 源码
+APT 2.2.4 源码
+
+
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/17/yuque/yz7sg7/" title="每周阅读推荐-5月第三周">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="每周阅读推荐-5月第三周"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="每周阅读推荐-5月第二周">
+								每周阅读推荐-5月第二周			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 10日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/10/yuque/ouqh35/" title="每周阅读推荐-5月第二周">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="每周阅读推荐-5月第二周"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐-4月第四周">
+								每周阅读推荐-4月第四周			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="每周阅读推荐-4月第四周">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="每周阅读推荐-4月第四周"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
+								为什么Proactor比Reactor模式更优？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 5日, 2022				
+							</p>
+							<p class="relate-post-content">
+								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
+什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">
+								[转]你想住在中国哪里？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+科技爱好者周刊（第 180 期）：你想住在中国哪里？
+
+
+如果希望赚取高收入，愿意忍受大城市的高竞争、高压力、狭小嘈杂，那么选择一线大城市；
+如果希望竞争小一些、生活轻松一点，可以选择沿海省份和中西部的中心城市；
+如果希望享受宁静悠...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="[转]你想住在中国哪里？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">
+								滑坡谬误			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="滑坡谬误"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ccic59/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">
+								[转]你的HDMI2.1设备是真的HDMI 2.1吗？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								HDMI 许可管理员：
+
+HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用HDMI 2.0 的功能现在是 2.1 的子集与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、A...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ccic59/" title="[转]你的HDMI2.1设备是真的HDMI 2.1吗？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="[转]你的HDMI2.1设备是真的HDMI 2.1吗？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
+								语雀文档自动同步到hexo博客			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 6日, 2022				
+							</p>
+							<p class="relate-post-content">
+								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
+一个 GitHub 账号
+一个腾讯云账号
+hexo 安装了 yuque-hexo 插件且能正常运行
+
+实现思路：利用语雀的webhook触发腾讯云云...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">
+								Scriptable 小组件分享			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 28日, 2021				
+							</p>
+							<p class="relate-post-content">
+								https://github.com/lisongqian/Scriptable(GitHub 会一直更新，无法访问 GitHub 的话可以用文章末尾的百度网盘链接）
+2022-01-20 更新
+百度网盘文件已更新，目前支持 2022...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2021/04/28/yuque/fmkq8s/" title="Scriptable 小组件分享">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Scriptable 小组件分享"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
