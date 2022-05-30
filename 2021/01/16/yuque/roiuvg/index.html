@@ -304,6 +304,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config core.protectNTFS <span class="literal">false</span></span><br><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure>
 
 <h2 id="VMware-和-wsl2-的-hyper-v-冲突问题"><a href="#VMware-和-wsl2-的-hyper-v-冲突问题" class="headerlink" title="VMware 和 wsl2 的 hyper-v 冲突问题"></a>VMware 和 wsl2 的 hyper-v 冲突问题</h2><p>启用 VMware<br><code>bcdedit /set hypervisorlaunchtype off</code><br>启用 WSL<br><code>bcdedit /set hypervisorlaunchtype auto</code></p>
+<h2 id="VMware-对-Ubuntu-磁盘扩容"><a href="#VMware-对-Ubuntu-磁盘扩容" class="headerlink" title="VMware 对 Ubuntu 磁盘扩容"></a>VMware 对 Ubuntu 磁盘扩容</h2><ol>
+<li>虚拟机关机后选中磁盘，选择<code>扩展</code>;</li>
+<li>安装 gparted 对指定磁盘进行 Resize：<code>apt install gparted</code>；</li>
+<li>使用<code>df -lh</code>查看磁盘容量。</li>
+</ol>
 	
 		</div>
 		
