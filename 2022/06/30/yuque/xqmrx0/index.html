@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      FRP-windows客户端配置 | Songqian Li&#39;s Blog
+      Windows 拉取Linux Kernel代码 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -153,7 +153,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「FRP-windows客户端配置」
+			「Windows 拉取Linux Kernel代码」
 		
 	</p>
 
@@ -245,8 +245,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2020/04/07/yuque/bqi836/" itemprop="url">
-		FRP-windows客户端配置
+	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
+		Windows 拉取Linux Kernel代码
 	</a>
 
 		</div>
@@ -262,8 +262,8 @@
 
 	更新于
 
-	<a href="/2020/04/07/yuque/bqi836/" itemprop="url">
-		<time datetime="2020-04-07T12:36:34.000Z" itemprop="dateUpdated">
+	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
+		<time datetime="2022-06-30T06:40:46.000Z" itemprop="dateUpdated">
 	  		2022-06-30
 	  </time>
 	</a> 
@@ -275,8 +275,16 @@
 				
 	<i class="icon-price-tags"></i>
 	
-		<a href="/tags/frp/" class=" ">
-			frp
+		<a href="/tags/git/" class=" ">
+			git
+		</a>
+	
+		<a href="/tags/kernel/" class=" ">
+			kernel
+		</a>
+	
+		<a href="/tags/linux/" class=" ">
+			linux
 		</a>
 	
 		
@@ -289,24 +297,26 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p>准备</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://pan.lisongqian.cn:20190/Softwares/frp_0.24.1_windows_winsw.zip">frp 客户端文件</a>，包括：frp 客户端，winsw</li>
-<li>局域网内可远程连接的 Windows 计算机</li>
-</ul>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h4 id="修改客户端配置"><a href="#修改客户端配置" class="headerlink" title="修改客户端配置"></a>修改客户端配置</h4><p>打开 frpc.ini 文件，将文件按照需求更改如下：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">[common]</span></span><br><span class="line"><span class="comment"># 你的服务端IP地址</span></span><br><span class="line"><span class="attr">server_addr</span> = <span class="string">×.×.×.×</span></span><br><span class="line"><span class="comment"># 服务端设置的bind_port端口号</span></span><br><span class="line"><span class="attr">server_port</span> = <span class="string">5443</span></span><br><span class="line"><span class="comment"># 服务端设置的token</span></span><br><span class="line"><span class="attr">token</span> = <span class="string">YourToken</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">## 本地管理页面</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 管理页地址</span></span><br><span class="line"><span class="attr">admin_addr</span> = <span class="string">127.0.0.1</span></span><br><span class="line"><span class="comment"># 管理页端口</span></span><br><span class="line"><span class="attr">admin_port</span> = <span class="string">7400</span></span><br><span class="line"><span class="comment"># 管理页用户名</span></span><br><span class="line"><span class="attr">admin_user</span> = <span class="string">admin</span></span><br><span class="line"><span class="comment"># 管理页密码</span></span><br><span class="line"><span class="attr">admin_pwd</span> = <span class="string">admin</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># []内可自行设置名称</span></span><br><span class="line"><span class="attr">[slave]</span></span><br><span class="line"><span class="attr">type</span> = <span class="string">tcp</span></span><br><span class="line"><span class="comment">#客户端所在内网的IP地址</span></span><br><span class="line"><span class="attr">local_ip</span> = <span class="string">192.168.×.×</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="string">3389</span></span><br><span class="line"><span class="comment">#远程连接的端口号，可自行设置</span></span><br><span class="line"><span class="attr">remote_port</span> = <span class="string">7500</span></span><br><span class="line"></span><br><span class="line"><span class="attr">use_encryption</span> = <span class="string">true</span></span><br><span class="line"><span class="attr">use_compression</span> = <span class="string">true</span></span><br></pre></td></tr></table></figure>
+			<h3 id="出现问题的原因"><a href="#出现问题的原因" class="headerlink" title="出现问题的原因"></a>出现问题的原因</h3><ol>
+<li>Linux Kernel 代码文件有用系统保留字<code>aux</code>命名的文件，导致 clone 名字中有<code>aux</code>、<code>com1</code>等保留字时就会失败；</li>
+<li>Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件</li>
+</ol>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="1-开启文件区分大小写："><a href="#1-开启文件区分大小写：" class="headerlink" title="1. 开启文件区分大小写："></a>1. 开启文件区分大小写：</h4><blockquote>
+<p>以管理员身份运行 PowerShell</p>
+</blockquote>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux<span class="literal">-prjc</span> enable</span><br></pre></td></tr></table></figure>
 
-<h4 id="更改启动脚本"><a href="#更改启动脚本" class="headerlink" title="更改启动脚本"></a>更改启动脚本</h4><p>编辑 frp.bat 文件：（第三行需更改）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line">start  <span class="string">&quot;C:\Windows\System32\cmd.exe&quot;</span></span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;文件所在目录地址，如C:\Users\name\Desktop\frp&quot;</span></span><br><span class="line">frpc -c frpc.ini</span><br><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-克隆代码"><a href="#2-克隆代码" class="headerlink" title="2. 克隆代码"></a>2. 克隆代码</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/songqianli/linux<span class="literal">-prjc</span>.git</span><br></pre></td></tr></table></figure>
 
-<h4 id="加入开机自动启动服务"><a href="#加入开机自动启动服务" class="headerlink" title="加入开机自动启动服务"></a>加入开机自动启动服务</h4><p>管理员命令创建一个 cmd 窗口，切换到 frp 目录，执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">winsw install</span><br><span class="line">winsw start</span><br></pre></td></tr></table></figure>
+<h4 id="3-报错处理"><a href="#3-报错处理" class="headerlink" title="3. 报错处理"></a>3. 报错处理</h4><p>错误信息：<code>error: invalid path &#39;drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c&#39;</code><br>解决方案：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> linux<span class="literal">-prjc</span>/</span><br><span class="line">git config core.protectNTFS false</span><br><span class="line">git reset <span class="literal">--hard</span> HEAD</span><br></pre></td></tr></table></figure>
 
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
-<li>发现 frpc 进程没有运行或 frp 服务未启动时，请检查 winsw 的 log 文件，按照文件提示进行错误排查</li>
-</ul>
-<h3 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a>REFERENCES</h3><p><a target="_blank" rel="noopener" href="https://www.eyuyun.com/173.html#cl-22">https://www.eyuyun.com/173.html#cl-22</a></p>
+<p>完成。</p>
+<h3 id="引用："><a href="#引用：" class="headerlink" title="引用："></a>引用：</h3><ol>
+<li><a target="_blank" rel="noopener" href="https://blog.walterlv.com/post/case-sensitive-in-windows-file-system.html">Windows 10 四月更新，文件夹名称也能区分大小写了</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27575841/article/details/106958387">windows 上下载 github 上的 linux 内核项目遇到的问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/analogdevicesinc/linux/issues/111">Windows cloning of this repo fails to checkout master.</a></li>
+</ol>
 	
 		</div>
 		
@@ -325,12 +335,8 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2020/04/07/yuque/ney5k3/" title="Windows下安装Vue-cli" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis" rel="next">
+			<a href="/2022/06/28/yuque/tgf3hu/" title="Project-C社区Linux Kernel编译" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -351,76 +357,25 @@
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
-								语雀文档自动同步到hexo博客			
+							<a class="relate-post-title" href="/2022/06/28/yuque/tgf3hu/" title="Project-C社区Linux Kernel编译">
+								Project-C社区Linux Kernel编译			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								二月 6日, 2022				
+								六月 28日, 2022				
 							</p>
 							<p class="relate-post-content">
-								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+								下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone https://gitlab.com/songqianli/linux-prjc.git
 
-一个 GitHub 账号
-一个腾讯云账号
-hexo 安装了 yuque-hexo 插件且能正常运行
-
-实现思路：利用语雀的webhook触发腾讯云云...
+安装软件包1sudo apt-get instal...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
+							<a href="/2022/06/28/yuque/tgf3hu/" title="Project-C社区Linux Kernel编译">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/28/yuque/xnw3ik/" title="Chrome自动将http切换为https">
-								Chrome自动将http切换为https			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 28日, 2021				
-							</p>
-							<p class="relate-post-content">
-								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/28/yuque/xnw3ik/" title="Chrome自动将http切换为https">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Chrome自动将http切换为https"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/27/yuque/yzh91s/" title="Jetbrains快捷键">
-								Jetbrains快捷键			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 27日, 2021				
-							</p>
-							<p class="relate-post-content">
-								代码整体向后缩进选中多行代码 - 按下 Tab
-代码整体向前缩进选中多行代码 - 按下 Shift + Tab
-查找下一条代码差异F7
-查找上一条代码差异Shift + F7
-
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/27/yuque/yzh91s/" title="Jetbrains快捷键">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Jetbrains快捷键"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Project-C社区Linux Kernel编译"/>
 							</a>
 						</div>
 					</li>												
@@ -449,146 +404,202 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/09/13/yuque/ppma2h/" title="iCloud同步新版Edge书签">
-								iCloud同步新版Edge书签			
+							<a class="relate-post-title" href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">
+								6月阅读总结			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								九月 13日, 2020				
+								六月 16日, 2022				
 							</p>
 							<p class="relate-post-content">
-								打开注册表编辑器，定位至 计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\ 目录。右键选择「新建项」，将该项名称命名为 MicrosoftEdge。之后右键单击刚才新建的 Micro...
+								
+“零拷贝”技术
+Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2020/09/13/yuque/ppma2h/" title="iCloud同步新版Edge书签">				
+							<a href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="iCloud同步新版Edge书签"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="6月阅读总结"/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">
-								CentOS下安装Redis			
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">
+								《操作系统真象还原》：第2章 编写 MBR			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
+								五月 23日, 2022				
 							</p>
 							<p class="relate-post-content">
-								准备
-CentOS Linux release 7.2
-gcc 编译器 yum install gcc-c++
-TCL yum install -y tcl
-redis 安装包 4.0.8 版本
-
-安装下载 redis 安装包1wge...
+								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">				
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS下安装Redis"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第2章 编写 MBR"/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">
-								CentOS6下yum修复及python安装			
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="五月阅读总结">
+								五月阅读总结			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
+								五月 10日, 2022				
 							</p>
 							<p class="relate-post-content">
-								CentOS6 中自带的 yum 依赖的 python 版本是 2.6.6 版本，而 python core team 已不再提供支持，且 pip 至少要求 2.7 版本,因此系统上应该有 2.6,2.7 两个版本的 python 并...
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">				
+							<a href="/2022/05/10/yuque/ouqh35/" title="五月阅读总结">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS6下yum修复及python安装"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="五月阅读总结"/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/ukuc1g/" title="AMD的CUDA--ROCm配置">
-								AMD的CUDA--ROCm配置			
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
+								《操作系统真象还原》：第1章 环境配置			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
+								五月 9日, 2022				
 							</p>
 							<p class="relate-post-content">
-								Preparation支持的 GPUsROCm 正式支持使用以下芯片的 AMD GPU：
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
 
-GFX8 GPUs
-“Fiji” chips, such as on the AMD Radeon R9 Fury X and Radeon ...
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/ukuc1g/" title="AMD的CUDA--ROCm配置">				
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="AMD的CUDA--ROCm配置"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/06/30/yuque/xqmrx0/" title="Windows 拉取Linux Kernel代码">
-								Windows 拉取Linux Kernel代码			
+							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
+								为什么Proactor比Reactor模式更优？			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								六月 30日, 2022				
+								五月 5日, 2022				
 							</p>
 							<p class="relate-post-content">
-								出现问题的原因
-Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
-Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不...
+								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
+什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/06/30/yuque/xqmrx0/" title="Windows 拉取Linux Kernel代码">				
+							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Windows 拉取Linux Kernel代码"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
 							</a>
 						</div>
 					</li>												
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/06/28/yuque/tgf3hu/" title="Project-C社区Linux Kernel编译">
-								Project-C社区Linux Kernel编译			
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">
+								4月阅读总结			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								六月 28日, 2022				
+								四月 20日, 2022				
 							</p>
 							<p class="relate-post-content">
-								下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
-1git clone https://gitlab.com/songqianli/linux-prjc.git
+								
+怎样设计出一个让面试官满意的架构
 
-安装软件包1sudo apt-get instal...
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/06/28/yuque/tgf3hu/" title="Project-C社区Linux Kernel编译">				
+							<a href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Project-C社区Linux Kernel编译"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="4月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">
+								[转]你想住在中国哪里？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+科技爱好者周刊（第 180 期）：你想住在中国哪里？
+
+
+如果希望赚取高收入，愿意忍受大城市的高竞争、高压力、狭小嘈杂，那么选择一线大城市；
+如果希望竞争小一些、生活轻松一点，可以选择沿海省份和中西部的中心城市；
+如果希望享受宁静悠...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="[转]你想住在中国哪里？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">
+								滑坡谬误			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="滑坡谬误"/>
 							</a>
 						</div>
 					</li>												

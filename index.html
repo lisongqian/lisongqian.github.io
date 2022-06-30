@@ -244,6 +244,64 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
+		Windows 拉取Linux Kernel代码
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							出现问题的原因
+Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件
+
+解决方案1. 开启文件区分大小写：
+以管理员身份运行 PowerShell
+
+1fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux-prjc enable
+
+2. 克隆代码1git clone https://gitlab.com/songqianli/l...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
+		<time datetime="2022-06-30T06:40:46.000Z" itemprop="datePublished">
+	  		2022-06-30
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2022/06/30/yuque/xqmrx0/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2022/06/28/yuque/tgf3hu/" itemprop="url">
 		Project-C社区Linux Kernel编译
 	</a>
@@ -739,62 +797,6 @@ Linux 下 C++轻量级 Web 服务器
 						
 							<span class="right">      	
 								<a href="/2022/02/09/yuque/ga3q0g/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/02/09/yuque/ccic59/" itemprop="url">
-		[转]你的HDMI2.1设备是真的HDMI 2.1吗？
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							HDMI 许可管理员：
-
-HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用HDMI 2.0 的功能现在是 2.1 的子集与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、ALLM 和其他所有内容）
-
-这意味着所有 HDMI 2.0 的设备如今都可以并且应该被标记为 HDMI 2.1 的设备。
-例如(小米 24.5 英寸 240Hz 高刷版) 中描述：
-文章介绍了高清视频 HDMI 2.1 标准，并且讨论了这个外行人容易误解的细节：令人困惑的 HDMI 2.1
-因此，消费者应了解商品所支持的 HDMI 2.1 是否支持 FRL(...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/02/09/yuque/ccic59/" itemprop="url">
-		<time datetime="2022-02-09T01:22:38.000Z" itemprop="datePublished">
-	  		2022-02-09
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/02/09/yuque/ccic59/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
