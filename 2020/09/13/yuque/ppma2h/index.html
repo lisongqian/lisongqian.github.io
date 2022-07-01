@@ -264,7 +264,7 @@
 
 	<a href="/2020/09/13/yuque/ppma2h/" itemprop="url">
 		<time datetime="2020-09-13T06:36:12.000Z" itemprop="dateUpdated">
-	  		2022-06-30
+	  		2022-07-01
 	  </time>
 	</a> 
 
@@ -293,7 +293,9 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p>打开注册表编辑器，定位至 <code>计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\</code> 目录。<br>右键选择「新建项」，将该项名称命名为 <code>MicrosoftEdge</code>。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 <code>Main</code>。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 <code>SyncFavoritesBetweenIEAndMicrosoftEdge</code>。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972115-e2bfdcd8-9964-4fe0-bf16-e692c2f2b627.png#crop=0&crop=0&crop=1&crop=1&height=443&id=UNSnQ&originHeight=443&originWidth=764&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=764"><br>接着，双击刚才新建的 DWORD 值，将数值数据由 0 改为 1，并单击「确定」按钮，然后重启你的电脑，这样你的 Edge 浏览器的书签项应该就会和 Internet Explorer 保持同步了。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972134-3356d32c-58b7-4951-b4e0-99b2ef02cbad.png#crop=0&crop=0&crop=1&crop=1&height=251&id=pjhbY&originHeight=251&originWidth=385&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=385"><br>最后，打开 Windows 版 iCloud 设置，将书签设置为「使用 Internet Explorer」并保存。这样，你的 Edge 浏览器书签应该就会和 iPhone 上的 Safari 书签保持一致了。据本人亲测，书签的双向同步一般会在数秒内完成，体验可以说不亚于原生了。</p>
+			<p>现在 edge 和 ICloud 同步已经原生支持，最新：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150128889">win10 的 edge、Chrome 如何让书签与 Safari 双向同步？</a><br>注意手机需要在 iCloud 中打开同步 Safari 浏览器</p>
+<hr>
+<p>旧方法：<br>打开注册表编辑器，定位至 <code>计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\</code> 目录。<br>右键选择「新建项」，将该项名称命名为 <code>MicrosoftEdge</code>。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 <code>Main</code>。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 <code>SyncFavoritesBetweenIEAndMicrosoftEdge</code>。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972115-e2bfdcd8-9964-4fe0-bf16-e692c2f2b627.png#crop=0&crop=0&crop=1&crop=1&height=443&id=UNSnQ&originHeight=443&originWidth=764&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=764"><br>接着，双击刚才新建的 DWORD 值，将数值数据由 0 改为 1，并单击「确定」按钮，然后重启你的电脑，这样你的 Edge 浏览器的书签项应该就会和 Internet Explorer 保持同步了。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972134-3356d32c-58b7-4951-b4e0-99b2ef02cbad.png#crop=0&crop=0&crop=1&crop=1&height=251&id=pjhbY&originHeight=251&originWidth=385&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=385"><br>最后，打开 Windows 版 iCloud 设置，将书签设置为「使用 Internet Explorer」并保存。这样，你的 Edge 浏览器书签应该就会和 iPhone 上的 Safari 书签保持一致了。据本人亲测，书签的双向同步一般会在数秒内完成，体验可以说不亚于原生了。</p>
 	
 		</div>
 		
