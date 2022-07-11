@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      小知识 | Songqian Li&#39;s Blog
+      Ready for Linux Kernel Compiled Testing | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -153,7 +153,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「小知识」
+			「Ready for Linux Kernel Compiled Testing」
 		
 	</p>
 
@@ -245,8 +245,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
-		小知识
+	<a href="/2022/07/11/yuque/og2lh4/" itemprop="url">
+		Ready for Linux Kernel Compiled Testing
 	</a>
 
 		</div>
@@ -262,8 +262,8 @@
 
 	更新于
 
-	<a href="/2021/01/16/yuque/roiuvg/" itemprop="url">
-		<time datetime="2021-01-16T09:00:20.000Z" itemprop="dateUpdated">
+	<a href="/2022/07/11/yuque/og2lh4/" itemprop="url">
+		<time datetime="2022-07-11T11:51:49.000Z" itemprop="dateUpdated">
 	  		2022-07-11
 	  </time>
 	</a> 
@@ -275,28 +275,12 @@
 				
 	<i class="icon-price-tags"></i>
 	
-		<a href="/tags/nginx/" class=" ">
-			nginx
+		<a href="/tags/kernel/" class=" ">
+			kernel
 		</a>
 	
-		<a href="/tags/npm/" class=" ">
-			npm
-		</a>
-	
-		<a href="/tags/docker/" class=" ">
-			docker
-		</a>
-	
-		<a href="/tags/Clion/" class=" ">
-			Clion
-		</a>
-	
-		<a href="/tags/git/" class=" ">
-			git
-		</a>
-	
-		<a href="/tags/hyper-v/" class=" ">
-			hyper-v
+		<a href="/tags/linux/" class=" ">
+			linux
 		</a>
 	
 		
@@ -309,26 +293,26 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="Nginx-跨域（不安全，但快捷）"><a href="#Nginx-跨域（不安全，但快捷）" class="headerlink" title="Nginx 跨域（不安全，但快捷）"></a>Nginx 跨域（不安全，但快捷）</h3><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin *;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br></pre></td></tr></table></figure>
+			<blockquote>
+<p>本文章介绍了对<a target="_blank" rel="noopener" href="https://gitlab.com/alfredchen/linux-prjc">project-c 社区 linux-prjc 项目</a>5.15 版本内核编译测试的准备工作。</p>
+</blockquote>
+<h3 id="纯净版内核编译："><a href="#纯净版内核编译：" class="headerlink" title="纯净版内核编译："></a>纯净版内核编译：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitlab.com/alfredchen/projectc/-/raw/master/vm_kernel_config/5.15-pds-vm-mini-smt_nice.config?inline=<span class="literal">false</span></span><br><span class="line"><span class="built_in">cp</span> 5.15-pds-vm-mini-smt_nice.config linux-prjc/.config</span><br><span class="line"><span class="built_in">nice</span> -n 10 make -j8</span><br></pre></td></tr></table></figure>
 
-<h3 id="更改-npm-源"><a href="#更改-npm-源" class="headerlink" title="更改 npm 源"></a>更改 npm 源</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<h3 id="docker-加速"><a href="#docker-加速" class="headerlink" title="docker 加速"></a>docker 加速</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://gckih6c6.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-
-<h3 id="Clion-无法使用-Ctrl-左键进行代码跳转"><a href="#Clion-无法使用-Ctrl-左键进行代码跳转" class="headerlink" title="Clion 无法使用 Ctrl+左键进行代码跳转"></a>Clion 无法使用 Ctrl+左键进行代码跳转</h3><p>右键项目根目录，点击<code>Mark Directory as</code>-&gt;<code>Projects Sources and Headers</code></p>
-<h3 id="Git-配置使用-Clash-本地-proxy"><a href="#Git-配置使用-Clash-本地-proxy" class="headerlink" title="Git 配置使用 Clash 本地 proxy"></a>Git 配置使用 Clash 本地 proxy</h3><p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地 proxy，当然也可以开启系统的全局 proxy<br>添加 proxy：<code>git config --global http.proxy 127.0.0.1:7890</code><br>解除 proxy：<code>git config --global --unset http.proxy</code></p>
-<h3 id="QT-国内源"><a href="#QT-国内源" class="headerlink" title="QT 国内源"></a>QT 国内源</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/qt/online/qtsdkrepository/windows_x86/root/qt/</span><br><span class="line"></span><br><span class="line">https://mirrors.ustc.edu.cn/qtproject/online/qtsdkrepository/windows_x86/root/qt/</span><br></pre></td></tr></table></figure>
-
-<h3 id="Linux-上使用-awk-或者-tr-更换换行符后结果消失"><a href="#Linux-上使用-awk-或者-tr-更换换行符后结果消失" class="headerlink" title="Linux 上使用 awk 或者 tr 更换换行符后结果消失"></a>Linux 上使用 awk 或者 tr 更换换行符后结果消失</h3><p>检查换行符是否为 LF(\n)，若是 CR(\r)或者 CRLF(\r\n)请更换为 LF。</p>
-<h3 id="Windows-clone-linux-源码报错-invalid-path-XXX-aux-c-39"><a href="#Windows-clone-linux-源码报错-invalid-path-XXX-aux-c-39" class="headerlink" title="Windows clone linux 源码报错 invalid path XXX/aux.c&#39;"></a>Windows clone linux 源码报错 <code>invalid path XXX/aux.c&#39;</code></h3><p>在项目目录执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config core.protectNTFS <span class="literal">false</span></span><br><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure>
-
-<h2 id="VMware-和-wsl2-的-hyper-v-冲突问题"><a href="#VMware-和-wsl2-的-hyper-v-冲突问题" class="headerlink" title="VMware 和 wsl2 的 hyper-v 冲突问题"></a>VMware 和 wsl2 的 hyper-v 冲突问题</h2><p>启用 VMware<br><code>bcdedit /set hypervisorlaunchtype off</code><br>启用 WSL<br><code>bcdedit /set hypervisorlaunchtype auto</code></p>
-<h2 id="VMware-对-Ubuntu-磁盘扩容"><a href="#VMware-对-Ubuntu-磁盘扩容" class="headerlink" title="VMware 对 Ubuntu 磁盘扩容"></a>VMware 对 Ubuntu 磁盘扩容</h2><ol>
-<li>虚拟机关机后选中磁盘，选择<code>扩展</code>;</li>
-<li>安装 gparted 对指定磁盘进行 Resize：<code>apt install gparted</code>；</li>
-<li>使用<code>df -lh</code>查看磁盘容量。</li>
+<h3 id="KVM-准备工作"><a href="#KVM-准备工作" class="headerlink" title="KVM 准备工作"></a>KVM 准备工作</h3><blockquote>
+<p>必须拥有 支持 VT-x（vmx）的 Intel 处理器 或者支持 AMD-V (svm) 技术的 AMD 处理器</p>
+</blockquote>
+<ol>
+<li>确认 BIOS 中的 VT 或 AMD-V 开启</li>
+<li>使用 VM 的用户确认<code>虚拟机设置</code>-&gt;<code>处理器</code>-&gt;<code>虚拟化引擎</code>中的<code>虚拟化Intel VT-x/EPT 或 AMD-V/RVI(V)</code>开启</li>
+<li></li>
 </ol>
+<h3 id="安装编译-qemu-的依赖"><a href="#安装编译-qemu-的依赖" class="headerlink" title="安装编译 qemu 的依赖"></a>安装编译 qemu 的依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ninja-build libglib2.0-dev libpixman-1-dev</span><br></pre></td></tr></table></figure>
+
+<h3 id="源码安装-qemu："><a href="#源码安装-qemu：" class="headerlink" title="源码安装 qemu："></a>源码安装 qemu：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.qemu.org/qemu-6.2.0.tar.xz</span><br><span class="line">tar xvf qemu-6.2.0.tar.xz</span><br><span class="line"><span class="built_in">cd</span> qemu-6.2.0</span><br><span class="line">./configure</span><br><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="启动-qemu："><a href="#启动-qemu：" class="headerlink" title="启动 qemu："></a>启动 qemu：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> vmk=<span class="string">&#x27;qemu-system-x86_64 -nographic -serial mon:stdio -machine q35,accel=kvm -cpu Haswell -smp cores=2,threads=2,sockets=2 -kernel arch/x86/boot/bzImage -append &quot;console=ttyS0 ignore_loglevel threadirqs nokaslr&quot;&#x27;</span></span><br><span class="line"><span class="built_in">cd</span> ~/linux-prjc/</span><br><span class="line">vmk</span><br></pre></td></tr></table></figure>
+
+<h3 id="退出-qemu："><a href="#退出-qemu：" class="headerlink" title="退出 qemu："></a>退出 qemu：</h3><p>先按<code>Ctrl+A</code>，然后按<code>x</code></p>
 	
 		</div>
 		
@@ -347,12 +331,8 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2021/01/27/yuque/yzh91s/" title="Jetbrains快捷键" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2021/01/16/yuque/ctmstq/" title="循序渐进实现C++的单例模式" rel="next">
+			<a href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -370,209 +350,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">
-								语雀文档自动同步到hexo博客			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								二月 6日, 2022				
-							</p>
-							<p class="relate-post-content">
-								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
-
-一个 GitHub 账号
-一个腾讯云账号
-hexo 安装了 yuque-hexo 插件且能正常运行
-
-实现思路：利用语雀的webhook触发腾讯云云...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/02/06/yuque/eizdmx/" title="语雀文档自动同步到hexo博客">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="语雀文档自动同步到hexo博客"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/28/yuque/xnw3ik/" title="Chrome自动将http切换为https">
-								Chrome自动将http切换为https			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 28日, 2021				
-							</p>
-							<p class="relate-post-content">
-								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/28/yuque/xnw3ik/" title="Chrome自动将http切换为https">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Chrome自动将http切换为https"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2021/01/27/yuque/yzh91s/" title="Jetbrains快捷键">
-								Jetbrains快捷键			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								一月 27日, 2021				
-							</p>
-							<p class="relate-post-content">
-								代码整体向后缩进选中多行代码 - 按下 Tab
-代码整体向前缩进选中多行代码 - 按下 Shift + Tab
-查找下一条代码差异F7
-查找上一条代码差异Shift + F7
-
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2021/01/27/yuque/yzh91s/" title="Jetbrains快捷键">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Jetbrains快捷键"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/09/13/yuque/ppma2h/" title="iCloud同步新版Edge书签">
-								iCloud同步新版Edge书签			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 13日, 2020				
-							</p>
-							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
-
-旧方法：打开注册表编辑器，定位至...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/09/13/yuque/ppma2h/" title="iCloud同步新版Edge书签">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="iCloud同步新版Edge书签"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/bqi836/" title="FRP-windows客户端配置">
-								FRP-windows客户端配置			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
-							</p>
-							<p class="relate-post-content">
-								准备
-
-frp 客户端文件，包括：frp 客户端，winsw
-局域网内可远程连接的 Windows 计算机
-
-开始修改客户端配置打开 frpc.ini 文件，将文件按照需求更改如下：
-1234567891011121314151617...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/bqi836/" title="FRP-windows客户端配置">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="FRP-windows客户端配置"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">
-								CentOS下安装Redis			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
-							</p>
-							<p class="relate-post-content">
-								准备
-CentOS Linux release 7.2
-gcc 编译器 yum install gcc-c++
-TCL yum install -y tcl
-redis 安装包 4.0.8 版本
-
-安装下载 redis 安装包1wge...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/uk22v9/" title="CentOS下安装Redis">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS下安装Redis"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">
-								CentOS6下yum修复及python安装			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
-							</p>
-							<p class="relate-post-content">
-								CentOS6 中自带的 yum 依赖的 python 版本是 2.6.6 版本，而 python core team 已不再提供支持，且 pip 至少要求 2.7 版本,因此系统上应该有 2.6,2.7 两个版本的 python 并...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/hodov7/" title="CentOS6下yum修复及python安装">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="CentOS6下yum修复及python安装"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/ukuc1g/" title="AMD的CUDA--ROCm配置">
-								AMD的CUDA--ROCm配置			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
-							</p>
-							<p class="relate-post-content">
-								Preparation支持的 GPUsROCm 正式支持使用以下芯片的 AMD GPU：
-
-GFX8 GPUs
-“Fiji” chips, such as on the AMD Radeon R9 Fury X and Radeon ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/ukuc1g/" title="AMD的CUDA--ROCm配置">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="AMD的CUDA--ROCm配置"/>
-							</a>
-						</div>
-					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -600,25 +377,228 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">
-								Ready for Linux Kernel Compiled Testing			
+							<a class="relate-post-title" href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">
+								Compile Linux Kernel Version of Project-C Community			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
-								七月 11日, 2022				
+								六月 28日, 2022				
 							</p>
 							<p class="relate-post-content">
 								
-本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
+本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
 
-纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone htt...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">				
+							<a href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Ready for Linux Kernel Compiled Testing"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Compile Linux Kernel Version of Project-C Community"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">
+								6月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 16日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+“零拷贝”技术
+Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="6月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">
+								《操作系统真象还原》：第2章 编写 MBR			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 23日, 2022				
+							</p>
+							<p class="relate-post-content">
+								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第2章 编写 MBR"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="五月阅读总结">
+								五月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 10日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/10/yuque/ouqh35/" title="五月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="五月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
+								《操作系统真象还原》：第1章 环境配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
+
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
+								为什么Proactor比Reactor模式更优？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 5日, 2022				
+							</p>
+							<p class="relate-post-content">
+								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
+什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">
+								4月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="4月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">
+								[转]你想住在中国哪里？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+科技爱好者周刊（第 180 期）：你想住在中国哪里？
+
+
+如果希望赚取高收入，愿意忍受大城市的高竞争、高压力、狭小嘈杂，那么选择一线大城市；
+如果希望竞争小一些、生活轻松一点，可以选择沿海省份和中西部的中心城市；
+如果希望享受宁静悠...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="[转]你想住在中国哪里？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">
+								滑坡谬误			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="滑坡谬误"/>
 							</a>
 						</div>
 					</li>												
