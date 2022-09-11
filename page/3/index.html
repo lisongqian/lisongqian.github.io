@@ -244,6 +244,56 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2021/02/22/yuque/aih1sz/" itemprop="url">
+		我发现了Transformer模型的秘密
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Reference.
+Base-Attention如左图所示，为了实现Attention机制，我们需要一个 Z0Z0，与 h1h1 计算得到一个scaleα10α01，这个 α10α01 可以简单看做 hh 与 zz 的相似度.将 Z0Z0 与每一个 hihi 进行相乘然后 SoftmaxSoftmax 计算得到distribution αi0α0i，就变成了右图...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2021/02/22/yuque/aih1sz/" itemprop="url">
+		<time datetime="2021-02-22T08:06:27.000Z" itemprop="datePublished">
+	  		2021-02-22
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2021/02/22/yuque/aih1sz/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2021/01/28/yuque/xnw3ik/" itemprop="url">
 		Chrome自动将http切换为https
 	</a>
@@ -739,69 +789,6 @@ II.开始数据预处理首先从 QQ 电脑版的消息管理器中导出了 txt
 						
 							<span class="right">      	
 								<a href="/2020/04/07/yuque/xyem8g/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2020/04/07/yuque/ney5k3/" itemprop="url">
-		Windows下安装Vue-cli
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							环境搭建安装 Node.js从Node.js 官网上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。注：
-
-使用 Win+R 输入 cmd 打开命令行输入node -v，出现版本号，则说明安装成功。
-
-
-
-包管理工具npm在安装 Node.js 时会一起安装好。
-
-安装 Webpack在命令行中输入npm install webpack -g。
-注：
-
-安装完成后webpack -v，出现版本号，则说明安装成功。
-若出现如下报错，执行npm install webpack-cli -D，安装 webpack-cli。
-
-安装 Vue-cli在命令行中...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2020/04/07/yuque/ney5k3/" itemprop="url">
-		<time datetime="2020-04-07T12:36:39.000Z" itemprop="datePublished">
-	  		2020-04-07
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2020/04/07/yuque/ney5k3/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>

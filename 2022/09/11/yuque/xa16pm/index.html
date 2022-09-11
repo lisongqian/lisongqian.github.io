@@ -1,0 +1,1187 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      第三章：完善MBR——CPU的实模式 | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="C U" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+  <!-- site analysis -->
+  
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?b702b9b0aa72233c214dcbade17a5a27";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+    <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 6.2.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">C U</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「第三章：完善MBR——CPU的实模式」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2022/09/11/yuque/xa16pm/" itemprop="url">
+		第三章：完善MBR——CPU的实模式
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2022/09/11/yuque/xa16pm/" itemprop="url">
+		<time datetime="2022-09-11T12:20:10.000Z" itemprop="dateUpdated">
+	  		2022-09-11
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/OS/" class=" ">
+			OS
+		</a>
+	
+		<a href="/tags/Reading/" class=" ">
+			Reading
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="针对汇编"><a href="#针对汇编" class="headerlink" title="针对汇编"></a>针对汇编</h3><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658137715804-30f0cb26-a46e-48d0-84cf-545c02caa60d.png#clientId=ue3f1c970-45d0-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=386&id=u7c1d30d3&margin=%5Bobject%20Object%5D&name=image.png&originHeight=386&originWidth=1146&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=258185&status=done&style=none&taskId=ud429b2c2-e6f5-400c-a409-449bd95a898&title=&width=1146" alt="image.png"><br>几个知识点：</p>
+<ol>
+<li>第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是<code>B8</code>，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及寻址方式字节。寻址方式由 ModR&#x2F;M 字节、SIB 字节、位移量、立即数组成。第 1 行和第 4 行的 mov 的机器码中第 1 宇节都是<code>B8</code> ，其原因是寻址方式都是立即数。第 5 行的“无条件跳转 jmp”对应的机器码第 宇节是<code>EB</code>。 还有”小于时跳转 j1”、”等于时跳 je “，”不小于等于时跳转 jnle” ······若对此感兴趣，可以参考指令格式。</li>
+<li>第 1 行的 mov 指令，$$表示的是所在的 section 的起始地址，由于这6行代码中没有定义section，故nasm默认把全体文件当成一个大的section，全体文件自然偏移地址为0，所以在反汇编代码那列中，起始地址$$被置换为 0</li>
+<li>第 2 行代码是真指令，不牵扯到符号转换，所以反汇编后的代码同源码一致。</li>
+<li>第 3 行引用了 var 变量的值，[]符号是取所在地址处的内容。在响应的反汇编代码中，响应的第三行中 var 这个符号地址被编译器替换为 0xd。结合地址列查看一下内容列，地址为 0xd 的内容为 99，这正是 var 变量的值。</li>
+<li>第 4 行源码为<code>label: mov ax,$</code>，label 是个标号，代表指令<code>mov ax, $</code>所在地址。<code>$</code>是个隐式的标号，表示当前行地址。按理说这两个标号值应该是一致的。在地址列第 4 行查看，本行 mov 指令地址是<code>0x8</code>，在反汇编代码列查看，<code>$</code>被替换为<code>0x8</code>，吻合。</li>
+<li>第 5 行的<code>jmp label</code>编译后被替换为<code>jmp short 0x8</code>，这是短跳转指令，<code>0x8</code>是第 4 行 mov 指令的地址，吻合。</li>
+<li>第 6 行是数据定义，dw 是定义一个字，双字节，并且 x86 是小端字节序，低位的 99 在低地址，高位的 00 在高地址；</li>
+<li>CPU 是不去判断给它的内容是指令还是数据，它也分不清楚。CPU 执行指令时是顺次向下执行的，所以如果没有第 5 行的<code>jmp</code>形成死循环，CPU 执行到第 6 行时，会把 var 变量的值 99 当成指令，是否会报错还不得而知，这得看给它的数是否恰好能成为个指令。如此处 var 变量值 99 就恰好是汇编语言中的字扩展指令 CWD，它的功能时将一个字形变量扩展为双字型变量，即 Change Word to Double word。</li>
+</ol>
+<h3 id="针对-section"><a href="#针对-section" class="headerlink" title="针对 section"></a>针对 section</h3><p>编译器提供的关键字 Section 只是为了让程序员在逻辑上将程序划分成为几个部分，以为它是伪指令，CPU 都不知道有这个东西。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658220123896-19f82ea6-ede9-4b7f-93c3-9d6947629181.png#clientId=ue3f1c970-45d0-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=389&id=ue8e38eb5&margin=%5Bobject%20Object%5D&name=image.png&originHeight=389&originWidth=852&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=161483&status=done&style=none&taskId=uf64477b5-0322-42a7-9229-2d5e7998f46&title=&width=852" alt="image.png"><br>代码 3-2 在上一个基础上稍做了一些改变，添加了变量及 section 的应用。<br>几个知识点：</p>
+<ol>
+<li>第 1 行和第 8 行为空，并没有产生响应地址或机器指令，这就是 section 是伪指令的原因；</li>
+<li>第 3 行中用到了 section.data.start，其用法是 section.节名.start，这里是获得名为 data 的 section 在本文件中的真实偏移，即起始地址，是 nasm 提供的伪指令。查看“反编译代码”列的同一行，编译后已经被替换为<code>0x10</code>，说明定义的数据 section 起始地址为<code>0x10</code>。可见定义的 section 其起始地址默认是从上一个数据的地址延续下来的。</li>
+<li>由于<code>var1</code>是数据 section 的首个数据，其地址必然是和数据 setion 一致。故对比下源码列和反汇编代码列的第 4 行，<code>var1</code>的地址确实被替换为<code>0x10</code>；</li>
+<li><code>var2</code>是继<code>var1</code>之后的变量，由于<code>var1</code>的类型是<code>dd</code>，即双字，故其占用 4 字节，所以<code>var2</code>的地址应该是<code>0x14</code>。这一点可以通过对比源码列和反汇编代码列看出；</li>
+</ol>
+<h3 id="针对-vstart"><a href="#针对-vstart" class="headerlink" title="针对 vstart"></a>针对 vstart</h3><p>nasm 说法：</p>
+<blockquote>
+<p>Sections can be given a virtual start address, which will be used for the calculation of all memory references within that section with vstart&#x3D;.</p>
+</blockquote>
+<p>大概意思是 section 用 vstart&#x3D;来修饰后，可以被赋予一个虚拟其实地址，它被用来计算在该 section 内的所有内存引用地址。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658221367753-35f1849d-b8f2-4185-b3f8-85e00a8d53e7.png#clientId=ue3f1c970-45d0-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=394&id=u5236dd9b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=394&originWidth=843&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=153485&status=done&style=none&taskId=u789e269a-f752-4034-931e-bbcd258892d&title=&width=843" alt="image.png"><br>代码 3-3 在 section 中添加了 vstart，这个参数是让编译器将 section 中的数据的地址以 vstart 的值为起始，不再从整个程序开头算起。只有以程序开头 0 算起的地址才是真实存在的，在这个地址上能访问到响应的符号，所以不以程序开头算起的地址，必然在程序内部不存在，是虚拟的。<br>几个知识点：</p>
+<ol>
+<li>源码第 1 行的 section 含有 svtart&#x3D;0x7c00，故该节中的数据地址以<code>0x7c00</code>为起始编址。此<code>0x7c00</code>便是虚拟的地址，在程序中没有偏移文件开头为<code>0x7c00</code>的地址，整个程序不到 100 字节；</li>
+<li>源码第 2 行的$$在编译后被替换为vstart的值<code>0x7c00</code>，可见，$$以该节的虚拟起始地址为主，若该节未用 vstart 来制定则以在文件中的其实地址（较虚拟地址来说，此地址便为真实地址）为主，而该节在文件中的起始地址是 code.节名.start；</li>
+<li>第 3 行和第 4 行的源码和相应反汇编代码表明”code.节名.start”是节在整个程序中的地址，即相对于文件开头的偏移量。</li>
+<li>第 5 行的$在文件中的地址是 0x9，经编译后变成了<code>0x7c09</code>，类似于重定位：新的地址+在文件中的地址（也相对于整个文件的偏移量），即 0x7c00+9；</li>
+<li>第 6、7 行中引用的变量<code>var1</code>和<code>var2</code>属于 data 节，由于该节有 vstart&#x3D;0x900，所以该节终端 var1 地址是 0x900，var2 是 0x900+var1 的内存空间 4 字节&#x3D;0x904。这里的<code>0x900</code>也属于虚拟地址，原因同<code>0x7c00</code>一样。</li>
+<li>第 8 行的<code>jmp $</code>，按理说可以编译成相对转移的形式：<code>jmp -2</code>，而用 ndisasm 反汇编的结果是<code>jmp short 0x12</code>，<code>0x12</code>是相对于整个文件的绝对地址，可称为真实地址。此处的反汇编结果是作者手工修改成<code>jmp -2</code>的。<blockquote>
+<p>我心想，既然我已经用 vstart 指定虚拟起始地址了， jmp $编译的结果按理说要么是 jmp near 0x7c12 ，操作 码以 E9 开头，这说明这是相对近转移的语法： jmp 16 位地址，要么是<code>jmp short -2</code>，操作码是 EB ，这是相对短 转移的语法： <code>jmp -128~127</code>之间的数。可是看这<code>jmp short 0x12</code>, 0x12 是真实的地址，似乎不正确。鉴于 jmp short 是相对短转移，其操作码是 EB ，占 1 字节，操作数是相对于跳转目标地址的偏移量，是 1 字节的有符号数，故可正可负，只能在段内跳转。于是我用 ndisasm 反汇编时用参数<code>-o 0x7c00</code> 给其添加了个起始地址来测试，如命令<code>ndisasm -o Ox7c0</code>，但反汇编的结果变成了<code> jmp short 0x7c00</code> ，这结果明显不对，偏移量<code> 0x7c00</code>不在<code>-128~127</code> 之间。由于 jmp short 指令操作码和操作数各是 1 字节，总共加起来是 2 字节。于是怀着忐忑的心情在 bochs 验证了下，执行到<code>jmp $</code>的时候果然是<code>jmp -2</code> 。所以上面第 8 行是被我手工改为<code>jmp -2</code>的，请大家知晓。</p>
+</blockquote>
+</li>
+</ol>
+<p>用 vstart 的时机是：我预先知道我的程 序将来被加载到某地址处。程序只有加载到非地址时 vstart 才是有用的，程序默认起始地址是 0。</p>
+<h3 id="3-2-CPU-的实模式"><a href="#3-2-CPU-的实模式" class="headerlink" title="3.2 CPU 的实模式"></a>3.2 CPU 的实模式</h3><p>实模式指的是 8086CPU 的工作环境、工作方式、 工作状态，这是一整套的内容，并不是单指某一方面的设置。</p>
+<h4 id="3-2-2-1-实模式下的段寄存器"><a href="#3-2-2-1-实模式下的段寄存器" class="headerlink" title="3.2.2.1 实模式下的段寄存器"></a>3.2.2.1 实模式下的段寄存器</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1659341468508-17cd47cb-3ea5-45e3-af6b-35b5638825dd.png#clientId=u8a6543fc-bb37-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=186&id=uf211eb31&margin=%5Bobject%20Object%5D&name=image.png&originHeight=186&originWidth=232&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=42860&status=done&style=none&taskId=uaefa198d-ef3d-4db5-bd12-4306d436fe3&title=&width=232" alt="image.png"><br>代码段简而言之就是把所有指令都连续连续排放在一起，形成了一个全部都是指令的区域，里面存储的是指令的操作码及寻址方式等。 代码段寄存器 CS 就是用来指向内存中这段指令区域的起始地址。<br>数据段和代码段类似，只是这段区域中的内容不是指令，而是纯粹的数据，也就是说里面存储的是程序运行所需要的数据，属于指令的操作数。数据段寄存器 DS 便是用来指向此数据区域的起始地址。<br>栈段是在内存中，硬盘文件中没有。一般的栈段是由操作系统分配指定的。栈段寄存器 SS 就是用来指向此区域的起始地址。<br>在 16 位 CPU 中，只有一个附加段寄存器——ES。而 FS 和 GS 附加段寄存器是在 32 位 CPU 中增加的。<br>IP 寄存器是不可见寄存器，CS 寄存器是可见寄存器。访问内存要用”段：段内偏移”的形式，所以 CS 寄存器用来存代码段段基址，IP 寄存器用来存储代码段端内偏移地址，同 CS 寄存器一样都是 16 位宽。</p>
+<h4 id="3-2-2-2-实模式下的-IP-寄存器"><a href="#3-2-2-2-实模式下的-IP-寄存器" class="headerlink" title="3.2.2.2 实模式下的 IP 寄存器"></a>3.2.2.2 实模式下的 IP 寄存器</h4><p>flags 寄存器是计算机的窗口，展示了 CPU 内部各项设置、指标。<br>任何一个指令的执行、其执行的细节、对计算机造成了哪些影响，都在 flags 寄存器中通过一些标志位反应出来。有些指令需要满足某些条件才能执行，他们的条件是判断上一条指令的执行过程。所以标志寄存器终的标志位就成了这些指定所需要满足的条件。实模式下的 flags 寄存器是 16 位的，如图 3-5 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1659343750850-432488e0-6098-4378-a212-1726aff1506b.png#clientId=u9e062656-a3c5-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=104&id=u10c2020e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=104&originWidth=577&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=31446&status=done&style=none&taskId=u56251eb4-1428-4c06-ac7e-6a18a06e3c0&title=&width=577" alt="image.png"><br>有关通用寄存器。无论实模式还是保护模式，通用寄存器有 8 个，分别是 AX、BX、CX、DX、SI、DI、BP、SP，他们的名称及关系如图 3-6 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1659344002694-f3594c33-5e77-4bde-bebb-fad757210c0e.png#clientId=u9e062656-a3c5-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=209&id=u99f56174&margin=%5Bobject%20Object%5D&name=image.png&originHeight=209&originWidth=236&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=30618&status=done&style=none&taskId=ue58bc1e3-97e4-45e7-a4cb-bce987d1983&title=&width=236" alt="image.png"><br>拿 AX 寄存器举例，AX 寄存器是由 AH 寄存器和 AL 寄存器组成的，他们都是 8 位寄存器，AX 寄存器的低 8 位是 AL 寄存器，高 8 位是 AH 寄存器。由于某种原因，例如数学计算和 32 位保护模式等，16 位 AX 寄存器不够用了，故将其扩展为 32 位，在 AX 原有的基础上，增加 16 位作为高 16 位便是扩展的 AX，即 EAX。所以 EAX 归根结底也是由 AL、AH 组成的，AL 或 AH 值变了直接影响 EAX。<br>虽说是通用寄存器，但还是约定了他们的惯用法， 除了通用的用途外每个寄存器肩负特定的功用。比如一般情况下，<code>ex</code>寄存器用作循环的次数控制， <code>bx</code>寄存器用于存储起始地址。这是大家约定俗成的东西，不这样做也可以，用其他通用寄存器也能完成任务。不过还是有个公共的约定更好，这样一些通用的函数，在为其传递参数时会方便很多。比如 BIOS 或 DOS 中断调用，一般情况下， <code>cx</code>还就是用作循环次数的控制。另外， 指令已经固定用一些特定的寄存器作为参数了，比如<code>esi</code>寄存器作为很多有关数据复制指令的源地 址， <code>edi</code>作为目的地址。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662100962080-4bccdf9a-856f-4fea-af2e-30cf0b40ce74.png#clientId=u59b7c37c-1d7a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=553&id=ud766449e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=829&originWidth=1742&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=1007801&status=done&style=none&taskId=u9248aebf-d7a5-446a-abb8-c4ff1768cd3&title=&width=1161.3333333333333" alt="image.png"></p>
+<h4 id="3-2-3-实模式下内存分段由来"><a href="#3-2-3-实模式下内存分段由来" class="headerlink" title="3.2.3 实模式下内存分段由来"></a>3.2.3 实模式下内存分段由来</h4><p>CPU 中本来是没有实模式这一称呼的，是因为有了保护模式后，为了与老的模式区别开来，所以称老的模式为实模式。<br>实模式的“实”体现在：程序中用到的地址都是真实的物理地址，＂段基址：段内偏移”产生的逻辑 地址就是物理地址，也就是程序员看到的完全是真实的内存。<br>8086 之前的 CPU 对内存的访问没有段的概念，程序中要访问内存，需要把地址写死，也就是所谓的“硬编码”。这种寻址方式会导致程序无法重定位，必须加载到内存中固定的位置， 如果在此位置有其他程序在用，要等人家运行完腾出内存后才轮到自己。这种方式下可用内存很多，但却因为某一个字节的内存被占用而让后来的程序等很久。有些开发人员等不及了，干脆把程序中的地址改成别的，重新编译后发现还是有某个地址被占用，还是没法上 CPU 运行，只能再改地址······<br>为了解决这个问题，Intel 早期的工程师发明了“段”，即 CPU 访问内存用“段+偏移”的形式，它首次在 8086 上出现。为了支持段机制，CPU 中新增了段寄存器，如 cs、ds、es 等。</p>
+<h4 id="16-位寄存器寻址能够访问-20-位的地址空间"><a href="#16-位寄存器寻址能够访问-20-位的地址空间" class="headerlink" title="16 位寄存器寻址能够访问 20 位的地址空间"></a>16 位寄存器寻址能够访问 20 位的地址空间</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662108311898-eb2732f4-7991-4968-af9e-01b369c726d4.png#clientId=u59b7c37c-1d7a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=245&id=u4887f7cf&margin=%5Bobject%20Object%5D&name=image.png&originHeight=368&originWidth=388&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=54132&status=done&style=none&taskId=uf981c1f9-dccd-47b7-a1ae-588404e5f6b&title=&width=258.6666666666667" alt="image.png"><br>为了让 16 位的寄存器寻址能够访问 20 位的地址空间，CPU 工程师通过先把 16 位的段基址左移 4 位后变成 20 位，再加段内偏移地址，这样便形成了 20 位地址，只要保证了段基址是 20 位的，偏移地址是多少位都不关心了，从而突破了 16 位寄存器作为偏移地址而无法访问 1MB 空间的限制。<br>有了 20 位地址便能访问到 20 位的空间，虽然解决了一个大问题，但是引入了一个小问题。<br>拿 0xFFFF 来说，现在能访问的最大的地址是<code>0xFFFF：0xFFFF</code>，经过左移段基址 4 位后得到的最大地址是：<code>0xFFFF*16+0xFFFF = 0xFFFF0 + 0xFFFF = 0xFFFFF + 0xFFF0 = 1M - 1 + 64KB -16 = 0x10FFEF</code>。<br>现在虽然能够访问 20 位地址空间，但反而有点过了，过头的原因是段基址为<code>0xFFFF0</code>，偏移地址应该小于等于<code>0xF</code>，而这个偏移地址却是<code>0xFFFF</code>，超出了<code>0xFFF0</code>的空间，这部分内存就是传说中的高端内存区（High Memory Area，HMA）。那这部分超出的内存应该如何处理？<br>答案是不用处理。因为 8086 一共就 20 条地址，地址线是从 0 开始的，即 A0~A19，所以其地址空间才是 1MB 的。要访问内存地址<code>0xFFFFF+</code>是要用到 A20 地址线，可 8086 没有，只能接收 20 位长的地址。所以由于超过了 20 位而产生的进位，这部分数据就给丢掉了。例如<code>0xFFFFF+2</code>，理论上会变成<code>0x100001</code>，但由于只能容纳 20 位长的数据，所以最终结果是<code>0x00001</code>。这是地址回卷的结果，即超过最大范文后，从 0 重新开始计数。这就引出了从实模式到保护模式要打开 A20 地址线的问题。（后续补充）</p>
+<h4 id="3-2-4-实模式下-CPU-内存寻址"><a href="#3-2-4-实模式下-CPU-内存寻址" class="headerlink" title="3.2.4 实模式下 CPU 内存寻址"></a>3.2.4 实模式下 CPU 内存寻址</h4><p>从 8086 的寻址模式来说分为：</p>
+<ol>
+<li><strong>寄存器寻址</strong><blockquote>
+<p>寄存器寻址是指“数”在寄存器中，直接从寄存器中拿数据。</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov ax, OxlO</span><br><span class="line">mov dx, Ox9</span><br><span class="line">mul dx</span><br><span class="line">第一条命令是将 0x10 存入缸寄存器，第二条命令是将 0x9 存入缸，第 条指令是求础和 dx 的乘积，</span><br><span class="line">乘积的高 16 位在 dx 寄存器，低 16 位在ax寄存器。只要牵扯到寄存器的操作，无论其是源操作数，还是目</span><br><span class="line">的操作数，都是寄存器寻址。上面的第 条指令，它们的源操作数都是立即数，所以也属于立即数寻址。</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>立即数寻址</strong><blockquote>
+<p>指令由操作码和操作数组成，得到一个数往往不容易，或者说不那么直接。这个数要么在寄存器中，要么在内存中，都是间接给出的，所以得到数就要花费一些 CPU 周期。如果操作数“直接” 存在指令中，直接拿过来，立即就能用了。为了突显“立即就能用”的高效率，此数便称为立即数。 立即数免去了找数的过程，例如：</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, Ox18</span><br><span class="line">mov ds, ax</span><br></pre></td></tr></table></figure>
+
+<p>第一条指令中的源操作数 0x18 是立即数，目的操作数 ax 是寄存器，所以它既是立即数寻址，也是寄存器寻址。第二条指令中，源操作数和目的操作数都是寄存器，所以纯粹是寄存器寻址。<br>by the way，像这样的寻址也是立即数寻址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, macro_selector</span><br><span class="line">mov ax, label_start</span><br></pre></td></tr></table></figure>
+
+<p>第一条指令的源操作数 macro selector 是个宏，第 条指令的源操作数 label start 是个标号，这两个在编译阶段会转换为数字，最终可执行文件中的依然是立即数。</p>
+<ol start="3">
+<li><p><strong>内存寻址</strong></p>
+<blockquote>
+<p>CPU 中有很多寄存器，有些是程序员不可见的，它们是为了 CPU 正常运行而存在的，属于 CPU 运行框架内的需求。 CPU 给程序员用的寄存器并不是很多，所以操作数一多起来的时候，基本就倒腾不开了。内存空间相对就大多了，于是 CPU 工程师们自然而然想到了用内存来存储操作数。另外，用立即数寻址，得提前知道立即数是多少，否则还真用不了。而且，大多数时候操作数位于内存中的某个位置，只知道操作数所在的内存地址， 不知道操作数的值，更谈不上将其变成立即数用在指令中了，这就更加有理由让内存寻址成为“应该”。<br>访问内存是用“段基址：偏内偏移地址”的形式，此形式只用在内存访问中。默认情况下数据段寄存器是 DS ，即段基址已经有了，只要再给出段内偏移地址就可以访问内存了，最终起决定作用的、有效的是段内偏移地址，所以段内偏移地址称为有效地址。</p>
+</blockquote>
+<ol>
+<li><strong>直接寻址</strong><blockquote>
+<p>直接寻址，就是将直接在操作数中给出的数字作为内存地址，通过中括号的形式告诉 CPU ，取此地址中的值作为操作数。 例如：</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax, [0x1234]</span><br><span class="line">mov ax, [fs:0x5678]</span><br></pre></td></tr></table></figure>
+
+<p>第一条指令中，0x1234 是段内偏移地址，默认的段地址是 DS。这条指令是将内存地址 DS：0x1234 处的值写入 ax 寄存器。<br>第二条指令中，由于使用了段跨越前缀 fs，0x5678 的段基址则变成了 gs 寄存器。最终的内存地址是<code>gs寄存器的值*16+0x5678</code>,CPU 到此内存地址取值再存入 ax 寄存器。</p>
+<blockquote>
+<p>注意不要和立即数寻址混了，立即数寻址中的数字是直接拿来就用作操作数了，直接寻址中的数字是用来进一步寻址的。</p>
+</blockquote>
+<ol start="2">
+<li><strong>基址寻址</strong><blockquote>
+<p>基址寻址，就是在操作书中用 bx 寄存器或寄存器作为地址的起始，地址的变化以它为基础。这里说的是只能用 bx 或 bp 作为基址寄存器。用寄存器作为内存寻址，在实模式下必须用 bx 或 bp 寄存器。到了保护模式就没这个限制了，基址寄存器可选择的很多，可以是全部的通用寄存器。</p>
+</blockquote>
+</li>
+</ol>
+<p><strong>bx 寄存器的默认段寄存器是 DS，而 bp 寄存器的默认段寄存器是 SS</strong>，即 bp 和 sp 都是栈的有效地址。<br>访问栈有两种方式，一种是把栈当成“栈”来使用，也就是用 push 和 pop 指令操作栈，但这样我们只能访问到栈顶，即 sp 指向的地址，没有办法直接访问到栈底和栈顶之间的数据。很多时候我们需要读写栈中的数据，即需要把栈当成普通数据段那样访问。为了让开发人员方便控制枝中数据，提供了把栈当成数据段来访问的方式，可以用寄存器 bp 来给出栈中偏移量，所以 bp 默认的段寄存器就是 SS ，这样就可通过 SS：bp 的方式把栈当成普通的数据段来访问了。</p>
+<p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line">function(<span class="type">int</span> b, <span class="type">int</span> c) &#123;</span><br><span class="line">	<span class="type">int</span> d;</span><br><span class="line">&#125;</span><br><span class="line">a++;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662381669532-e2598b40-399b-4744-984d-4fb202ebf500.png#clientId=u8acff50e-b9fb-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=593&id=u20e84267&margin=%5Bobject%20Object%5D&name=image.png&originHeight=889&originWidth=1154&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=700706&status=done&style=none&taskId=u22e7c53b-e2e5-4338-821b-eab288d5c0f&title=&width=769.3333333333334" alt="image.png"></p>
+<blockquote>
+<p>by the way，堆栈框架的工作是为函数分配局部变量空间，因此应该在刚刚进入函数时就进行为局部变量分配局部变量空间，因此应该在刚刚进入函数时就进行为局部变量分配空间的工作，离开函数时再回收局部变量的空间，所以堆栈框架的创建和回收工作是在进入函数和离开函数时进行的。为了在名称上推按堆栈框架这两个阶段，有一条指令叫 enter，它是在进入函数时执行的，其功能就是备份 ebp 并使 ebp 更新为 esp，即先“push ebp”再“mov ebp，esp”，因此第 3<del>4 步的两条指令通常会由一条 enter 指令来代替。另一条指令是 leave，它是在离开函数时执行的，其功能是回收局部变量的空间并恢复 ebp 的值，即先“mov esp,ebp”再“pop ebp”，因此第 6</del>7 步的两条指令也通常由一条 leave 指令来代替。</p>
+</blockquote>
+<ol start="3">
+<li><strong>变址寻址</strong></li>
+</ol>
+<p>变址寻址和基址寻址类似，只是寄存器由 bx、bp 换成了 si 和 di。si 是指源索引寄存器，di 是指目的索引寄存器。两个寄存器的默认段寄存器也是 ds。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov [di], ax	;将寄存器ax的值存入ds:di指向的内存</span><br><span class="line">mov [si+0x1234], ax		;变址中也可以加个偏移量</span><br></pre></td></tr></table></figure>
+
+<p>变址寻址主要是用于字符搬运方面的指令，这两个寄存器在很多指令中都要成对使用，如 movsb, movsw, movsd 等。变址寻址只是为了配合基址寻址，用来实现基址变址寻址。</p>
+<ol start="4">
+<li><strong>基址变址寻址</strong><blockquote>
+<p>从名字上看，这是基址寻址和变址寻址的结合，即基址寄存器 bx 或 bp 加一个变址寄存器 si 或 di 。</p>
+</blockquote>
+</li>
+</ol>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov [bx+di], ax;</span><br><span class="line">add [bx+si], ax;</span><br></pre></td></tr></table></figure>
+
+<p>第一条指令是将 ax 中的值送入以 ds 为段基址， bx+di 为偏移地址的内存。<br>第二条指令是将 ax 与［ds: bx+si ］处的值相加后存入内存[ds: bx+si]。</p>
+<h4 id="3-2-5-栈到底是什么玩意儿"><a href="#3-2-5-栈到底是什么玩意儿" class="headerlink" title="3.2.5 栈到底是什么玩意儿"></a>3.2.5 栈到底是什么玩意儿</h4><blockquote>
+<p>物理上的栈同数据段、代码段一样， 是个内存中的区域，也就是找段寄存器 SS 和枝指针 SP 所指向的内存区域。我们常听说的横溢出，指的就是这个内存区域无法容纳数据了。</p>
+</blockquote>
+<p>硬件实现这个栈，首先得满足栈的概念，具备栈的特性，两个条件：一是线性结构、二是在栈顶对数据存取。<br>线性结构这个简单，内存就是，直接用物理内存存取最方便了，咱们要做的就是给栈指定一片内存区域，区域的起始地址作为栈基址，存入梳基址寄存器 SS 中，另一端是动态变化的，用栈指针寄存器 SP 来指定。栈在使用过程中是向下扩展的，所以栈顶地址肯定小于栈底地址。<br>栈既然是一片内存区域，访问内存就要用“段基址：段内偏移地址”的形式，所以栈中的内存地址也是用“段基址 SS 的值 * 16 ＋栈指针 SP（段内偏移地址）形成的位地址”访问到的。<br>栈顶（SP 指针〉是栈的出口和入口，它指向的内存中存储的始终是最新的数据。 push 和 pop 就是操作这个指针所指向的内存。由于栈从高地址向低地址发展，所以栈顶、栈指针指向的地址会越来越低。 push 压入数据的过程是：先将 SP 减去字长，目的是避免将栈顶的数据破坏，所得的差再存入栈，栈顶在此被更新，这样栈顶就指向了栈中下一个存储单元的位置。再将数据压入 SP （新的栈顶）指向的新的内存地址。pop 指令相反，既然是在栈中弹出数据 ，栈指针寄存器 SP 的值应该是增大一个数据单位。由于要弹出的数据就在当前栈顶，所以在弹出数据后，才将 SP 加上宇长，所得的和再存入 SP，从而更新了栈顶。 这样 SP 就指向了上个存储单元的位置。<br>上面提到的字长，是指 CPU 字长，即一次可处理的数据的长度。在实模式下的字长是 16<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662557683960-a9bb3a5a-03a2-4bee-87a9-57e5810e8d73.png#clientId=uf711a7bd-ab8c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=665&id=u034b0698&margin=%5Bobject%20Object%5D&name=image.png&originHeight=997&originWidth=1527&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=342734&status=done&style=none&taskId=u75a019b1-64f0-4162-8888-2bf2f061087&title=&width=1018" alt="image.png"><br>如图 3-9 所示，虽然栈是向下发展的，但栈也是内存，访问内存依然是从低地址往高地址， 假如当前栈顶是 0x1233E ，栈顶数据占 2 字节的话，其范围是 0x1233E~0x1233F。</p>
+<h4 id="3-2-6-实模式下的-ret"><a href="#3-2-6-实模式下的-ret" class="headerlink" title="3.2.6 实模式下的 ret"></a>3.2.6 实模式下的 ret</h4><p>call 指令用来执行一段新的代码，让 CPU 踏上新的征途，为避免这是一条不归路，还需要返回指令 ret 来帮忙。<br>call 指令调用一个函数时，发生了什么呢？压入返回地址，为将来能够回来埋下伏笔。 call 指令不负责“回来”，它只负责如何“去”，回来的工作要交给 ret。<br>call 指令不是一去不回头，它执行完目标函数后还是要回来的，所以它得提前把回来的路〈返回地址）记好了，对于 CPU 来说，它是靠程序计数器 PC 来指路的，所以路就在 PC 中。凡是调用 call 指令， CPU 就要找地方把返回地址存起来以备将来函数执行时有路可以返回。在哪里保存返回地址合适呢，这需要考虑函数嵌 套调用的问题。由于函数有可能嵌套调用，也就是随着函数调用的层数增加，会有更多的返回地址需要保存 用宝贵且有限的寄存器来保存无数的返回地址，这显然是不现实的。内存空间相对是无限的，在内存中保存数 量未知的返回地址比较理想。战这种数据结构是再适合不过的，利用其后进先出的特性，可以保证函数嵌套调 用及嵌套返回顺序的一致性，而且其空间只受限于内存大小。于是在内存中创建这样一个数据结构就完美地解 决了这个问题，所以 CPU 在战中保留程序计数器 PC 的值。在 x86 中的程序计数器是 CS: IP ，具体保留部分还是 CS 都保留，是要看目标函数的段基址是否和当前段基址一致，也就是说，是否跨段访问了。<br>保留的这个返回地址并不是给 call 指令用的， call 指令不会自动回来，它只会留下返回地址后井踏上新的 征程，返回地址是给 ret retf 指令准备的，也就是说，在目标函数中必须有这两个指令之一， CPU 才能回来。<br>ret (return ）指令的功能是在栈顶（寄存器 ss: sp 所指向的地址）弹出 2 字节的内容来替换 IP 寄存器，注意，我这里说的是“内容”， ret 指令不管里面的内容是不是地址，它只负责把当前栈顶处的内容弹出栈并用它为 IP 寄存器赋值。至于内容的正确性应该由程序员自己控制。ret 只置换了 IP 寄存器，也就是说，不用换段基址，属于<strong>近返回</strong>。既然我们称之为弹出栈，也就是说 ret 指令也要负责维护栈顶指针，由于栈是从高地址往低地址发展，所以被回收的栈顶空间应该是使<strong>sp</strong>指针值变大，故 ret 指令会使 sp 指针+2。<br>retf（return far）是从栈顶取得 4 字节，栈顶处的 2 字节用来替换 IP 寄存器，另外的 2 字节用来替换 CS 寄存器。<br>同样，retf 也不会去检查从栈顶往上的 4 字节内容是不是偏移地址和段基址，它只负责弹出它们，并将它们分别载入代码段寄存器<strong>CS</strong>和指令指针寄存器<strong>IP，</strong>由程序员负责栈中数据的正确性。换句话说，在用 ret 或 retf 之前，程序员应该知道此时栈顶中的数据是什么，能补鞥呢用作返回地址。段寄存器都换了，这说明这属于元返回。retf 指令也要负责维护栈顶指针，所以 retf 指令会使 sp 指针+4.<br>call 和 ret 是一对配合，用于近调用和近返回，call far 和 retf 是一对配合，用于远调用和远返回。</p>
+<h4 id="3-2-7-实模式下的-call"><a href="#3-2-7-实模式下的-call" class="headerlink" title="3.2.7 实模式下的 call"></a>3.2.7 实模式下的 call</h4><p>call 指令调用函数有四种方式。</p>
+<ol>
+<li><strong>16 位实模式相对近调用</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">call near near_proc</span><br><span class="line">jmp $</span><br><span class="line">addr dd 4</span><br><span class="line">near_proc:</span><br><span class="line">mov ax, 0x1234</span><br><span class="line">ret</span><br></pre></td></tr></table></figure>
+
+<p>call 指令是要占用内存空间的，这里我们解释的是相对近调用，此指令机器码是 e81lhh，占用 3 字节。其中 e8 是操作码，表示相对近调用，ll 表示操作数的低位，hh 表示操作数的高位， hhll 表示跳转目标为 4 位地址。由于 x86 平台是小端字节序，故写成了 llhh ，即高位在高地址，低位在低地址。这 4 位地址是个相对增量，请问这是如何得出的呢？首先用目标函数的地址减去当前 call 指令的地址，所得的差再减去此 call 指令机器码的大小（此类相对近调用的机器码大小是 3 字节，故要减去 3 ，最终的结果便是 call 指令中的操作数，即与目标地址的相对地址增量。<br>由于此操作数并不是目标函数的绝对地址，只是相对于目标函数地址的相对增量，所以此操作数并不能直接被 CPU 使用（“直接”就是操作数以立即数的形式给 CPU 后， CPU 拿来就用，不用转换）。CPU 在实际执行中还要将此增量还原成绝对地址。所以此相对近调用并不能称为“直接”相对近调用。既然是相对量，就有正负之分。如果目标地址比当前 call 指令地址大，地址相对量则为正数。如果目标地址比当前 call 指令地址小，地址相对量便为负数。由此可见，操作数是个有符号数。由于段是个 16 位大小的空间，所以，正负数的范围是<code>-32768~32767</code>。</p>
+<ol start="2">
+<li><strong>16 实模式间接绝对近调用</strong></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">mov word [addr], near_proc</span><br><span class="line">call [addr]</span><br><span class="line">mov ax, near_proc</span><br><span class="line">call ax</span><br><span class="line">jmp $</span><br><span class="line">addr dd 4</span><br><span class="line">near_proc:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	ret</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>16 位实模式直接绝对远调用</strong></li>
+</ol>
+<p>在各种转移指令中，凡是包含“直接”，都意指不需要经过寄存器或内存，操作数以立即数的形式给出。<br>凡是包含“远”，就意指要跨段啦，目标函数和当前指令不在同一个段中。<br>由于是远调用，所以 CS 和 IP 都要用新的， call 指令将来还是要回来的，所以要在栈中保留回来的路， 即先把老的 CS 寄存器压入栈，再把老的 IP 寄存器压入栈后，用新的 CS 和 IP 寄存器替换，从此开启新的旅途。<br>指令的一般形式是：<br>call far 段基址(立即数)：段内偏移地址(立即数)<br>对于直接绝对远调用，far 也可以不加。操作吗是 0x9a。机器码是 0x9a+2 字节的偏移地址+2 字节的段基址，即偏移地址在前，段基址在后，和指令的调用形式是相反的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">call 0: far_proc</span><br><span class="line">jmp $</span><br><span class="line">far_proc:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	retf</span><br></pre></td></tr></table></figure>
+
+<p>代码极其简单，直接看第 2 行，这个函数调用就用了直接绝对远调用的形式。<br>段基址是 0，段内偏移地址就是 far_proc 。由于此类 call 是远调用，所以要和 retf 来配合，见第 6 行， retf 来返回。<br>给大家交待个背景，此程序是由 MBR 调用的，在执行此程序前， CS 的值是 0。而我们的 call 在此处用的段基址依然是 0，段基址没变。这能算跨段吗？其实 CPU 它不判断新的段值是否和当前段值一致，只要重新加载段寄存器，它就加载。</p>
+<ol start="4">
+<li><strong>16 位实模式间接绝对远调用</strong></li>
+</ol>
+<p>指令格式是：<code>call far 内存寻址</code>，如<code>call far [bx],call far [0x1234]</code>，操作码是 ffle。在该内存中的内容大小是 4 字节，此内容便是地址，前（低）2 字节是段内偏移地址，后（高）2 字节是段基址。在此调用方式中一定要价格关键字 far，否则就和第 2 中的间接绝对近调用一样了。<br>新的段基址和段内偏移既然是在内存中，访问内存的话，也要按照“段基址：段内偏移地址”的形式去操作。例如上面的 call far [0x1234]，由于没有段跨越前缀，则将默认的段基址寄存器 ds*16 后再与 0x1234 相加，得到的和为物理地址，再到该物理地址处去读取新的偏移地址和段基址，以该物理地址为起始的 2 个字节是段内偏移地址，以（该物理地址+2）为起始的 2 个字节是段基址。既然是段基址和段内偏移地址都要用新的，CPU 为了记得回来的路，先把老的 CS 寄存器压入栈，再把老的 IP 寄存器压入栈中保存起来，在用新的段基址替换 CS，新的段内偏移地址替换 IP。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">call far [addr]</span><br><span class="line">jmp $</span><br><span class="line">addr dw far_proc, 0</span><br><span class="line">far_proc:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	retf</span><br></pre></td></tr></table></figure>
+
+<p>第 2 行执行间接绝对远调用，addr 是个变量，在第 4 行定义的，其值的低 2 字节是函数 far_proc 的地址，高 2 位是 0，即段基址。相对短转移的“短”，体现在操作数中，即跳转的范围只能是 1 字节有符号数所表示的范围，即-128~127。</p>
+<h4 id="3-2-8-实模式下的-jmp"><a href="#3-2-8-实模式下的-jmp" class="headerlink" title="3.2.8 实模式下的 jmp"></a>3.2.8 实模式下的 jmp</h4><p>5 类转移方式：</p>
+<ol>
+<li><strong>16 位实模式相对短转移</strong></li>
+</ol>
+<p>指令格式是<code>jmp short 立即数地址</code>。<br>相对短转移的机器码大小是 2 字节，操作码是 0xeb ，可知其为 2 宇节大小。那操作数占 1 字节。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart_0x900</span><br><span class="line">jmp short start</span><br><span class="line">times 127 db 0</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	jmp $</span><br></pre></td></tr></table></figure>
+
+<p>第 2 行的<code>jmp short start</code>采用短转移方式。目标地址是第四行的 start<br>在第 3 行特意定义了 127 字节的数据，目的是用来间隔目标地址 start，使第 2 行的 jmp 和第 4 行 jmp shart start 的地址后，再减去 2 字节等于 127。</p>
+<ol start="2">
+<li><strong>16 位实模式相对近转移</strong></li>
+</ol>
+<p>指令格式是<code> jmp near 立即数地址</code>，其操作码是 0xe9。操作数范围是-32768<del>32767。<br>由于相对近转移的机器码是 字节，所以操作数＝目标地址·当前指令地址-3。<br>补充一下，按照目前 2.10.07 版本的 nasm ，如果超过了 16 位有符号数的范围-32768</del>32767 ，编译器并不会报错，只是会将超过 16 位的部分忽略，只保留 16 位的结果。 jmp “相对”转移的形式介绍完了，分别是相对短转移和相对近转移 。其中的 hort near 如果省略， nasm 编译器会根据目的地址和当前地址的偏移量大小来自行判断，若偏移量属于范围－ 128 127. 则编译 short 短转移形式。若超过了短转移的范围就编译为 near 近转移形式</p>
+<ol start="3">
+<li><strong>16 位实模式间接绝对近转移</strong></li>
+</ol>
+<p>间接，是指操作数并不直接给出 ，而是存储在寄存器或内存中。<br>指令格式是<code>jmp near 寄存器寻址</code>，或者<code>jmp near 内存寻址</code>。<br>寄存器寻址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">mov ax, start</span><br><span class="line">jmp near ax</span><br><span class="line">times 128 db 0</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	jmp $</span><br></pre></td></tr></table></figure>
+
+<p>内存寻址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">mov word [addr], start</span><br><span class="line">jmp near [addr]</span><br><span class="line">times 128 db 0</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	jmp $</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li><strong>16 位实模式直接绝对远转移</strong></li>
+</ol>
+<p>“直接”是指操作数不仅是立即数，而且 CPU 直接拿来就用，不用再转换。<br>“绝对”是指提供的操作数是绝对地址。<br>“远”是指目的地址和当前指令不是一个段，有跨段的需求，所以要操作数要包括新的段基址和段内偏移。<br>指令格式为<code>jmp 立即数形式的段基址：立即数形式的段内偏移地址</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">jmp 0: start</span><br><span class="line">times 128 db 0</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	jmp $</span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><strong>16 位实模式间接绝对远转移</strong></li>
+</ol>
+<p>为了指示 CPU 在内存中取 4 个字节，需要在指令中用关键字 far，即前两个字节是段内偏移地址，后两个字节是段基址。<br>所以其指令格式是<code>jmp far 内存寻址</code>。 由于操作数在内存中，在不使用段跨越前缀的情况下，段基址寄存器是 DS。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">section call_test vstart=0x900</span><br><span class="line">jmp far [addr]</span><br><span class="line">times 128 db 0</span><br><span class="line">addr dw start, 0</span><br><span class="line">start:</span><br><span class="line">	mov ax, 0x1234</span><br><span class="line">	jmp $</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-9-标志寄存器-flags"><a href="#3-2-9-标志寄存器-flags" class="headerlink" title="3.2.9 标志寄存器 flags"></a>3.2.9 标志寄存器 flags</h4><p>按理说，既然有“无条件转移”，就应该有“有条件转移”，真实情况也确实是这样。讲完了无条件转移指令后，该到有条件转移指令啦，可是我们得知道这个条件在哪里，是什么条件。这样我们才能根据这些条件做出是否转移的判断。<br>实模式下标志寄存器是 16 位的 flags，在 32 位保护模式下，扩展了标志寄存器，称为了 32 位的 eflags。<br>IA32 指令中并没有提供高级逻辑的指令，但无论逻辑多复杂，都可以通过最简单的判断和转移来实现。判断哪里？判断什么？这个判断的对象就是标志寄存器中的标志位。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662894235329-1a62b394-3eeb-4aec-befb-635c8a7339ea.png#clientId=u3aab4af7-e4a9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=389&id=u555b7064&margin=%5Bobject%20Object%5D&name=image.png&originHeight=583&originWidth=1416&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=201781&status=done&style=none&taskId=uee2b96d9-d987-4a53-93df-956a55b04bb&title=&width=944" alt="image.png"><br>以下标志位仅在 8088 以上 CPU 中有效。</p>
+<ol>
+<li><p>第 0 位的是 CF 位，即 Carry Flag ，意为<strong>进位</strong>。运算中，数值的最高位有可能是进位，也有可能是借位，所以 carry 表示这两种状态。不管最高位是进位，还是借位，CF 位都会置 1，否则为 0。它可用于检测无符号数加减法是否有溢出，因为 CF 时，也就是最高位有进位或借位，肯定是溢出。</p>
+</li>
+<li><p>第 1&#x2F;3&#x2F;5&#x2F;15 位没有专门的标志位，空着占位用。</p>
+</li>
+<li><p>第 2 位为 PF 位，即 Parity Flag，意味<strong>奇偶位</strong>。用于标记结果低 8 位中 1 的个数，如果为偶数，PF 位为 1，否则为 0。注意是最低的那位，不管操作数是 16 位，还是 32 位。奇偶校验经常用于数据传 输开始时和结束后的对比，判断传输过程中是否出现错误。</p>
+</li>
+<li><p>第 4 位为 AF 位，即 Auxiliary carry Flag，意为<strong>辅助进位标志</strong>，用来记录运算结果低 4 位的进、借位情况，若低半字节有进、错位，AF 为 1，否则为 0.</p>
+</li>
+<li><p>第 6 位为 ZF 位，则 Zero Flag，意为<strong>零标志位</strong>。若计算结果为 0，此标志为 1，否则为 0.</p>
+</li>
+<li><p>第 7 位为 SF 位，即 Sign Flag，意为<strong>符号标志位</strong>。若运算结果为负，则 SF 位为 1，否则为 0.</p>
+</li>
+<li><p>第 8 位为 TF 位，即 Trap Flag，意为<strong>陷阱标志位</strong>。此位若为 1，用于让 CPU 进入单步运行方式，若为 0，则为连续工作的方式。平时我们用的 debug 程序，在单步调试时，原理上就是让 TF 位为 1。可见，软件上的很多功能，必须有硬件的原生支持才能得以实现。</p>
+</li>
+<li><p>第 9 位为 IF 位，即 Interrupt Flag，意为<strong>中断标志位</strong>。若 IF 位为 1，表示中断开启，CPU 可以响应外部可屏蔽中断。若为 0，表示中断关闭，CPU 不再响应来自 CPU 外部的可屏蔽中断，但 CPU 内部的异常还是要响应的，因为它关不住。</p>
+</li>
+<li><p>第 10 位为 DF 位，即 Direction Flag，意为<strong>方向标志位</strong>。此标志位用于字符串操作指令中，当 DF 为 1 时，指令中的操作数地址会自动减少一个单位，当 DF 为 0 时，指令中的操作数地址会自动增加一个单位，意即给地址的变化提供个方向。其中提到的这个单位的大小，取决于用什么指令。</p>
+</li>
+<li><p>第 11 位为 OF 位，即 Overflow Flag，意为<strong>溢出标志位</strong>。用于表示计算的结果是否超过了数据类型可表示的范围，若超出了范围，就像水从锅里溢出去了一样。若 OF 为 1，表示有溢出，为 0 则未发生溢出。专门用于检测有符号数运算结果是否有溢出现象。</p>
+<blockquote>
+<p>以下标志位仅在 80286 以上 CPU 中有效。相对于 8088，它支持特权级和多任务。</p>
+</blockquote>
+</li>
+<li><p>第 12~13 位为 IOPL ，即 Input Output Privilege Level，这用在有特权级概念的 CPU 中。有 4 个任务特权级，即特权级 0、特权级 1、特权级 2 和特权级 3。故 IOPL 要占用位来表示这种特权级。如果您对此感到迷茫，不用担心，这些将来咱们在保护模式下也得实践。</p>
+</li>
+<li><p>第 14 位为 NT，即 Nest Task ，意为<strong>任务嵌套标志位</strong>。 8088 支持多任务，一个任务就是一个进程。当一个任务中又嵌套调用了另一个任务（进程）时，此 NT 位为 1，否则为 0。</p>
+<blockquote>
+<p>以下标志位仅用于 80386 以上的 CPU</p>
+</blockquote>
+</li>
+<li><p>第 16 位为 RF 位，即 Resume Flag ，意即<strong>恢复标志位</strong>。该标志位用于程序调试，指示是否接受调试故障，它需要与调试寄存器起使用。当 RF 为 1 时忽略调试故障，为 0 时接受。</p>
+</li>
+<li><p>第 17 位为 VM 位， 即 Vrrtual 8086 Model ，意为<strong>虚拟 8086 模式</strong>。这是实模式向保护模式过渡时的产物，现 在己经没有了。CPU 有了保护模式后，功能更加强大了，但为了兼容实模式下的用户程序，允许将此位置为 1， 这样便可以在保护模式下运行实模式下的程序了。实模式下的程序不支持多任务，而且程序中的地址就是真实的物理地址。所以在保护模式下每运行一个实模式下的程序，就要为其虚拟一个实模式环境，故称为虚拟模式。</p>
+<blockquote>
+<p>以下标志位仅用于 80486 以上的 CPU</p>
+</blockquote>
+</li>
+<li><p>第 18 位为 AC 位，即 Alignment Check，意为<strong>对齐检查</strong>。什么是对齐呢？是指程序中的数据或指令其内存地址是否是偶数，是否是 16、32 的整数倍，没有余数，这样硬件每次对地址以自增地方式（每次自加 2、16、32 等〉访问内存时，自增后的地址正好对齐数据所在的起始地址上，这就是对齐的原理。对齐并不是软件逻辑中的要求，而是硬件上的偏好，如果待访问的内存地址是 16 或 32 的整数倍，硬件上好处理，所以运行较快。若 AC 位为 1 时，则进行地址对齐检查，为 0 时不检查。</p>
+<blockquote>
+<p>以下标志位只对 80586 （奔腾）以上 CPU 有效</p>
+</blockquote>
+</li>
+<li><p>19 位为 VTF 位，即 Virtual Interrupt Flag ，意为<strong>虚拟中断标志位</strong>，虚拟模式下的中断标志。</p>
+</li>
+<li><p>20 位为 VIP 位，即 Virtual Interrupt Pending ，意为<strong>虚拟中断挂起标志位</strong>。在多任务情况下，为操作系统提供的虚拟中断挂起信息，需要与 VIF 位配合。</p>
+</li>
+<li><p>21 位为 ID 位，即 Identification ，意思为<strong>识别标志位</strong>。系统经常要判断 CPU 型号，若 ID 为 1，表 示当前 CPU 支持 CPU id 指令，这样便能获取 CPU 的型号、厂商等信息 ，则 ID 为 0，表示当前 CPU 不支持 CPU id 指令</p>
+</li>
+<li><p>其余剩下的 22~31 位都没有实际用途，纯粹是占位用，为了将来扩展。</p>
+</li>
+</ol>
+<h4 id="3-2-10-有条件转移"><a href="#3-2-10-有条件转移" class="headerlink" title="3.2.10 有条件转移"></a>3.2.10 有条件转移</h4><p>有条件转移不是简单的一个指令，它是一个指令族，我们在此简单称 jxx 。如果条件满足， jxx 将会跳转到指定的位置去执行，否则继续顺序地执行下一条指令。<br>其格式为 <code>jxx 目标地址</code>。若条件满足则跳转到目标地址，否则顺序执行下一条指令。<br>其中，目标地址只能是段内偏移地址。</p>
+<ul>
+<li>在实模式下，由编译器根据当前指令与目标地址的偏移量，自行将其编译成短转移或近转移。</li>
+<li>在保护模式下，寄存器中宽度已经到了 32 位， 32 位的偏移地址可以访问 到整个 32 位地线总线的 4GB 内存空间，编译器不再区分转移方式。</li>
+</ul>
+<p>条件转移指令中所说的条件就是指标志寄存器中的标志位。 jxx 中的 xx，就是各种条件的分类，每种条件有不同的转移指令。下面将条件展开，将各指令实例化列出，见表 3-12。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662898359965-65eb0bbb-a198-4e96-bb99-feb647ba71d8.png#clientId=u3aab4af7-e4a9-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=635&id=u8a26c0f1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=953&originWidth=1613&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=943398&status=done&style=none&taskId=ue5efcd57-27d8-446c-8338-b136e6616a0&title=&width=1075.3333333333333" alt="image.png"><br>这里面同义的好多啊，比如 jl 和 jnge ，直接就理解为“小于时转移”就成 了，何必再弄个同义词 jnge “不大于等于时转移”呢？其实不用那么闹心，经常用的就两三个。而且，这 些转移指令是由意义明确的字符拼成的。</p>
+<ul>
+<li>a 表示 above</li>
+<li>b 表示 below</li>
+<li>c 表示 carry</li>
+<li>e 表示 equal</li>
+<li>j 表示 jmp</li>
+<li>l 表示 less</li>
+<li>n 表示 not</li>
+<li>o 表示 overflow</li>
+<li>p 表示 parity</li>
+</ul>
+<h4 id="3-2-11-实模式小结"><a href="#3-2-11-实模式小结" class="headerlink" title="3.2.11 实模式小结"></a>3.2.11 实模式小结</h4><p>实模式被保护模式淘汰的原因，最主要是安全隐患。<br>在实模式下，用户程序和操作系统可以说是同一特权的程序，因为实模式下没有特权级，它处处和操作系统平起平坐，所以可以执行一些具有破坏性的指令。<br>程序可以随意修改自己的段基址，这样便在 1MB 的内存空间内不受阻拦，可以随意访问任意物理内存，包括访问操作系统所在的内存数据。这就给程序员开放了无限的自由，程序员访问内存可以说是指哪打哪。<br>由于完全没有保护性可言，用户程序甚至可以覆盖操作系统在内存中的映像，整个计算机世界的和平全靠程序员的心情。</p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2022/07/25/yuque/wkifhl/" title="右值引用" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">
+								《操作系统真象还原》：第2章 编写 MBR			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 23日, 2022				
+							</p>
+							<p class="relate-post-content">
+								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第2章 编写 MBR"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
+								《操作系统真象还原》：第1章 环境配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
+
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">
+								6月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 16日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+“零拷贝”技术
+Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="6月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">
+								5月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 10日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="5月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">
+								4月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="4月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/25/yuque/wkifhl/" title="右值引用">
+								右值引用			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+
+右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/25/yuque/wkifhl/" title="右值引用">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="右值引用"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">
+								Ready for Linux Kernel Compiled Testing			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
+
+纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Ready for Linux Kernel Compiled Testing"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows">
+								Clone Linux Kernel Code on Windows			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2022				
+							</p>
+							<p class="relate-post-content">
+								出现问题的原因
+Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Clone Linux Kernel Code on Windows"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">
+								Compile Linux Kernel Version of Project-C Community			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 28日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
+
+下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone htt...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Compile Linux Kernel Version of Project-C Community"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">
+								为什么Proactor比Reactor模式更优？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 5日, 2022				
+							</p>
+							<p class="relate-post-content">
+								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
+什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/05/yuque/to6mm2/" title="为什么Proactor比Reactor模式更优？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="为什么Proactor比Reactor模式更优？"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
