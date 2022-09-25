@@ -1,0 +1,1076 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      《操作系统真象还原》：第三章 完善MBR——I/O接口 | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="C U" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+  <!-- site analysis -->
+  
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?b702b9b0aa72233c214dcbade17a5a27";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+    <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 6.2.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">C U</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「《操作系统真象还原》：第三章 完善MBR——I/O接口」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
+		《操作系统真象还原》：第三章 完善MBR——I/O接口
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
+		<time datetime="2022-09-25T13:56:27.000Z" itemprop="dateUpdated">
+	  		2022-09-25
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/OS/" class=" ">
+			OS
+		</a>
+	
+		<a href="/tags/Reading/" class=" ">
+			Reading
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="3-3-让我们对显示器说点什么吧"><a href="#3-3-让我们对显示器说点什么吧" class="headerlink" title="3.3 让我们对显示器说点什么吧"></a>3.3 让我们对显示器说点什么吧</h3><h4 id="3-3-1-CPU-如何与外设通信——IO-接口"><a href="#3-3-1-CPU-如何与外设通信——IO-接口" class="headerlink" title="3.3.1 CPU 如何与外设通信——IO 接口"></a>3.3.1 CPU 如何与外设通信——IO 接口</h4><p><strong>IO 接口功能：</strong></p>
+<ol>
+<li>设置数据缓冲，解决 CPU 与外设的速度不匹配</li>
+<li>设置信号电平转换电路</li>
+<li>设置数据格式转换</li>
+<li>设置时序控制电路来同步 CPU 和外部设备</li>
+<li>提供地址译码</li>
+</ol>
+<p>CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接口通信，当很多的 IO 接口同时想和 CPU 对话时，面对众多接口时 CPU 应该如何选择？这个工作不应该由 CPU 来做，CPU 太忙了，还是好刚使在刀刃上吧，既然分层能解决问题，咱们再加一层，这一层的责任是除了仲裁 IO 接口的竞争，还要连接各种内部总线。由于它的使命，它的名字就叫做输入输出控制中心（I&#x2F;O co ntrol hub，ICH），也就是南桥芯片，如图 3-11 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1662986736158-dc518253-7626-47c3-ba76-f01c3ff5d5a9.png#clientId=ua6e2a5dc-5ac6-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=297&id=uf84cc0f0&margin=%5Bobject%20Object%5D&name=image.png&originHeight=446&originWidth=654&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=231977&status=done&style=none&taskId=u26d9c2e6-234c-4bf2-a3b0-650af265a42&title=&width=436" alt="image.png"><br>说到了南桥，多少还要提一句北桥芯片的作用。图 3-11 上标上北桥部分其实是散热片，在它先买你才是北桥。由于南桥和北桥一般是成对出现的， 至少在支持 Intel CPU 的主板中是这样的（话说， AMD 为了减少 CPU 同北桥交换数据的成本，已经把北桥的工作放到了 CPU 内部，所以支持 AMD 的板子上未必有北桥芯片）。<strong>南桥用于连接 pci、pci-express、AGP 等低速设备， 北桥用于连接高速设备，如内存。</strong><br>CPU 通过内部总线连接到南桥芯片中的内部，这个内部总线是专用的，它只通向位于南桥中的 CPU 接口。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663332363437-dbaf689f-4011-4346-9638-8ea7a0bba905.png#clientId=u16eca440-fa78-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=576&id=u0af51129&margin=%5Bobject%20Object%5D&name=image.png&originHeight=864&originWidth=576&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=199784&status=done&style=none&taskId=uf62d275f-e2d1-4324-a058-c6b39992752&title=&width=384" alt="image.png"><br>IO 接口在诞生之初，就被设计成要通过寄存器的方式同 CPU 通信，其内部有专用于数据交互的寄存器，只不过这里所说的这些寄存器位于 IO 接口中，为了区别于 CPU 内部的寄存器， IO 接口中的寄存器就称为端口（这可不是网络应用程序所开的那种端口，如网络服务器会启动 80 端口，这是两码事）。</p>
+<h4 id="3-3-2-显卡概述"><a href="#3-3-2-显卡概述" class="headerlink" title="3.3.2 显卡概述"></a>3.3.2 显卡概述</h4><p>mbr 运行在实模式下，所以在实模式下也可以用 BIOS 0x10 中断打印字符串，这是因为中断表只在实模式下存在， 保护模式下没有中断向量表。其次是不希望有更多的依赖，好不容易脱离了对操作系统的依赖，又引入了一个新的依赖，这不科学。<br>显卡是 pci 设备，所以是安装在主板上 pci 插槽上的， pci 总线是共享井行架构，并行数据就要保证数据发送后必须同时到达目的地，因为这关系到数据的顺序，不能发过去后成一团乱麻 。虽然貌似并行传输是高效的，但对于要保证同 时接收 位数据，这是有困难的，随着并行数据的位宽越来越大，这种困难也越来越明显。于是串行传输 很好地解决了这一问题，一次只发一位，这样顺序问题解决了，数据到目的地看再组合到 起就成了。于 是就有了 PCI Express 总线，这就是串行设备，简称 pcie。<br>某些 IO 接口也叫适配器，适配器是驱动某外部设备的功能模块。显卡也称为显示适配器，不过归根结底它就是 IO 接口，专门用来连接 CPU 和显示器。我们想操作显示器，没有直接的办法，只能通过它的 IO 接口一一显卡。</p>
+<h4 id="3-2-3-显存、显卡、显示器"><a href="#3-2-3-显存、显卡、显示器" class="headerlink" title="3.2.3 显存、显卡、显示器"></a>3.2.3 显存、显卡、显示器</h4><p>显存是从 0xB8000~0xBFFFF，范围是 32KB，一屏可以显示 2000 个字符，显示器上的每个字符占 2 字节大小，故每屏字符实际占用 4000 字节。这样，我们的 32KB 的显存可以容纳 32KB／4000B 约等于 8 屏的数据。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663507734938-da0a6d26-ec8f-4937-b555-87e8c34c1028.png#clientId=u431254b0-810d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=388&id=u49c72387&margin=%5Bobject%20Object%5D&name=image.png&originHeight=582&originWidth=482&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=88594&status=done&style=none&taskId=u8b4b1c40-1958-4747-b517-59ade86178c&title=&width=321.3333333333333" alt="image.png"><br>屏幕上每个字符的低宇节是字符的 ASCII 码，高字节是字符 属性元信息。在高字节中，低 4 位是字符前景色，高 4 位是字符的背景色。颜色用 RGB 红绿蓝三种基色调和，第 4 位用来控制亮度，若置 1 则呈高亮，若为 0 则为一般正常亮度值。第 7 位用来控制字符是否闪烁（不是背景闪烁）。这两字节如图 3-13 所示。<br>大家知道，用 红色、 绿色、 蓝色这 种颜色以任意比例混合，可以搭配出其他颜色，其他颜色被认为都可以由这三种颜色组合 而成。不过由于在文本模式下的颜色极其有限， RGB 的各部分比例要么是 1（全部），要么是 0（没有），所以其组合出的颜色屈指可数。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663564427209-c05a2c8d-c5aa-4c72-8fd6-13e533d662ee.png#clientId=u8c6bf098-1345-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=390&id=u9b2da8ea&margin=%5Bobject%20Object%5D&name=image.png&originHeight=585&originWidth=1521&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=169228&status=done&style=none&taskId=u9318a9fd-29d5-4cb1-ae1e-321e9715dc5&title=&width=1014" alt="image.png"><br>从上面可以看出只要亮度位 ，颜色就是变亮变浅。大家可以结合 位来测试上面的颜色。</p>
+<h4 id="3-3-4-改进-MBR，直接操作显卡（实践）"><a href="#3-3-4-改进-MBR，直接操作显卡（实践）" class="headerlink" title="3.3.4 改进 MBR，直接操作显卡（实践）"></a>3.3.4 改进 MBR，直接操作显卡（实践）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">;主引导程序</span><br><span class="line">;</span><br><span class="line">;LOADER_BASE_ADDR equ 0xA000</span><br><span class="line">;LOADER_START_SECTOR equ</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">SECTION MBR vstart=0x7c00               ;告诉编译器，起始地址是0x7c00</span><br><span class="line">mov ax,cs                               ;因为BIOS执行完毕后cs:ip为0x0:0x7c00,所以用cs初始化各寄存器(此时cs=0)</span><br><span class="line">mov ds,ax                               ;ds、es、ss、fs不能给立即数初始化，需要用ax寄存器初始化</span><br><span class="line">mov es,ax</span><br><span class="line">mov ss,ax</span><br><span class="line">mov fs,ax</span><br><span class="line">mov sp,0x7c00                           ;初始化堆栈指针，因为目前0x7c00以下的内存暂时可用</span><br><span class="line">mov ax,0xb800                           ;选择显卡的文本模式</span><br><span class="line">mov gs,ax                               ;使用GS段寄存器作为显存段基址</span><br><span class="line"></span><br><span class="line">;清屏利用0x06号功能，上卷全部行，则可清屏</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">;INT 0x10</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">;输入:</span><br><span class="line">;AH     功能号= 0x06</span><br><span class="line">;AL = 上卷行数（如果为0，表示全部）</span><br><span class="line">;BH = 上卷行属性</span><br><span class="line">;(CL,CH) = 窗口左上角的（X,Y）位置</span><br><span class="line">;(DL,DH) = 窗口右下角的（X,Y）位置</span><br><span class="line">;无返回值:</span><br><span class="line"></span><br><span class="line">mov ax,0x600                    ;上卷行数:全部  功能号:06</span><br><span class="line">mov bx,0x700                    ;上卷属性</span><br><span class="line">mov cx,0                        ;左上角:(0，0)</span><br><span class="line">mov dx,0x184f                   ;右下角:(80,25)</span><br><span class="line">;VGA文本模式中，一行只能容纳80字节，共25行</span><br><span class="line">;下标从0开始，所以0x18=24，0x4f=79</span><br><span class="line">int 0x10                        ;int 0x10</span><br><span class="line">;输出背景色为蓝色，前景色为红色，并且跳动的字符串“1 MBR”</span><br><span class="line">;--------------------------------------------------------------------------</span><br><span class="line">mov byte [gs:0x00], &#x27;1&#x27;</span><br><span class="line">mov byte [gs:0x01], 0x92</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x02], &#x27; &#x27;</span><br><span class="line">mov byte [gs:0x03], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x04], &#x27;M&#x27;</span><br><span class="line">mov byte [gs:0x05], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x06], &#x27;B&#x27;</span><br><span class="line">mov byte [gs:0x07], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x08], &#x27;R&#x27;</span><br><span class="line">mov byte [gs:0x09], 0x12</span><br><span class="line">;--------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">jmp $                                   ;使用程序悬停在此</span><br><span class="line"></span><br><span class="line">times 510-($-$$) db 0</span><br><span class="line">db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+
+<p>第 13 行和第 14 行是往 gs 寄存器中存入段基址。<br>显存段基址放在哪个寄存器中都是没关系的，对于访问的是数据来说，如果不用也做段基址寄存器，就要在寻址中“显式地”指明要用哪个段寄存器的值作为段基址。这个“显式的”的段寄存器叫作段跨越前缀，有的书中叫段超越前缀，个人觉得意义不明确。何为超越？由于有“跨段访问”的说法，所以咱们这里统一为段跨越前缀。“段跨越”相对好理解，如 CPU 的访存策略是“段地址＋段内偏移地址”。堆栈段的寄存器是 SS ，代码段寄存器 CS ，这两者不存在默不默认之说，因为它们都不能改变。不过对于数据段来说却有些不同，默认的寄存器是 DS ，但其是可以改变的。一般访问数据时只要给出偏移地址就可以了，这是因为已经存在了默认的段寄存器 DS ，所以访存中给出的偏移地址便是相对于 DS 的偏移量，也就是说访问的地址属于以 DS 为起始的段（是指一般意义上的分段机制，不考虑实模式或保护模式）。但若不想用这个段了，或者访问的地址不属于这个段，想“跨越”这个默认段，而用新的段基址，“跨过”DS 的限制，这就是“跨越”的理解。而“前缀”的意思是在编译后的机器码中，指定的这个新的段寄存器会出现在 IA32 指令格式中的“前缀”宇段，可以参见表 3-1 “IA32 指令格式”。 基于以上两点，为代替默认段基址寄存器而改用的新的段基址寄存器，称为段跨越前缀。<br>在第 37 50 行执行的 mov 操作都是往显存中写字符。拿 37 行和 38 行举例，第 37 行的<code>mov byte [gs: 0x00],&#39;1&#39;</code>，是往 gs 为数据段基址，以 gs 为偏移地址的内存中写入字符 ASCII 码。按之前我们讲过的，写入时，要写入 ASCII 0x31，这是最直接的做法。但编译器诞生的意义就是为了给大家带来方便，尽管我们可以把 37 行的代码改为<code>mov byte [gs: 0x00], 0x31</code> ，但这样毕竟还要自己查 ASCII 码表 。编译器对于出现在代码中的字符，它会自动将其改为相应的 ASCII 码，免去了人工查表的过程。即使把表整个背下来了，本质上也是在脑子中经过了一次查表。所以，对于字符的输出，直接写出相应字符就行了，稍微有点人性化的编译器都会自动完成字符到编码的转换。<br>“mov byte [gs:0x00],’l’”表示的意思是：把字符 ASCII 码写入以 gs: 0x00 为起始，大小为 1 字节的内存中。 word dword 分别表示 2 字节和 4 字节，意义同理。如果源操作数或目的操作数己经明确了数据宽度，在指令中就不必“显示地”指明操作数所占的空间大小了。例如 mov ax, 0x10，目的操作数是 16 位的，所以不用“显示地”在 ax 前或 0x10 前加个关键字 word。</p>
+<h3 id="3-4-bochs-调试方法"><a href="#3-4-bochs-调试方法" class="headerlink" title="3.4 bochs 调试方法"></a>3.4 bochs 调试方法</h3><p>bochs 的硬件调试体现在：</p>
+<ol>
+<li>调试时可以查看页表、 gdt idt 等数据结构；</li>
+<li>可以查看栈中数据；</li>
+<li>可以反汇编任意内存；</li>
+<li>实模式、保护模式互相变换时提醒；</li>
+<li>中断发生时提醒。</li>
+</ol>
+<h4 id="3-4-1-一般用法"><a href="#3-4-1-一般用法" class="headerlink" title="3.4.1 一般用法"></a>3.4.1 一般用法</h4><ol>
+<li><code>xp /nuf &lt;addr&gt;</code> 查看内存</li>
+<li><code>u/1 &lt;addr&gt;</code>将内存数据反汇编成指令</li>
+</ol>
+<p>“DEbugger control” 类：</p>
+<ol>
+<li><code>q|quit|exit</code>退出调试状态，关闭虚拟机</li>
+<li><code>show mode</code> 每次 CPU 变换模式时就提示，模式是指保护模式、实模式</li>
+<li><code>show int</code>每次有中断时就提示，同时显示三种中断类型，这三种中断类型包括”softint”、”extint”和”iret”。也可以单独显示某类中断，例如<code>show softint</code></li>
+<li><code>show call</code>每次有函数调用发生时就会提示</li>
+<li><code>traceon</code>或<code>traceoff</code>每执行一条指令，bochs 都会将反汇编的代码打印到控制台</li>
+<li><code>u|disasm [/num] [start] [end]</code> 将物理地址 start end 之间的代码反汇编，如果不指定地址，则反汇编 EIP 指向的内存，num 指定反汇编的指令数</li>
+</ol>
+<p><strong>“Execution control”类：</strong></p>
+<ol>
+<li><code>c|cont|continue</code>向下持续执行。</li>
+<li><code>s|step [count]</code>执行 count 条指令。若不指定， count 默认为 1。此指令若遇到函数调用，则会进入函数中去执行；</li>
+<li><code>p|n|next</code>执行 1 条指令，若待执行的指令是函数调用，不管函数内有多少指令，把整个函数当作整体来执行。</li>
+</ol>
+<p><strong>“Breakpoint management”类：</strong></p>
+<ol>
+<li>以地址打断点<ol>
+<li><code>vb|vbreak [seg:off]</code>以虚拟地址添加断点，程序执行到此虚拟地址时停下来，注意虚拟地址是“段： 段内偏移”的形式。最常用的是 vb；</li>
+<li><code>lb|lbreak [addr]</code>以线性地址打断点；</li>
+<li><code>pb|pbreak|b|break [addr]</code>以物理地址打断点；</li>
+</ol>
+</li>
+<li>以指令数打断点<ol>
+<li><code>sb [delta]</code>意味着再执行 delta 条指令程序中断；</li>
+<li><code>sba [time]</code> CPU 从运行开始，执行第 time 条指令时中断，从 0 开始的指令数</li>
+</ol>
+</li>
+<li>以读写 IO 打断点<ol>
+<li><code>watch</code>：显示所有读写断点</li>
+<li><code>watch r|read [phy_addr]</code>设置读断点</li>
+<li><code>watch w|write [phy_addr]</code>设置写断点</li>
+<li><code>unwatch [phy_addr]</code>清除在此地址上的读写断点</li>
+<li><code>blist</code>显示所有断点信息；</li>
+<li><code>bpd|bpe [n]</code>禁用&#x2F;启用断点，n 是断点号；</li>
+<li><code>d|del|delete [n]</code>删除断点，n 是断点号，用 blist 查出来</li>
+</ol>
+</li>
+</ol>
+<p><strong>“CPU and memory contents”类：</strong></p>
+<ol>
+<li><code>x /nuf [line_addr]</code>显示线性地址的内容；</li>
+<li><code>xp /nuf [phy_addr]</code>显示物理地址的内容；</li>
+<li><code>info</code>查看信息的指令族<ol>
+<li><code>info CPU</code></li>
+<li><code>info fpu</code></li>
+<li><code>info idt</code></li>
+<li><code>info gdt [num]</code></li>
+<li><code>info ldt</code></li>
+<li><code>info tss</code></li>
+<li><code>info ivt [num]</code></li>
+<li><code>info flags|eflags</code></li>
+<li><code>info sreg|dreg|creg</code>显示所有段寄存器|调试寄存器|控制寄存器的值</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-5-硬盘介绍"><a href="#3-5-硬盘介绍" class="headerlink" title="3.5 硬盘介绍"></a>3.5 硬盘介绍</h3><p>针对硬盘的 IO 接口是硬盘控制器。硬盘控制器同硬盘的关系，融通显卡和显示器一样，他们都是专门驱动外部设备的模块电路，CPU 只同它们说话，由它们将 CPU 的话转译给外部设备。这是他们的共同点，但不同的是显卡和显示器是分开的，硬盘控制器和硬盘是连接在一起的。但在很久很久以前，硬盘控制器和硬盘也是分开的，后来业界的几个老大合作开发初一中新的接口，这样才将硬盘和硬盘控制器整合在一起，为了凸显“整合”之意，硬盘控制器和硬盘终于在一起了，这种接口便称为集成设备电路（Integrated Drive Electronics, IDE）。随着 IDE 接口标准的影响力越来越广泛，全球变转化协议将此接口使用的技术规范归纳称为全球硬盘标准，这样就产生了 ATA（Advanced Technology Attachment）。由于前几年刚出道大营盘串行接口（Serial ATA，SATA），由于其是串行，所以之前的 ATA 接口只好称为并行 ATA，即（Parallel ATA，PATA）。<br>以前一般的主机只支持 4 个并口硬盘，但自从出现串口硬盘后， 情况就变了，支持多少块硬盘，取决于主板的能力。有的主板同时兼容这两种接口。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663847453887-c6a3530b-895a-4ac7-ae0a-244e8f662469.png#clientId=u184abed2-12c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=460&id=ubd788586&margin=%5Bobject%20Object%5D&name=image.png&originHeight=690&originWidth=1530&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=346823&status=done&style=none&taskId=u5770cb36-fe89-48bc-b5ba-1e902c39a6e&title=&width=1020" alt="image.png"><br>常用的端口寄存器示意图：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663847904653-6c1dbf6e-50e9-499d-b382-52600a44f471.png#clientId=u184abed2-12c7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=443&id=uf5d53a72&margin=%5Bobject%20Object%5D&name=image.png&originHeight=665&originWidth=1346&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=266165&status=done&style=none&taskId=ua23bda87-e70e-4ff7-b604-2903954eba5&title=&width=897.3333333333334" alt="image.png"></p>
+<h4 id="3-5-4-常用的硬盘操作方法"><a href="#3-5-4-常用的硬盘操作方法" class="headerlink" title="3.5.4 常用的硬盘操作方法"></a>3.5.4 常用的硬盘操作方法</h4><p>大概步骤：<br>最主要的顺序就是 command 寄存器一定得是最后写，因为一旦 command 寄存器被写入后，硬盘就开始干活了。</p>
+<ol>
+<li>先选择通道，往该通道的 sector count 寄存器中写入待操作的扇区数。</li>
+<li>往该通道上的三个 LBA 寄存器写入扇区起始地址的低 24 位。</li>
+<li>往 device 寄存器中写入 LBA 地址的 24~27 位，并置第 6 位为 1，使其为 LBA 模式，设置第 4 位，选择操作的硬盘（ master 硬盘或 slave 硬盘）。</li>
+<li>往该通道上的 command 寄存器写入操作命令。</li>
+<li>读取该通道上的 sta 寄存器，判断硬盘工作是否完成。</li>
+<li>如果以上步骤是读硬盘，进入下一个步骤。否则，完工。</li>
+<li>将硬盘数据读出</li>
+</ol>
+<p>硬盘工作完成后，常用的获取数据方式，也就是数据传送方式包括：</p>
+<ol>
+<li><strong>无条件传送方式</strong><ol>
+<li>随时准备好了数据，CPU 随取随拿都没问题，如寄存器、内存等设备</li>
+</ol>
+</li>
+<li><strong>查询传送方式</strong><ol>
+<li>也称为程序 I&#x2F;O，PIO，是指传输之前，由程序先去检测设备的状态，数据源在一定的条件下才能传送数据，例如硬盘等设备</li>
+</ol>
+</li>
+<li><strong>中断传送方式</strong><ol>
+<li>也称为中断驱动 I&#x2F;O。上面的“查询传送方式”是 CPU 轮询，效率低。如果数据源设备将数据准备好后再通知 CPU 来取，效率就高了。该方法是当数据源设备准备好数据之后，通过发中断来通知 CPU 来拿数据，这样避免了 CPU 花在查询上的时间。</li>
+</ol>
+</li>
+<li><strong>直接存储器存取方式（DMA）</strong><ol>
+<li>在上面的“中断传送方式”中，通过中断来通知 CPU，CPU 就要通过压栈来保护现场，还要执行传输指令，最后还要恢复现场。该方法是不让 CPU 参与运输，完全由数据源设备和内容直接传输。CPU 直接到内存中拿数据就好了。不过 DMA 是由硬件实现的，需要 DMA 控制器才行。</li>
+</ol>
+</li>
+<li><strong>I&#x2F;O 处理机传送方式</strong><ol>
+<li>DMS 方式中数据输入之后或输出之前还是以后一部分工作要由 CPU 来完成的，例如数据交换、组合、校验等。既然已经引用一个硬件（DMA）了，那一不做二不休再引入一个硬件吧。于是 I&#x2F;O 处理机诞生了。它专门用来处理 IO，并且他其实是一种处理器，只不过用的是另一套擅长 IO 的指令系统，随时可以处理数据。</li>
+</ol>
+</li>
+</ol>
+<h3 id="3-6-让-MBR-使用硬盘（实践）"><a href="#3-6-让-MBR-使用硬盘（实践）" class="headerlink" title="3.6 让 MBR 使用硬盘（实践）"></a>3.6 让 MBR 使用硬盘（实践）</h3><h4 id="3-6-1-改造-MBR"><a href="#3-6-1-改造-MBR" class="headerlink" title="3.6.1 改造 MBR"></a>3.6.1 改造 MBR</h4><p>我们的如 MBR 受限于 512 字节大小的，在那么小的空间中，设法为内核准备好环境，更没法将内核成功加载到内存井运行 所以我们要在另一个程序中完成初始化环境及加载内核的任务，这个程序我们称之 loader ，即加载器。 loader 会在下一节中实现。问题来了，loader 在哪里？如何跳过去执行？这就是新款 MBR 的使命，简而言之就是负责从硬盘上把 loader 加载到内存，并将接力棒交给它。<br>由于 MBR 是占据了硬盘的第 0 扇区（以逻辑 LBA 方式，扇区从 0 开始编号，若是以物理 CHS 方式， 扇区则从 开始编号），第 扇区是空闲的 可以用，但离得太近总感觉不如隔开 点心里踏实，所以把 loader 放到第 扇区。如 IBR 从第 肩区中把它读出来。读出来放到哪里呢？原则上是找个空闲地方就行 了，在表 1-1“实模式下的内存布局”中查看下，只要在“用途”列中注明“可用区域”的地方都可以用 0x500<del>0x7BFF 和 0x7E00</del>9FBFF 这两段内存区域都可以。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line">;主引导程序</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">%include &quot;boot.inc&quot;</span><br><span class="line">SECTION MBR vstart=0x7c00               ;告诉编译器，起始地址是0x7c00</span><br><span class="line">    mov ax,cs                               ;因为BIOS执行完毕后cs:ip为0x0:0x7c00,所以用cs初始化各寄存器(此时cs=0)</span><br><span class="line">    mov ds,ax                               ;ds、es、ss、fs不能给立即数初始化，需要用ax寄存器初始化</span><br><span class="line">    mov es,ax</span><br><span class="line">    mov ss,ax</span><br><span class="line">    mov fs,ax</span><br><span class="line">    mov sp,0x7c00                           ;初始化堆栈指针，因为目前0x7c00以下的内存暂时可用</span><br><span class="line">    mov ax,0xb800                           ;选择显卡的文本模式</span><br><span class="line">    mov gs,ax                               ;使用GS段寄存器作为显存段基址</span><br><span class="line"></span><br><span class="line">;清屏</span><br><span class="line">;利用0x06号功能，上卷全部行，则可清屏</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">;INT 0x10       功能号:0x06             功能描述:上卷窗口</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">;输入:</span><br><span class="line">;AH     功能号= 0x06</span><br><span class="line">;AL = 上卷行数（如果为0，表示全部）</span><br><span class="line">;BH = 上卷行属性</span><br><span class="line">;(CL,CH) = 窗口左上角的(X,Y)位置</span><br><span class="line">;(DL,DH) = 窗口右下角的(X,Y)位置</span><br><span class="line">;无返回值</span><br><span class="line">mov ax,0x600                    ;上卷行数:全部  功能号:06</span><br><span class="line">mov bx,0x700                    ;上卷属性</span><br><span class="line">mov cx,0                        ; 左上角: (0,0)</span><br><span class="line">mov dx,0x184f                   ;右下角:(80,25)</span><br><span class="line">;VGA文本模式中，一行只能容纳80字节，共25行</span><br><span class="line">;下标从0开始，所以0x18=24，0x4f=79</span><br><span class="line">int 0x10                        ;int 0x10</span><br><span class="line">;输出背景色为蓝色，前景色为红色，并且跳动的字符串“1 MBR”</span><br><span class="line">;--------------------------------------------------------------------------</span><br><span class="line">mov byte [gs:0x00], &#x27;1&#x27;</span><br><span class="line">mov byte [gs:0x01], 0x92</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x02], &#x27; &#x27;</span><br><span class="line">mov byte [gs:0x03], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x04], &#x27;M&#x27;</span><br><span class="line">mov byte [gs:0x05], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x06], &#x27;B&#x27;</span><br><span class="line">mov byte [gs:0x07], 0x12</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x08], &#x27;R&#x27;</span><br><span class="line">mov byte [gs:0x09], 0x12</span><br><span class="line"></span><br><span class="line">mov eax ,LOADER_START_SECTOR    ;起始扇区lba地址</span><br><span class="line">mov bx  ,LOADER_BASE_ADDR       ;写入的地址</span><br><span class="line">mov cx  ,1                      ;待读入的扇区数</span><br><span class="line">call rd_disk_m_16               ;以下读取程序的起始部分</span><br><span class="line"></span><br><span class="line">jmp LOADER_BASE_ADDR			;跳转到Loader</span><br><span class="line"></span><br><span class="line">;--------------------------------------------------------------------------</span><br><span class="line">;功能：读取eax=LBA扇区号</span><br><span class="line">rd_disk_m_16:</span><br><span class="line">;--------------------------------------------------------------------------</span><br><span class="line">                                ; eax=LBA扇区号</span><br><span class="line">                                ; bx=将数据写入的内存地址</span><br><span class="line">                                ; cx=读入的扇区数</span><br><span class="line">        mov esi ,eax    ;备份eax</span><br><span class="line">        mov di ,cx      ;备份cx</span><br><span class="line">;读写硬盘</span><br><span class="line">;1---设置要读取的扇区数</span><br><span class="line">        mov dx ,0x1f2   ;设置端口号，dx用来存储端口号的</span><br><span class="line">        mov al ,cl</span><br><span class="line">        out dx ,al      ;读取的扇区数</span><br><span class="line"></span><br><span class="line">        mov eax ,esi    ;恢复eax</span><br><span class="line"></span><br><span class="line">;2---将LBA地址存入0x1f3～0x1f6</span><br><span class="line"></span><br><span class="line">        ;LBA 7～0位写入端口0x1f3</span><br><span class="line">        mov dx ,0x1f3</span><br><span class="line">        out dx ,al</span><br><span class="line"></span><br><span class="line">        ;LBA 15~8位写入端口0x1f4</span><br><span class="line">        mov cl ,8</span><br><span class="line">        shr eax ,cl     ;逻辑右移8位,将eax的最低8位移掉，让最低8位al的值变成接下来8位</span><br><span class="line">        mov dx ,0x1f4</span><br><span class="line">        out dx ,al</span><br><span class="line"></span><br><span class="line">        ;LBA 23～16位写入端口0x1f5</span><br><span class="line">        shr eax ,cl</span><br><span class="line">        mov dx ,0x1f5</span><br><span class="line">        out dx ,al</span><br><span class="line"></span><br><span class="line">        shr eax ,cl</span><br><span class="line">        and al ,0x0f        ;设置lba 24～27位</span><br><span class="line">        or al ,0xe0         ;设置7～4位是1110表示LBA模式</span><br><span class="line">        mov dx ,0x1f6</span><br><span class="line">        out dx ,al</span><br><span class="line"></span><br><span class="line">;3---向0x1f7端口写入读命令0x20</span><br><span class="line">        mov dx ,0x1f7</span><br><span class="line">        mov al ,0x20</span><br><span class="line">        out dx ,al</span><br><span class="line"></span><br><span class="line">;4---检测硬盘状态</span><br><span class="line">.not_ready:</span><br><span class="line">        ;同写入命令端口，读取时标示硬盘状态，写入时是命令</span><br><span class="line">        nop</span><br><span class="line">        in al ,dx</span><br><span class="line">        and al ,0x88    ;第4位为1表示硬盘控制器已准备好数据传输，第7位为1表示硬盘忙</span><br><span class="line">        cmp al ,0x08</span><br><span class="line">        jnz .not_ready  ;若未准备好，继续等</span><br><span class="line"></span><br><span class="line">;5---0x1f0端口读取数据</span><br><span class="line">        mov ax ,di      ;要读取的扇区数</span><br><span class="line">        mov dx ,256     ;一个扇区512字节，一次读取2字节，需要读取256次</span><br><span class="line">        mul dx          ;结果放在ax里</span><br><span class="line">        mov cx ,ax      ;di为要读取的扇区数，一个扇区有512字节，每次读入一个字</span><br><span class="line">                        ; 共需di*512/2次，所以di*256</span><br><span class="line">        mov dx ,0x1f0</span><br><span class="line">.go_on_read:</span><br><span class="line">        in ax, dx</span><br><span class="line">        mov [bx], ax    ;bx是要读取到的内存地址</span><br><span class="line">        add bx, 0x02</span><br><span class="line">        loop .go_on_read        ;循环cx次</span><br><span class="line">        ret</span><br><span class="line"></span><br><span class="line">        times 510-($-$$) db 0</span><br><span class="line">        db 0x55,0xaa</span><br></pre></td></tr></table></figure>
+
+<p>程序最开始的%include “boot.inc”，这个<code>%include nasm</code>编译器中的预处理指令，意思是让编译器在编译之前把 boot.inc 文件包含进来。任何编译器都应该有 include 之类的能够包含其他文件的预处理指令， 不要认为底层的汇编语言就应该简陋到一穷二白，哈哈，这和语言是没关系的，是编译器为了开发人员方便管理代码，应该加的。 boot.inc 的内容很简单，目前就两句话，文件内容如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">; -------------- loader和kernel ---------------</span><br><span class="line">LOADER_BASE_ADDR equ 0x900</span><br><span class="line">LOADER_START_SECTOR equ 0x2</span><br></pre></td></tr></table></figure>
+
+<p>boot.inc 是配置文件，关于加载器的配置信息就卸载里面，今后还会在此添加更多的配置信息。大家看到的这两句也是预处理命令，是 nasm 提供的宏，和 C 语言中的宏是一回事。只不过 nasm 中的语法是：宏名 equ 值，而 C 语言中的宏是由#define 指令来实现的。所以<code>LOADER_BASE_ADDR</code>和<code>LOADER_START_SECTOR</code>是两个宏名。<br><code>LOADER_BASE_ADDR</code>定义了 loader 在内存中的位置，MBR 要把 laoder 从硬盘读入后放到抵触。<br><code>LOADER_START_SECTOR</code>定义了 loader 在硬盘上的逻辑扇区地址，即 LBA 地址。<br>第 4<del>48 行和上一版本没区别，第 50</del>52 行为函数<code>rd_disk_m_16</code>传递参数。在此说明一下汇编语言中定义的函数（或者称为例程，proc），由于汇编语言能够直接操作寄存器，所以其传递参数可以用寄存器，也可以用栈。由于 C 语言中不能直接操作寄存器，所以这里体验一会用寄存器来传递参数的函数是怎样实现的。用寄存器传参数，没有固定的形式，原则上用哪个寄存器都行，只要更具实际应用，别把还有用的寄存器值给覆盖就行，如果真需要用到某个正在使用中的寄存器，只要提前把该寄存器备份好就行了，如备份到其他寄存器或压入栈中。此函数需要三个参数，我么你选择用 eax、bx、bx 寄存器来传递参数。<br>在寄存器 eax 中的是带读入的扇区起始地址，赋值后 eax 为定义的宏<code>LOADER_START_SECTOR</code>，即 0x2.<br>寄存器 cx 是读入的扇区数，cx 其值为 1。到底读入几个扇区，事由实际文件大小来决定的。由于将来会写一个简单的 loader，其大小肯定不会超过 512 字节，所以次数度融入的扇区数置入为 1 即可。<br>数据从硬盘读进来后放在内存中哪里呢？这就要用寄存器 bx 来指定。在这里， bx 寄存器值为 LOADER BASE ADDR ，即 0x900 。函数名 rd disk m_l6 的意思是“在 16 位模式下读硬盘”。<br>第 64 行的“ mov esi, eax ”是把 eax 中的值先备份到 esi 。因为 out 指令中会被用到，这会影响到 eax 的低 位。<br>第 65 行是备份读取的扇区数到 di 寄存器， di 寄存器是 16 位的，和 ex 大小一致。 ex 的值会在读取数据时用到，所以在此提前备份。<br>第 67<del>70 行，按照咱们操作硬盘的约定，先选定一个通道，再往 sector count 寄存器中写扇区数。往端口中写入数据用 out 指令，注意 out 指令中 dx 寄存器是用来存储端口号的。先查看 bochs 配置文件关于硬盘的配置部分<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1663929807511-d8235db1-a777-41fc-81a9-2b1f7a3f4a2c.png#clientId=u60c5d00e-22df-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=71&id=u9ca0544f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=107&originWidth=483&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=25254&status=done&style=none&taskId=u704c1ffb-6a99-4211-a0dd-84c6618eaa8&title=&width=322" alt="image.png"><br>虚拟硬盘属于 ata0，是 Primary 通道，所以其 sector count 寄存器是由 0x1f2 端口来访问的。顺便再看第二行的 ata0-master，path&#x3D;”hd60M.img”,这说明 hd60M.img 是主盘。<br>第 74</del>95 行是将 LBA 地址写入三个 LBA 寄存器和 device 寄存器的低 4 位。端口 0x1f3 是寄存器 LBA low，端口 0x1f4 是寄存器 LBA mid，端口 0x1f5 是寄存器 LBA high。shr 指令是逻辑右移指令，这里主要通过此指令置换出地址的相应部分，写入相应的 LBA 寄存器。第 93 行用了“or”指令和 0xe0 做或运算，拼出 device 寄存器的值。高 4 位为 e，即高 4 位的二进制表示为 1110，其第 5 位和第 7 位固定为 1，第 6 位为 1 表示启用 LBA。<br>第 97<del>100 行便是写入命令，因为这里是读操作，所以读扇区的命令是 0x20.通过 out 指令写入 command 端口 0x1f7 后，硬盘就开始工作了。<br>第 102</del>109 行检测 status 寄存器的 BSY 位。由于 status 寄存器依然是 0x1f7 端口，所以不需要再为 dx 重新赋值。 105 行的 nop 表示空操作，即什么也不做，只是为了增加延迟，相当于 sleep 一小下，目 的是减少打扰硬盘的工作。对同一端口在读写两种操作时有不同的用途，在读硬盘时，此端口中的值是硬盘的工作状态。第 106 行是将 Status 寄存器的值读入到 al 寄存器，通过第 107 行的 and “与”操作，保留第 4 位和第 7 位，第 4 位若为 1，表示数据已经准备好，可以传输了。若第 7 位为 1，表示硬盘现在正忙着。只要判断第 4 位是否为 1 就好了，用第 108 行的 cmp 指令和 0x08 做减法运算，判断第 4 位是否为 1。 cmp 指令并不改变操作数的值，只是根据结果去设置标志位，从而咱们根据标志位反着去判断结果。 cmp 指令会影响的标志位有 ZF、CF、PF 等，这里咱们借助 ZF 位来判断 cmp 的结果。于是用第 109 行的 jnz .not_ready 来判断结果是否不等于 0，即若等于 0，则 status 寄存器的第 4 位为 1，这表示可以读数据了。若不等于 0，说明 status 寄存器的第 4 位为 0，表示硬盘正忙（此时 status 寄存器第 7 位肯定为 1）。not_ready 是个标号，于是跳回去继续判断硬盘状态，直到硬盘把数据准备好才跳出这个循环。<br>第 111<del>122 行是从硬盘取数据的过程。由于 data 寄存器是 16 位，即每次 in 操作只读入 2 字节，根据读入的数据总量（扇区数*512 字节）来求得执行 in 指令的次数。这里的乘法用 mul 指令，在实模式下，mul 指令可以做 8 位乘法和 16 位乘法，格式是：mul 操作数。操作数可以是寄存器或内存。乘法运算至少要有两个数参与才行，这里的操作数只是一个乘数，被乘数隐含在 al 或 ax 寄存器中。如果操作数是 8 位，被乘数就是 al 寄存器的值，乘积就是 16 位，位于 ax 寄存器，积的低 16 位在 ax 寄存器。<br>虽然我们进行的是 16 位的乘法，其结果是 32 位，但由于我们知道这两个乘数 ax 的值和 dx 的值都不大，ax 的实际的值其实是 1，乘出来的这个结果，其高位是 0，所以在第 115 行的“mov cx， ax”我们只将这个结果的低 16 位移入 cx 作为循环读取的次数。此处用 8 位乘法不合适，因为 256 超过了 8 位寄存器表示的范围。在第 118</del>122 行通过循环来讲数据写入 bx 寄存器指向的内存，没读入 2 个字节，bx 所指的地址便+2.值得注意的是由于在实模式下偏移地址为 16 位，所以呀用 bx 只会访问到 0<del>FFFFh 的偏移。待写入的地址超过 bx 的范围是，从硬盘上取出的数据会把 0x0000</del>0xffff 的覆盖，所以此处加载的程序不能超过 bx 的范围时，从硬盘上读出的数据会把 0x0000~0xffff 的覆盖，所以 此处加载的程序不能超过 64KB，即 2 的 16 次方等于 65536。由于本 mbr 是用来加载 loader 的，所以 loader.bin 要小于 64KB 才行。当然，我们最终的 loader 不超过 2KB，将来的内核他也不会超过 70KB。<br>第 123 行返回指令 ret，它用来从函数中返回。执行完第 123 行后，程序便回到了第 55 行，这里是 MBR 交出接力棒的一刻，采用 jmp 是唯一合适的选择。Jmp 的操作数是 LOADER_BASE_ADDR，即 0x900，这是要跳到内核加载器了，完成第二棒的交接。（第一棒是 BIOS 交给 MBR）。<br>进行编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nasm -I include/ -o mbr.bin mbr.S</span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=./mbr.bin of=hd60M.img bs=512 count=1 conv=notrunc</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-6-2-实现内核加载器"><a href="#3-6-2-实现内核加载器" class="headerlink" title="3.6.2 实现内核加载器"></a>3.6.2 实现内核加载器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">%include <span class="string">&quot;boot.inc&quot;</span></span><br><span class="line">section loader svtart=LOADER_BASE_ADDR</span><br><span class="line"></span><br><span class="line">; 输出背景色绿色，前景色红色，并且跳动的字符串<span class="string">&quot;2 Loader&quot;</span></span><br><span class="line">mov byte [gs:0x00], <span class="string">&#x27;2&#x27;</span></span><br><span class="line">mov byte [gs:0x01], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x02], <span class="string">&#x27; &#x27;</span></span><br><span class="line">mov byte [gs:0x03], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x04], <span class="string">&#x27;L&#x27;</span></span><br><span class="line">mov byte [gs:0x05], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x06], <span class="string">&#x27;o&#x27;</span></span><br><span class="line">mov byte [gs:0x07], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x08], <span class="string">&#x27;a&#x27;</span></span><br><span class="line">mov byte [gs:0x09], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x0a], <span class="string">&#x27;d&#x27;</span></span><br><span class="line">mov byte [gs:0x0b], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x0c], <span class="string">&#x27;e&#x27;</span></span><br><span class="line">mov byte [gs:0x0d], 0xA4</span><br><span class="line"></span><br><span class="line">mov byte [gs:0x0e], <span class="string">&#x27;r&#x27;</span></span><br><span class="line">mov byte [gs:0x0f], 0xA4</span><br><span class="line"></span><br><span class="line">jmp $			; 通过死循环使程序悬停在此</span><br></pre></td></tr></table></figure>
+
+<p>编译 loader</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nasm -I include/ -o boot/loader.bin loader.S</span><br></pre></td></tr></table></figure>
+
+<p>将 loader 写入硬盘</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=boot/loader.bin of=hd60M.img bs=512 count=1 seek=2 conv=notrunc</span><br></pre></td></tr></table></figure>
+
+<p>运行 bochs，如果程序正确的话，MBR 会跳转到 loader.bin 去运行，屏幕会显示“2 loader”。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1664114162190-1e27a5d5-33d7-4ae2-8a37-d50b2921cd01.png#clientId=u4c75c7ee-760f-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=298&id=ub4c35253&margin=%5Bobject%20Object%5D&name=image.png&originHeight=447&originWidth=718&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=5306&status=done&style=none&taskId=u7849864d-463e-4a10-ba34-be5fd88a964&title=&width=478.6666666666667" alt="image.png"></p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
+								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								针对汇编几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">
+								《操作系统真象还原》：第2章 编写 MBR			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 23日, 2022				
+							</p>
+							<p class="relate-post-content">
+								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第2章 编写 MBR">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第2章 编写 MBR"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
+								《操作系统真象还原》：第1章 环境配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
+
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">
+								6月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 16日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+“零拷贝”技术
+Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="6月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">
+								5月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 10日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="5月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">
+								4月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 20日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+怎样设计出一个让面试官满意的架构
+
+扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
+
+《Effective C++》笔记 - 条款...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/04/20/yuque/iki4ug/" title="4月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="4月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/25/yuque/wkifhl/" title="右值引用">
+								右值引用			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+
+右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/25/yuque/wkifhl/" title="右值引用">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="右值引用"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">
+								Ready for Linux Kernel Compiled Testing			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
+
+纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Ready for Linux Kernel Compiled Testing"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows">
+								Clone Linux Kernel Code on Windows			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 30日, 2022				
+							</p>
+							<p class="relate-post-content">
+								出现问题的原因
+Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Clone Linux Kernel Code on Windows"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">
+								Compile Linux Kernel Version of Project-C Community			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 28日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
+
+下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone htt...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/28/yuque/tgf3hu/" title="Compile Linux Kernel Version of Project-C Community">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Compile Linux Kernel Version of Project-C Community"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

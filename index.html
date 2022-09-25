@@ -244,8 +244,65 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
+		《操作系统真象还原》：第三章 完善MBR——I/O接口
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
+
+设置数据缓冲，解决 CPU 与外设的速度不匹配
+设置信号电平转换电路
+设置数据格式转换
+设置时序控制电路来同步 CPU 和外部设备
+提供地址译码
+
+CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接口通信，当很多的 IO 接口同时想和 CPU 对话时，面对众多接口时 CPU 应该如何选择？这个工作不应该由 CPU 来做，CPU 太忙了，还是好刚使在刀刃上吧，既然分层能解决问题，咱们再加一层，这一层的责任是除了仲裁 IO 接口的竞争，还要连接各种内部总线。由于它的使...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
+		<time datetime="2022-09-25T13:56:27.000Z" itemprop="datePublished">
+	  		2022-09-25
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2022/09/25/yuque/fvxk1z/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2022/09/11/yuque/xa16pm/" itemprop="url">
-		第三章：完善MBR——CPU的实模式
+		《操作系统真象还原》：第三章 完善MBR——CPU的实模式
 	</a>
 
 					</div>
@@ -727,58 +784,6 @@ The Debian system offers a consistent set of binary packages through its version
 						
 							<span class="right">      	
 								<a href="/2022/05/09/yuque/wx4152/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/05/05/yuque/to6mm2/" itemprop="url">
-		为什么Proactor比Reactor模式更优？
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O 以及业务处理。
-Proactor 模式Proactor 模式是指主线程负责监听、分发事件以及 I&#x2F;O 操作，工作线程只负责业务处理。
-为什么会分为这两种事件处理模式？我们都知道 Proactor 和 Reactor 都是 I&#x2F;O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I&#x2F;O，Proactor 是异...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/05/05/yuque/to6mm2/" itemprop="url">
-		<time datetime="2022-05-05T11:54:58.000Z" itemprop="datePublished">
-	  		2022-05-05
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/05/05/yuque/to6mm2/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
