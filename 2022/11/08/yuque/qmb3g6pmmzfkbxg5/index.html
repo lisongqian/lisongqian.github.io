@@ -481,7 +481,10 @@
 <p>由于<code>jmp dword SELECTOR_CODE: p_mode_start</code>己经身处保护模式，所以 CPU 将此指令中的<code>SELECTOR_CODE</code> 认为是选择子。因为当前段描述符缓冲寄存器中的 D 位是 0. 所以操作数是 16 位，当前属于 16 位保护模式。故，在这里也可以把 dword 去掉，毕竟当前操作数大小就是 16 位。而且 p_mode_start 的地址并没有超过 16 位，用 dword 表示的 32 位地址井没有发挥其功效。这 两者的区别见表 4-16。</p>
 </blockquote>
 <p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667659044662-9e3e5ef0-ff1d-498f-bc05-b6ba71d94708.png#averageHue=%23e6e6e6&clientId=u64e45a1e-c41a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=187&id=u414f151e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=280&originWidth=1659&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=172590&status=done&style=none&taskId=ubf30e6af-528b-4c4c-9acb-a07a00d4942&title=&width=1106" alt="image.png"><br>第一行的机器码为 <code>66ea4b0b00000800</code>。加了伪指令 dword 后，编译器引用 32 位地址，所以加了<code>0x66</code> 是指反转操作数大小前缀。 第二行的机器码为 <code>ea480b0800</code>，这是引用的 16 位地址。 至于操作数中的偏移地址，一个是 <code>0xb4b</code>，一个是 <code>0xb48</code>，它们之间差了 3，是由不同指令本身所占空间不同导致的，这两个指令的机器码大小确实是差了 3 字节。</p>
-<h2 id="4-6-保护模式之内存段的保护"><a href="#4-6-保护模式之内存段的保护" class="headerlink" title="4.6 保护模式之内存段的保护"></a>4.6 保护模式之内存段的保护</h2><h4 id="4-6-1-向段寄存器加载选择子时的保护warning"><a href="#4-6-1-向段寄存器加载选择子时的保护warning" class="headerlink" title="4.6.1 向段寄存器加载选择子时的保护warning"></a>4.6.1 向段寄存器加载选择子时的保护</div>warning</h4><p>当引用一个内存段时，实际上就是往段寄存器中加载个选择子，加载选择子要避免出现非法引用内存段的情况。</div><br>为此处理器会在以下几方面做出检查：</p>
+<h2 id="4-6-保护模式之内存段的保护"><a href="#4-6-保护模式之内存段的保护" class="headerlink" title="4.6 保护模式之内存段的保护"></a>4.6 保护模式之内存段的保护</h2><h4 id="4-6-1-向段寄存器加载选择子时的保护"><a href="#4-6-1-向段寄存器加载选择子时的保护" class="headerlink" title="4.6.1 向段寄存器加载选择子时的保护"></a>4.6.1 向段寄存器加载选择子时的保护</h4><blockquote>
+<p>当引用一个内存段时，实际上就是往段寄存器中加载个选择子，加载选择子要避免出现非法引用内存段的情况。</p>
+</blockquote>
+<p>为此处理器会在以下几方面做出检查：</p>
 <ol>
 <li><strong>根据选择子的值验证段描述符是否超越界限</strong>。选择子的索引值一定要小于等于描述符表中描述符的个数。每个段描述符是 8 字节，所以选择子的索引值要满足：</li>
 </ol>
@@ -500,7 +503,10 @@
 <li><strong>检查段是否存在</strong>。CPU 通过段描述符中的 P 位来确认内存段是否存在，若 P 位为 1 表示存在，此时将选择子载入段寄存器，段描述符缓冲寄存器也会更新选择子对应的段描述符的内容，随后处理器将段描述符中的 A 位置为 1，表示已访问。若 P 为 0，表示该内存段不存在，不存在的原因可能是由于内存不足，操作系统将该段移出内存转储到硬盘上了。此时处理器会抛出异常，自动转去执行相应的异常处理程序，异常处理程序将段从硬盘加载到内存后并将 P 位置 1，随后返回。CPU 继续执行刚才的操作，判断 P 位。</li>
 </ol>
 <p>通常段描述符中的 P 位，其值由软件（通常是操作系统）来设置，由 CPU 来检查。 A 位由 CPU 来设置。</p>
-<h4 id="4-6-2-代码段和数据段的保护warning"><a href="#4-6-2-代码段和数据段的保护warning" class="headerlink" title="4.6.2 代码段和数据段的保护warning"></a>4.6.2 代码段和数据段的保护</div>warning</h4><p>对于代码段和数据段来说， CPU 每访问一个地址，都要确认该地址不能超过其所在内存段的范围。</div><br>实际段界限的值为：<code>(描述符中段界限+1) * (段界限的粒度大小: 4k或1) - 1</code> 。<br>实际的段界限大小，是段内最后一个可访问的有效地址。在 32 位保护模式下，段基址存放在 CS 寄存器中，段内偏移地址放在 EIP 寄存器中。但指令本身也是有长度的，所以实际要满足：<br><code>EIP中的偏移地址+指令长度-1&lt;=实际段界限大小</code><br>如果不满足条件，如图 4-17 所示，指令未完整落在本段内，CPU 则会抛出异常。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667831771126-15576313-b3a3-4a2e-b853-c109dce929cd.png#averageHue=%23e7e7e7&clientId=u6518d19a-c72b-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=367&id=u4816cee4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=550&originWidth=585&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=143468&status=done&style=none&taskId=u1a8bb997-2186-438d-a567-a96e3085a90&title=&width=390" alt="image.png"></p>
+<h4 id="4-6-2-代码段和数据段的保护"><a href="#4-6-2-代码段和数据段的保护" class="headerlink" title="4.6.2 代码段和数据段的保护"></a>4.6.2 代码段和数据段的保护</h4><blockquote>
+<p>对于代码段和数据段来说， CPU 每访问一个地址，都要确认该地址不能超过其所在内存段的范围。</p>
+</blockquote>
+<p>实际段界限的值为：<code>(描述符中段界限+1) * (段界限的粒度大小: 4k或1) - 1</code> 。<br>实际的段界限大小，是段内最后一个可访问的有效地址。在 32 位保护模式下，段基址存放在 CS 寄存器中，段内偏移地址放在 EIP 寄存器中。但指令本身也是有长度的，所以实际要满足：<br><code>EIP中的偏移地址+指令长度-1&lt;=实际段界限大小</code><br>如果不满足条件，如图 4-17 所示，指令未完整落在本段内，CPU 则会抛出异常。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667831771126-15576313-b3a3-4a2e-b853-c109dce929cd.png#averageHue=%23e7e7e7&clientId=u6518d19a-c72b-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=367&id=u4816cee4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=550&originWidth=585&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=143468&status=done&style=none&taskId=u1a8bb997-2186-438d-a567-a96e3085a90&title=&width=390" alt="image.png"></p>
 <h4 id="4-6-3-栈段的保护"><a href="#4-6-3-栈段的保护" class="headerlink" title="4.6.3 栈段的保护"></a>4.6.3 栈段的保护</h4><p>CPU 对数据段的检查，其中一项就是看地址是否超越段界限。如果将向上扩展的数据段用作栈，那 CPU 将按照上一节提到的数据段的方式检查该段。如果用向下扩展的段做榜的话，情况有点复杂，这体现在段界限的意义上。</p>
 <ul>
 <li>对于向上扩展的段，实际的段界限是段内可以访问的最后一字节。</li>
