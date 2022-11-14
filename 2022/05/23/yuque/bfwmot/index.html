@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      《操作系统真象还原》：第2章 编写 MBR | Songqian Li&#39;s Blog
+      《操作系统真象还原》：第二章 编写 MBR | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -153,7 +153,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「《操作系统真象还原》：第2章 编写 MBR」
+			「《操作系统真象还原》：第二章 编写 MBR」
 		
 	</p>
 
@@ -246,7 +246,7 @@
 		<div class="article-title">
 			
 	<a href="/2022/05/23/yuque/bfwmot/" itemprop="url">
-		《操作系统真象还原》：第2章 编写 MBR
+		《操作系统真象还原》：第二章 编写 MBR
 	</a>
 
 		</div>
@@ -293,7 +293,7 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="先了解-CPU-的两种工作模式：实模式和保护模式"><a href="#先了解-CPU-的两种工作模式：实模式和保护模式" class="headerlink" title="先了解 CPU 的两种工作模式：实模式和保护模式"></a>先了解 CPU 的两种工作模式：实模式和保护模式</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9C%9F%E5%AF%A6%E6%A8%A1%E5%BC%8F">实模式</a>（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F">保护模式</a>：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1653299138964-ceaa9c6c-9550-4ada-83cc-a4402d7a04cd.png#clientId=ua8790fd7-a1d7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=616&id=u490d3777&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=1211&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=487094&status=done&style=none&taskId=udd2f2e71-b415-4a6e-ae8e-6cab2c8b5e8&title=&width=1211" alt="image.png"><br>实模式的寻址方式是：<code>cs&lt;4+ip</code><br>MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰好出现在该扇区的最后两个字节处。由于 bochs 模拟的是 x86 平台，所以是小端字节序，故最后两个字节的内容是 0xaa55.</p>
+			<h3 id="先了解-CPU-的两种工作模式：实模式和保护模式"><a href="#先了解-CPU-的两种工作模式：实模式和保护模式" class="headerlink" title="先了解 CPU 的两种工作模式：实模式和保护模式"></a>先了解 CPU 的两种工作模式：实模式和保护模式</h3><p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9C%9F%E5%AF%A6%E6%A8%A1%E5%BC%8F">实模式</a>（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。<br><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F">保护模式</a>：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1653299138964-ceaa9c6c-9550-4ada-83cc-a4402d7a04cd.png#averageHue=%23e2e2e2&clientId=ua8790fd7-a1d7-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=616&id=u490d3777&margin=%5Bobject%20Object%5D&name=image.png&originHeight=616&originWidth=1211&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=487094&status=done&style=none&taskId=udd2f2e71-b415-4a6e-ae8e-6cab2c8b5e8&title=&width=1211" alt="image.png"><br>实模式的寻址方式是：<code>cs&lt;4+ip</code><br>MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰好出现在该扇区的最后两个字节处。由于 bochs 模拟的是 x86 平台，所以是小端字节序，故最后两个字节的内容是 0xaa55.</p>
 <h3 id="编写-MBR："><a href="#编写-MBR：" class="headerlink" title="编写 MBR："></a>编写 MBR：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">;主引导程序</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">SECTION MBR vstart=0x7c00</span><br><span class="line">	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov ss,ax</span><br><span class="line">	mov fs,ax</span><br><span class="line">	mov sp,0x7c00</span><br><span class="line"></span><br><span class="line">; 清屏利用0x06号功能，上卷全部行，则可清屏</span><br><span class="line">; -----------------------------------------------------</span><br><span class="line">; INT 0x10	功能号：0x06		功能描述:上卷窗口</span><br><span class="line">;输入：</span><br><span class="line">;AH 功能号=0x06</span><br><span class="line">;AL = 上卷的行数</span><br><span class="line">;BH = 上卷行属性</span><br><span class="line">;(CL,CH) = 窗口左下角的(X,Y)位置</span><br><span class="line">;(DL,DH) = 窗口右下角的(X,Y)位置</span><br><span class="line">;无返回值</span><br><span class="line">	mov ax,0x600</span><br><span class="line">	mov bx,0x700</span><br><span class="line">	mov cx,0			; 左上角: (0,0)</span><br><span class="line">	mov dx,0x184f		; 右下角：(80,25)</span><br><span class="line">						; 下标从0开始,所以0x18=24,0x4f=79</span><br><span class="line">	int 0x10			; int 0x10</span><br><span class="line"></span><br><span class="line">;;;;;;;;	下面这三行代码获取光标位置		;;;;;;;;</span><br><span class="line">;.get_cursor获取当前光标位置，在光标位置处打印字符。</span><br><span class="line">	mov ah,3			; 输入：3号子功能是获取光标位置，需要存入ah寄存器</span><br><span class="line">	mov bh,0 			; bh寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">	int 0x10			; 输出：ch=光标开始行，c1=光标结束行</span><br><span class="line">						; dh=光标所在行号，dl=光标所在列号</span><br><span class="line"></span><br><span class="line">;;;;;;;;		获取光标位置结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">;;;;;;;;		打印字符串			;;;;;;;;</span><br><span class="line">	; 还是用10h中断，不过这次调用13号子功能打印字符串</span><br><span class="line">	mov ax, message</span><br><span class="line">	mov bp,ax			; es:bp 为串首地址,es此时同cs一致,</span><br><span class="line">                ; 开头时已经为sreg初始化</span><br><span class="line"></span><br><span class="line">	; 光标位置要用到dx寄存器中内容，cx中的光标位置可忽略</span><br><span class="line">	mov cx,11 			; cx为串长度，不包括结束符0的字符个数</span><br><span class="line">	mov ax, 0x1301		; 子功能号13显示字符及属性，要存入ah寄存器，</span><br><span class="line">                ; al 设置写字符方式 ah=01：显示字符串，光标跟随移动</span><br><span class="line">	mov bx, 0x2			; bh存储要显示的页号，此处是第0页,</span><br><span class="line">						; bl中是字符属性，属性黑底绿字(bl= 02h)</span><br><span class="line">	int 0x10			; 执行BIOS 0x10号中断</span><br><span class="line">;;;;;;;;		打印字符串结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">	jmp $				; 程序悬停在此</span><br><span class="line"></span><br><span class="line">	message db &quot;Hello World&quot;</span><br><span class="line">	times 510-($-$$) db 0</span><br><span class="line">	db 0x55,0xaa</span><br></pre></td></tr></table></figure>
 
 <h3 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h3><p><code>nasm mbr.S -o mbr.bin</code></p>
@@ -424,8 +424,8 @@
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">
-								《操作系统真象还原》：第1章 环境配置			
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第一章 环境配置">
+								《操作系统真象还原》：第一章 环境配置			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -440,9 +440,9 @@
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第1章 环境配置">				
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第一章 环境配置">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第1章 环境配置"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第一章 环境配置"/>
 							</a>
 						</div>
 					</li>												
