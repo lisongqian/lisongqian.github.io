@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      无标题 | Songqian Li&#39;s Blog
+      《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -153,7 +153,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「无标题」
+			「《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制」
 		
 	</p>
 
@@ -246,7 +246,7 @@
 		<div class="article-title">
 			
 	<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" itemprop="url">
-		无标题
+		《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制
 	</a>
 
 		</div>
@@ -264,7 +264,7 @@
 
 	<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" itemprop="url">
 		<time datetime="2022-11-19T09:17:42.000Z" itemprop="dateUpdated">
-	  		2022-11-19
+	  		2022-11-26
 	  </time>
 	</a> 
 
@@ -294,7 +294,7 @@
 
 		<div class="article-content" id="article-content">
 			<blockquote>
-<p>从这一刻起，我们才算开始了真正的操作系统学习之旅。</p>
+<p>从这一刻起，我们才算开始了真正的操作系统学习之旅</p>
 </blockquote>
 <h2 id="5-1-获取物理内存容量"><a href="#5-1-获取物理内存容量" class="headerlink" title="5.1 获取物理内存容量"></a>5.1 获取物理内存容量</h2><h4 id="5-1-1-Linux-获取内存的方法"><a href="#5-1-1-Linux-获取内存的方法" class="headerlink" title="5.1.1 Linux 获取内存的方法"></a>5.1.1 Linux 获取内存的方法</h4><p>在 Linux 2.6 内核总是用<code>detect_memory</code>函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要层放到寄存器 EAX 或 AX 中，如下：</p>
 <ul>

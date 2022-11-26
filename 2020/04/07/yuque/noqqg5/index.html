@@ -264,7 +264,7 @@
 
 	<a href="/2020/04/07/yuque/noqqg5/" itemprop="url">
 		<time datetime="2020-04-07T12:36:14.000Z" itemprop="dateUpdated">
-	  		2022-11-19
+	  		2022-11-26
 	  </time>
 	</a> 
 
@@ -290,7 +290,7 @@
 
 		<div class="article-content" id="article-content">
 			<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>正学着<code>scrapy</code>呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h4 id="Python-类库"><a href="#Python-类库" class="headerlink" title="Python 类库"></a>Python 类库</h4><p>执行 js 代码 <code>pip install PyExecJS</code><br>利用 requests 上传 multipart&#x2F;form-data 格式文件 <code>pip install requests_toolbelt</code><br>用于 base64 编码图片数据的解析 <code>import base64 #python自带类库</code><br>用于显示图片的 PIL 或 pillow <code>pip install pillow</code></p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h4 id="Python-类库"><a href="#Python-类库" class="headerlink" title="Python 类库"></a>Python 类库</h4><p>执行 js 代码 <code>pip install PyExecJS</code><br>利用 requests 上传 multipart&#x2F;form-data 格式文件 <code>pip install requests_toolbelt</code><br>用于 base64 编码图片数据的解析 <code>import base64  #python自带类库</code><br>用于显示图片的 PIL 或 pillow <code>pip install pillow</code></p>
 <h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="分析登录的-request-head"><a href="#分析登录的-request-head" class="headerlink" title="分析登录的 request head"></a>分析登录的 request head</h3><p><img src="http://cdn.lisongqian.cn/1518177943916gw5e4ym5.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=416&id=dTFB5&originHeight=416&originWidth=849&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=849"><br>发现几个不同的信息头：</p>
 <h4 id="1-aurhorization"><a href="#1-aurhorization" class="headerlink" title="1.aurhorization"></a>1.aurhorization</h4><p>多测试了几次，发现这个的值没有发生变化<br>c3cef7c66a1843f8b3a9e6a1e3160e20</p>
 <h4 id="2-Content-Type"><a href="#2-Content-Type" class="headerlink" title="2.Content-Type"></a>2.Content-Type</h4><p>感觉像 js 生成的加密字段，先往后看</p>
@@ -405,8 +405,8 @@
 			
 					<li>
 						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="无标题">
-								无标题			
+							<a class="relate-post-title" href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制">
+								《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制			
 							</a>
 							<p class="relate-post-date">
 								<i class="fa fa-calendar"></i>
@@ -414,16 +414,16 @@
 							</p>
 							<p class="relate-post-content">
 								
-从这一刻起，我们才算开始了真正的操作系统学习之旅。
+从这一刻起，我们才算开始了真正的操作系统学习之旅
 
-5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIO...
+5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS...
 							</p>
 						</div>
 
 						<div class="relate-post-cover">
-							<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="无标题">				
+							<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制">				
 								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="无标题"/>
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第五章 向保护模式迈进——内存分页机制"/>
 							</a>
 						</div>
 					</li>												
