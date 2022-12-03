@@ -264,7 +264,7 @@
 
 	<a href="/2020/04/07/yuque/ukuc1g/" itemprop="url">
 		<time datetime="2020-04-07T12:36:19.000Z" itemprop="dateUpdated">
-	  		2022-11-26
+	  		2022-12-03
 	  </time>
 	</a> 
 
@@ -297,7 +297,9 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="Preparation"><a href="#Preparation" class="headerlink" title="Preparation"></a>Preparation</h2><h4 id="支持的-GPUs"><a href="#支持的-GPUs" class="headerlink" title="支持的 GPUs"></a>支持的 GPUs</h4><p>ROCm 正式支持使用以下芯片的 AMD GPU：</p>
+			<p>目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：<br><a target="_blank" rel="noopener" href="https://www.amd.com/en/technologies/infinity-hub/pytorch">https://www.amd.com/en/technologies/infinity-hub/pytorch</a><br><a target="_blank" rel="noopener" href="https://www.amd.com/en/technologies/infinity-hub/tensorflow">https://www.amd.com/en/technologies/infinity-hub/tensorflow</a></p>
+<p>———–2020.04 更新———–</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h4 id="支持的-GPUs"><a href="#支持的-GPUs" class="headerlink" title="支持的 GPUs"></a>支持的 GPUs</h4><p>ROCm 正式支持使用以下芯片的 AMD GPU：</p>
 <ul>
 <li>GFX8 GPUs<ul>
 <li>“Fiji” chips, such as on the AMD Radeon R9 Fury X and Radeon Instinct MI8</li>
@@ -354,7 +356,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install enum34 numpy pyyaml setuptools typing cffi future hypothesis</span><br></pre></td></tr></table></figure>
 
-<h3 id="安装-AMD-ROCm-平台"><a href="#安装-AMD-ROCm-平台" class="headerlink" title="安装 AMD ROCm 平台"></a>安装 AMD ROCm 平台</h3><p>由于 AMD ROCm 包含了单独的驱动，而且和普通的游戏驱动不能共存，所以首先确保系统中不存在 AMD GPU-PRO 版显卡驱动。如果有，使用以下命令删除驱动并重新启动：</p>
+<h2 id="安装-AMD-ROCm-平台"><a href="#安装-AMD-ROCm-平台" class="headerlink" title="安装 AMD ROCm 平台"></a>安装 AMD ROCm 平台</h2><p>由于 AMD ROCm 包含了单独的驱动，而且和普通的游戏驱动不能共存，所以首先确保系统中不存在 AMD GPU-PRO 版显卡驱动。如果有，使用以下命令删除驱动并重新启动：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo amdgpu-pro-uninstallsudo apt autoremove -ysudo reboot</span><br></pre></td></tr></table></figure>
 
 <ol>
@@ -393,7 +395,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install radeontopsudo radeontop</span><br></pre></td></tr></table></figure>
 
-<h3 id="编译安装-PyTorch-on-ROCm"><a href="#编译安装-PyTorch-on-ROCm" class="headerlink" title="编译安装 PyTorch on ROCm"></a>编译安装 PyTorch on ROCm</h3><ol>
+<h2 id="编译安装-PyTorch-on-ROCm"><a href="#编译安装-PyTorch-on-ROCm" class="headerlink" title="编译安装 PyTorch on ROCm"></a>编译安装 PyTorch on ROCm</h2><ol>
 <li>正如最开始说的，目前 ROCm 平台还存在一些缺陷，因此编译 PyTorch 需要修改 ROCm 平台。修改后的 ROCm 平台可能不能编译或者运行其他深度学习框架。在 root 权限下运行以下命令：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocsparse/lib/cmake/rocsparse/rocsparse-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocfft/lib/cmake/rocfft/rocfft-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/miopen/lib/cmake/miopen/miopen-config.cmakesed -i <span class="string">&#x27;s/find_dependency(hip)/find_dependency(HIP)/g&#x27;</span> /opt/rocm/rocblas/lib/cmake/rocblas/rocblas-config.cmake</span><br></pre></td></tr></table></figure>
@@ -443,7 +445,7 @@
 <ol start="11">
 <li>将<code>～/anaconda3/envs/pytorch/bin/python</code>设置为你开发环境的解释器</li>
 </ol>
-<h4 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h4><ul>
+<h2 id="REFERENCE"><a href="#REFERENCE" class="headerlink" title="REFERENCE"></a>REFERENCE</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://www.shenjc.net/2019/06/02/190601_pytorch_on_rocm_native/">AMD 显卡上完美原生运行 PyTorch 教程，无需容器(Docker)</a></li>
 <li><a target="_blank" rel="noopener" href="https://rocm.github.io/ROCmInstall.html">ROCm Platform Installation Guide for Linux</a></li>
 </ul>
