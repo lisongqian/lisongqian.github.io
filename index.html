@@ -244,6 +244,59 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" itemprop="url">
+		《操作系统真象还原》：第六章 完善内核
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, int b);int sub = subtract(3,2);
+
+上面的 c 代码编译后的汇编语句是：
+1234567891011121314151617# 主调用push 2push 3call subtract# 被调用者push ebp			;压入 ebp 备份mov ebp,esp			;将 esp 赋值给 ebp					;用 ebp 作为基址来访问校...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" itemprop="url">
+		<time datetime="2022-12-18T13:45:13.000Z" itemprop="datePublished">
+	  		2022-12-18
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2022/12/11/yuque/mguvy5fxrt54cg9m/" itemprop="url">
 		《操作系统真象还原》：第五章 保护模式进阶——加载内核
 	</a>
@@ -736,62 +789,6 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 						
 							<span class="right">      	
 								<a href="/2022/06/28/yuque/tgf3hu/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/06/16/yuque/dlziqz/" itemprop="url">
-		6月阅读总结
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							
-“零拷贝”技术
-Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
-Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比
-Linux kernel stable tree - 5.15 commit message：kernel5.15 版本更新日志
-《Linux 内核观测技术 BPF》第四章
-
-
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/06/16/yuque/dlziqz/" itemprop="url">
-		<time datetime="2022-06-16T08:29:40.000Z" itemprop="datePublished">
-	  		2022-06-16
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/06/16/yuque/dlziqz/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
