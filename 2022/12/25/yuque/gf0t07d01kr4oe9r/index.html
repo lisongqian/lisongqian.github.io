@@ -1,0 +1,1268 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      《操作系统真象还原》：第七章 中断 | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="C U" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+  <!-- site analysis -->
+  
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?b702b9b0aa72233c214dcbade17a5a27";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+    <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">C U</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「《操作系统真象还原》：第七章 中断」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" itemprop="url">
+		《操作系统真象还原》：第七章 中断
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" itemprop="url">
+		<time datetime="2022-12-25T07:26:36.000Z" itemprop="dateUpdated">
+	  		2022-12-25
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/OS/" class=" ">
+			OS
+		</a>
+	
+		<a href="/tags/Reading/" class=" ">
+			Reading
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h3 id="7-1-中断是什么，为什么要有中断"><a href="#7-1-中断是什么，为什么要有中断" class="headerlink" title="7.1 中断是什么，为什么要有中断"></a>7.1 中断是什么，为什么要有中断</h3><p>运用中断能够显著提升并发，从而大幅提升效率。</p>
+<h3 id="7-2-操作系统是中断驱动的"><a href="#7-2-操作系统是中断驱动的" class="headerlink" title="7.2 操作系统是中断驱动的"></a>7.2 操作系统是中断驱动的</h3><p>略</p>
+<h3 id="7-3-中断分类"><a href="#7-3-中断分类" class="headerlink" title="7.3 中断分类"></a>7.3 中断分类</h3><p>把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。<br>外部中断按是否导致宕机来划分，可分为可屏蔽中断和不可屏蔽中断两种。<br>内部中断按中断是否正常来划分，可分为软中断和异常。</p>
+<h4 id="7-3-1-外部中断"><a href="#7-3-1-外部中断" class="headerlink" title="7.3.1 外部中断"></a>7.3.1 外部中断</h4><blockquote>
+<p>外部中断是指来自 CPU 外部的中断，而外部的中断源必须是某个硬件，所以外部中断又称为硬件中断。</p>
+</blockquote>
+<p>外部硬件的中断通过两根信号线通知 CPU，一个是 INTR（Interrupt Require），一个是 NMI（Non Maskable Interrupt）。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671409711765-60586dea-9b90-4656-bbb0-0a1c18c0739f.png#averageHue=%23ececec&clientId=u0235bb9f-28ad-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=158&id=u41bed181&margin=%5Bobject%20Object%5D&name=image.png&originHeight=158&originWidth=345&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=33537&status=done&style=none&taskId=ud280d9ec-d0be-489b-8142-9c9474544f2&title=&width=345" alt="image.png"><br>CPU 通过不同的引脚对两种中断加以区分，只要从 INTR 引脚收到的中断都是不影响系统运行的，可以随时处理，甚至 CPU 可以不处理；而从 NMI 引脚收到的中断，那基本都是硬伤，CPU 没有运行下去的必要了。</p>
+<h5 id="可屏蔽中断"><a href="#可屏蔽中断" class="headerlink" title="可屏蔽中断"></a>可屏蔽中断</h5><p>可屏蔽中断是从 INTR 引脚进入 CPU 的，可屏蔽的意思是此外部设备发出的中断，CPU 可以不理会，因为它不会让系统宕机，所以可以通过 eflags 寄存器的 IF 位将所有这些外部设备的中断屏蔽。<br>Linux 中把可屏蔽中断分为上半部和下半部分开处理。中断处理程序是需要完整执行的，不能光为了提高中断响应效率而只执行部分中断处理程序。于是将中断处理程序中需要立即执行的部分划分到上半部，通常只完成中断应答或硬件复位等重要紧迫的工作。将不紧急的部分推迟到下半部完成。所以上半部是在关中断下执行，下半部是在开中断下执行。</p>
+<h5 id="不可屏蔽中断"><a href="#不可屏蔽中断" class="headerlink" title="不可屏蔽中断"></a>不可屏蔽中断</h5><p>不可屏蔽中断时从 NMI 引脚进入 CPU 的，它表示系统中发生了致命的错误，它等同于宣布：计算机运行结束了。<br>因为不可屏蔽中断表示计算机出现了致命问题，用软件解决不了了，故每种原因对于软件工程师来说意义不大，就没必要再细分原因，统统为导致宕机的各种原因分配一个中断向量号<code>2</code>就够了。</p>
+<p>CPU 收到中断后，得知道发生了什么事情才能执行相应的处理办法。这是通过中断向量表（实模式下）或中断描述符表（保护模式下）来实现的。事先为每一种中断分配一个中断向量号，中断向量号就是一个整数，他就是中断向量表或中断描述符表中的索引下标，用来索引中断项。中断发起时，响应的中断向量号通过 NMI 或 INRT 引脚被传入 CPU，CPU 根据中断向量号在表中检索对应的中断处理程序去执行。</p>
+<h4 id="7-3-2-内部中断"><a href="#7-3-2-内部中断" class="headerlink" title="7.3.2 内部中断"></a>7.3.2 内部中断</h4><p>内部中断分为软中断和异常。</p>
+<h5 id="软中断"><a href="#软中断" class="headerlink" title="软中断"></a>软中断</h5><blockquote>
+<p>软中断就是由软件主动发起的中断，它是主观上的，不是客观上的某种内部错误。</p>
+</blockquote>
+<p>可以发起软中断的指令有：</p>
+<ul>
+<li><code>int 8位立即数</code>，8 位可表示 256 种中断，这与处理器支持的中断数是吻合的。</li>
+<li><code>int3</code>，调试断点指令，其所触发的中断向量号是 3。我们用 gdb 或 bochs 调试程序时，实际上就是调试器 fork 了一个子进程，子进程用于运行被调试的程序。调试器中设置的断点，原理就是父进程修改了子进程的指令，将其用 int3 指令替换。</li>
+<li><code>into</code>，中断溢出指令，触发的中断向量号是 4。能否引发 4 号中断要看 eflags 标志寄存器中的 OF 位是否为 1，为 1 才会引发中断。</li>
+<li><code>bound</code>，检查数组索引越界指令，中断向量号 5。指令格式：<code>bound 16/32为寄存器 16/32位内存</code>。寄存器存储待检测的数组下标值，内存存数组下表的下边界和上边界，若下标处于数组索引的范围之外，则会触发 5 号中断。</li>
+<li><code>ud2</code>，未定义指令，中断向量号 6。该指令表示指令无效，CPU 无法识别。主动使用它发起中断，常用于软件测试中，无实际用途。</li>
+</ul>
+<h5 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h5><blockquote>
+<p>异常是另一种内部中断，是指令执行期间 CPU 内部产生的错误引起的。</p>
+</blockquote>
+<p>异常分为：</p>
+<ol>
+<li>Fault，称为故障。这种错误是可以被修复的一种类型，属于最轻的一种异常。</li>
+<li>Trap，称为陷阱。此异常通常用在调试中，比如 int3 指令便引发此类异常，为了让中断处理程序返回后能够继续向下执行。</li>
+<li>Abort，称为终止。</li>
+</ol>
+<p>中断类型：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671497733496-4bb89e1c-5092-4627-adc2-a333e54c6227.png#averageHue=%23e4e4e4&clientId=u99ddd230-172c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=816&id=u811a50b1&margin=%5Bobject%20Object%5D&name=image.png&originHeight=816&originWidth=848&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=456987&status=done&style=none&taskId=u62db0cd7-ffaf-4055-862c-e92a7c9c66d&title=&width=848" alt="image.png"><br>表中 Error code 字段中，如果值为 Y，表示相应中断会由 CPU 压入错误码。</p>
+<h3 id="7-4-中断描述符表"><a href="#7-4-中断描述符表" class="headerlink" title="7.4 中断描述符表"></a>7.4 中断描述符表</h3><p>中断描述符表（Interrupt Descriptor Table，IDT）是保护模式下用于存储中断处理程序入口的表（实模式下是中断向量表，IVT），当 CPU 接收一个中断时，需要用中断向量在此表中检索对应的描述符，在该描述符中找到中断处理程序的起始地址，然后执行中断程序。<br>中断描述符表中有中断描述符、任务门描述符和陷阱门描述符。所以中断描述符表中的描述符有自己的名称——门。<br>中断描述符表和中断向量表的区别在于：</p>
+<ol>
+<li>IDT 地址不受限制，而 IVT 位于 0~0x3ff 共 1024 个字节</li>
+<li>IDT 每个描述符 8 字节，IVT 每个向量 4 字节</li>
+</ol>
+<p>IDT 同 GDT 一样，硬件上提供了存储其位置的寄存器，中断描述符表寄存器 IDTR：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671498945143-4e420adc-be17-498b-a4aa-13b1acc6143b.png#averageHue=%23eaeaea&clientId=u8754f491-f28a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=109&id=u1133e556&margin=%5Bobject%20Object%5D&name=image.png&originHeight=109&originWidth=285&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=21550&status=done&style=none&taskId=ude1fd469-5ff0-4961-9454-b7885c8b9b4&title=&width=285" alt="image.png"><br>0<del>15 位共 16 位是表界限，表示最大范围是 0xffff，即 64KB。故可容纳的描述符个数是 64KB&#x2F;8&#x3D;8K&#x3D;8192 个，但 CPU 只支持 256 个中断，其余的描述符不可用。16</del>47 位共 32 位是 IDT 线性基地址。<br>特别注意：</p>
+<ol>
+<li>GDT 中的第 0 个段描述符不可用，但 IDT 第 0 个门描述符可用。</li>
+<li>门描述符有个 P 位，将来构建 IDT 时要把 P 位置 0，表示门描述符中的中断处理程序不在内存中；</li>
+<li>同加载 GDTR 一样，加载 IDTR 也有个专门指令<code>lidt</code>，格式：<code>lidt 48位内存数据</code></li>
+</ol>
+<h4 id="7-4-1-中断处理过程及保护"><a href="#7-4-1-中断处理过程及保护" class="headerlink" title="7.4.1 中断处理过程及保护"></a>7.4.1 中断处理过程及保护</h4><p>完整的中断过程分为 CPU 外和 CPU 内两部分：</p>
+<ul>
+<li>CPU 外：外部设备的中断由中断代理芯片接收，处理后将该中断的中断向量号发送到 CPU；</li>
+<li>CPU 内：CPU 执行该中断向量号对应的中断处理程序。</li>
+</ul>
+<p>CPU 外在下一节中提到。<br>CPU 内的过程：</p>
+<ol>
+<li>处理器更加中断向量号定位中断门描述符。<code>中断向量号*8+IDTR的中断描述符表地址</code>得到中断向量号对应的中断描述符</li>
+<li>处理器进行特权级检查。<ol>
+<li>如果是由软件发起的中断，要求特权级满足：门描述符 DPL≤ CPL ≤ 目标代码段 DPL，数值上则反过来。</li>
+<li>如果是由外部设备和异常发起的中断，要求特权级： CPL &lt; 目标代码单 DPL 即可。</li>
+</ol>
+</li>
+<li>执行中断处理程序。将门描述符目标代码段代码选择子加载到代码段寄存器 CS 中，把门描述符中中断处理程序的偏移地址加载到 EIP，开始执行中断处理程序。</li>
+</ol>
+<p>以上过程如图所示：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671503207885-e62f7abf-2f0c-4e6c-93da-96327457dc44.png#averageHue=%23eeeeee&clientId=u8754f491-f28a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=373&id=ue5d0b1f4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=373&originWidth=685&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=117125&status=done&style=none&taskId=u16a72042-c9cb-4882-b4a5-4903a752486&title=&width=685" alt="image.png"><br>中断发生后， eflags 中的 NT 位和 TF 位会被置 0。如果中断对应的门描述符是中断门，标志寄存器 eflags 中的 IF 位被自动置 0，避免中断嵌套。</p>
+<blockquote>
+<p>NT，即 Nest Task ，意为任务嵌套标志位。 当一个任务中又嵌套调用了另一个任务（进程）时，此 NT 位为 1 。<br>TF 位，即 Trap Flag，意为陷阱标志位。在调试环境中，当 TF 为 0 时表示禁止单步执行。</p>
+</blockquote>
+<p>CPU 提供了专门用于控制 IF 位的指令，使用<code>cli</code>使 IF 位为 0，称为关中断；使用<code>sti</code>使 IF 位为 1，称为开中断。当然，不可屏蔽中断不受 IF 控制。</p>
+<p>这里说一下任务嵌套调用（或 NT 位的作用）：<br>任务嵌套调用是指 CPU 将当前政治性的就任务挂起，转去执行另外的新任务，待新任务执行完后，CPU 再回到旧任务继续执行。CPU 在执行新任务前做了两件准备工作：</p>
+<ol>
+<li>将就任务 TSS 选择子写到了新任务 TSS 中的“上一个任务 TSS 的指针”字段中；</li>
+<li>将新任务标志寄存器 eflags 中的 NT 位置 1，表示新任务之所以能够执行，是因为有别的任务调用了它。</li>
+</ol>
+<p>CPU 把新任务执行完后通过<code>iret</code>指令返回到旧任务。这时就用到 NT 位。若 NT 位为 1，说明当前任务是嵌套执行的，因此 CPU 会从自己 TSS 中“上一个任务 TSS 的指针”中获取旧任务，然后去执行该任务。若 NT 位为 0，表示当前是在中断处理环境下，于是就执行正常的中断退出流程。</p>
+<h4 id="7-4-2-中断发生时的压栈"><a href="#7-4-2-中断发生时的压栈" class="headerlink" title="7.4.2 中断发生时的压栈"></a>7.4.2 中断发生时的压栈</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671524402389-d625322e-6e63-4ebc-aae7-846d674c735b.png#averageHue=%23f1f1f1&clientId=ub4151975-6cc5-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=426&id=uf926d223&margin=%5Bobject%20Object%5D&name=image.png&originHeight=426&originWidth=612&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=111879&status=done&style=none&taskId=ub6027320-4600-4eac-ab00-b10f67c85ab&title=&width=612" alt="image.png"><br>寄存器入栈情况及顺序：</p>
+<ol>
+<li>CPU 根据 CPL 和中断门描述符选择子对应的目标代码段 DPL 比对，若 CPL 权限&lt;DPL，表示向高特权级转移，需要切换到高特权级栈，故将寄存器 SS、ESP 的值临时保存，然后在 TSS 中找到同目标代码段 DPL 级别相同的栈加载到 SS、ESP 寄存器中，并将之前临时保存的 SS 和 ESP 寄存器的值压栈，如图 7-8 A 所示。</li>
+<li>新栈中压入 eflags 寄存器，如图 B 所示。</li>
+<li>切换代码段是段间转移，需要备份 CS 和 EIP，如图 C 所示。</li>
+<li>某些异常会有错误码，此错误码用于报告异常是在哪个段上发生的，所以错误码中包含选择子等信息，这里也需要将错误码入栈，如图 D 所示。</li>
+</ol>
+<p>若不涉及特权级转移，就不会到 TSS 中寻找新栈，栈中数据就不会有 SS 和 ESP 的值，如图 7-9 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671524597675-edf916c0-da0d-4cc9-9673-6862452d780a.png#averageHue=%23e6e6e6&clientId=ub4151975-6cc5-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=273&id=u5fef9af4&margin=%5Bobject%20Object%5D&name=image.png&originHeight=273&originWidth=293&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=62099&status=done&style=none&taskId=u67763171-6510-476f-9701-19784f2ffa8&title=&width=293" alt="image.png"><br>中断执行完中断处理程序后，用<code>iret</code>指令返回到被中断的进程。返回过程是进入中断的逆过程，并且根据 CS_old 和 EIP_old 判断特权级是否有变化，从而判断是否需要从栈中弹出 SS_old 和 ESP_old。<br>如果中断又错误码，处理器不会主动跳过它的位置，必须手动跳过，也就是说用 iret 指令返回时，当前 esp 必须指向栈中的 EIP_old 位置。</p>
+<h4 id="7-4-3-中断错误码"><a href="#7-4-3-中断错误码" class="headerlink" title="7.4.3 中断错误码"></a>7.4.3 中断错误码</h4><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671532064911-156c00d5-6a41-420f-be0e-789a6e1ca793.png#averageHue=%23f0f0f0&clientId=ub4151975-6cc5-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=125&id=ud7e8f44e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=125&originWidth=414&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=23591&status=done&style=none&taskId=u0db53cf0-04cb-431e-bda7-336175eb686&title=&width=414" alt="image.png"><br>错误码和选自自的格式很像，只是低 2 位不再是 RPL，而是 EXT 和 IDT。</p>
+<ul>
+<li>EXT 表示 EXTernal event，即外部事件，用来致命中断源是否来自处理器外部。如果中断源是不可屏蔽中断 NMI 或外部设备，EXT 为 1，否则为 0.</li>
+<li>IDT 表示选择子是否指向中断描述符表 IDT，IDT 为 1 表示指向中断描述符表，否则指向 GDT 或 LDT。</li>
+<li>TI 和选择子中 TI 是一个意思，为 0 时用来致命选择子是从 GDT 中检索描述符，为 1 时是从 LDT 中检索。</li>
+</ul>
+<p>当全 0 的错误码出现时，表示中断的发生与特定的段无关，或者引用了一个空描述符，引用描述符就是往段寄存器中加载选择子时处理器发现选择子指向的描述符是空的。<br>通常能够压入错误码的中断属于中断向量号 0<del>32 之内的异常，而外部中断（32</del>255）和 int 软中断并不会产生错误码。</p>
+<h3 id="7-5-可编程中断控制器-8259A"><a href="#7-5-可编程中断控制器-8259A" class="headerlink" title="7.5 可编程中断控制器 8259A"></a>7.5 可编程中断控制器 8259A</h3><h4 id="7-5-1-8259A-介绍"><a href="#7-5-1-8259A-介绍" class="headerlink" title="7.5.1 8259A 介绍"></a>7.5.1 8259A 介绍</h4><p>中断代理负责对所有中断仲裁，决定哪个中断年优先被 CPU 受理，这里使用的中断代理就是 Intel 8259A 芯片。<br>8259A 用于管理和控制可屏蔽中断，它表现在屏蔽外设中断，对它们实行优先级判决，向 CPU 提供中断向量号等功能。<br>一片 8259A 可以管理 8 个中断，n 片 8259A 通过级联可支持 7n+1 个中断源，最多可级联 9 片，即最多支持 64 个中断。级联时只能有一片 8259A 做主片 master，其余的为从片 slave。来自从片的中断只能传递给主片，再由主片向上传递给 CPU，也就是说只有主片才会向 CPU 发送 INT 中断信号。个人电脑中只有两片 8259A 芯片，最多 15 个中断，如图 7-11 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671602467567-5aafe22c-5d3a-4805-ae8e-8f1134a496c5.png#averageHue=%23ebebeb&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=383&id=ua09b3316&margin=%5Bobject%20Object%5D&name=image.png&originHeight=383&originWidth=396&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=85838&status=done&style=none&taskId=u67f9274d-c66d-4d2b-8128-9c2ae5dbee2&title=&width=396" alt="image.png"></p>
+<h5 id="8259A-的内部结构逻辑"><a href="#8259A-的内部结构逻辑" class="headerlink" title="8259A 的内部结构逻辑"></a>8259A 的内部结构逻辑</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671603310702-2046f553-ffc4-4b06-96b2-bb8929d8e810.png#averageHue=%23eeeeee&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=258&id=udc7da934&margin=%5Bobject%20Object%5D&name=image.png&originHeight=258&originWidth=564&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=65027&status=done&style=none&taskId=u5c827b6b-b749-4233-8791-5eba9bba570&title=&width=564" alt="image.png"></p>
+<ul>
+<li>INT：8259A 选出优先级最高的中断请求后，发信号通知 CPU</li>
+<li>INTA：INT ACknowledge，中断响应信号。位于 8259A 中的 INTA 接收来自 CPU 的 INTA 接口的中断响应信号。</li>
+<li>IMR：Interrupt Mask Register，中断屏蔽寄存器，用来屏蔽某个外设中断。</li>
+<li>IRR：Interrupt Request Register，中断请求寄存器。作用是接受经过 IMR 寄存器过滤后的中断信号并锁存，此寄存器中全是等待处理的中断。</li>
+<li>PR：Priority Resolver，优先级仲裁器。</li>
+<li>ISR：In-Service Register，中断服务寄存器。当某个中断正在被处理时，保存在此寄存器中。</li>
+</ul>
+<h5 id="中断处理流程"><a href="#中断处理流程" class="headerlink" title="中断处理流程"></a>中断处理流程</h5><ol>
+<li>8259A 接收到中断信号后，首先检查 IMR 中是否已经屏蔽来自该 IRQ 接口的中断信号（IMR 中的位为 1 表示中断屏蔽，0 表示中断放行）。</li>
+<li>未屏蔽则将中断信号送到 IRR，将该 IRQ 接口在 IRR 中对应的 bit 置 1。</li>
+<li>在某个恰当实际，PR 会从 IRR 中挑选一个优先级最高的中断（IRQ 借口好越低，优先级越高），然后 8259A 在控制电路中通过 INT 接口向 CPU 发送 INTR 信号。</li>
+<li>CPU 通过自己的 INTA 接口向 8259A 的 INTA 接口回复一个中断响应信号。</li>
+<li>8259A 接收到 CPU 的信号后，立即将刚才选出来的中断在 ISR 中对应的 bit 置 1，同时将该中断从 IRR 中去掉，即将对应 bit 位置 0。</li>
+<li>CPU 再次发送 INTA 信号给 8259A，意为获取中断向量号。</li>
+<li>8259A 用<code>起始中断向量号+IRQ接口号</code>作为该设备的中断向量号通过系统数据总线发送给 CPU。</li>
+<li>CPU 从数据总线拿到中断向量号后，去 IVT 或 IDT 中找到响应的中断处理程序并执行。</li>
+<li>若 8259A 的“EOI（End Of Interrupt）通知”被设置为自动模式，则在接收到 CPU 第二个 INTA 信号后（即步骤 6），8259A 会自动将此中断在 ISR 中对应 bit 位置 0；若 EOI 为半自动模式（手动模式），则中断处理程序结束处必须有向 8259A 发送 EOI 的代码，8259A 接收到 EOI 后，将 ISR 对应 bit 位置 0。<blockquote>
+<p>注意，进入 ISR 后的中断，在未被送到 CPU 前，还有可能被新产生的优先级更高的中断换下来。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="7-5-2-8259A-的编程"><a href="#7-5-2-8259A-的编程" class="headerlink" title="7.5.2 8259A 的编程"></a>7.5.2 8259A 的编程</h4><p>中断向量号是逻辑上的东西，它在物理上是 8259A 上的接口号。8259A 上 IRQ 号的排列顺序是固定的，但其对应的中断向量号是不固定的，这其实是一种由硬件到软件的映射，通过设置 8259A 可以将 IRQ 接口映射道不同的中断向量号。<br>8259A 内部有两组寄存器：</p>
+<ul>
+<li>一组是初始化命令寄存器组，用来保存初始化命令字（Initalization Command Words，ICW），ICW 共 4 个，ICW1~ICW4.</li>
+<li>另一组是操作命令寄存器组，用来保存操作命令字（Operation Command Word，OCW），OCW 共 3 个，OCW1~OCW3</li>
+</ul>
+<p>所以对 8259A 的编程也分为初始化和操作两部分：</p>
+<ol>
+<li>一部分用 ICW 做初始化，用来确定是否需要级联，设置起始中断向量号，设置中断结束模式。这部分必须依次写入 ICW1~ICW4。</li>
+<li>另一部分是用 OCW 来操作控制 8259A，通过往 8259A 端口发送 OCW 实现中断屏蔽和中断结束，OCW 发送顺序不固定。</li>
+</ol>
+<h5 id="ICW1"><a href="#ICW1" class="headerlink" title="ICW1"></a>ICW1</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671608378891-bf93bc2c-13bc-4639-9184-b0aaba57ca36.png#averageHue=%23eaeaea&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=110&id=u6db0fd69&margin=%5Bobject%20Object%5D&name=image.png&originHeight=110&originWidth=299&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18219&status=done&style=none&taskId=u91fd0bc1-11d2-4c65-a60a-056d743aa44&title=&width=299" alt="image.png"><br>ICW1 用来初始化 8259A 的连接方式和中断信号的触发方式。</p>
+<blockquote>
+<p>连接方式是指用单片工作还是用多片级联工作。<br>触发方式是指中断请求信号是电平触发，还是边沿触发。<br>ICW1 需要写入到主片的 0x20 端口和从片的 0xA0 端口，如图 7-13 所示。</p>
+</blockquote>
+<ul>
+<li><code>IC4</code> 表示是否要写入 ICW4。为 1 表示需要写入，0 为不需要。x86 系统 IC4 必须为 1。</li>
+<li><code>SNGL</code>表示 single。若为 1 则为单片模式，为 0 表示级联模式。</li>
+<li><code>ADI</code>表示 call address interval，用来设置 8085 的调用时间间隔，x86 不用设置。</li>
+<li><code>LTIM</code>表示 level&#x2F;edge triggered mode，用来设置中断检测方式。为 0 表示边沿触发，为 1 表示电平触发。</li>
+<li>第 4 位的 1 是固定值，这是 ICW1 的标记。</li>
+<li>第 5~7 位专用于 8085 处理器，x86 不需要，置 0 即可。</li>
+</ul>
+<h5 id="ICW2"><a href="#ICW2" class="headerlink" title="ICW2"></a>ICW2</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671608908664-a737a51d-4ed4-4c41-bf7d-0be13877d301.png#averageHue=%23eeeeee&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=123&id=u235ce93d&margin=%5Bobject%20Object%5D&name=image.png&originHeight=123&originWidth=322&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18279&status=done&style=none&taskId=u4e2c5335-8f6d-42dd-82a8-54e0de46918&title=&width=322" alt="image.png"><br>ICW2 用来设置起始中断向量号，就是前面所说的硬件 IRQ 接口到逻辑中断向量号的映射。</p>
+<blockquote>
+<p>ICW2 需要写入到主片的 0x21 端口和从片的 0xA1 端口。</p>
+</blockquote>
+<p>由于咱们只需要设置 IRQ0 的中断向量号， IRQl ～ IRQ7 的中断向量号是 IRQ0 的顺延，所以，咱们只<br>负责填写高 5 位 T3 ～ T7，ID0~ID2 这低 3 位会根据 8 个 IRQ 接口的排列位次自行导入。</p>
+<h5 id="ICW3"><a href="#ICW3" class="headerlink" title="ICW3"></a>ICW3</h5><p>ICW3 仅在级联的方式下才需要（如果 ICWl 中的 SNGL 为 0），用来设置主片和从片用哪个 IRQ 接口互连。</p>
+<blockquote>
+<p>ICW3 需要写入主片的 0x21 端口及从片的 0xA1 端口。</p>
+</blockquote>
+<p>由于主片和从片的级联方式不一样，对于这个 ICW3，主片和从片都有自己不同的结构。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671609219817-050bb26b-0e97-4663-9ff5-42f58ce8256c.png#averageHue=%23ebebeb&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=120&id=uf43c9b2e&margin=%5Bobject%20Object%5D&name=image.png&originHeight=120&originWidth=293&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=20194&status=done&style=none&taskId=uc457d8a0-bc2c-4072-be18-215a76ee26a&title=&width=293" alt="image.png"><br>对于主片来说，接从片的 IRQ 接口对应那一位置 1，接外部设备的置 0。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671609259924-b2b8b9ea-ab8f-4414-847c-f9e97648dadc.png#averageHue=%23ececec&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=121&id=u6b71cdd2&margin=%5Bobject%20Object%5D&name=image.png&originHeight=121&originWidth=308&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=19932&status=done&style=none&taskId=u33fc54d0-f672-47b6-80f7-9e3030bc890&title=&width=308" alt="image.png"><br>对于从片来说，在中断响应时，主片会发送与从片做级联的 IRQ 接口号，所有从片用自己的 ICW3 的低 3 位和它对比，若一致则认为是发给自己的，故从片只用低 3 位 ID0~ID2 即可，其他位置 0。</p>
+<h5 id="ICW4"><a href="#ICW4" class="headerlink" title="ICW4"></a>ICW4</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671609648732-6a4529c6-b1a5-4610-9df3-ac884d9db3a5.png#averageHue=%23eeeeee&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=112&id=u08e1b06c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=112&originWidth=421&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=20646&status=done&style=none&taskId=u71fec345-5f57-4e53-a615-16a371b528d&title=&width=421" alt="image.png"><br>ICW4 用于设置 8259A 的工作模式，当 ICW1 中的 IC4 为 1 时才需要 ICW4。</p>
+<blockquote>
+<p>ICW4 需要写入主片的 0x21 端口及从片的 0xA1 端口。</p>
+</blockquote>
+<p>ICW4 中有些低位基于高位，故从高位开始介绍：</p>
+<ul>
+<li>第 5~7 位未定义，置 0 即可。</li>
+<li><code>SFNM</code>表示特殊全嵌套模式（Special Fully Nested Mode），若 SFNM 为 0，表示全嵌套模式，若为 1 表示特殊全嵌套模式。</li>
+<li><code>BUF</code>表示本芯片是否工作在缓冲模式。为 1 表示工作在缓冲模式，为 0 则为非缓冲模式。</li>
+<li><code>M/S</code>用来规定在缓冲模式下，本 8259A 是主片还是从片，为 1 是主片，0 是从片。若在非缓冲模式下则无效。</li>
+<li><code>AEOI</code>表示自动结束中断（Auto End Of Interrupt）。为 1 表示自动结束中断，为 0 表示手动结束中断，需在中断处理程序中或主函数中手动向 8259A 的主、从片发送 EOI 信号。</li>
+<li><code>μPM</code>表示微处理器类型，此项是为了兼容老处理器。为 0 表示 8080 或 8085 处理器，为 1 表示 x86 处理器。</li>
+</ul>
+<h5 id="OCW1"><a href="#OCW1" class="headerlink" title="OCW1"></a>OCW1</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671610165420-2fa535d1-a837-4b0f-8df3-76eb66108ce1.png#averageHue=%23f1f1f1&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=117&id=u9e682801&margin=%5Bobject%20Object%5D&name=image.png&originHeight=117&originWidth=362&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=18801&status=done&style=none&taskId=ub7427732-4246-4cba-863b-b1951e4ff5f&title=&width=362" alt="image.png"><br>OCW1 用来屏蔽连接在 8259A 上的外部设备的中断信号，实际上就是把 OCW1 写入了 IMR 寄存器。</p>
+<blockquote>
+<p>OCW1 要写入主片的 0x21 或从片的 0xA1 端口。</p>
+</blockquote>
+<ul>
+<li>M0<del>M7 对应 IRQ0</del>IRQ7，某位为 1，对应端口的中断信号就被屏蔽，为 0 则放行。</li>
+</ul>
+<h5 id="OCW2"><a href="#OCW2" class="headerlink" title="OCW2"></a>OCW2</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671610262077-2ddf5bf7-90a4-4c64-b812-adee8ece522a.png#averageHue=%23f2f2f2&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=124&id=u96dad596&margin=%5Bobject%20Object%5D&name=image.png&originHeight=124&originWidth=357&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=17689&status=done&style=none&taskId=u370f4725-3457-4ce7-9af5-0af7d9902ad&title=&width=357" alt="image.png"><br>OCW2 用来设置中断结束方式和优先级模式。OCW2 的配置比较复杂，各种属性位要配合在一起，组合出 8259A 的各种工作模式。</p>
+<blockquote>
+<p>OCW2 要写入主片的 0x20 或从片的 0xA0 端口。</p>
+</blockquote>
+<ul>
+<li>R，即 Rotation，表示是否按照循环方式设置中断优先级。为 1 表示优先级循环，为 0 表示固定优先级方式。</li>
+<li>SL，即 Specific Level，表示是否指定优先等级。为 1 表示低 3 位有效，为 0 表示无效。</li>
+<li>EOI，即 End Of Interrupt，为中断结束命令位。为 1 会令 ISR 寄存器中断相应位清 0。为 0 则需手动结束中断（如果中断来自主片，只需要向主片发送 EOI，若中断来自从片，除了向从片发送 EOI，还要向主片发送 EOI）。</li>
+<li>第 3~4 位是 OCW2 的标识。</li>
+<li>L0~L2 用来确定优先级的编码。</li>
+</ul>
+<p>具体有以下几种工作方式：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671610515069-cf79fccb-ffda-469d-a627-36037ca55a1d.png#averageHue=%23e4e4e4&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=479&id=ud5b65746&margin=%5Bobject%20Object%5D&name=image.png&originHeight=479&originWidth=872&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=284092&status=done&style=none&taskId=uca1246c8-15ed-45f4-a905-0f7d43207b7&title=&width=872" alt="image.png"></p>
+<h5 id="OCW3"><a href="#OCW3" class="headerlink" title="OCW3"></a>OCW3</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671611017457-7b7f59e5-edc4-4108-b397-6b7c8e39d532.png#averageHue=%23f1f1f1&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=117&id=u11e611a7&margin=%5Bobject%20Object%5D&name=image.png&originHeight=117&originWidth=368&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=17247&status=done&style=none&taskId=ub3bb9045-0e92-48bd-b4b4-e1419ed50c7&title=&width=368" alt="image.png"><br>OCW3 用来设定特殊屏蔽方式及查询方式。</p>
+<blockquote>
+<p>OCW3 要写入主片的 0x20 端口或从片的 0xA0 端口。</p>
+</blockquote>
+<ul>
+<li><code>RIS</code>，即 Read Interrupt register Select，读取中断寄存器选择位。为 1 表示读取 ISR 寄存器，为 0 表示读取 IRR 寄存器。</li>
+<li><code>RR</code>，即 Read Register，读取寄存器命令。它和 RIS 位是配合在一起使用的。RR 为 1 时才可以读取寄存器。</li>
+<li><code>P</code>，即 Poll command，查询命令。当 P 为 1 时，设置 8259A 为中断查询方式，这样就可以通过读取寄存器，如 IRS，来查看当前的中断处理情况。</li>
+<li>第 3~4 位是 OCW3 的标识，8259A 通过这两位判断是哪个控制字。</li>
+<li><code>ESMM</code>（Enable Special Mask）和<code>SMM</code>（Special Mask Mode）是组合一起用的，用来启用或禁用特殊屏蔽模式。<code>ESMM</code>是特殊屏蔽模式允许位，<code>SMM</code>是特殊屏蔽模式位。只有<code>ESMM</code>和<code>SMM</code>都为 1，才表示工作在特殊屏蔽模式下。</li>
+<li>第 7 位未用到。</li>
+</ul>
+<p>ICW1 和 OCW2, OCW3 是用偶地址端口 0x20 （主片〉或 0xA0 （从片）写入，利用控制字标识识别。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671612409174-77dceac4-a739-4874-9c27-0a2cf80ec936.png#averageHue=%23eaeaea&clientId=ue46d37b2-b5f2-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=134&id=u912e942f&margin=%5Bobject%20Object%5D&name=image.png&originHeight=134&originWidth=868&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=35120&status=done&style=none&taskId=u3a017550-3215-434b-923f-c3e0e6128f8&title=&width=868" alt="image.png"><br>ICW2 ～ ICW4 和 OCW1 是用奇地址端口 0x21 （主片）或 0x21 （从片）写入，由于 OCW 是在初始化后有效，故在初始化后写入奇地址端口的数据便被认为是 OCW1。</p>
+<h3 id="7-6-编写中断处理程序"><a href="#7-6-编写中断处理程序" class="headerlink" title="7.6 编写中断处理程序"></a>7.6 编写中断处理程序</h3><h4 id="7-6-1-从最简单的中断处理程序开始"><a href="#7-6-1-从最简单的中断处理程序开始" class="headerlink" title="7.6.1 从最简单的中断处理程序开始"></a>7.6.1 从最简单的中断处理程序开始</h4><p>Intel 8259A 芯片位于主板上的南桥芯片中，不需要单独安装。<br>程序流程如图所示：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671617740588-588433c3-bd9a-4e63-ac54-8292736a3d10.png#averageHue=%23f2f2f2&clientId=uf56d8f1c-8e1d-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=274&id=u2c11247b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=274&originWidth=243&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=25917&status=done&style=none&taskId=u99549817-27ae-4650-8e3b-7fc885b0a86&title=&width=243" alt="image.png"><br>init_all()：初始化所有的设备及数据结构</p>
+<ul>
+<li>idt_init()：初始化中断相关内容<ul>
+<li>pic_init()：初始化 8259A（PIC 是 Programmable Interrupt Controller 的简称）</li>
+<li>idt_desc_init()：初始化 IDT</li>
+</ul>
+</li>
+<li>加载 IDT</li>
+</ul>
+<h5 id="用汇编实现中断处理程序"><a href="#用汇编实现中断处理程序" class="headerlink" title="用汇编实现中断处理程序"></a>用汇编实现中断处理程序</h5><p>汇编中用<code>%macro</code>，<code>%endmacro</code>来定义多行宏。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">[bits 32]</span><br><span class="line">%define ERROR_CODE nop  ;为了栈中格式统一，如果 CPU 在异常中已经自动压入错误码，这里不做操作</span><br><span class="line">%define ZERO push 0     ;为了栈中格式统一，如果 CPU 在异常中没有自动压入错误码，这里填充 0</span><br><span class="line"></span><br><span class="line">extern put_str          ;声明外部函数，告诉编译器在链接的时候可以找到</span><br><span class="line"></span><br><span class="line">section .data</span><br><span class="line">intr_str db &quot;interrupt occur!&quot;, 0xa, 0</span><br><span class="line">global intr_entry_table</span><br><span class="line">intr_entry_table:</span><br><span class="line"></span><br><span class="line">%macro VECTOR 2</span><br><span class="line">section .text</span><br><span class="line">intr%1entry:            ;每个中断处理程序都要压入中断向量号，所以1个中断类型1个处理程序，自己知道自己的中断号是多少</span><br><span class="line">    %2</span><br><span class="line">    push intr_str</span><br><span class="line">    call put_str</span><br><span class="line">    add esp, 4</span><br><span class="line"></span><br><span class="line">    ;如果从片上进入中断，除了往片上发送 EOI 外，还要往主片上发送 EOI，因为后面要在 8259A 芯片上设置手动结束中断，所以这里手动发送 EOI</span><br><span class="line">    mov al, 0x20    ;中断结束命令 EOI</span><br><span class="line">    out 0xa0, al    ;往从片发送</span><br><span class="line">    out 0x20, al    ;往主片发送</span><br><span class="line"></span><br><span class="line">    add esp, 4</span><br><span class="line">    iret</span><br><span class="line"></span><br><span class="line">section .data           ;这个 section .data 的作用就是让数组里全都是地址，编译器会将属性相同的 Section 合成一个大的 Segmengt，所以这里就是紧凑排列的数组了</span><br><span class="line">    dd intr%1entry  ;存储各个中断入口程序的地址，形成 intr_entry_table 数组</span><br><span class="line">%endmacro</span><br><span class="line"></span><br><span class="line">VECTOR 0x00, ZERO</span><br><span class="line">VECTOR 0x01, ZERO</span><br><span class="line">VECTOR 0x02, ZERO</span><br><span class="line">VECTOR 0x03, ZERO</span><br><span class="line">VECTOR 0x04, ZERO</span><br><span class="line">VECTOR 0x05, ZERO</span><br><span class="line">VECTOR 0x06, ZERO</span><br><span class="line">VECTOR 0x07, ZERO</span><br><span class="line">VECTOR 0x08, ERROR_CODE</span><br><span class="line">VECTOR 0x09, ZERO</span><br><span class="line">VECTOR 0x0a, ERROR_CODE</span><br><span class="line">VECTOR 0x0b, ERROR_CODE</span><br><span class="line">VECTOR 0x0c, ZERO</span><br><span class="line">VECTOR 0x0d, ERROR_CODE</span><br><span class="line">VECTOR 0x0e, ERROR_CODE</span><br><span class="line">VECTOR 0x0f, ZERO</span><br><span class="line">VECTOR 0x10, ZERO</span><br><span class="line">VECTOR 0x11, ERROR_CODE</span><br><span class="line">VECTOR 0x12, ZERO</span><br><span class="line">VECTOR 0x13, ZERO</span><br><span class="line">VECTOR 0x14, ZERO</span><br><span class="line">VECTOR 0x15, ZERO</span><br><span class="line">VECTOR 0x16, ZERO</span><br><span class="line">VECTOR 0x17, ZERO</span><br><span class="line">VECTOR 0x18, ERROR_CODE</span><br><span class="line">VECTOR 0x19, ZERO</span><br><span class="line">VECTOR 0x1a, ERROR_CODE</span><br><span class="line">VECTOR 0x1b, ERROR_CODE</span><br><span class="line">VECTOR 0x1c, ZERO</span><br><span class="line">VECTOR 0x1d, ERROR_CODE</span><br><span class="line">VECTOR 0x1e, ERROR_CODE</span><br><span class="line">VECTOR 0x1f, ZERO</span><br><span class="line">VECTOR 0x20, ZERO</span><br></pre></td></tr></table></figure>
+
+<p>代码定义了 33 个中断处理程序，每个中断处理程序都一样，都是打印字符串“interrupt occur！”，之后退出中断。由于中断向量 0<del>19 为处理器内部固定的异常类型，20</del>31 是 Intel 保留的，所以咱们可用的中断向量号最低是 32，将来设置 8259A 时会把 IR0 的中断向量号设置为 32。<br>错误码是由 CPU 压入的，如果没有错误码，咱们手动压入一个 32 位数，这样无论中断是否会压入错误码，栈顶指针都是一样的。<br>编译器会将属性相同的 section 合并到同一个大的 segment 中，而且在 kemel.S 中对所有的数据 section 都用了同一个名字.data，所以编译后所有中断处理程序的地址作为数组元素地址会是连续的。</p>
+<h5 id="创建中断描述符表-IDT，安装中断处理程序"><a href="#创建中断描述符表-IDT，安装中断处理程序" class="headerlink" title="创建中断描述符表 IDT，安装中断处理程序"></a>创建中断描述符表 IDT，安装中断处理程序</h5><p>这里提示一下中断门结构：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1670320177468-2a9dc1a7-c9ef-4b20-93f0-068b998e7702.png?x-oss-process=image/resize,w_1125,limit_0#averageHue=%23dcdcdc&crop=0&crop=0&crop=1&crop=1&from=url&id=tfWoA&margin=%5Bobject%20Object%5D&originHeight=385&originWidth=1125&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="><br>代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;interrupt.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;global.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"><span class="comment">/*略*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IDT_DESC_CNT 0x21       <span class="comment">//目前总共支持的中断数量</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 中断门描述符结构体</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">gate_desc</span>&#123;</span></span><br><span class="line">    <span class="type">uint16_t</span>        func_offset_low_word;</span><br><span class="line">    <span class="type">uint16_t</span>        selector;</span><br><span class="line">	<span class="type">uint8_t</span>         dcount;              <span class="comment">//此项位双字计数字段，是门描述符第四字节，是固定值</span></span><br><span class="line">    <span class="type">uint8_t</span>         attribute;</span><br><span class="line">    <span class="type">uint16_t</span>        func_offset_high_word;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> intr_handler intr_entry_table[IDT_DESC_CNT];     <span class="comment">// 声明引用在 kernel.S 中的中断处理函数入口数组</span></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">gate_desc</span> <span class="title">idt</span>[<span class="title">IDT_DESC_CNT</span>];</span>      <span class="comment">//idt 本质上就是个中断门描述符数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*略*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 创建中断门描述符</span></span><br><span class="line"><span class="comment"> * @param p_gdesc 中断描述符</span></span><br><span class="line"><span class="comment"> * @param attr 属性</span></span><br><span class="line"><span class="comment"> * @param function 中断处理函数地址</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">make_idt_desc</span><span class="params">(<span class="keyword">struct</span> gate_desc* p_gdesc,<span class="type">uint8_t</span> attr, intr_handler function)</span>&#123;</span><br><span class="line">    p_gdesc-&gt;func_offset_low_word = (<span class="type">uint32_t</span>)function &amp; <span class="number">0x0000FFFF</span>;</span><br><span class="line">    p_gdesc-&gt;selector = SELECTOR_K_CODE;    <span class="comment">//global.h里定义的</span></span><br><span class="line">    p_gdesc-&gt;dcount = <span class="number">0</span>;</span><br><span class="line">    p_gdesc-&gt;attribute = attr;</span><br><span class="line">    p_gdesc-&gt;func_offset_high_word = ((<span class="type">uint32_t</span>)function &amp; <span class="number">0xFFFF0000</span>) &gt;&gt; <span class="number">16</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 初始化中断描述符表</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">idt_desc_init</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; IDT_DESC_CNT; i++)&#123;</span><br><span class="line">        make_idt_desc(&amp;idt[i], IDT_DESC_ATTR_DPL0, intr_entry_table[i]);        <span class="comment">//IDT_DESC_DPL0在global.h定义的</span></span><br><span class="line">    &#125;</span><br><span class="line">    put_str(<span class="string">&quot;       idt_desc_init done\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 完成有关中断的所有初始化工作</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">idt_init</span><span class="params">()</span>&#123;</span><br><span class="line">    put_str(<span class="string">&quot;idt_init start\n&quot;</span>);</span><br><span class="line">    idt_desc_init();        <span class="comment">//初始化中断描述符表</span></span><br><span class="line">    pic_init();             <span class="comment">//初始化 8259A</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*加载 idt*/</span></span><br><span class="line">    <span class="type">uint64_t</span> idt_operand = ((<span class="keyword">sizeof</span>(idt) - <span class="number">1</span>) | ((<span class="type">uint64_t</span>)((<span class="type">uint32_t</span>)idt &lt;&lt; <span class="number">16</span>)));</span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;lidt %0&quot;</span>::<span class="string">&quot;m&quot;</span>(idt_operand))</span>;</span><br><span class="line">    put_str(<span class="string">&quot;idt_init done\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __KERNEL_INTERRUPT_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __KERNEL_INTERRUPT_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">void</span>* intr_handler;</span><br><span class="line"><span class="type">void</span> <span class="title function_">idt_init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __KERNEL_GLOBAL_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __KERNEL_GLOBAL_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     RPL0  0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     RPL1  1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     RPL2  2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     RPL3  3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TI_GDT 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TI_LDT 1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SELECTOR_K_CODE       ((1 &lt;&lt; 3) + (TI_GDT &lt;&lt; 2) + RPL0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SELECTOR_K_DATA       ((2 &lt;&lt; 3) + (TI_GDT &lt;&lt; 2) + RPL0)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SELECTOR_K_STACK   SELECTOR_K_DATA</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SELECTOR_K_GS       ((3 &lt;&lt; 3) + (TI_GDT &lt;&lt; 2) + RPL0)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//--------------   IDT描述符属性  ------------</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_P     1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_DPL0   0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_DPL3   3</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_32_TYPE     0xE   <span class="comment">// 32位的门</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_16_TYPE     0x6   <span class="comment">// 16位的门，不用，定义它只为和32位门区分</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_ATTR_DPL0  ((IDT_DESC_P &lt;&lt; 7) + (IDT_DESC_DPL0 &lt;&lt; 5) + IDT_DESC_32_TYPE)</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span>     IDT_DESC_ATTR_DPL3  ((IDT_DESC_P &lt;&lt; 7) + (IDT_DESC_DPL3 &lt;&lt; 5) + IDT_DESC_32_TYPE)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h5 id="用内联汇编实现端口-I-x2F-O-函数"><a href="#用内联汇编实现端口-I-x2F-O-函数" class="headerlink" title="用内联汇编实现端口 I&#x2F;O 函数"></a>用内联汇编实现端口 I&#x2F;O 函数</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************	 机器模式   ***************</span></span><br><span class="line"><span class="comment">	 b -- 输出寄存器QImode名称,即寄存器中的最低8位:[a-d]l。</span></span><br><span class="line"><span class="comment">	 w -- 输出寄存器HImode名称,即寄存器中2个字节的部分,如[a-d]x。</span></span><br><span class="line"><span class="comment">	 HImode</span></span><br><span class="line"><span class="comment">	     “Half-Integer”模式，表示一个两字节的整数。</span></span><br><span class="line"><span class="comment">	 QImode</span></span><br><span class="line"><span class="comment">	     “Quarter-Integer”模式，表示一个一字节的整数。</span></span><br><span class="line"><span class="comment">*******************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __LIB_IO_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __LIB_IO_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 向端口port写入一个字节*/</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">outb</span><span class="params">(<span class="type">uint16_t</span> port, <span class="type">uint8_t</span> data)</span> &#123;</span><br><span class="line"><span class="comment">/*********************************************************</span></span><br><span class="line"><span class="comment"> a表示用寄存器al或ax或eax,对端口指定N表示0~255, d表示用dx存储端口号,</span></span><br><span class="line"><span class="comment"> %b0表示对应al,%w1表示对应dx */</span></span><br><span class="line">   <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">( <span class="string">&quot;outb %b0, %w1&quot;</span> : : <span class="string">&quot;a&quot;</span> (data), <span class="string">&quot;Nd&quot;</span> (port))</span>;</span><br><span class="line"><span class="comment">/******************************************************/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 将addr处起始的word_cnt个字写入端口port */</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">outsw</span><span class="params">(<span class="type">uint16_t</span> port, <span class="type">const</span> <span class="type">void</span>* addr, <span class="type">uint32_t</span> word_cnt)</span> &#123;</span><br><span class="line"><span class="comment">/*********************************************************</span></span><br><span class="line"><span class="comment">   +表示此限制即做输入又做输出.</span></span><br><span class="line"><span class="comment">   outsw是把ds:esi处的16位的内容写入port端口, 我们在设置段描述符时,</span></span><br><span class="line"><span class="comment">   已经将ds,es,ss段的选择子都设置为相同的值了,此时不用担心数据错乱。*/</span></span><br><span class="line">   <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;cld; rep outsw&quot;</span> : <span class="string">&quot;+S&quot;</span> (addr), <span class="string">&quot;+c&quot;</span> (word_cnt) : <span class="string">&quot;d&quot;</span> (port))</span>;</span><br><span class="line"><span class="comment">/******************************************************/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 将从端口port读入的一个字节返回 */</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">uint8_t</span> <span class="title function_">inb</span><span class="params">(<span class="type">uint16_t</span> port)</span> &#123;</span><br><span class="line">   <span class="type">uint8_t</span> data;</span><br><span class="line">   <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;inb %w1, %b0&quot;</span> : <span class="string">&quot;=a&quot;</span> (data) : <span class="string">&quot;Nd&quot;</span> (port))</span>;</span><br><span class="line">   <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 将从端口port读入的word_cnt个字写入addr */</span></span><br><span class="line"><span class="type">static</span> <span class="keyword">inline</span> <span class="type">void</span> <span class="title function_">insw</span><span class="params">(<span class="type">uint16_t</span> port, <span class="type">void</span>* addr, <span class="type">uint32_t</span> word_cnt)</span> &#123;</span><br><span class="line"><span class="comment">/******************************************************</span></span><br><span class="line"><span class="comment">   insw是将从端口port处读入的16位内容写入es:edi指向的内存,</span></span><br><span class="line"><span class="comment">   我们在设置段描述符时, 已经将ds,es,ss段的选择子都设置为相同的值了,</span></span><br><span class="line"><span class="comment">   此时不用担心数据错乱。*/</span></span><br><span class="line">   <span class="keyword">asm</span> <span class="title function_">volatile</span> <span class="params">(<span class="string">&quot;cld; rep insw&quot;</span> : <span class="string">&quot;+D&quot;</span> (addr), <span class="string">&quot;+c&quot;</span> (word_cnt) : <span class="string">&quot;d&quot;</span> (port) : <span class="string">&quot;memory&quot;</span>)</span>;</span><br><span class="line"><span class="comment">/******************************************************/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>因为 io.h 里的函数不是普通的函数，它们都是对底层硬件端口直接操作的，通常由设备的驱动程序来调用，为了快速响应，函数调用上需要更加高效。为了让处理器更多地为用户程序服务，操作系统（包括硬件驱动程序）必须减少自己占用处理器的时间，所以对硬件端口的操作要求——快。<br>io.h 定义了 4 个函数：</p>
+<ol>
+<li>一次写入 1 个字节的 outb 函数。</li>
+<li>一次写入多个字的 outsw 函数，以 2 字节为单位。</li>
+<li>一次读入 1 个字节的 inb 函数。</li>
+<li>一次读入多个字的 insw 函数，以 2 字节为单位。</li>
+</ol>
+<p>介绍一下汇编指令<code>insw</code>，该指令的功能是从 dx 寄存器指定的端口处读入的 16 位数据写入 es:edi 指向的内存。所以咱们需要把 addr 的值写入 edi 寄存器，把端口 port 写入 dx。insw 一次只能传输两字节数据，要传输多字节数据就要用到重复指令<code>cld</code>，这里用 cx 寄存器来控制循环次数，故将 word_cnt 的值写入 cx 寄存器。insw 每执行完一次 ，edi 自动加 2，cx 自动减 1，故 edi 和 cx 的约束需要可读可写，故用“+”。</p>
+<h5 id="设置-8259A"><a href="#设置-8259A" class="headerlink" title="设置 8259A"></a>设置 8259A</h5><p>8259A 的编程就是写入 ICW 和 OCW。</p>
+<ul>
+<li>ICW1 和 OCW2, OCW3 是用偶地址端口 0x20 （主片〉或 0xA0 （从片）写入。</li>
+<li>ICW2 ～ ICW4 和 OCW1 是用奇地址端口 0x21 （主片）或 0xA1 （从片）写入。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个“略”处</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;io.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIC_M_CTRL 0x20         <span class="comment">//主片</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIC_M_DATA 0x21</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIC_S_CTRL 0xA0         <span class="comment">//从片</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIC_S_DATA 0xA1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第二个“略”处</span></span><br><span class="line"><span class="comment">/* 初始化可编程中断控制器 8259A */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">pic_init</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//初始化主片</span></span><br><span class="line">        outb(PIC_M_CTRL, <span class="number">0x11</span>);         <span class="comment">//ICW1: 0001 0001 ,边沿触发，级联 8259，需要ICW4</span></span><br><span class="line">        outb(PIC_M_DATA, <span class="number">0x20</span>);         <span class="comment">//ICW2: 0010 0000 ,起始中断向量号为 0x20(0x20-0x27)</span></span><br><span class="line">        outb(PIC_M_DATA, <span class="number">0x04</span>);         <span class="comment">//ICW3: 0000 0100 ,IR2 接从片</span></span><br><span class="line">        outb(PIC_M_DATA, <span class="number">0x01</span>);         <span class="comment">//ICW4: 0000 0001 ,8086 模式，正常EOI</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化从片</span></span><br><span class="line">        outb(PIC_S_CTRL, <span class="number">0x11</span>);         <span class="comment">//ICW1: 0001 0001 ,边沿触发，级联 8259，需要ICW4</span></span><br><span class="line">        outb(PIC_S_DATA, <span class="number">0x28</span>);         <span class="comment">//ICW2: 0010 1000 ,起始中断向量号为 0x28(0x28-0x2f)</span></span><br><span class="line">        outb(PIC_S_DATA, <span class="number">0x02</span>);         <span class="comment">//ICW3: 0000 0010 ,设置连接到主片的 IR2 引脚</span></span><br><span class="line">        outb(PIC_S_DATA, <span class="number">0x01</span>);         <span class="comment">//ICW4: 0000 0001 ,8086 模式，正常EOI</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//打开主片上的 IR0 也就是目前只接受时钟产生的中断</span></span><br><span class="line">    	<span class="comment">//eflags 里的 IF 位对所有外部中断有效，但不能屏蔽某个外设的中断了</span></span><br><span class="line">    	outb (PIC_M_DATA, <span class="number">0xfe</span>);        <span class="comment">//OCW1: 1111 1110</span></span><br><span class="line">    	outb (PIC_S_DATA, <span class="number">0xff</span>);        <span class="comment">//OCW1: 1111 1111</span></span><br><span class="line"></span><br><span class="line">        put_str(<span class="string">&quot;    pic init done\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="加载-IDT，开启中断"><a href="#加载-IDT，开启中断" class="headerlink" title="加载 IDT，开启中断"></a>加载 IDT，开启中断</h5><p>这是开启中断的最后一个环节：把中断描述符表 IDT 的信息加载到 IDTR。<br>IDTR 的结构：低 16 位是 IDT 大小-1，高 32 位是 IDT 的线性基地址。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671498945143-4e420adc-be17-498b-a4aa-13b1acc6143b.png#averageHue=%23eaeaea&crop=0&crop=0&crop=1&crop=1&from=url&id=Em5da&margin=%5Bobject%20Object%5D&originHeight=109&originWidth=285&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title="></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">gate_desc</span> <span class="title">idt</span>[<span class="title">IDT_DESC_CNT</span>];</span>   <span class="comment">// idt是中断描述符表,本质上就是个中断门描述符数组</span></span><br><span class="line"><span class="comment">//...............................//</span></span><br><span class="line"><span class="comment">/*加载 idt*/</span></span><br><span class="line"><span class="type">uint64_t</span> idt_operand = ((<span class="keyword">sizeof</span>(idt) - <span class="number">1</span>) | ((<span class="type">uint64_t</span>)((<span class="type">uint32_t</span>)idt &lt;&lt; <span class="number">16</span>)));<span class="comment">// 指针只能转换相同大小的精度，故只能先转换为32位数再转换为64位数</span></span><br><span class="line"><span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;lidt %0&quot;</span>::<span class="string">&quot;m&quot;</span>(idt_operand))</span>;</span><br><span class="line">put_str(<span class="string">&quot;idt_init done\n&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="启动初始化"><a href="#启动初始化" class="headerlink" title="启动初始化"></a>启动初始化</h5><p>在 kernel 下定义 init.c</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;init.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;interrupt.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 负责初始化所有模块 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_all</span><span class="params">()</span>&#123;</span><br><span class="line">        put_str(<span class="string">&quot;init_all\n&quot;</span>);</span><br><span class="line">        idt_init();             <span class="comment">// 初始化中断</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __KERNEL_INIT_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __KERNEL_INIT_H</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_all</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">//__KERNEL_INIT_H</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;init.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    put_str(<span class="string">&quot;I am kernel\n&quot;</span>);</span><br><span class="line">    init_all();</span><br><span class="line">    <span class="keyword">asm</span> <span class="title function_">volatile</span><span class="params">(<span class="string">&quot;sti&quot;</span>)</span>;    <span class="comment">//开启中断</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里为了让中断程序运行，需要打开中断才行，打开中断时用 sti 指令，它将 eflags 寄存器的 IF 位置 1,。<br>运行结果：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671783565549-0c153f10-bb47-49aa-bdbf-3fb09a918594.png#averageHue=%23202020&clientId=ufe916499-a24a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=366&id=uadbbe533&margin=%5Bobject%20Object%5D&name=image.png&originHeight=488&originWidth=717&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=19094&status=done&style=none&taskId=u89da4848-22e7-49ee-9c04-aa00ad855fe&title=&width=538" alt="image.png"><br>还可以使用<code>info idt</code>来查看 IDT 内容：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671783678530-e7f3a8b0-29a1-40bd-b08f-9dc7eae78a28.png#averageHue=%23310b27&clientId=ufe916499-a24a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=488&id=u03ef306c&margin=%5Bobject%20Object%5D&name=image.png&originHeight=650&originWidth=834&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=202820&status=done&style=none&taskId=u552e06f5-09e9-42aa-8bfe-df486223e75&title=&width=626" alt="image.png"></p>
+<h4 id="7-6-2-改进中断处理程序"><a href="#7-6-2-改进中断处理程序" class="headerlink" title="7.6.2 改进中断处理程序"></a>7.6.2 改进中断处理程序</h4><p>本节将实现具体的中断处理函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span>* intr_name[IDT_DESC_CNT];		     <span class="comment">// 用于保存异常的名字</span></span><br><span class="line">intr_handler idt_table[IDT_DESC_CNT];	     <span class="comment">// 定义中断处理程序数组.在kernel.S中定义的intrXXentry只是中断处理程序的入口,最终调用的是ide_table中的处理程序</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 通用的中断处理函数,一般用在异常出现时的处理</span></span><br><span class="line"><span class="comment"> * @param vec_nr 中断向量号</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">general_intr_handler</span><span class="params">(<span class="type">uint8_t</span> vec_nr)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (vec_nr == <span class="number">0x27</span> || vec_nr == <span class="number">0x2f</span>) &#123;	<span class="comment">// 0x2f是从片8259A上的最后一个irq引脚，保留</span></span><br><span class="line">        <span class="keyword">return</span>;		<span class="comment">//IRQ7和IRQ15会产生伪中断(spurious interrupt),无须处理。</span></span><br><span class="line">    &#125;</span><br><span class="line">    put_str(<span class="string">&quot;int vector: 0x&quot;</span>);</span><br><span class="line">    put_int(vec_nr);</span><br><span class="line">    put_char(<span class="string">&#x27;\n&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 完成一般中断处理函数注册及异常名称注册</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">exception_init</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; IDT_DESC_CNT; i++) &#123;</span><br><span class="line"><span class="comment">/* idt_table数组中的函数是在进入中断后根据中断向量号调用的,</span></span><br><span class="line"><span class="comment"> * 见kernel/kernel.S的call [idt_table + %1*4] */</span></span><br><span class="line">        idt_table[i] = general_intr_handler;		    <span class="comment">// 默认为general_intr_handler。</span></span><br><span class="line">        <span class="comment">// 以后会由register_handler来注册具体处理函数。</span></span><br><span class="line">        intr_name[i] = <span class="string">&quot;unknown&quot;</span>;				    <span class="comment">// 先统一赋值为unknown</span></span><br><span class="line">    &#125;</span><br><span class="line">    intr_name[<span class="number">0</span>] = <span class="string">&quot;#DE Divide Error&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">1</span>] = <span class="string">&quot;#DB Debug Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">2</span>] = <span class="string">&quot;NMI Interrupt&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">3</span>] = <span class="string">&quot;#BP Breakpoint Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">4</span>] = <span class="string">&quot;#OF Overflow Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">5</span>] = <span class="string">&quot;#BR BOUND Range Exceeded Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">6</span>] = <span class="string">&quot;#UD Invalid Opcode Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">7</span>] = <span class="string">&quot;#NM Device Not Available Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">8</span>] = <span class="string">&quot;#DF Double Fault Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">9</span>] = <span class="string">&quot;Coprocessor Segment Overrun&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">10</span>] = <span class="string">&quot;#TS Invalid TSS Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">11</span>] = <span class="string">&quot;#NP Segment Not Present&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">12</span>] = <span class="string">&quot;#SS Stack Fault Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">13</span>] = <span class="string">&quot;#GP General Protection Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">14</span>] = <span class="string">&quot;#PF Page-Fault Exception&quot;</span>;</span><br><span class="line">    <span class="comment">// intr_name[15] 第15项是intel保留项，未使用</span></span><br><span class="line">    intr_name[<span class="number">16</span>] = <span class="string">&quot;#MF x87 FPU Floating-Point Error&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">17</span>] = <span class="string">&quot;#AC Alignment Check Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">18</span>] = <span class="string">&quot;#MC Machine-Check Exception&quot;</span>;</span><br><span class="line">    intr_name[<span class="number">19</span>] = <span class="string">&quot;#XF SIMD Floating-Point Exception&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>general_intr_handler</code>是默认的通用中断处理函数，若相关中断没有定义具体的中断处理函数时调用该函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[bits 32]</span><br><span class="line">%define ERROR_CODE nop  ;为了栈中格式统一，如果 CPU 在异常中已经自动压入错误码，这里不做操作</span><br><span class="line">%define ZERO push 0     ;为了栈中格式统一，如果 CPU 在异常中没有自动压入错误码，这里填充 0</span><br><span class="line"></span><br><span class="line">extern idt_table		 ;idt_table是C中注册的中断处理程序数组</span><br><span class="line"></span><br><span class="line">section .data</span><br><span class="line">global intr_entry_table</span><br><span class="line">intr_entry_table:</span><br><span class="line"></span><br><span class="line">%macro VECTOR 2</span><br><span class="line">section .text</span><br><span class="line">intr%1entry:            ;每个中断处理程序都要压入中断向量号，所以1个中断类型1个处理程序，自己知道自己的中断号是多少</span><br><span class="line">    %2				 ; 中断若有错误码会压在eip后面</span><br><span class="line">    ;保存上下文环境</span><br><span class="line">    push ds</span><br><span class="line">    push es</span><br><span class="line">    push fs</span><br><span class="line">    push gs</span><br><span class="line">    pushad			 ; PUSHAD指令压入32位寄存器,其入栈顺序是: EAX,ECX,EDX,EBX,ESP,EBP,ESI,EDI</span><br><span class="line"></span><br><span class="line">    ;如果从片上进入中断，除了往片上发送 EOI 外，还要往主片上发送 EOI，因为后面要在 8259A 芯片上设置手动结束中断，所以这里手动发送 EOI</span><br><span class="line">    mov al, 0x20    ;中断结束命令 EOI</span><br><span class="line">    out 0xa0, al    ;往从片发送</span><br><span class="line">    out 0x20, al    ;往主片发送</span><br><span class="line"></span><br><span class="line">    push %1			;不管idt_table中的目标程序是否需要参数,都一律压入中断向量号,调试时很方便</span><br><span class="line">    call [idt_table + %1*4] ;调用idt_table中的C版本中断处理函数</span><br><span class="line">    jmp intr_exit</span><br><span class="line"></span><br><span class="line">section .data           ;这个 section .data 的作用就是让数组里全都是地址，编译器会将属性相同的 Section 合成一个大的 Segmengt，所以这里就是紧凑排列的数组了</span><br><span class="line">    dd intr%1entry  ;存储各个中断入口程序的地址，形成 intr_entry_table 数组</span><br><span class="line">%endmacro</span><br><span class="line"></span><br><span class="line">section .text</span><br><span class="line">global intr_exit</span><br><span class="line">intr_exit:</span><br><span class="line">;恢复上下文环境</span><br><span class="line">    add esp, 4      ;跳过中断号</span><br><span class="line">    popad</span><br><span class="line">    pop gs</span><br><span class="line">    pop fs</span><br><span class="line">    pop es</span><br><span class="line">    pop ds</span><br><span class="line">    add esp, 4      ;跳过错误码</span><br><span class="line">    iretd</span><br><span class="line"></span><br><span class="line">VECTOR 0x00, ZERO</span><br><span class="line">;略，同之前的代码</span><br><span class="line">VECTOR 0x20, ZERO</span><br></pre></td></tr></table></figure>
+
+<p>代码解析：</p>
+<ul>
+<li>第 16~20 行是保护进程上下文。因为在此汇编文件中药调用 C 程序，一定会使当前寄存器环境破坏，所以要保护当前所使用的的寄存器环境。这里是要把 4 个段寄存器 ds、es、fs、gs 和 8 个通用寄存器保护起来。这 4 个寄存器虽然是 16 位，但在 32 位下入栈后要占 4 字节（位于其他寄存器和内存中的值若为 16 位，则入栈后只占 2 字节）。栈中情况如图所示：</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671847164874-3d88e5ec-78d8-40e0-9c47-be70cdf83775.png#averageHue=%23ececec&clientId=ue6a81a61-d48a-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=354&id=udc97b790&margin=%5Bobject%20Object%5D&name=image.png&originHeight=354&originWidth=332&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=62588&status=done&style=none&taskId=u5dd8bf9d-b92a-4e3f-a764-b6439672fc4&title=&width=332" alt="image.png"></p>
+<ul>
+<li>第 28 行调用 C 语言写的中断处理程序。</li>
+<li>第 40 行<code>popad</code>时不会将栈中 esp 的值赋给 esp 寄存器。</li>
+</ul>
+<h4 id="7-6-3-调试实战：处理器进入中断时压栈出栈完整过程"><a href="#7-6-3-调试实战：处理器进入中断时压栈出栈完整过程" class="headerlink" title="7.6.3 调试实战：处理器进入中断时压栈出栈完整过程"></a>7.6.3 调试实战：处理器进入中断时压栈出栈完整过程</h4><p>这里只记录调试指令：</p>
+<ul>
+<li><code>print-stack</code>查看栈；</li>
+<li><code>show int</code>有中断发生时，控制台打印中断信息；</li>
+<li><code>s</code>单步执行；</li>
+<li><code>n</code>单步执行（遇到函数跳过）；</li>
+<li><code>r</code>查看通用寄存器；</li>
+<li><code>sreg</code>查看段寄存器；</li>
+</ul>
+<h3 id="7-7-可编程计数器-x2F-定时器-8253-简介"><a href="#7-7-可编程计数器-x2F-定时器-8253-简介" class="headerlink" title="7.7 可编程计数器&#x2F;定时器 8253 简介"></a>7.7 可编程计数器&#x2F;定时器 8253 简介</h3><h4 id="7-7-1-时钟——给设备打牌子"><a href="#7-7-1-时钟——给设备打牌子" class="headerlink" title="7.7.1 时钟——给设备打牌子"></a>7.7.1 时钟——给设备打牌子</h4><p>时钟信号表达的意思是设备自己的工作节拍、频率。计算机中的时钟大致可以分为两大类：内部时钟和外部时钟。<br>内部时钟是指处理器中内部元件，如运算器、控制器的工作时序，主要用于控制、同步内部工作过程的步调。内部时钟是由晶体振荡器产生的，简称晶振，它位于主板上，其频率经过分频后就是主板的外频。Intel 处理器将此外频乘以某个倍数之后便称为主频。<br>外部时钟是指处理器与外部设备或外部设备之间通信时采用的一种时序，比如 IO 接口和处理器之间。<br>定时计数器是用来解决处理器与外部设备同步数据时的时序配合问题的，它分为不可编程定时器及可编程定时器两种。我们要接触的是可编程定时器 PIC，<code>Programmable Interval Timer</code>。常用的可编程定时计数器有 Intel 8253&#x2F;8254&#x2F; 82C54A 等。<br>硬件定时器一般有两种计时方式：</p>
+<ol>
+<li>正计时：每次时钟脉冲发生时，将当前计数器加 1，直到与设定目标终止值相等时提示时间已到。</li>
+<li>倒计时：先设定号计数器的值，每发生一次时钟脉冲计数器减 1，直到为 0 时提示时间已到。<blockquote>
+<p>8253 是倒计时方式。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="7-7-2-8253-入门"><a href="#7-7-2-8253-入门" class="headerlink" title="7.7.2 8253 入门"></a>7.7.2 8253 入门</h4><p>8253 内部有三个独立的计数器，分别是计数器 0~计数器 2，端口分别是 0x40 ~ 0x42。每个计数器都有自己的一套寄存器资源，工作时互相独立，互不干涉。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671930972508-929eb702-2bc9-45a2-bb00-7df61d90cb68.png#averageHue=%23e9e9e9&clientId=u17fc836f-0f7c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=315&id=u8653b814&margin=%5Bobject%20Object%5D&name=image.png&originHeight=315&originWidth=711&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=140951&status=done&style=none&taskId=u834b0bc6-6a96-4c1e-87cb-c74ba1ae8ce&title=&width=711" alt="image.png"><br>寄存器资源包括：</p>
+<ul>
+<li>16 位的计数初值寄存器，保存计数器初始值</li>
+<li>16 位减法计数器，从初值寄存器中取值后自减计数</li>
+<li>16 位输出锁存器，保存当前减法计数器的值，用于外界获取当前计数值</li>
+</ul>
+<p>每个计数器有三个引脚：</p>
+<ul>
+<li><code>CLK</code>，表示时钟输入信号，每当此引脚收到一个时钟信号，减法计数器就减 1。</li>
+<li><code>GATE</code>，表示门控输入信号，用于控制计数器是否可以开始计数。</li>
+<li><code>OUT</code>，宝石计数器输出信号，定时完成后发出信号通知处理器或设备。</li>
+</ul>
+<p>每个计数器都有自己的用途：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671936741295-b9cfc5a3-11c6-4bce-8cbe-392febc2eb10.png#averageHue=%23e2e2e2&clientId=u17fc836f-0f7c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=210&id=ua3ae018b&margin=%5Bobject%20Object%5D&name=image.png&originHeight=210&originWidth=872&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=124406&status=done&style=none&taskId=ue87ba530-653c-42d1-862d-4f768606e83&title=&width=872" alt="image.png"></p>
+<h4 id="7-7-3-8253-控制字"><a href="#7-7-3-8253-控制字" class="headerlink" title="7.7.3 8253 控制字"></a>7.7.3 8253 控制字</h4><p>控制字寄存器端口是<code>0x43</code>，它是 8 位大小的寄存器。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671949380780-74ca20fa-6d84-4cf2-8299-d045eb464b6e.png#averageHue=%23dbdbdb&clientId=u17fc836f-0f7c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=503&id=u2a45da28&margin=%5Bobject%20Object%5D&name=image.png&originHeight=503&originWidth=439&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=185272&status=done&style=none&taskId=u16aa43a9-9eaf-4852-b425-b7e03a54ddf&title=&width=439" alt="image.png"></p>
+<ul>
+<li><code>SC1</code>和<code>SC0</code>位是选择计数位，即 Select Counter，或者选择通道位，即 Select Channel。</li>
+<li><code>RW1</code>和<code>RW0</code>是读&#x2F;写&#x2F;锁存操作位，用来设置待操作计数器（通道）的读写及锁存方式。</li>
+<li><code>M2</code>~&#96;M0&#96;这三位是工作方式选择位。</li>
+<li><code>BCD</code>，即 Binary-Coded Decimal，称为“二进制码的十进制数”，用来指示计算器的计算方式是 BCD 码还是二进制数。<ul>
+<li>为 1 表示用 BCD 码计数，计数范围是 0<del>0x9999，表示十进制范围是 0</del>9999,0 值表示十进制 10000；</li>
+<li>为 0 表示用二进制计数，计数范围是 0<del>0xFFFF，表示十进制范围是 0</del>65535,0 值表示十进制 65536。</li>
+</ul>
+</li>
+</ul>
+<h4 id="7-7-4-8253-工作方式"><a href="#7-7-4-8253-工作方式" class="headerlink" title="7.7.4 8253 工作方式"></a>7.7.4 8253 工作方式</h4><p>8253 有 6 种工作方式：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671950261742-de8fbf4f-da86-401e-ac6c-1a2b51640c36.png#averageHue=%23e2e2e2&clientId=u17fc836f-0f7c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=203&id=u973dad38&margin=%5Bobject%20Object%5D&name=image.png&originHeight=203&originWidth=762&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=118367&status=done&style=none&taskId=u812a9f35-fa9a-4f52-a40f-ac6cdfbf8aa&title=&width=762" alt="image.png"><br>计数器开始计数有两个条件：</p>
+<ol>
+<li>GATE 为高电平，即 GATE 为 1，这是由硬件控制的；</li>
+<li>计数初值已写入计数器中的减法计数器，这是由软件 out 指令控制的。</li>
+</ol>
+<p>当这两个条件具备后，计数器将在下一个时钟信号 CLK 的下降沿开始计数。<br>按照“哪个未完成”来划分启动类型：</p>
+<ul>
+<li>软件启动：硬件条件已经完成，由软件条件来控制启动，工作方式 0&#x2F;2&#x2F;3&#x2F;4</li>
+<li>硬件启动：软件条件已经完成，由硬件条件来控制启动，工作方式 1&#x2F;5</li>
+</ul>
+<p>停止类型：</p>
+<ul>
+<li>强制终止：将 GATE 信号置 0</li>
+<li>自动终止：单次计数完之后自动停止，工作方式 0&#x2F;1&#x2F;4&#x2F;5</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671950581607-4c270d5f-234b-491f-a227-c816abe0e631.png#averageHue=%23e5e5e5&clientId=u17fc836f-0f7c-4&crop=0&crop=0&crop=1&crop=1&from=paste&height=326&id=uc1284489&margin=%5Bobject%20Object%5D&name=image.png&originHeight=326&originWidth=833&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=180797&status=done&style=none&taskId=u0befbdb7-300f-460a-8d55-3a0ce893d41&title=&width=833" alt="image.png"></p>
+<h4 id="7-7-5-8253-初始化步骤"><a href="#7-7-5-8253-初始化步骤" class="headerlink" title="7.7.5 8253 初始化步骤"></a>7.7.5 8253 初始化步骤</h4><ol>
+<li>往控制字寄存器端口<code>0x43</code>中写入控制字</li>
+<li>在所执行使用的计数器端口中写入计数初值</li>
+</ol>
+<h3 id="7-8-提高时钟中断频率"><a href="#7-8-提高时钟中断频率" class="headerlink" title="7.8 提高时钟中断频率"></a>7.8 提高时钟中断频率</h3><p>本节会对 8253 进行编程，使得时钟 1s 内发 100 次中断信号，即中断频率为 100Hz。<br>所以本节的工作：</p>
+<ol>
+<li>IRQ0 引脚上的时钟中断信号频率是由 8253 的计数器 0 设置的，故要使用 8253 的计数器 0；</li>
+<li>时钟发出的中断信号必须是周期性发出，也就是要采用循环技术方式，这里选用方式 2；</li>
+<li>计数器发出输出信号的频率是由计数初值决定的，要为计数器 0 赋予合适的初值。</li>
+</ol>
+<p>8253 计数器的工作频率是 1.19318Mz，要发出 100 次中断信号，计数初值就需要设为 1193180&#x2F;100≈11932。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;timer.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;io.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> IRQ0_FREQUENCY       1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> INPUT_FREQUENCY       1193180</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> COUNTER0_VALUE       INPUT_FREQUENCY / IRQ0_FREQUENCY</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> CONTRER0_PORT       0x40</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> COUNTER0_NO       0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> COUNTER_MODE       2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> READ_WRITE_LATCH   3</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> PIT_CONTROL_PORT   0x43</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 把操作的计数器counter_no、读写锁属性rwl、计数器模式counter_mode写入模式控制寄存器并赋予初始值counter_value</span></span><br><span class="line"><span class="comment"> * @param counter_port 控制字寄存器端口</span></span><br><span class="line"><span class="comment"> * @param counter_no 计数器号</span></span><br><span class="line"><span class="comment"> * @param rwl 读写锁属性</span></span><br><span class="line"><span class="comment"> * @param counter_mode 计数器模式</span></span><br><span class="line"><span class="comment"> * @param counter_value 计数器初值</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">frequency_set</span><span class="params">(<span class="type">uint8_t</span> counter_port,</span></span><br><span class="line"><span class="params">                          <span class="type">uint8_t</span> counter_no,</span></span><br><span class="line"><span class="params">                          <span class="type">uint8_t</span> rwl,</span></span><br><span class="line"><span class="params">                          <span class="type">uint8_t</span> counter_mode,</span></span><br><span class="line"><span class="params">                          <span class="type">uint16_t</span> counter_value)</span> &#123;</span><br><span class="line">    <span class="comment">// 往控制字寄存器端口0x43中写入控制字</span></span><br><span class="line">    outb(PIT_CONTROL_PORT, (<span class="type">uint8_t</span>)(counter_no &lt;&lt; <span class="number">6</span> | rwl &lt;&lt; <span class="number">4</span> | counter_mode &lt;&lt; <span class="number">1</span>));</span><br><span class="line">    <span class="comment">// 先写入counter_value的低8位</span></span><br><span class="line">    outb(counter_port, (<span class="type">uint8_t</span>) counter_value);</span><br><span class="line">    <span class="comment">// 再写入counter_value的高8位</span></span><br><span class="line">    outb(counter_port, (<span class="type">uint8_t</span>) counter_value &gt;&gt; <span class="number">8</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @description 初始化PIT8253</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_init</span><span class="params">()</span> &#123;</span><br><span class="line">    put_str(<span class="string">&quot;timer_init start\n&quot;</span>);</span><br><span class="line">    <span class="comment">//  设置8253的定时周期,也就是发中断的周期</span></span><br><span class="line">    frequency_set(CONTRER0_PORT, COUNTER0_NO, READ_WRITE_LATCH, COUNTER_MODE, COUNTER0_VALUE);</span><br><span class="line">    put_str(<span class="string">&quot;timer_init done\n&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __DEVICE_TIME_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __DEVICE_TIME_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">timer_init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>然后将<code>timer_init</code>函数加到 kernel&#x2F;init.c 中的<code>init_all</code>函数中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;init.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;interrupt.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;../device/timer.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 负责初始化所有模块 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">init_all</span><span class="params">()</span> &#123;</span><br><span class="line">    put_str(<span class="string">&quot;init_all\n&quot;</span>);</span><br><span class="line">    idt_init();             <span class="comment">// 初始化中断</span></span><br><span class="line">    timer_init();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译生成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建生成中间文件目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p build/lib/kernel/</span><br><span class="line"><span class="built_in">mkdir</span> -p build/kernel/</span><br><span class="line"><span class="built_in">mkdir</span> -p build/device/</span><br><span class="line"><span class="comment"># 编译汇编</span></span><br><span class="line">nasm -f elf -o build/lib/kernel/print.o lib/kernel/print.S</span><br><span class="line">nasm -f elf -o build/kernel/kernel.o kernel/kernel.S</span><br><span class="line"><span class="comment"># 编译C程序</span></span><br><span class="line">gcc -m32 -I lib/kernel/ -fno-stack-protector -c -o build/device/timer.o device/timer.c</span><br><span class="line">gcc -m32 -I lib/kernel/ -fno-stack-protector -c -o build/kernel/main.o kernel/main.c</span><br><span class="line">gcc -m32 -I lib/kernel/ -I kernel/ -c -fno-builtin -fno-stack-protector -o build/kernel/interrupt.o kernel/interrupt.c</span><br><span class="line">gcc -m32 -I lib/kernel/ -I kernel/ -c -fno-builtin -fno-stack-protector -o build/kernel/init.o kernel/init.c</span><br><span class="line"><span class="comment"># 链接目标文件</span></span><br><span class="line">ld -m elf_i386 -Ttext 0xc0001500 -e main -o build/kernel.bin \</span><br><span class="line">build/kernel/main.o build/kernel/init.o build/kernel/interrupt.o build/lib/kernel/print.o build/kernel/kernel.o build/device/timer.o</span><br><span class="line"><span class="comment"># 写入虚拟机磁盘</span></span><br><span class="line"><span class="built_in">dd</span> <span class="keyword">if</span>=build/kernel.bin of=hd60M.img bs=512 count=200 seek=9 conv=notrunc</span><br></pre></td></tr></table></figure>
+
+<p>可能存在的问题：</p>
+<ul>
+<li>undefined reference to &#96;__stack_chk_fail’：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaominthere/article/details/18084865">https://blog.csdn.net/xiaominthere/article/details/18084865</a></li>
+</ul>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">
+								《操作系统真象还原》：第六章 完善内核			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 18日, 2022				
+							</p>
+							<p class="relate-post-content">
+								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, in...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第六章 完善内核"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/11/yuque/mguvy5fxrt54cg9m/" title="《操作系统真象还原》：第五章 保护模式进阶——加载内核">
+								《操作系统真象还原》：第五章 保护模式进阶——加载内核			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+1234int main(void) &#123;	while(1);	return 0;&#125;
+
+这个内核文件什么都没做，通过while(1)这个死循环一直...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/11/yuque/mguvy5fxrt54cg9m/" title="《操作系统真象还原》：第五章 保护模式进阶——加载内核">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第五章 保护模式进阶——加载内核"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制">
+								《操作系统真象还原》：第五章 保护模式进阶——内存分页机制			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 19日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+从这一刻起，我们才算开始了真正的操作系统学习之旅
+
+5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/11/08/yuque/qmb3g6pmmzfkbxg5/" title="《操作系统真象还原》：第四章 保护模式入门">
+								《操作系统真象还原》：第四章 保护模式入门			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 8日, 2022				
+							</p>
+							<p class="relate-post-content">
+								4.1 保护模式概述在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel 紧...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/11/08/yuque/qmb3g6pmmzfkbxg5/" title="《操作系统真象还原》：第四章 保护模式入门">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第四章 保护模式入门"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">
+								《操作系统真象还原》：第三章 完善MBR——I/O接口			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
+
+设置数据缓冲，解决 CPU 与外设的速度不匹配
+设置信号电平转换电路
+设置数据格式转换
+设置时序控制电路来同步 CPU 和外部设备
+提...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
+								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								针对汇编几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第二章 编写 MBR">
+								《操作系统真象还原》：第二章 编写 MBR			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 23日, 2022				
+							</p>
+							<p class="relate-post-content">
+								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第二章 编写 MBR">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第二章 编写 MBR"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第一章 环境配置">
+								《操作系统真象还原》：第一章 环境配置			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								第 0 章：一些你可能正感到迷惑的问题
+摘记
+
+0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/09/yuque/wx4152/" title="《操作系统真象还原》：第一章 环境配置">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第一章 环境配置"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">
+								6月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 16日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+“零拷贝”技术
+Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/06/16/yuque/dlziqz/" title="6月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="6月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">
+								5月阅读总结			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 10日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+eBPF 技术简介
+基于 eBPF 的网络检测实践
+Chapter 2. Debian package management
+
+
+
+2.1.6. Package dependencies
+The Debian system offe...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/10/yuque/ouqh35/" title="5月阅读总结">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="5月阅读总结"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
