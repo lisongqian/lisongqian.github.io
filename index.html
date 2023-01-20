@@ -244,6 +244,58 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" itemprop="url">
+		《操作系统真象还原》：第八章 内存管理系统
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							8.1 makefile 简介
+这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
+
+8.1.1 makefile 是什么makefile 是 Linux 下编译大型程序的工具，是 make 程序的搭档，两者的主要功能就是发现某个文件更新后，只编译该文件和受该文件影响的相关文件，从而提高了编译效率。make 和 makefile 并不是用来编译程序的，它只负责找出哪些文件有变化， 并 且根据依赖关系找出受影响的文件，然后执行事先在 makefile 中定义好的命令规则。因为 make 就是在 shell 下执行的，...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" itemprop="url">
+		<time datetime="2023-01-20T12:54:57.000Z" itemprop="datePublished">
+	  		2023-01-20
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" itemprop="url">
 		《操作系统真象还原》：第七章 中断
 	</a>
@@ -726,64 +778,6 @@ KVM 准备工作
 						
 							<span class="right">      	
 								<a href="/2022/07/11/yuque/og2lh4/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
-		Clone Linux Kernel Code on Windows
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							出现问题的原因
-Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
-Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件
-
-解决方案1. 开启文件区分大小写：
-以管理员身份运行 PowerShell
-
-1fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux-prjc enable
-
-2. 克隆代码1git clone https://gitlab.com/songqianli/l...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/06/30/yuque/xqmrx0/" itemprop="url">
-		<time datetime="2022-06-30T06:40:46.000Z" itemprop="datePublished">
-	  		2022-06-30
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/06/30/yuque/xqmrx0/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
