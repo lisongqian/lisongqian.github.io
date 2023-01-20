@@ -277,7 +277,7 @@
 
 	<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" itemprop="url">
 		<time datetime="2022-11-19T09:17:42.000Z" itemprop="dateUpdated">
-	  		2022-12-25
+	  		2023-01-20
 	  </time>
 	</a> 
 
@@ -413,50 +413,59 @@
 <tbody><tr>
 <td>P</td>
 <td>Present，存在位</td>
-<td>1 表示该页存在于物理内存中</td>
-</tr>
-<tr>
-<td>0 表示不在物理内存中</td>
-<td></td>
-<td></td>
+<td>1 表示该页存在于物理内存中，0 表示不在物理内存中</td>
 </tr>
 <tr>
 <td>RW</td>
 <td>Read&#x2F;Write，读写位</td>
-<td>1 可读可写</td>
-</tr>
-<tr>
-<td>0 可读不可写</td>
-<td></td>
-<td></td>
+<td>1 可读可写，0 可读不可写</td>
 </tr>
 <tr>
 <td>US</td>
 <td>User&#x2F;Supervisor，普通用户&#x2F;超级用户位</td>
-<td>若为 1，表示处于 User 级，任意级别（0,1,2,3）特权的程序都可以访问该页</td>
-</tr>
-<tr>
-<td>若为 0 ，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页， 该页只允许特权级别为 0,1,2 的程序可以访问。</td>
-<td></td>
-<td></td>
+<td>若为 1，表示处于 User 级，任意级别（0,1,2,3）特权的程序都可以访问该页；若为 0 ，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页， 该页只允许特权级别为 0,1,2 的程序可以访问。</td>
 </tr>
 <tr>
 <td>PWT</td>
 <td>Page-level Write Through， 页级通写位</td>
-<td>若为 1 表示此项采用通写方式，表示该页不仅是普通内存，还是高速缓存。此项和高速缓存有关，“通写”是高速缓存的一种工作方式，本位用来间接决定是否用此方式改善该页的访问效率</td>
-</tr>
-<tr>
-<td>这里咱们置为 0</td>
-<td></td>
-<td></td>
+<td>若为 1 表示此项采用通写方式，表示该页不仅是普通内存，还是高速缓存。此项和高速缓存有关，“通写”是高速缓存的一种工作方式，本位用来间接决定是否用此方式改善该页的访问效率。这里咱们置为 0</td>
 </tr>
 <tr>
 <td>PCD</td>
 <td>Page-level Cache Disable，页级高速缓存禁止位</td>
-<td>为 1 表示该页启用高速缓存</td>
+<td>为 1 表示该页启用高速缓存，为 2 表示禁止将该页缓存。这里咱们置为 0</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Accessed，访问位</td>
+<td>为 1 表示该页被 CPU 访问过</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Dirty，脏页位</td>
+<td>当 CPU 个页面执行写操作时，就会设置对应页表项的 D 位为 1。</td>
+</tr>
+<tr>
+<td><strong>此项仅对页表项有效</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>PAT</td>
+<td>Page Attribute Table，页属性表位</td>
+<td>能够在页面一级的粒度上设置内存属性。比较复杂，置 0 即可</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Global，全局位</td>
+<td>为 1 表示是全局页，该页会一直在高速缓存 TLB 中保存，为 0 表示不是全局页</td>
+</tr>
+<tr>
+<td>AVL</td>
+<td>Available，可用位</td>
+<td>操作系统可用该位， CPU 不理会该位的值</td>
 </tr>
 </tbody></table>
-<p>为 2 示禁止将该页缓存<br>这里咱们置为 0 |<br>| A | Accessed，访问位 | 为 1 表示该页被 CPU 访问过 |<br>| D | Dirty，脏页位 | 当 CPU 个页面执行写操作时，就会设置对应页表项的 D 位为 1。<br><strong>此项仅对页表项有效</strong> |<br>| PAT | Page Attribute Table，页属性表位 | 能够在页面一级的粒度上设置内存属性。<br>比较复杂，置 0 即可 |<br>| G | Global，全局位 | 为 1 表示是全局页，该页会一直在高速缓存 TLB 中保存<br>为 0 表示不是全局页 |<br>| AVL | Available，可用位 | 操作系统可用该位， CPU 不理会该位的值 |</p>
 <blockquote>
 <p>清空 TLB 有两种方式：</p>
 <ol>
@@ -1040,7 +1049,7 @@ The Debian system offe...
 		<p>
 		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
 			 
-				&copy;2017 - 2022, content by SongqianLi. All Rights Reserved.
+				&copy;2017 - 2023, content by SongqianLi. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
