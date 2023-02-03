@@ -18,7 +18,7 @@
   </title>
   <meta name="author" content="Songqian Li">
   <meta name="keywords" content="" />
-  <meta name="description" content="C U" />
+  <meta name="description" content="去历史上留点故事" />
 	<!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
@@ -121,7 +121,7 @@
 					<div class="align">
 						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
 						<div class="empty-space col-xs-b15"></div>
-						<div class="sa light large">C U</div>
+						<div class="sa light large">去历史上留点故事</div>
 						<div class="empty-space col-xs-b30"></div>
 					</div>
 				</div>
@@ -277,7 +277,7 @@
 
 	<a href="/2020/04/07/yuque/xyem8g/" itemprop="url">
 		<time datetime="2020-04-07T12:36:44.000Z" itemprop="dateUpdated">
-	  		2023-01-20
+	  		2023-02-03
 	  </time>
 	</a> 
 
@@ -308,23 +308,23 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The knowledage of this article is shallow. Please read it in an ornamental angle.</span><br></pre></td></tr></table></figure>
 
 <p>本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。</p>
-<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=52&id=sT44b&originHeight=52&originWidth=167&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=167"><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
+<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#height=52&id=sT44b&originHeight=52&originWidth=167&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=167"><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_patten = &quot;.*([0-9]&#123;4&#125;[-/][0-9]&#123;1,2&#125;[/-][0-9]&#123;1,2&#125;?)[\s]*([\d]*:[\d]*:[\d]&#123;2&#125;?)[\s]*(.*)?&quot; #时间正则表达式</span><br><span class="line">article_patten = &quot;[\n\r\f\t\s]*(.*)&quot; # 内容正则表达式</span><br></pre></td></tr></table></figure>
 
-<p>整理成如下格式：<br><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=43&id=l2Eww&originHeight=43&originWidth=475&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=475"><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
+<p>整理成如下格式：<br><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#height=43&id=l2Eww&originHeight=43&originWidth=475&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=475"><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Probably the following word is dog food.</span><br></pre></td></tr></table></figure>
 
-<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><img src="http://cdn.lisongqian.cn/lisongqian_count.png#crop=0&crop=0&crop=1&crop=1&height=400&id=u4zzZ&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><img src="http://cdn.lisongqian.cn/women.png#crop=0&crop=0&crop=1&crop=1&height=400&id=WebER&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#crop=0&crop=0&crop=1&crop=1&height=400&id=Bsz9e&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
-<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#crop=0&crop=0&crop=1&crop=1&height=400&id=KnnD5&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#crop=0&crop=0&crop=1&crop=1&height=400&id=o9IyX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#crop=0&crop=0&crop=1&crop=1&height=400&id=i4OHC&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000">原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
-<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><img src="http://cdn.lisongqian.cn/men_keywords.png#crop=0&crop=0&crop=1&crop=1&height=400&id=kdk1F&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是我的聊天关键词<br><img src="http://cdn.lisongqian.cn/women_keywords.png#crop=0&crop=0&crop=1&crop=1&height=400&id=SoIlX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是小姐儿的</p>
+<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><img src="http://cdn.lisongqian.cn/lisongqian_count.png#height=400&id=u4zzZ&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><img src="http://cdn.lisongqian.cn/women.png#height=400&id=WebER&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=Bsz9e&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
+<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=KnnD5&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#height=400&id=o9IyX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#height=400&id=i4OHC&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000">原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
+<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><img src="http://cdn.lisongqian.cn/men_keywords.png#height=400&id=kdk1F&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是我的聊天关键词<br><img src="http://cdn.lisongqian.cn/women_keywords.png#height=400&id=SoIlX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是小姐儿的</p>
 <p>不知道为啥子哦，<code>不</code>字为啥子出现的频度这么高哦</p>
-<p><strong>来一张词云！</strong><br><img src="http://cdn.lisongqian.cn/wordcloud.png#crop=0&crop=0&crop=1&crop=1&height=496&id=Mqkbg&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>哇，不行，这不够优雅！过滤重来！</p>
-<p><img src="http://cdn.lisongqian.cn/wordcloud2.png#crop=0&crop=0&crop=1&crop=1&height=496&id=FwSli&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
+<p><strong>来一张词云！</strong><br><img src="http://cdn.lisongqian.cn/wordcloud.png#height=496&id=Mqkbg&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>哇，不行，这不够优雅！过滤重来！</p>
+<p><img src="http://cdn.lisongqian.cn/wordcloud2.png#height=496&id=FwSli&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">感觉我喜欢和学姐在宿舍玩手机。</span><br></pre></td></tr></table></figure>
 
 <h4 id="心情分析"><a href="#心情分析" class="headerlink" title="心情分析"></a>心情分析</h4><p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
-<p><img src="http://cdn.lisongqian.cn/women_emotion.png#crop=0&crop=0&crop=1&crop=1&height=400&id=XsSu0&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
-<p><img src="http://cdn.lisongqian.cn/men_emotion.png#crop=0&crop=0&crop=1&crop=1&height=400&id=Brv0a&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
+<p><img src="http://cdn.lisongqian.cn/women_emotion.png#height=400&id=XsSu0&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
+<p><img src="http://cdn.lisongqian.cn/men_emotion.png#height=400&id=Brv0a&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
 	
 		</div>

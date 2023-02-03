@@ -18,7 +18,7 @@
   </title>
   <meta name="author" content="Songqian Li">
   <meta name="keywords" content="" />
-  <meta name="description" content="C U" />
+  <meta name="description" content="去历史上留点故事" />
 	<!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
@@ -121,7 +121,7 @@
 					<div class="align">
 						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
 						<div class="empty-space col-xs-b15"></div>
-						<div class="sa light large">C U</div>
+						<div class="sa light large">去历史上留点故事</div>
 						<div class="empty-space col-xs-b30"></div>
 					</div>
 				</div>
@@ -277,7 +277,7 @@
 
 	<a href="/2022/05/05/yuque/to6mm2/" itemprop="url">
 		<time datetime="2022-05-05T11:54:58.000Z" itemprop="dateUpdated">
-	  		2023-01-20
+	  		2023-02-03
 	  </time>
 	</a> 
 
@@ -311,8 +311,8 @@
 
 		<div class="article-content" id="article-content">
 			<p>首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。</p>
-<h2 id="什么是-Reactor-模式和-Proactor-模式？"><a href="#什么是-Reactor-模式和-Proactor-模式？" class="headerlink" title="什么是 Reactor 模式和 Proactor 模式？"></a>什么是 Reactor 模式和 Proactor 模式？</h2><h4 id="Reactor-模式"><a href="#Reactor-模式" class="headerlink" title="Reactor 模式"></a>Reactor 模式</h4><p>Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O 以及业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828848070-f4704732-8989-4782-90b0-dc50f2b4ea63.png#clientId=ue65ecce2-aea6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=u14ee7955&margin=%5Bobject%20Object%5D&name=image.png&originHeight=421&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=160919&status=done&style=none&taskId=u9771c5b1-7dfe-4401-975f-356c3d1acb8&title=" alt="image.png"></p>
-<h4 id="Proactor-模式"><a href="#Proactor-模式" class="headerlink" title="Proactor 模式"></a>Proactor 模式</h4><p>Proactor 模式是指主线程负责监听、分发事件以及 I&#x2F;O 操作，工作线程只负责业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828800448-dac4771c-545f-4701-b40e-df231f859937.png#clientId=ue65ecce2-aea6-4&crop=0&crop=0&crop=1&crop=1&from=paste&id=ucdb09718&margin=%5Bobject%20Object%5D&name=image.png&originHeight=330&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=119605&status=done&style=none&taskId=ud09e076b-5e0a-4656-b3fb-732074638c9&title=" alt="image.png"></p>
+<h2 id="什么是-Reactor-模式和-Proactor-模式？"><a href="#什么是-Reactor-模式和-Proactor-模式？" class="headerlink" title="什么是 Reactor 模式和 Proactor 模式？"></a>什么是 Reactor 模式和 Proactor 模式？</h2><h4 id="Reactor-模式"><a href="#Reactor-模式" class="headerlink" title="Reactor 模式"></a>Reactor 模式</h4><p>Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O 以及业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828848070-f4704732-8989-4782-90b0-dc50f2b4ea63.png#clientId=ue65ecce2-aea6-4&from=paste&id=u14ee7955&name=image.png&originHeight=421&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=160919&status=done&style=none&taskId=u9771c5b1-7dfe-4401-975f-356c3d1acb8&title=" alt="image.png"></p>
+<h4 id="Proactor-模式"><a href="#Proactor-模式" class="headerlink" title="Proactor 模式"></a>Proactor 模式</h4><p>Proactor 模式是指主线程负责监听、分发事件以及 I&#x2F;O 操作，工作线程只负责业务处理。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828800448-dac4771c-545f-4701-b40e-df231f859937.png#clientId=ue65ecce2-aea6-4&from=paste&id=ucdb09718&name=image.png&originHeight=330&originWidth=720&originalType=url%E2%88%B6=1&rotation=0&showTitle=false&size=119605&status=done&style=none&taskId=ud09e076b-5e0a-4656-b3fb-732074638c9&title=" alt="image.png"></p>
 <h2 id="为什么会分为这两种事件处理模式？"><a href="#为什么会分为这两种事件处理模式？" class="headerlink" title="为什么会分为这两种事件处理模式？"></a>为什么会分为这两种事件处理模式？</h2><p>我们都知道 Proactor 和 Reactor 都是 I&#x2F;O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I&#x2F;O，Proactor 是异步 I&#x2F;O。</p>
 <h2 id="那什么是同步-I-x2F-O，什么是异步-I-x2F-O？"><a href="#那什么是同步-I-x2F-O，什么是异步-I-x2F-O？" class="headerlink" title="那什么是同步 I&#x2F;O，什么是异步 I&#x2F;O？"></a>那什么是同步 I&#x2F;O，什么是异步 I&#x2F;O？</h2><p><strong>同步 I&#x2F;O</strong>是指用户进程发起一个 I&#x2F;O 操作后，需要等待数据从内核态拷贝到用户程序的缓冲区，这个过程中用户程序始终在同步的等待着 I&#x2F;O 的完成。<br>而<strong>异步 I&#x2F;O</strong>是指用户进程发起一个 I&#x2F;O 操作后，无需等待内核完成数据拷贝，待 I&#x2F;O 完成时，内核会通知用户程序 I&#x2F;O 完成。</p>
 <h2 id="为什么-Proactor-比-Reactor-模式更优？"><a href="#为什么-Proactor-比-Reactor-模式更优？" class="headerlink" title="为什么 Proactor 比 Reactor 模式更优？"></a>为什么 Proactor 比 Reactor 模式更优？</h2><p>我们先来理一下 Reactor 模式和 Proactor 模式。<br>Reactor 模式是同步 I&#x2F;O 模型，所以用户进程在进行 I&#x2F;O 操作时需要等待 I&#x2F;O 操作完成，只有当前事件 I&#x2F;O 操作完成后才能进行处理其他事件。<br>Proactor 模式是异步 I&#x2F;O 模型，所以用户进程无需等待内核 I&#x2F;O 操作，省出来的时间可以处理其他事件。待内核 I&#x2F;O 完成后内核通知用户进程再对当前事件进行后续处理。<strong>由于 Proactor 模式相比 Reactor 模式节省了 I&#x2F;O 等待时间，所以 Proactor 模式会比 Reactor 更优。</strong></p>

@@ -18,7 +18,7 @@
   </title>
   <meta name="author" content="Songqian Li">
   <meta name="keywords" content="" />
-  <meta name="description" content="C U" />
+  <meta name="description" content="去历史上留点故事" />
 	<!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
@@ -121,7 +121,7 @@
 					<div class="align">
 						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
 						<div class="empty-space col-xs-b15"></div>
-						<div class="sa light large">C U</div>
+						<div class="sa light large">去历史上留点故事</div>
 						<div class="empty-space col-xs-b30"></div>
 					</div>
 				</div>
@@ -277,7 +277,7 @@
 
 	<a href="/2020/04/07/yuque/ukuc1g/" itemprop="url">
 		<time datetime="2020-04-07T12:36:19.000Z" itemprop="dateUpdated">
-	  		2023-01-20
+	  		2023-02-03
 	  </time>
 	</a> 
 
@@ -338,7 +338,7 @@
 <li>系统连接 Shadowsocks 服务器。这里建议使用 shadowsocks-qt5 客户端，点击<a target="_blank" rel="noopener" href="https://github.com/shadowsocks/shadowsocks-qt5/releases/download/v3.0.1/Shadowsocks-Qt5-3.0.1-x86_64.AppImage">【这里】</a>下载 shadowsocks-qt5 可执行文件</li>
 <li>将下载完成的文件放到你喜欢的位置，然后在这个目录打开终端，给文件添加可执行权限：<br><code>chmod a+x Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
 <li>启动 shadowsocks-qt5 客户端：<br><code>./Shadowsocks-Qt5-3.0.1-x86_64.AppImage</code></li>
-<li>在下图所示的客户端图形配置界面里面填写正确的服务器信息，注意本地代理类型推荐使用 socks5。完成后点击连接按钮。<br><img src="https://www.shenjc.net/images/190527-pytorch-on-rocm/figure_3.png#crop=0&crop=0&crop=1&crop=1&height=538&id=W4WFm&originHeight=538&originWidth=616&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=616"></li>
+<li>在下图所示的客户端图形配置界面里面填写正确的服务器信息，注意本地代理类型推荐使用 socks5。完成后点击连接按钮。<br><img src="https://www.shenjc.net/images/190527-pytorch-on-rocm/figure_3.png#height=538&id=W4WFm&originHeight=538&originWidth=616&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=616"></li>
 <li>安装 tsocks。使用以下命令安装 tsocks：<code>sudo apt install tsocks -y</code>. 修改<code>/etc/tsocks.conf</code>文件使得最后三行设置和你 shadowsocks-qt5 中本地代理的设置相同，默认情况应该是这样：</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server = 127.0.0.1</span><br><span class="line">server_type = 5</span><br><span class="line">server_port = 1080</span><br></pre></td></tr></table></figure>

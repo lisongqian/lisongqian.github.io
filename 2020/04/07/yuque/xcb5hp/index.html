@@ -18,7 +18,7 @@
   </title>
   <meta name="author" content="Songqian Li">
   <meta name="keywords" content="" />
-  <meta name="description" content="C U" />
+  <meta name="description" content="去历史上留点故事" />
 	<!-- favicon -->
   <link rel="shortcut icon" href="/img/favicon.ico">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">
@@ -121,7 +121,7 @@
 					<div class="align">
 						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
 						<div class="empty-space col-xs-b15"></div>
-						<div class="sa light large">C U</div>
+						<div class="sa light large">去历史上留点故事</div>
 						<div class="empty-space col-xs-b30"></div>
 					</div>
 				</div>
@@ -277,7 +277,7 @@
 
 	<a href="/2020/04/07/yuque/xcb5hp/" itemprop="url">
 		<time datetime="2020-04-07T13:53:28.000Z" itemprop="dateUpdated">
-	  		2023-01-20
+	  		2023-02-03
 	  </time>
 	</a> 
 
@@ -309,21 +309,21 @@
 			<blockquote>
 <p>模型越复杂越容易出现<strong>过拟合</strong>状态，所以需要一种机制来保证我们模型的“简单”，这样我们的模型才能有较好的泛化能力，正则化是这类机制之一。</p>
 </blockquote>
-<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20=%20%5Csum_%7Bj=1%7D%5E%7Bn_x%7Dw_j%5E2%20=%20%20w%5ETw#crop=0&crop=0&crop=1&crop=1&height=81&id=KrMmK&originHeight=66&originWidth=204&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=249"></p>
-<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w,b)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y,%20%5Chat%7By%7D)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#crop=0&crop=0&crop=1&crop=1&height=59&id=xnvUu&originHeight=48&originWidth=308&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=376"></p>
-<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj=1%7D%5E%7Bu_x%7D%7Cw_j%7C=%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#crop=0&crop=0&crop=1&crop=1&height=81&id=aNMUj&originHeight=66&originWidth=220&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=269"></p>
-<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#crop=0&crop=0&crop=1&crop=1&height=139&id=TUiES&originHeight=139&originWidth=387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=387"></p>
+<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20=%20%5Csum_%7Bj=1%7D%5E%7Bn_x%7Dw_j%5E2%20=%20%20w%5ETw#height=81&id=KrMmK&originHeight=66&originWidth=204&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=249"></p>
+<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w,b)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y,%20%5Chat%7By%7D)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#height=59&id=xnvUu&originHeight=48&originWidth=308&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=376"></p>
+<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj=1%7D%5E%7Bu_x%7D%7Cw_j%7C=%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#height=81&id=aNMUj&originHeight=66&originWidth=220&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=269"></p>
+<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#height=139&id=TUiES&originHeight=139&originWidth=387&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=387"></p>
 <h4 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h4><blockquote>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20=%20%5Cfrac%7Bf(a)%7D%7B0!%7D+%5Cfrac%7Bf%27(a)%7D%7B1!%7D(x-a)+%5Cfrac%7Bf%27%27(a)%7D%7B2!%7D(x-a)%5E2+...+%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20+R_n(x)#crop=0&crop=0&crop=1&crop=1&height=68&id=XQ4HN&originHeight=56&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=856"></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20=%20%5Cfrac%7Bf(a)%7D%7B0!%7D+%5Cfrac%7Bf%27(a)%7D%7B1!%7D(x-a)+%5Cfrac%7Bf%27%27(a)%7D%7B2!%7D(x-a)%5E2+...+%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20+R_n(x)#height=68&id=XQ4HN&originHeight=56&originWidth=701&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=856"></p>
 </blockquote>
-<h4 id="为什么可以减少过拟合"><a href="#为什么可以减少过拟合" class="headerlink" title="为什么可以减少过拟合"></a>为什么可以减少过拟合</h4><p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D,b%5E%7B%5B%5Cell%5D%7D)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei,%20%5Chat%7By%7D%5Ei)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#crop=0&crop=0&crop=1&crop=1&height=59&id=KNyJB&originHeight=48&originWidth=372&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=454"></p>
-<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#crop=0&crop=0&crop=1&crop=1&height=25&id=I9HRH&originHeight=20&originWidth=12&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=15">增加到足够大，<img src="https://g.yuque.com/gr/latex?w#crop=0&crop=0&crop=1&crop=1&height=18&id=VLdqA&originHeight=15&originWidth=15&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=18">会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
-<h4 id="正则化结果"><a href="#正则化结果" class="headerlink" title="正则化结果"></a>正则化结果</h4><p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#crop=0&crop=0&crop=1&crop=1&height=32&id=d5ur0&originHeight=26&originWidth=31&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=38">很小，<img src="https://g.yuque.com/gr/latex?z#crop=0&crop=0&crop=1&crop=1&height=18&id=UimEY&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12"> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#crop=0&crop=0&crop=1&crop=1&height=18&id=OsUAE&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12">的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
+<h4 id="为什么可以减少过拟合"><a href="#为什么可以减少过拟合" class="headerlink" title="为什么可以减少过拟合"></a>为什么可以减少过拟合</h4><p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D,b%5E%7B%5B%5Cell%5D%7D)%20=%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei,%20%5Chat%7By%7D%5Ei)%20+%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#height=59&id=KNyJB&originHeight=48&originWidth=372&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=454"></p>
+<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#height=25&id=I9HRH&originHeight=20&originWidth=12&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=15">增加到足够大，<img src="https://g.yuque.com/gr/latex?w#height=18&id=VLdqA&originHeight=15&originWidth=15&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=18">会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
+<h4 id="正则化结果"><a href="#正则化结果" class="headerlink" title="正则化结果"></a>正则化结果</h4><p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#height=32&id=d5ur0&originHeight=26&originWidth=31&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=38">很小，<img src="https://g.yuque.com/gr/latex?z#height=18&id=UimEY&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12"> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#height=18&id=OsUAE&originHeight=15&originWidth=10&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=12">的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
 <h2 id="Dropout-正则化"><a href="#Dropout-正则化" class="headerlink" title="Dropout 正则化"></a>Dropout 正则化</h2><p>Dropout 正则化是随机减少每层的神经元来实现的。</p>
 <h4 id="Dropout-方法——Inverted-Dropout"><a href="#Dropout-方法——Inverted-Dropout" class="headerlink" title="Dropout 方法——Inverted Dropout"></a>Dropout 方法——Inverted Dropout</h4><ol>
-<li>定义一个向量<img src="https://g.yuque.com/gr/latex?d#crop=0&crop=0&crop=1&crop=1&height=24&id=Iy6BP&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">，<img src="https://g.yuque.com/gr/latex?d3#crop=0&crop=0&crop=1&crop=1&height=25&id=pCQ7v&originHeight=20&originWidth=21&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#crop=0&crop=0&crop=1&crop=1&height=28&id=TvIzB&originHeight=23&originWidth=106&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=129"> 表示保留某个隐藏单元的概率：</li>
+<li>定义一个向量<img src="https://g.yuque.com/gr/latex?d#height=24&id=Iy6BP&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">，<img src="https://g.yuque.com/gr/latex?d3#height=25&id=pCQ7v&originHeight=20&originWidth=21&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#height=28&id=TvIzB&originHeight=23&originWidth=106&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=129"> 表示保留某个隐藏单元的概率：</li>
 </ol>
-<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#crop=0&crop=0&crop=1&crop=1&height=24&id=Dl3Hs&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#crop=0&crop=0&crop=1&crop=1&height=24&id=EOvOX&originHeight=20&originWidth=22&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">：</p>
+<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#height=24&id=Dl3Hs&originHeight=20&originWidth=11&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=13">的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#height=24&id=EOvOX&originHeight=20&originWidth=22&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=26">：</p>
 <p><code>a3=np.multply(a3,d3) # a3*=d3</code> 3. 由于我们随机的移除了一些节点，这样最终的预测值会发生改变，所以在这一步骤中对期望值进行补偿：</p>
 <p><code>a/=keep-prob</code></p>
 <p>在测试集中不需要使用 Dropout。</p>
