@@ -1,0 +1,1199 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      硬件虚拟化 | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="去历史上留点故事" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">-->
+  <link rel="stylesheet" href="https://fonts.font.im/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: 'https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: true,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+  <!-- site analysis -->
+  
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?b702b9b0aa72233c214dcbade17a5a27";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+    <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">去历史上留点故事</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「硬件虚拟化」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" itemprop="url">
+		硬件虚拟化
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" itemprop="url">
+		<time datetime="2023-06-23T13:54:34.000Z" itemprop="dateUpdated">
+	  		2023-06-23
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/VT/" class=" ">
+			VT
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<h2 id="硬件虚拟化介绍"><a href="#硬件虚拟化介绍" class="headerlink" title="硬件虚拟化介绍"></a>硬件虚拟化介绍</h2><h3 id="硬件虚拟化要做的事情"><a href="#硬件虚拟化要做的事情" class="headerlink" title="硬件虚拟化要做的事情"></a>硬件虚拟化要做的事情</h3><h3 id="体系结构支持"><a href="#体系结构支持" class="headerlink" title="体系结构支持"></a>体系结构支持</h3><table>
+<thead>
+<tr>
+<th><strong>体系结构</strong></th>
+<th><strong>实现功能</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>模式切换</td>
+<td>Host CPU &lt;-&gt; Guest CPU 切换</td>
+<td>CPU 资源隔离</td>
+</tr>
+<tr>
+<td>二阶段地址转换</td>
+<td>GVA-&gt; GPA</td>
+<td></td>
+</tr>
+<tr>
+<td>GPA-&gt; HPA</td>
+<td>内存资源隔离</td>
+<td></td>
+</tr>
+<tr>
+<td>中断控制器支持</td>
+<td>中断注入和透传</td>
+<td>中断资源隔离</td>
+</tr>
+<tr>
+<td>IOMMU</td>
+<td>DMA Remapping</td>
+<td>DMA 和设备访问内存隔离</td>
+</tr>
+</tbody></table>
+<h3 id="相应的硬件实现"><a href="#相应的硬件实现" class="headerlink" title="相应的硬件实现"></a>相应的硬件实现</h3><p>x86 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422517843-71b15aa2-d3ac-4299-9084-9bbbe664f948.png#averageHue=%23f4f4f3&clientId=u5445b59c-ada5-4&from=paste&height=286&id=qgSOv&originHeight=729&originWidth=560&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=67522&status=done&style=none&taskId=ubaf70aef-cd90-401f-8e5e-328ef94e965&title=&width=220" alt="image.png"><br>AMD 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422483903-a1038c3f-d263-49f6-b104-38f69d2a49b9.png#averageHue=%23f7f7f6&clientId=u5445b59c-ada5-4&from=paste&height=417&id=E0mpC&originHeight=626&originWidth=1729&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=128134&status=done&style=none&taskId=ude2750d5-bd29-452e-af3b-6048ce7bbea&title=&width=1152.6666666666667" alt="image.png"><br>RISC-V 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422490224-bdea540a-6387-4eff-a746-50a3242615d1.png#averageHue=%23eeedec&clientId=u5445b59c-ada5-4&from=paste&height=144&id=af2Hn&originHeight=367&originWidth=1018&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=87973&status=done&style=none&taskId=u0002c2ca-d434-49c1-9e0d-430e03a28d7&title=&width=400" alt="image.png"></p>
+<h3 id="相关软件支持"><a href="#相关软件支持" class="headerlink" title="相关软件支持"></a>相关软件支持</h3><table>
+<thead>
+<tr>
+<th>软件</th>
+<th>举例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Firmware</td>
+<td>OpenSBI、BIOS</td>
+</tr>
+<tr>
+<td>Hypervisor</td>
+<td>KVM，XEN</td>
+</tr>
+<tr>
+<td>I&#x2F;O 用户态</td>
+<td>qemu</td>
+</tr>
+<tr>
+<td>OS</td>
+<td>Linux</td>
+</tr>
+</tbody></table>
+<h2 id="CPU-虚拟化"><a href="#CPU-虚拟化" class="headerlink" title="CPU 虚拟化"></a>CPU 虚拟化</h2><h4 id="CPU-支持模式切换：硬件支持"><a href="#CPU-支持模式切换：硬件支持" class="headerlink" title="CPU 支持模式切换：硬件支持"></a>CPU 支持模式切换：硬件支持</h4><ul>
+<li>Host CPU &lt;-&gt; Guest CPU：CPU 运行环境的隔离，CPU 虚拟化的基础</li>
+</ul>
+<h4 id="模式切换"><a href="#模式切换" class="headerlink" title="模式切换"></a>模式切换</h4><ul>
+<li>vm entry：从 Host CPU 进入到 Guest CPU，由特殊指令实现；</li>
+<li>vm exit：从 Guest CPU 退出到 Host CPU，执行特定指令；中断；异常</li>
+</ul>
+<h4 id="切换过程的上下文的保存和恢复"><a href="#切换过程的上下文的保存和恢复" class="headerlink" title="切换过程的上下文的保存和恢复"></a>切换过程的上下文的保存和恢复</h4><blockquote>
+<p>由于 guest CPU 看不到 Host CPU state，故都是在 Host CPU 模式下操作</p>
+</blockquote>
+<ul>
+<li>vm entry 前：保存 Host CPU State，恢复 Guest CPU state</li>
+<li>vm exit 后：保存 Guest CPU state，恢复 Host CPU State</li>
+</ul>
+<h3 id="vCPU：一个-Linux-线程"><a href="#vCPU：一个-Linux-线程" class="headerlink" title="vCPU：一个 Linux 线程"></a>vCPU：一个 Linux 线程</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423040792-d9b9f9a2-cf97-44bb-ae45-6487b0139f92.png#averageHue=%23e3e8d3&clientId=u5445b59c-ada5-4&from=paste&height=405&id=u390eda40&originHeight=608&originWidth=1745&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=542109&status=done&style=none&taskId=uda767807-0afc-4f25-858c-62cfb02f6d5&title=&width=1163.3333333333333" alt="image.png"></p>
+<h3 id="x86-架构"><a href="#x86-架构" class="headerlink" title="x86 架构"></a>x86 架构</h3><h4 id="VMX-Operation-Mode"><a href="#VMX-Operation-Mode" class="headerlink" title="VMX Operation Mode"></a>VMX Operation Mode</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428003196-d6a01dcb-0d45-4b81-97d9-7a62bd20c187.png#averageHue=%23f2f2f2&clientId=udc3c53fe-8f8f-4&from=paste&height=466&id=u576b538f&originHeight=699&originWidth=813&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=135970&status=done&style=none&taskId=u0824bf38-358e-45bb-972c-a590a24dacf&title=&width=542" alt="image.png"><br>只有在 VMX Operation Mode 下才可以实现：</p>
+<ul>
+<li>VMX root mode：Host CPU</li>
+<li>VMX non-root mode: Guest CPU</li>
+</ul>
+<p>使用 VMXON 和 VMXOFF 开启和关闭。</p>
+<h4 id="模式切换方法"><a href="#模式切换方法" class="headerlink" title="模式切换方法"></a>模式切换方法</h4><ul>
+<li>vm entry: vmlaunch&#x2F;vmresume 指令</li>
+<li>vm exit:执行指令；发生异常或中断</li>
+</ul>
+<h4 id="上下文状态：VMCS-Virtual-Machine-Control-Structure"><a href="#上下文状态：VMCS-Virtual-Machine-Control-Structure" class="headerlink" title="上下文状态：VMCS,Virtual Machine Control Structure"></a>上下文状态：VMCS,Virtual Machine Control Structure</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423384623-79661728-025e-4c51-9a82-fbe6f158335f.png#averageHue=%23efeded&clientId=u5445b59c-ada5-4&from=paste&height=404&id=ub5f12573&originHeight=606&originWidth=1048&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=261551&status=done&style=none&taskId=u613aa872-716b-4564-b270-59d8b88f374&title=&width=698.6666666666666" alt="image.png"><br>Notions：</p>
+<ol>
+<li>一个 vCPU 对应一个 VMCS 状态；</li>
+<li><strong>只有 x86 支持在 vm-entry 和 vm exit 的时候，VMCS 由硬件进行保存和恢复。</strong></li>
+<li><strong>虚拟化优化方向：减少</strong><code>**vm emtry**</code><strong>和</strong><code>**vm exit**</code><strong>过程。</strong></li>
+</ol>
+<h3 id="ARM-架构"><a href="#ARM-架构" class="headerlink" title="ARM 架构"></a>ARM 架构</h3><h4 id="Exception-Level"><a href="#Exception-Level" class="headerlink" title="Exception Level"></a>Exception Level</h4><ul>
+<li>EL0<ul>
+<li>Host App: Host CPU</li>
+<li>Guest App:Guest CPU</li>
+</ul>
+</li>
+<li>EL1：Guest CPU</li>
+<li>EL2: Host CPU</li>
+<li>EL3</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428138024-1f70014f-8574-4f55-b117-902617927932.png#averageHue=%23f5f6f2&clientId=udc3c53fe-8f8f-4&from=paste&height=357&id=u78a66ea9&originHeight=535&originWidth=1009&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=259405&status=done&style=none&taskId=uf863a5fb-dd1c-419a-91b8-f4be0d06c68&title=&width=672.6666666666666" alt="image.png"></p>
+<h4 id="模式切换方法-1"><a href="#模式切换方法-1" class="headerlink" title="模式切换方法"></a>模式切换方法</h4><ul>
+<li>vm entry: eret 指令</li>
+<li>vm exit: 指令或异常</li>
+</ul>
+<h4 id="上下文状态"><a href="#上下文状态" class="headerlink" title="上下文状态"></a>上下文状态</h4><p>上下文状态自定义，由软件来实现保存和恢复。</p>
+<h3 id="RISC-V-架构"><a href="#RISC-V-架构" class="headerlink" title="RISC-V 架构"></a>RISC-V 架构</h3><h4 id="Privilege-Level"><a href="#Privilege-Level" class="headerlink" title="Privilege Level"></a>Privilege Level</h4><ul>
+<li>U(User Mode，用户态)： Host CPU</li>
+<li>VU(Virtualized User Mode，虚拟化用户态)：Guest CPU</li>
+<li>VS(Virtual Supervisor Mode，虚拟化监管态)：Guest CPU</li>
+<li>HS(Host Supervisor Mode，宿主机监管态)：Host CPU</li>
+<li>M(Machine Mode，机器态)</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428839983-f98556e5-a344-4170-9581-356db2c5e170.png#averageHue=%23d5aa76&clientId=udc3c53fe-8f8f-4&from=paste&height=527&id=u308af103&originHeight=791&originWidth=1075&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=329922&status=done&style=none&taskId=u6b3de2d4-ffc2-4bb3-a8b2-912130d2847&title=&width=716.6666666666666" alt="image.png"></p>
+<h4 id="模式切换方法-2"><a href="#模式切换方法-2" class="headerlink" title="模式切换方法"></a>模式切换方法</h4><ul>
+<li>vm entry: sret 指令</li>
+<li>vm exit: 指令或异常</li>
+</ul>
+<h4 id="上下文状态-1"><a href="#上下文状态-1" class="headerlink" title="上下文状态"></a>上下文状态</h4><p>上下文状态自定义，由软件来实现保存和恢复。</p>
+<h2 id="内存虚拟化"><a href="#内存虚拟化" class="headerlink" title="内存虚拟化"></a>内存虚拟化</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>GVA：Guest Virtual Address<br>GPA：Guest Physical Address<br>HVA：Host Virual Address，主机虚拟地址<br>HPA：Host Physical Address，主机物理地址</p>
+<h3 id="转换关系和维护"><a href="#转换关系和维护" class="headerlink" title="转换关系和维护"></a>转换关系和维护</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687432487352-782cc970-9b57-41e1-9707-16049a98979f.png#averageHue=%23a5b58a&clientId=udc3c53fe-8f8f-4&from=paste&height=506&id=u714446a3&originHeight=759&originWidth=735&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=297890&status=done&style=none&taskId=uc569d132-044c-4de8-a541-1ef6e49da5c&title=&width=490" alt="image.png"></p>
+<ul>
+<li>GVA -&gt;GPA：Guest OS 维护</li>
+<li>HVA -&gt; HPA： Host OS 维护</li>
+<li><strong>GPA &lt;-&gt; HVA： qemu&#x2F;KVM</strong></li>
+<li>GPA &lt;-&gt; HPA： 硬件支持 EPT&#x2F;NPT</li>
+</ul>
+<p><strong>内存虚拟化目标：如何让 Guest 的访问地址(GVA&#x2F;GPA)转换成 HPA，且由硬件实现。</strong></p>
+<h3 id="软件实现——影子页表"><a href="#软件实现——影子页表" class="headerlink" title="软件实现——影子页表"></a>软件实现——影子页表</h3><p>能够直接完成 GVA-&gt;HPA 的转换。<br>被 Hpyervisor 载入到屋里 MMU 中的页表是影子页表。<br>缺陷：</p>
+<ol>
+<li>需要为 Guest OS 的每个进程维护一个影子页表，资源消耗大；</li>
+<li>Guest OS 在读写 CR3、执行 INVLPG 指令或客户页表不完整等情况下均会导致 vm exit，内存虚拟化效率很低；</li>
+<li>Guest OS 的页表和和影子页表的同步也比较复杂；</li>
+</ol>
+<h3 id="x86-架构-1"><a href="#x86-架构-1" class="headerlink" title="x86 架构"></a>x86 架构</h3><h4 id="EPT-x2F-NPT"><a href="#EPT-x2F-NPT" class="headerlink" title="EPT&#x2F;NPT"></a>EPT&#x2F;NPT</h4><ul>
+<li>Intel：EPT，Extended Page Table</li>
+<li>AMD：NPT</li>
+</ul>
+<h4 id="二阶段地址转换，完成内存虚拟化"><a href="#二阶段地址转换，完成内存虚拟化" class="headerlink" title="二阶段地址转换，完成内存虚拟化"></a>二阶段地址转换，完成内存虚拟化</h4><ol>
+<li>GVA -&gt; GPA：CR3 指向 Guest OS 页表，完成第一阶段转换，由硬件 MMU 完成；</li>
+<li>GPA -&gt; HPA：EPTP，指向 EPT 表，完成第二阶段转换，由硬件自动完成。</li>
+</ol>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687444239286-3b15e9f7-9c1c-4282-9d1a-7a2a5b1a35d5.png#averageHue=%23efefef&clientId=udc3c53fe-8f8f-4&from=paste&height=299&id=u07f1c40a&originHeight=448&originWidth=923&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=145722&status=done&style=none&taskId=u62cd5f81-df75-49d6-93c4-12ffbf10f46&title=&width=615.3333333333334" alt="image.png"><br>相对影子页表，只需要一张表即可完成 Guest OS 的内存虚拟化。</p>
+<h3 id="ARMv8-架构"><a href="#ARMv8-架构" class="headerlink" title="ARMv8 架构"></a>ARMv8 架构</h3><h4 id="VTTBR"><a href="#VTTBR" class="headerlink" title="VTTBR"></a>VTTBR</h4><p>VTTBR：Virtualization Translation Table Base Register<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687494824157-fa574bce-cb48-4df7-bec2-61b56a346a46.png#averageHue=%23e5e1d9&clientId=udc3c53fe-8f8f-4&from=paste&height=839&id=uf8baeab7&originHeight=1259&originWidth=1549&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=516946&status=done&style=none&taskId=u59a2ad31-fa9d-4cb8-94b0-1ea0af144fd&title=&width=1032.6666666666667" alt="image.png"></p>
+<h4 id="二阶段地址转换"><a href="#二阶段地址转换" class="headerlink" title="二阶段地址转换"></a>二阶段地址转换</h4><ol>
+<li>GVA -&gt; GPA(IPA)：TTBRn_EL1</li>
+<li>GPA -&gt; HPA：VTTBR0_EL2</li>
+</ol>
+<h3 id="RISC-V-架构-1"><a href="#RISC-V-架构-1" class="headerlink" title="RISC-V 架构"></a>RISC-V 架构</h3><h4 id="vsatp-amp-hgatp"><a href="#vsatp-amp-hgatp" class="headerlink" title="vsatp&amp;hgatp"></a>vsatp&amp;hgatp</h4><p>vsatp：Virtual Supervisor Address Translation and Protection Register<br>hgatp：Hypervisor Guest Address Translation and Protection Register<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687495150890-85471507-6c2a-463c-8fb7-3933305c7a2e.png#averageHue=%23f9f9d7&clientId=udc3c53fe-8f8f-4&from=paste&height=361&id=u80ae6490&originHeight=541&originWidth=827&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=116726&status=done&style=none&taskId=u736f0fa9-c44c-43df-8aa2-54443d37a1c&title=&width=551.3333333333334" alt="image.png"></p>
+<h4 id="二阶段地址转换-1"><a href="#二阶段地址转换-1" class="headerlink" title="二阶段地址转换"></a>二阶段地址转换</h4><ol>
+<li>GVA -&gt; GPA(IPA)：vsatp</li>
+<li>GPA -&gt; HPA：hgatp</li>
+</ol>
+<h2 id="中断虚拟化"><a href="#中断虚拟化" class="headerlink" title="中断虚拟化"></a>中断虚拟化</h2><h3 id="基本概念-1"><a href="#基本概念-1" class="headerlink" title="基本概念"></a>基本概念</h3><p>IPI：Inter-Processor Interrupt，处理器间中断<br>MSI：Message Signaled Interrupt，消息信号中断</p>
+<h3 id="中断处理流程"><a href="#中断处理流程" class="headerlink" title="中断处理流程"></a>中断处理流程</h3><ol>
+<li>中断触发：中断源发生中断事件，向 CPU 发送中断信号</li>
+<li>检测中断：CPU 检测到中断，停止当前执行流程，跳转到中断向量</li>
+<li>处理中断：CPU 保存上下文，调用和执行中断处理函数，然后返回原有执行流程</li>
+</ol>
+<p>中断来源不同，导致虚拟化方式不同：</p>
+<ul>
+<li>IPI：inter-processor interrupt</li>
+<li>timer 中断</li>
+<li>external 中断：包括 MSI</li>
+</ul>
+<h3 id="虚拟化方法一：发生-vm-exit-和中断注入"><a href="#虚拟化方法一：发生-vm-exit-和中断注入" class="headerlink" title="虚拟化方法一：发生 vm exit 和中断注入"></a>虚拟化方法一：发生 vm exit 和中断注入</h3><ul>
+<li>如果中断发生在当前 pCPU 上：如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</li>
+<li>如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式</li>
+<li>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</li>
+<li>vCPU 在 Guest CPU 模式下完成处理中断</li>
+</ul>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>中断发生时，vCPU 会发生 vm exit，效率低</li>
+<li>在没有中断控制器的特殊支持时，大多数硬件都支持此种中断虚拟化</li>
+</ul>
+<h3 id="虚拟化方法二：-中断直接投递给-vCPU"><a href="#虚拟化方法二：-中断直接投递给-vCPU" class="headerlink" title="虚拟化方法二： 中断直接投递给 vCPU"></a>虚拟化方法二： 中断直接投递给 vCPU</h3><ul>
+<li>如果中断发生在当前 pCPU 上：<ul>
+<li>如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</li>
+<li>如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式；</li>
+</ul>
+</li>
+<li>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</li>
+<li>vCPU 在 Guest CPU 模式下完成处理中断；</li>
+</ul>
+<h4 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h4><ul>
+<li>需要中断控制器的特殊支持；</li>
+<li>vCPU 不需要产生 vm exit，效率高；</li>
+</ul>
+<h3 id="x86-架构-2"><a href="#x86-架构-2" class="headerlink" title="x86 架构"></a>x86 架构</h3><h4 id="中断控制器：LAPIC、IOAPIC"><a href="#中断控制器：LAPIC、IOAPIC" class="headerlink" title="中断控制器：LAPIC、IOAPIC"></a>中断控制器：LAPIC、IOAPIC</h4><p>每个 CPU 接一个 Local APIC，通过地址总线接 IOAPIC，IPAPIC 完成外部中断的投递，Local APIC 完成 IPI 或者 Timer 的处理。<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687495844493-05787ef9-b853-4540-bd7a-eb66efd91745.png#averageHue=%23f0f0f0&clientId=udc3c53fe-8f8f-4&from=paste&height=523&id=uad99ab6a&originHeight=784&originWidth=1332&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=203827&status=done&style=none&taskId=ua8721522-e8fb-4261-8fc9-2a1e11cbcd2&title=&width=888" alt="image.png"></p>
+<h4 id="Posted-Interrupt"><a href="#Posted-Interrupt" class="headerlink" title="Posted Interrupt"></a>Posted Interrupt</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496047254-e2486be0-8fdf-49af-944d-f48c1c2b1a51.png#averageHue=%23eaf2a7&clientId=udc3c53fe-8f8f-4&from=paste&height=545&id=u65cb99ac&originHeight=818&originWidth=1435&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=546409&status=done&style=none&taskId=u3de919c4-ec7b-4988-b423-3193df08307&title=&width=956.6666666666666" alt="image.png"><br>外部中断到来时，中断直接投递到 VCPU 的 Posted Descriptor，Posted Descripter 利用事件通知 pCPU。<br>详细解释：<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496299059-ca13c193-98ee-4019-84a6-89ebfa85c168.png#averageHue=%23ededec&clientId=udc3c53fe-8f8f-4&from=paste&height=461&id=u386bcb69&originHeight=692&originWidth=1775&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=494460&status=done&style=none&taskId=u0161a87b-9d87-4ba3-908c-0e56f1b99e8&title=&width=1183.3333333333333" alt="image.png"></p>
+<h3 id="ARMv8-架构-1"><a href="#ARMv8-架构-1" class="headerlink" title="ARMv8 架构"></a>ARMv8 架构</h3><h4 id="中断控制器：中断注入——GICv3"><a href="#中断控制器：中断注入——GICv3" class="headerlink" title="中断控制器：中断注入——GICv3"></a>中断控制器：中断注入——GICv3</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496515385-f793dd1d-0567-4c24-9c08-75d1e6260fd2.png#averageHue=%23fab873&clientId=udc3c53fe-8f8f-4&from=paste&height=316&id=ub791753f&originHeight=474&originWidth=1134&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=236317&status=done&style=none&taskId=ub23b5385-c9ea-4214-9dc7-6387ac00773&title=&width=756" alt="image.png"></p>
+<h4 id="中断控制器：中断透传——GICv4"><a href="#中断控制器：中断透传——GICv4" class="headerlink" title="中断控制器：中断透传——GICv4"></a>中断控制器：中断透传——GICv4</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496548976-5128b040-d018-4411-8659-ca46ca783b7f.png#averageHue=%23fef8ed&clientId=udc3c53fe-8f8f-4&from=paste&height=277&id=uf05abee0&originHeight=415&originWidth=1069&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=146619&status=done&style=none&taskId=uede37ca6-2777-4779-8028-d66ad76473a&title=&width=712.6666666666666" alt="image.png"></p>
+<h3 id="RISC-V-架构-2"><a href="#RISC-V-架构-2" class="headerlink" title="RISC-V 架构"></a>RISC-V 架构</h3><h4 id="中断控制器：PLIC"><a href="#中断控制器：PLIC" class="headerlink" title="中断控制器：PLIC"></a>中断控制器：PLIC</h4><ul>
+<li>不支持 MSI</li>
+<li>不支持中断虚拟化</li>
+</ul>
+<h4 id="AIA-定义的两个控制器"><a href="#AIA-定义的两个控制器" class="headerlink" title="AIA 定义的两个控制器"></a>AIA 定义的两个控制器</h4><p>RISC-V Advanced Interrupt Architecture：AIA，定义了两个控制器：</p>
+<ul>
+<li>Incoming Message Signaled Interrupt Controller (IMSIC)：支持 MSI；支持 IPI 虚拟化；</li>
+<li>Advanced Platform Level Interrupt Controller (APLIC)：支持 Wired Interrupt；</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496781873-0e1d5ac5-ab20-40c5-89f6-90d1ee650dbb.png#averageHue=%23ede6e3&clientId=udc3c53fe-8f8f-4&from=paste&height=476&id=u0946a2a8&originHeight=714&originWidth=1470&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=345285&status=done&style=none&taskId=u3b7bf02a-5f07-4706-b86e-a99be612216&title=&width=980" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496799302-064a3733-43b7-4aa0-b9ac-23170c544ea3.png#averageHue=%23f6f5f4&clientId=udc3c53fe-8f8f-4&from=paste&height=373&id=u2909b1fb&originHeight=559&originWidth=1544&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=253557&status=done&style=none&taskId=u6b3a3fb9-4125-432a-a8fa-39ef5fe0122&title=&width=1029.3333333333333" alt="image.png"></p>
+<p>例子：KVM 通过 IMSIC 注入中断<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687497411644-6e0acb83-0dcc-45ac-b1c3-b66c8c1a8d78.png#averageHue=%23c5c09a&clientId=udc3c53fe-8f8f-4&from=paste&height=302&id=uada08d49&originHeight=513&originWidth=1140&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=415661&status=done&style=none&taskId=u8c35fcaf-d37c-4144-8b7f-5a239abe628&title=&width=670" alt="image.png"></p>
+<ol>
+<li>HART0 的 KVM 写 MMIO 到某 HVA</li>
+<li>HVA 通过 SATP 和转换变为 HPA</li>
+<li>写入 HARTx 的 IMSIC 的寄存器</li>
+<li>发送信号给 HARTx 的 CSR</li>
+<li>注入中断到 HARTx 的 Guest_A 的 vCPU B</li>
+</ol>
+<p>例子：Guest_A vCPU_A 发送到 Guest_A vCPU_B 的 IPI 中断<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496839077-dfa4c9bd-c377-43d6-8b93-4e3f2f877d1f.png#averageHue=%23c8c49d&clientId=udc3c53fe-8f8f-4&from=paste&height=301&id=u4d152517&originHeight=451&originWidth=1003&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=331530&status=done&style=none&taskId=u1d1710fb-216b-4e26-9502-2894e1e5fde&title=&width=670" alt="image.png"></p>
+<ol>
+<li>HART0 的 Guest_A 的 vCPU A 写 MMIO 到某 GVA</li>
+<li>GVA 通过 VSATP 和 HGATP， 经过两次转换变为 HPA</li>
+<li>写入 HARTx 的 IMSIC 的寄存器</li>
+<li>发送信号给 HARTx 的 CSR</li>
+<li>触发 HARTx 的 Guest_A 的 vCPU B 的 IPI</li>
+</ol>
+<h2 id="设备虚拟化"><a href="#设备虚拟化" class="headerlink" title="设备虚拟化"></a>设备虚拟化</h2><h3 id="基本概念-2"><a href="#基本概念-2" class="headerlink" title="基本概念"></a>基本概念</h3><p>IOMMU：Input-Output Memory Management Unit</p>
+<ul>
+<li>MMU：CPU 通过 VA 访问内存</li>
+<li>IOMMU：设备通过 IO VA 访问内存</li>
+</ul>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687497632296-ed2d94eb-d941-4774-a8e9-9589268fd665.png#averageHue=%23badfb9&clientId=udc3c53fe-8f8f-4&from=paste&height=391&id=uec8b664b&originHeight=587&originWidth=595&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=211630&status=done&style=none&taskId=ub0e59983-7418-4e64-b5a9-9c59a4ec540&title=&width=396.6666666666667" alt="image.png"></p>
+<h3 id="IOMMU-作用"><a href="#IOMMU-作用" class="headerlink" title="IOMMU 作用"></a>IOMMU 作用</h3><ul>
+<li>DMA 设备的虚拟地址转换。完成 IOVA -&gt; HPA 的转换。把设备发送的 IOVA 转换成 HPA。</li>
+<li>DMA 设备的内存写保护</li>
+<li>Interrupt remapping 和虚拟化</li>
+<li>IO 设备可以共享页表</li>
+</ul>
+<h3 id="IOMMU-地址转换"><a href="#IOMMU-地址转换" class="headerlink" title="IOMMU 地址转换"></a>IOMMU 地址转换</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687506766824-bf571e8c-386f-40d8-a543-9bf5262a8fc2.png#averageHue=%23fafaf8&clientId=ud060340f-f725-4&from=paste&height=515&id=ud0dae33e&originHeight=773&originWidth=1745&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=217716&status=done&style=none&taskId=ub19f7c02-5c78-40a3-880e-b1ba9ccab55&title=&width=1163.3333333333333" alt="image.png"></p>
+<ul>
+<li>X86 IOMMU：包括 dma remapping 和 interrupt remapping<ul>
+<li>Intel：VT-D</li>
+<li>AMD：AMD IOMMU</li>
+</ul>
+</li>
+<li>ARMv8：SMMUv3</li>
+<li>RISC-V：RISC-V IOMMU</li>
+</ul>
+<h3 id="设备透传"><a href="#设备透传" class="headerlink" title="设备透传"></a>设备透传</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687527821363-fbf7646e-6b0a-48a9-9a9c-58dabd819d40.png#averageHue=%23e9e9e8&clientId=ud060340f-f725-4&from=paste&height=602&id=ue8f73394&originHeight=903&originWidth=1612&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=675184&status=done&style=none&taskId=u52f138d2-8d68-4fab-aa68-b93458d9da4&title=&width=1074.6666666666667" alt="image.png">VFIO：Virtual Function I&#x2F;O 是 Linux 下利用 IOMMU 构建设备直通方案。用户态进程可以使用 VFIO 驱动直接访问硬件，并且由于整个过程是在 IOMMU 的保护下进行因此十分安全， 而且非特权用户也是可以直接使用。<br>实现了 VM 中的 GPA 映射到 HPA，并且使用 DMA-remapping 将设备中断发送回 VM。</p>
+<h4 id="设备透传的作用"><a href="#设备透传的作用" class="headerlink" title="设备透传的作用"></a>设备透传的作用</h4><ul>
+<li>透传 GPU&#x2F;网络设备给虚拟机</li>
+<li>虚机的 GPU&#x2F;网络驱动，不需要做任何修改就可以直接使用透传设备</li>
+<li>性能损耗最小</li>
+</ul>
+<h4 id="设备透传的应用"><a href="#设备透传的应用" class="headerlink" title="设备透传的应用"></a>设备透传的应用</h4><ul>
+<li>GPU 设备透传</li>
+<li>网卡透传</li>
+<li>磁盘透传</li>
+</ul>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zs4y1L7KZ">硬件虚拟化在不同平台的实现：X86、ARM 和 RISC-V - 泰晓科技</a></li>
+</ul>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="《操作系统真象还原》：第八章 内存管理系统" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="《操作系统真象还原》：第八章 内存管理系统">
+								《操作系统真象还原》：第八章 内存管理系统			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 20日, 2023				
+							</p>
+							<p class="relate-post-content">
+								8.1 makefile 简介
+这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
+
+8.1.1 makefile 是什么makefile 是 Linux 下编...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="《操作系统真象还原》：第八章 内存管理系统">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第八章 内存管理系统"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" title="《操作系统真象还原》：第七章 中断">
+								《操作系统真象还原》：第七章 中断			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
+7.2 操作系统是中断驱动的略
+7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" title="《操作系统真象还原》：第七章 中断">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第七章 中断"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">
+								《操作系统真象还原》：第六章 完善内核			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 18日, 2022				
+							</p>
+							<p class="relate-post-content">
+								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, in...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第六章 完善内核"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/11/yuque/mguvy5fxrt54cg9m/" title="《操作系统真象还原》：第五章 保护模式进阶——加载内核">
+								《操作系统真象还原》：第五章 保护模式进阶——加载内核			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+1234int main(void) &#123;	while(1);	return 0;&#125;
+
+这个内核文件什么都没做，通过while(1)这个死循环一直...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/11/yuque/mguvy5fxrt54cg9m/" title="《操作系统真象还原》：第五章 保护模式进阶——加载内核">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第五章 保护模式进阶——加载内核"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制">
+								《操作系统真象还原》：第五章 保护模式进阶——内存分页机制			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 19日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+从这一刻起，我们才算开始了真正的操作系统学习之旅
+
+5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" title="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第五章 保护模式进阶——内存分页机制"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/11/08/yuque/qmb3g6pmmzfkbxg5/" title="《操作系统真象还原》：第四章 保护模式入门">
+								《操作系统真象还原》：第四章 保护模式入门			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十一月 8日, 2022				
+							</p>
+							<p class="relate-post-content">
+								4.1 保护模式概述在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel 紧...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/11/08/yuque/qmb3g6pmmzfkbxg5/" title="《操作系统真象还原》：第四章 保护模式入门">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第四章 保护模式入门"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">
+								《操作系统真象还原》：第三章 完善MBR——I/O接口			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
+
+设置数据缓冲，解决 CPU 与外设的速度不匹配
+设置信号电平转换电路
+设置数据格式转换
+设置时序控制电路来同步 CPU 和外部设备
+提...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
+								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								针对汇编几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/25/yuque/wkifhl/" title="右值引用">
+								右值引用			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+
+右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/25/yuque/wkifhl/" title="右值引用">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="右值引用"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">
+								Ready for Linux Kernel Compiled Testing			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
+
+纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/11/yuque/og2lh4/" title="Ready for Linux Kernel Compiled Testing">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Ready for Linux Kernel Compiled Testing"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2023, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>

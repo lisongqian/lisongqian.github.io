@@ -278,7 +278,7 @@
 
 	<a href="/2022/07/25/yuque/wkifhl/" itemprop="url">
 		<time datetime="2022-07-25T10:03:46.000Z" itemprop="dateUpdated">
-	  		2023-02-22
+	  		2023-06-23
 	  </time>
 	</a> 
 
@@ -345,7 +345,7 @@
 <h3 id="完美转发"><a href="#完美转发" class="headerlink" title="完美转发"></a>完美转发</h3><p>前面我们提到了，一个声明的右值引用其实是一个左值。这就为我们进行参数转发（传递）造成了 问题：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 左值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 右值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pass</span><span class="params">(T&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 普通传参:&quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(v); <span class="comment">// 始终调用 reference(int&amp;)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递右值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="built_in">pass</span>(<span class="number">1</span>); <span class="comment">// 1 是右值, 但输出是左值</span></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递左值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="type">int</span> l = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">pass</span>(l); <span class="comment">// l 是左值, 输出左值</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>对于 pass(1) 来说，虽然传递的是右值，但由于 v 是一个引用，所以同时也是左值。因此 reference(v) 会调用 reference(int&amp;)，输出『左值』。而对于 pass(l) 而言，l 是一个左值，为什么会成功传递给 pass(T&amp;&amp;) 呢？<br>这是基于<strong>引用坍缩规则</strong>的：在传统 C++ 中，我们不能够对一个引用类型继续进行引用，但 C++ 由于右值引用的出现而放宽了这一做法，从而产生了引用坍缩规则，允许我们对引用进行引用，既能左引用，又能右引用。但是却遵循如下规则：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658657515235-0a844fd9-1e4b-42e3-8c97-593f62dc32a5.png#clientId=u60dc8bed-8727-4&from=paste&height=209&id=uddaccbcd&name=image.png&originHeight=209&originWidth=517&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=24120&status=done&style=none&taskId=u6097115f-3fc1-48da-85a4-0e73890a414&title=&width=517" alt="image.png"><br>因此，模板函数中使用 T&amp;&amp; 不一定能进行右值引用，当传入左值时，此函数的引用将被推导为左值。<br>更准确的讲，<strong>无论模板参数是什么类型的引用，当且仅当实参类型为右引用时，模板参数才能被推导为右引用类型</strong>。这才使得 v 作为左值的成功传递。<br>完美转发就是基于上述规律产生的。所谓完美转发，就是为了让我们在传递参数的时候，保持原来 的参数类型（左引用保持左引用，右引用保持右引用）。为了解决这个问题，我们应该使用 std::forward 来进行参数的转发（传递）：</p>
+<p>对于 pass(1) 来说，虽然传递的是右值，但由于 v 是一个引用，所以同时也是左值。因此 reference(v) 会调用 reference(int&amp;)，输出『左值』。而对于 pass(l) 而言，l 是一个左值，为什么会成功传递给 pass(T&amp;&amp;) 呢？<br>这是基于<strong>引用坍缩规则</strong>的：在传统 C++ 中，我们不能够对一个引用类型继续进行引用，但 C++ 由于右值引用的出现而放宽了这一做法，从而产生了引用坍缩规则，允许我们对引用进行引用，既能左引用，又能右引用。但是却遵循如下规则：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658657515235-0a844fd9-1e4b-42e3-8c97-593f62dc32a5.png#clientId=u60dc8bed-8727-4&from=paste&height=209&id=uddaccbcd&originHeight=209&originWidth=517&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=24120&status=done&style=none&taskId=u6097115f-3fc1-48da-85a4-0e73890a414&title=&width=517" alt="image.png"><br>因此，模板函数中使用 T&amp;&amp; 不一定能进行右值引用，当传入左值时，此函数的引用将被推导为左值。<br>更准确的讲，<strong>无论模板参数是什么类型的引用，当且仅当实参类型为右引用时，模板参数才能被推导为右引用类型</strong>。这才使得 v 作为左值的成功传递。<br>完美转发就是基于上述规律产生的。所谓完美转发，就是为了让我们在传递参数的时候，保持原来 的参数类型（左引用保持左引用，右引用保持右引用）。为了解决这个问题，我们应该使用 std::forward 来进行参数的转发（传递）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 左值引用&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 右值引用&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pass</span><span class="params">(T&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 普通传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(v);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; std::move 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(std::<span class="built_in">move</span>(v));</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; std::forward 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(std::forward&lt;T&gt;(v));</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;static_cast&lt;T&amp;&amp;&gt; 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(<span class="built_in">static_cast</span>&lt;T&amp;&amp;&gt;(v));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递右值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="built_in">pass</span>(<span class="number">1</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递左值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="type">int</span> v = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">pass</span>(v);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>输出结果为：</p>
@@ -473,6 +473,47 @@ v1.0——基本实现12345678910111213class Singleton &#123; public:  static Si
 							<a href="/2021/01/16/yuque/ctmstq/" title="循序渐进实现C++的单例模式">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="循序渐进实现C++的单例模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">
+								硬件虚拟化			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 23日, 2023				
+							</p>
+							<p class="relate-post-content">
+								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+
+
+体系结构
+实现功能
+作用
+
+
+
+模式切换
+Host CPU &lt;-&gt; Guest CPU 切换
+CPU 资源隔离
+
+
+二阶段地址转换
+GVA-&gt; GPA
+
+
+
+GPA...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="硬件虚拟化"/>
 							</a>
 						</div>
 					</li>												
@@ -617,34 +658,6 @@ v1.0——基本实现12345678910111213class Singleton &#123; public:  static Si
 							<a href="/2022/11/08/yuque/qmb3g6pmmzfkbxg5/" title="《操作系统真象还原》：第四章 保护模式入门">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第四章 保护模式入门"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">
-								《操作系统真象还原》：第三章 完善MBR——I/O接口			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 25日, 2022				
-							</p>
-							<p class="relate-post-content">
-								3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
-
-设置数据缓冲，解决 CPU 与外设的速度不匹配
-设置信号电平转换电路
-设置数据格式转换
-设置时序控制电路来同步 CPU 和外部设备
-提...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
 							</a>
 						</div>
 					</li>												

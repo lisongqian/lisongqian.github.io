@@ -278,7 +278,7 @@
 
 	<a href="/2022/06/28/yuque/tgf3hu/" itemprop="url">
 		<time datetime="2022-06-28T07:40:59.000Z" itemprop="dateUpdated">
-	  		2023-02-22
+	  		2023-06-23
 	  </time>
 	</a> 
 
@@ -333,7 +333,7 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656403151370-c8e23f27-17c5-4c8a-be62-4fa1ad4a66ef.png#clientId=u26aefea8-4b6f-4&from=paste&height=605&id=ub03fa209&name=image.png&originHeight=605&originWidth=832&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=97512&status=done&style=none&taskId=u371fd70e-1464-456a-99d8-1a18044eec2&title=&width=832" alt="image.png"><br>可以看出里面包含所有的内核组件，包括文件系统，网络，IO 栈，虚拟化和设备驱动等等。如果你不熟悉，可以不做任何修改。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656403151370-c8e23f27-17c5-4c8a-be62-4fa1ad4a66ef.png#clientId=u26aefea8-4b6f-4&from=paste&height=605&id=ub03fa209&originHeight=605&originWidth=832&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=97512&status=done&style=none&taskId=u371fd70e-1464-456a-99d8-1a18044eec2&title=&width=832" alt="image.png"><br>可以看出里面包含所有的内核组件，包括文件系统，网络，IO 栈，虚拟化和设备驱动等等。如果你不熟悉，可以不做任何修改。</p>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
 <li>启动编译<blockquote>
 <p>参数是并发数量，通常是 CPU 的 2 倍</p>
@@ -356,13 +356,13 @@
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make modules_install</span><br></pre></td></tr></table></figure>
 
-<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656411389157-9baef93f-dce8-460f-be58-8210a1df196d.png#clientId=u26aefea8-4b6f-4&from=paste&height=221&id=u2cdbf860&name=image.png&originHeight=221&originWidth=665&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=61064&status=done&style=none&taskId=u230cca3e-e2d2-40d5-a875-df4123784e3&title=&width=665" alt="image.png"></p>
+<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656411389157-9baef93f-dce8-460f-be58-8210a1df196d.png#clientId=u26aefea8-4b6f-4&from=paste&height=221&id=u2cdbf860&originHeight=221&originWidth=665&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=61064&status=done&style=none&taskId=u230cca3e-e2d2-40d5-a875-df4123784e3&title=&width=665" alt="image.png"></p>
 <ol start="4">
 <li>安装内核</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
 
-<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656481826244-aea85c56-a623-4051-ac9a-b86019ed2b97.png#clientId=u4098e969-48df-4&from=paste&height=217&id=uf6a751e5&name=image.png&originHeight=217&originWidth=558&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=46099&status=done&style=none&taskId=u0d09d583-9fb1-4c45-9dc7-f93a9d879fc&title=&width=558" alt="image.png"></p>
+<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656481826244-aea85c56-a623-4051-ac9a-b86019ed2b97.png#clientId=u4098e969-48df-4&from=paste&height=217&id=uf6a751e5&originHeight=217&originWidth=558&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=46099&status=done&style=none&taskId=u0d09d583-9fb1-4c45-9dc7-f93a9d879fc&title=&width=558" alt="image.png"></p>
 <h2 id="启用内核做引导"><a href="#启用内核做引导" class="headerlink" title="启用内核做引导"></a>启用内核做引导</h2><ol>
 <li>启用内核做引导</li>
 </ol>
@@ -496,6 +496,47 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							<a href="/2022/06/30/yuque/xqmrx0/" title="Clone Linux Kernel Code on Windows">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="Clone Linux Kernel Code on Windows"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">
+								硬件虚拟化			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 23日, 2023				
+							</p>
+							<p class="relate-post-content">
+								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+
+
+体系结构
+实现功能
+作用
+
+
+
+模式切换
+Host CPU &lt;-&gt; Guest CPU 切换
+CPU 资源隔离
+
+
+二阶段地址转换
+GVA-&gt; GPA
+
+
+
+GPA...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="硬件虚拟化"/>
 							</a>
 						</div>
 					</li>												
@@ -668,30 +709,6 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
-								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								九月 11日, 2022				
-							</p>
-							<p class="relate-post-content">
-								针对汇编几个知识点：
-
-第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="https://cdn.jsdelivr.net/gh/lisongqian/lisongqian.github.io@master/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
 							</a>
 						</div>
 					</li>												
