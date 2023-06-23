@@ -337,7 +337,7 @@
 <td>DMA 和设备访问内存隔离</td>
 </tr>
 </tbody></table>
-<h3 id="相应的硬件实现"><a href="#相应的硬件实现" class="headerlink" title="相应的硬件实现"></a>相应的硬件实现</h3><p>x86 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422517843-71b15aa2-d3ac-4299-9084-9bbbe664f948.png#averageHue=%23f4f4f3&clientId=u5445b59c-ada5-4&from=paste&height=286&id=qgSOv&originHeight=729&originWidth=560&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=67522&status=done&style=none&taskId=ubaf70aef-cd90-401f-8e5e-328ef94e965&title=&width=220" alt="image.png"><br>AMD 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422483903-a1038c3f-d263-49f6-b104-38f69d2a49b9.png#averageHue=%23f7f7f6&clientId=u5445b59c-ada5-4&from=paste&height=417&id=E0mpC&originHeight=626&originWidth=1729&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=128134&status=done&style=none&taskId=ude2750d5-bd29-452e-af3b-6048ce7bbea&title=&width=1152.6666666666667" alt="image.png"><br>RISC-V 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687422490224-bdea540a-6387-4eff-a746-50a3242615d1.png#averageHue=%23eeedec&clientId=u5445b59c-ada5-4&from=paste&height=144&id=af2Hn&originHeight=367&originWidth=1018&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=87973&status=done&style=none&taskId=u0002c2ca-d434-49c1-9e0d-430e03a28d7&title=&width=400" alt="image.png"></p>
+<h3 id="相应的硬件实现"><a href="#相应的硬件实现" class="headerlink" title="相应的硬件实现"></a>相应的硬件实现</h3><p>x86 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528938230-d2e10050-e978-409a-a275-930ce6712556.png#averageHue=%23fbfbfb&clientId=ub730c67a-7f90-4&from=paste&height=247&id=u0e958032&originHeight=370&originWidth=807&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=33157&status=done&style=none&taskId=u8175104e-8eac-454e-aecc-81583ba20b7&title=&width=538" alt="image.png"><br>AMD 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528949676-74886978-3805-4006-a665-9a26cf1d10b9.png#averageHue=%23f8f8f7&clientId=ub730c67a-7f90-4&from=paste&height=219&id=uc707a7a9&originHeight=328&originWidth=876&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=59326&status=done&style=none&taskId=u1b7c211c-20c7-46e7-891a-bafc0984536&title=&width=584" alt="image.png"><br>RISC-V 架构<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528961158-3418ac0f-5c1b-4661-bc45-07dcfe6bf876.png#averageHue=%23f6f5f4&clientId=ub730c67a-7f90-4&from=paste&height=125&id=uf5d1fa15&originHeight=188&originWidth=839&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=42609&status=done&style=none&taskId=ua02bfc8d-8c5f-4f76-ae49-6cdc31e5e06&title=&width=559.3333333333334" alt="image.png"></p>
 <h3 id="相关软件支持"><a href="#相关软件支持" class="headerlink" title="相关软件支持"></a>相关软件支持</h3><table>
 <thead>
 <tr>
@@ -377,7 +377,7 @@
 <li>vm exit 后：保存 Guest CPU state，恢复 Host CPU State</li>
 </ul>
 <h3 id="vCPU：一个-Linux-线程"><a href="#vCPU：一个-Linux-线程" class="headerlink" title="vCPU：一个 Linux 线程"></a>vCPU：一个 Linux 线程</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423040792-d9b9f9a2-cf97-44bb-ae45-6487b0139f92.png#averageHue=%23e3e8d3&clientId=u5445b59c-ada5-4&from=paste&height=405&id=u390eda40&originHeight=608&originWidth=1745&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=542109&status=done&style=none&taskId=uda767807-0afc-4f25-858c-62cfb02f6d5&title=&width=1163.3333333333333" alt="image.png"></p>
-<h3 id="x86-架构"><a href="#x86-架构" class="headerlink" title="x86 架构"></a>x86 架构</h3><h4 id="VMX-Operation-Mode"><a href="#VMX-Operation-Mode" class="headerlink" title="VMX Operation Mode"></a>VMX Operation Mode</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428003196-d6a01dcb-0d45-4b81-97d9-7a62bd20c187.png#averageHue=%23f2f2f2&clientId=udc3c53fe-8f8f-4&from=paste&height=466&id=u576b538f&originHeight=699&originWidth=813&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=135970&status=done&style=none&taskId=u0824bf38-358e-45bb-972c-a590a24dacf&title=&width=542" alt="image.png"><br>只有在 VMX Operation Mode 下才可以实现：</p>
+<h3 id="x86-架构"><a href="#x86-架构" class="headerlink" title="x86 架构"></a>x86 架构</h3><h4 id="VMX-Operation-Mode"><a href="#VMX-Operation-Mode" class="headerlink" title="VMX Operation Mode"></a>VMX Operation Mode</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529260210-f23ffa8c-8c51-4ede-a97a-d7150cd3ad4c.png#averageHue=%23f2f2f2&clientId=ub730c67a-7f90-4&from=paste&id=u8a70a365&originHeight=389&originWidth=504&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=58327&status=done&style=none&taskId=u158ff3a6-e57e-4e51-9a87-97db1a7b599&title=" alt="image.png"><br>只有在 VMX Operation Mode 下才可以实现：</p>
 <ul>
 <li>VMX root mode：Host CPU</li>
 <li>VMX non-root mode: Guest CPU</li>
@@ -387,7 +387,7 @@
 <li>vm entry: vmlaunch&#x2F;vmresume 指令</li>
 <li>vm exit:执行指令；发生异常或中断</li>
 </ul>
-<h4 id="上下文状态：VMCS-Virtual-Machine-Control-Structure"><a href="#上下文状态：VMCS-Virtual-Machine-Control-Structure" class="headerlink" title="上下文状态：VMCS,Virtual Machine Control Structure"></a>上下文状态：VMCS,Virtual Machine Control Structure</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423384623-79661728-025e-4c51-9a82-fbe6f158335f.png#averageHue=%23efeded&clientId=u5445b59c-ada5-4&from=paste&height=404&id=ub5f12573&originHeight=606&originWidth=1048&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=261551&status=done&style=none&taskId=u613aa872-716b-4564-b270-59d8b88f374&title=&width=698.6666666666666" alt="image.png"><br>Notions：</p>
+<h4 id="上下文状态：VMCS-Virtual-Machine-Control-Structure"><a href="#上下文状态：VMCS-Virtual-Machine-Control-Structure" class="headerlink" title="上下文状态：VMCS,Virtual Machine Control Structure"></a>上下文状态：VMCS,Virtual Machine Control Structure</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529304837-70bce67d-f612-4a34-b2f4-15b12ef8befe.png#averageHue=%23edecec&clientId=ub730c67a-7f90-4&from=paste&id=uf54bb69f&originHeight=413&originWidth=752&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=153955&status=done&style=none&taskId=u08c8ae8b-d1a6-4e77-b078-758b05392e1&title=" alt="image.png"><br>Notions：</p>
 <ol>
 <li>一个 vCPU 对应一个 VMCS 状态；</li>
 <li><strong>只有 x86 支持在 vm-entry 和 vm exit 的时候，VMCS 由硬件进行保存和恢复。</strong></li>
@@ -403,7 +403,7 @@
 <li>EL2: Host CPU</li>
 <li>EL3</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428138024-1f70014f-8574-4f55-b117-902617927932.png#averageHue=%23f5f6f2&clientId=udc3c53fe-8f8f-4&from=paste&height=357&id=u78a66ea9&originHeight=535&originWidth=1009&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=259405&status=done&style=none&taskId=uf863a5fb-dd1c-419a-91b8-f4be0d06c68&title=&width=672.6666666666666" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529334000-3e0765d7-f048-47ee-becf-4aa704318559.png#averageHue=%23f6f6f3&clientId=ub730c67a-7f90-4&from=paste&id=u66eb89d7&originHeight=414&originWidth=747&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=159175&status=done&style=none&taskId=u2d8987d3-8c2c-4edf-b1a4-c0572c06629&title=" alt="image.png"></p>
 <h4 id="模式切换方法-1"><a href="#模式切换方法-1" class="headerlink" title="模式切换方法"></a>模式切换方法</h4><ul>
 <li>vm entry: eret 指令</li>
 <li>vm exit: 指令或异常</li>
@@ -416,14 +416,14 @@
 <li>HS(Host Supervisor Mode，宿主机监管态)：Host CPU</li>
 <li>M(Machine Mode，机器态)</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687428839983-f98556e5-a344-4170-9581-356db2c5e170.png#averageHue=%23d5aa76&clientId=udc3c53fe-8f8f-4&from=paste&height=527&id=u308af103&originHeight=791&originWidth=1075&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=329922&status=done&style=none&taskId=u6b3de2d4-ffc2-4bb3-a8b2-912130d2847&title=&width=716.6666666666666" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529357302-0e5c5c0e-0b8e-4dfe-b53c-b98a6a32c86b.png#averageHue=%23d5ac7b&clientId=ub730c67a-7f90-4&from=paste&id=ua416e4ac&originHeight=565&originWidth=769&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=190600&status=done&style=none&taskId=u08ce08e7-d40e-4b36-a763-144d5c44743&title=" alt="image.png"></p>
 <h4 id="模式切换方法-2"><a href="#模式切换方法-2" class="headerlink" title="模式切换方法"></a>模式切换方法</h4><ul>
 <li>vm entry: sret 指令</li>
 <li>vm exit: 指令或异常</li>
 </ul>
 <h4 id="上下文状态-1"><a href="#上下文状态-1" class="headerlink" title="上下文状态"></a>上下文状态</h4><p>上下文状态自定义，由软件来实现保存和恢复。</p>
 <h2 id="内存虚拟化"><a href="#内存虚拟化" class="headerlink" title="内存虚拟化"></a>内存虚拟化</h2><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>GVA：Guest Virtual Address<br>GPA：Guest Physical Address<br>HVA：Host Virual Address，主机虚拟地址<br>HPA：Host Physical Address，主机物理地址</p>
-<h3 id="转换关系和维护"><a href="#转换关系和维护" class="headerlink" title="转换关系和维护"></a>转换关系和维护</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687432487352-782cc970-9b57-41e1-9707-16049a98979f.png#averageHue=%23a5b58a&clientId=udc3c53fe-8f8f-4&from=paste&height=506&id=u714446a3&originHeight=759&originWidth=735&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=297890&status=done&style=none&taskId=uc569d132-044c-4de8-a541-1ef6e49da5c&title=&width=490" alt="image.png"></p>
+<h3 id="转换关系和维护"><a href="#转换关系和维护" class="headerlink" title="转换关系和维护"></a>转换关系和维护</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529386671-826b08a6-e4c0-42e1-a69b-54df5e80cfb7.png#averageHue=%23abb991&clientId=ub730c67a-7f90-4&from=paste&id=u9b160bdd&originHeight=421&originWidth=413&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=115982&status=done&style=none&taskId=u272dcf3f-6fd9-4da5-a2ab-3eef674863f&title=" alt="image.png"></p>
 <ul>
 <li>GVA -&gt;GPA：Guest OS 维护</li>
 <li>HVA -&gt; HPA： Host OS 维护</li>
@@ -445,13 +445,13 @@
 <li>GVA -&gt; GPA：CR3 指向 Guest OS 页表，完成第一阶段转换，由硬件 MMU 完成；</li>
 <li>GPA -&gt; HPA：EPTP，指向 EPT 表，完成第二阶段转换，由硬件自动完成。</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687444239286-3b15e9f7-9c1c-4282-9d1a-7a2a5b1a35d5.png#averageHue=%23efefef&clientId=udc3c53fe-8f8f-4&from=paste&height=299&id=u07f1c40a&originHeight=448&originWidth=923&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=145722&status=done&style=none&taskId=u62cd5f81-df75-49d6-93c4-12ffbf10f46&title=&width=615.3333333333334" alt="image.png"><br>相对影子页表，只需要一张表即可完成 Guest OS 的内存虚拟化。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687444239286-3b15e9f7-9c1c-4282-9d1a-7a2a5b1a35d5.png#averageHue=%23efefef&clientId=udc3c53fe-8f8f-4&from=paste&id=u07f1c40a&originHeight=448&originWidth=923&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=145722&status=done&style=none&taskId=u62cd5f81-df75-49d6-93c4-12ffbf10f46&title=" alt="image.png"><br>相对影子页表，只需要一张表即可完成 Guest OS 的内存虚拟化。</p>
 <h3 id="ARMv8-架构"><a href="#ARMv8-架构" class="headerlink" title="ARMv8 架构"></a>ARMv8 架构</h3><h4 id="VTTBR"><a href="#VTTBR" class="headerlink" title="VTTBR"></a>VTTBR</h4><p>VTTBR：Virtualization Translation Table Base Register<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687494824157-fa574bce-cb48-4df7-bec2-61b56a346a46.png#averageHue=%23e5e1d9&clientId=udc3c53fe-8f8f-4&from=paste&height=839&id=uf8baeab7&originHeight=1259&originWidth=1549&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=516946&status=done&style=none&taskId=u59a2ad31-fa9d-4cb8-94b0-1ea0af144fd&title=&width=1032.6666666666667" alt="image.png"></p>
 <h4 id="二阶段地址转换"><a href="#二阶段地址转换" class="headerlink" title="二阶段地址转换"></a>二阶段地址转换</h4><ol>
 <li>GVA -&gt; GPA(IPA)：TTBRn_EL1</li>
 <li>GPA -&gt; HPA：VTTBR0_EL2</li>
 </ol>
-<h3 id="RISC-V-架构-1"><a href="#RISC-V-架构-1" class="headerlink" title="RISC-V 架构"></a>RISC-V 架构</h3><h4 id="vsatp-amp-hgatp"><a href="#vsatp-amp-hgatp" class="headerlink" title="vsatp&amp;hgatp"></a>vsatp&amp;hgatp</h4><p>vsatp：Virtual Supervisor Address Translation and Protection Register<br>hgatp：Hypervisor Guest Address Translation and Protection Register<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687495150890-85471507-6c2a-463c-8fb7-3933305c7a2e.png#averageHue=%23f9f9d7&clientId=udc3c53fe-8f8f-4&from=paste&height=361&id=u80ae6490&originHeight=541&originWidth=827&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=116726&status=done&style=none&taskId=u736f0fa9-c44c-43df-8aa2-54443d37a1c&title=&width=551.3333333333334" alt="image.png"></p>
+<h3 id="RISC-V-架构-1"><a href="#RISC-V-架构-1" class="headerlink" title="RISC-V 架构"></a>RISC-V 架构</h3><h4 id="vsatp-amp-hgatp"><a href="#vsatp-amp-hgatp" class="headerlink" title="vsatp&amp;hgatp"></a>vsatp&amp;hgatp</h4><p>vsatp：Virtual Supervisor Address Translation and Protection Register<br>hgatp：Hypervisor Guest Address Translation and Protection Register<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529431196-05b0e79c-63a6-4263-b9c1-97a44841262d.png#averageHue=%23f9f9d7&clientId=ub730c67a-7f90-4&from=paste&id=u16924875&originHeight=249&originWidth=386&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=34598&status=done&style=none&taskId=uebab7afb-a053-4f67-bfc6-df3c9187a4a&title=" alt="image.png"></p>
 <h4 id="二阶段地址转换-1"><a href="#二阶段地址转换-1" class="headerlink" title="二阶段地址转换"></a>二阶段地址转换</h4><ol>
 <li>GVA -&gt; GPA(IPA)：vsatp</li>
 <li>GPA -&gt; HPA：hgatp</li>
@@ -526,7 +526,7 @@
 <li>MMU：CPU 通过 VA 访问内存</li>
 <li>IOMMU：设备通过 IO VA 访问内存</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687497632296-ed2d94eb-d941-4774-a8e9-9589268fd665.png#averageHue=%23badfb9&clientId=udc3c53fe-8f8f-4&from=paste&height=391&id=uec8b664b&originHeight=587&originWidth=595&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=211630&status=done&style=none&taskId=ub0e59983-7418-4e64-b5a9-9c59a4ec540&title=&width=396.6666666666667" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529464858-b2e94a8d-8eef-46b3-b639-22a5453a5974.png#averageHue=%23badfb9&clientId=ub730c67a-7f90-4&from=paste&id=ubc573177&originHeight=315&originWidth=318&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=84164&status=done&style=none&taskId=u60aef91f-9e4d-4ff7-84f5-a6cb9200dbc&title=" alt="image.png"></p>
 <h3 id="IOMMU-作用"><a href="#IOMMU-作用" class="headerlink" title="IOMMU 作用"></a>IOMMU 作用</h3><ul>
 <li>DMA 设备的虚拟地址转换。完成 IOVA -&gt; HPA 的转换。把设备发送的 IOVA 转换成 HPA。</li>
 <li>DMA 设备的内存写保护</li>
