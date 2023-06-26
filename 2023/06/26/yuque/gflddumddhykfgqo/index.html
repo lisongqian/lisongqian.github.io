@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <title>
     
-      WordCount | Songqian Li&#39;s Blog
+      GPU虚拟化 | Songqian Li&#39;s Blog
     
   </title>
   <meta name="author" content="Songqian Li">
@@ -154,7 +154,7 @@
 	<!-- Page title -->
 	<p>
 		
-			「WordCount」
+			「GPU虚拟化」
 		
 	</p>
 
@@ -259,8 +259,8 @@
 	<div id="layout-post">
 		<div class="article-title">
 			
-	<a href="/2020/04/07/yuque/xyem8g/" itemprop="url">
-		WordCount
+	<a href="/2023/06/26/yuque/gflddumddhykfgqo/" itemprop="url">
+		GPU虚拟化
 	</a>
 
 		</div>
@@ -276,8 +276,8 @@
 
 	更新于
 
-	<a href="/2020/04/07/yuque/xyem8g/" itemprop="url">
-		<time datetime="2020-04-07T12:36:44.000Z" itemprop="dateUpdated">
+	<a href="/2023/06/26/yuque/gflddumddhykfgqo/" itemprop="url">
+		<time datetime="2023-06-26T05:53:18.000Z" itemprop="dateUpdated">
 	  		2023-06-26
 	  </time>
 	</a> 
@@ -289,8 +289,8 @@
 				
 	<i class="icon-price-tags"></i>
 	
-		<a href="/tags/Other/" class=" ">
-			Other
+		<a href="/tags/VT/" class=" ">
+			VT
 		</a>
 	
 		
@@ -303,30 +303,96 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="I-引言"><a href="#I-引言" class="headerlink" title="I.引言"></a>I.引言</h3><blockquote>
-<p>值此情人节之际，祝天下有情人终成眷属。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The knowledage of this article is shallow. Please read it in an ornamental angle.</span><br></pre></td></tr></table></figure>
-
-<p>本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。</p>
-<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#height=52&id=sT44b&originHeight=52&originWidth=167&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=167"><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_patten = &quot;.*([0-9]&#123;4&#125;[-/][0-9]&#123;1,2&#125;[/-][0-9]&#123;1,2&#125;?)[\s]*([\d]*:[\d]*:[\d]&#123;2&#125;?)[\s]*(.*)?&quot; #时间正则表达式</span><br><span class="line">article_patten = &quot;[\n\r\f\t\s]*(.*)&quot; # 内容正则表达式</span><br></pre></td></tr></table></figure>
-
-<p>整理成如下格式：<br><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#height=43&id=l2Eww&originHeight=43&originWidth=475&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=475"><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Probably the following word is dog food.</span><br></pre></td></tr></table></figure>
-
-<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><img src="http://cdn.lisongqian.cn/lisongqian_count.png#height=400&id=u4zzZ&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><img src="http://cdn.lisongqian.cn/women.png#height=400&id=WebER&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=Bsz9e&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
-<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=KnnD5&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#height=400&id=o9IyX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#height=400&id=i4OHC&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000">原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
-<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><img src="http://cdn.lisongqian.cn/men_keywords.png#height=400&id=kdk1F&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是我的聊天关键词<br><img src="http://cdn.lisongqian.cn/women_keywords.png#height=400&id=SoIlX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是小姐儿的</p>
-<p>不知道为啥子哦，<code>不</code>字为啥子出现的频度这么高哦</p>
-<p><strong>来一张词云！</strong><br><img src="http://cdn.lisongqian.cn/wordcloud.png#height=496&id=Mqkbg&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>哇，不行，这不够优雅！过滤重来！</p>
-<p><img src="http://cdn.lisongqian.cn/wordcloud2.png#height=496&id=FwSli&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">感觉我喜欢和学姐在宿舍玩手机。</span><br></pre></td></tr></table></figure>
-
-<h4 id="心情分析"><a href="#心情分析" class="headerlink" title="心情分析"></a>心情分析</h4><p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
-<p><img src="http://cdn.lisongqian.cn/women_emotion.png#height=400&id=XsSu0&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
-<p><img src="http://cdn.lisongqian.cn/men_emotion.png#height=400&id=Brv0a&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
+			<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589180710-b61cd542-cd26-4c2a-9805-b8e12ca026e3.png#averageHue=%23fafbfb&clientId=uf7431ec0-1e1e-4&from=paste&id=u012a665b&originHeight=598&originWidth=1252&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=104550&status=done&style=none&taskId=uc2bc4833-6cb7-433c-a5bf-51233c96d35&title=" alt="image.png"></p>
+<h3 id="用户层虚拟化"><a href="#用户层虚拟化" class="headerlink" title="用户层虚拟化"></a>用户层虚拟化</h3><h4 id="本地-API-拦截和-API-formwarding"><a href="#本地-API-拦截和-API-formwarding" class="headerlink" title="本地 API 拦截和 API formwarding"></a>本地 API 拦截和 API formwarding</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589853258-2fa5f8ec-7c87-41b1-82cf-b93b8248c038.png#averageHue=%23dfe6f2&clientId=uf7431ec0-1e1e-4&from=paste&height=261&id=ubba90b93&originHeight=391&originWidth=314&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=20166&status=done&style=none&taskId=u1a004ec7-62ca-4ae4-8d47-a4dac04d5c8&title=&width=209.33333333333334" alt="image.png"></p>
+<ul>
+<li>在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；</li>
+<li>让 APP 调用这个 libwrapper。如何做？</li>
+<li>libwrapper 拦截用户的函数调用，对参数进行解析，然后使用参数去调用实际的底层库相同名称的函数。</li>
+<li>调用完成后，libwrapper 把结果返回给 APP；</li>
+</ul>
+<p>实现关键：</p>
+<ol>
+<li>APP 和底层可的静态链接变成动态链接；</li>
+<li>libwrapper 使用类似 dlopen 打开底层库；</li>
+</ol>
+<h4 id="远程-API-forwarding"><a href="#远程-API-forwarding" class="headerlink" title="远程 API forwarding"></a>远程 API forwarding</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687590687993-e384a7dd-7809-4189-b4e8-2faee3022b13.png#averageHue=%23ebeff5&clientId=uf7431ec0-1e1e-4&from=paste&height=424&id=udcb4c35b&originHeight=636&originWidth=428&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=44772&status=done&style=none&taskId=ufcfe8012-2d6f-49ed-a11e-ff44ae6273e&title=&width=285.3333333333333" alt="image.png"></p>
+<ul>
+<li>libwrapper 通过网络，去调用不同机器上的底层库</li>
+<li>libwrapper 变为两部分<ul>
+<li>client：拦截，转发</li>
+<li>server：接收，调用</li>
+</ul>
+</li>
+</ul>
+<p>可以实现 GPU 池化：即多个 GPU 可以组成调用池，由多个 client 来调用，<strong>可以做到让不具备 GPU 的机器能实现 GPU 的功能</strong>。<br>实现关键：</p>
+<ol>
+<li>调用函数类似 RPC，参数需要进行序列化和反序列化；</li>
+<li>相对本机来说，远程数据传输的性能对函数调用的延迟影响很大。一般可以通过 RDMA 进行网络加速。</li>
+</ol>
+<h4 id="半虚拟化-API-forwarding"><a href="#半虚拟化-API-forwarding" class="headerlink" title="半虚拟化 API forwarding"></a>半虚拟化 API forwarding</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687755529207-48236113-3a1f-4289-a40f-11ed6a1e9b24.png#averageHue=%2381c95f&clientId=u554f6f09-adbf-4&from=paste&id=ue1c3d34b&originHeight=392&originWidth=368&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=67137&status=done&style=none&taskId=u4bc56374-3053-44a1-8195-5a16077c3a9&title=" alt="image.png"></p>
+<ol>
+<li>APP 和 libwrapper 运行在虚机中；</li>
+<li>libwrapper 通过半虚拟化(virtio)进行通讯，调用宿主机的底层库；</li>
+<li>VM 的内核要实现 virtio frontend</li>
+<li>Host 的 Hypervisor 要实现 virtio backend</li>
+<li>宿主机完成底层库的调用</li>
+</ol>
+<h3 id="内核层虚拟化"><a href="#内核层虚拟化" class="headerlink" title="内核层虚拟化"></a>内核层虚拟化</h3><h4 id="内核层-GPU-驱动拦截"><a href="#内核层-GPU-驱动拦截" class="headerlink" title="内核层 GPU 驱动拦截"></a>内核层 GPU 驱动拦截</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687757792487-8e47ee38-b84b-48fc-9151-4e3253cc609d.png#averageHue=%23fafbfb&clientId=u554f6f09-adbf-4&from=paste&height=333&id=ua990078d&originHeight=500&originWidth=564&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=41975&status=done&style=none&taskId=u111f9409-cd7e-4c5a-afe3-2f7f9366d0c&title=&width=376" alt="image.png"><br>实现原理：内核模块通过设备文件拦截</p>
+<ul>
+<li>通常底层库通过设备文件访问 GPU 驱动的功能，假设为&#x2F;dev&#x2F;realgpu</li>
+<li>实现一个内核模块，输出模拟的设备文件给用户空间，&#x2F;dev&#x2F;fakegpu</li>
+<li>把模拟的设备文件 bind mount 到容器里，伪装成真的设备文件，&#x2F;dev&#x2F;realgpu</li>
+<li>APP 和底层库都在容器里运行，底层库访问伪装的设备文件&#x2F;dev&#x2F;realgpu，此时所有访问被内核模块拦截；</li>
+</ul>
+<p>实现关键</p>
+<ol>
+<li>需要了解底层库调用 GPU 驱动的系统调用的含义；</li>
+<li>内核拦截模块只需要拦截必要的系统调用；</li>
+<li>适合容器应用；</li>
+</ol>
+<h4 id="内核层-GPU-驱动半虚拟化"><a href="#内核层-GPU-驱动半虚拟化" class="headerlink" title="内核层 GPU 驱动半虚拟化"></a>内核层 GPU 驱动半虚拟化</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687758612861-51fe9964-ad72-46f2-8dd2-c13119937509.png#averageHue=%23fafbfb&clientId=u554f6f09-adbf-4&from=paste&height=357&id=udf686b6b&originHeight=535&originWidth=501&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=36605&status=done&style=none&taskId=u0a28302c-2108-4ded-abc9-0bbf08fa285&title=&width=334" alt="image.png"><br>实现原理：GPU 驱动半虚拟化</p>
+<ul>
+<li>APP 和底层库都在 VM 里；</li>
+<li>VM 的 GPU 驱动实现半虚拟化接口，通过类似 hpyercall 的方式，调用 Host 实际的 GPU 驱动；</li>
+<li>hpyercall 切换 guest 到 Hypervisor，Hypervisor 通过内核中的驱动代理来访问实际的 GPU 驱动；</li>
+</ul>
+<p>实现关键</p>
+<ol>
+<li>适合 VM 应用；</li>
+<li>结合硬件虚拟化支持类似 vGPU 功能；</li>
+</ol>
+<h3 id="硬件虚拟化"><a href="#硬件虚拟化" class="headerlink" title="硬件虚拟化"></a>硬件虚拟化</h3><h4 id="全虚拟化-x2F-透传-GPU"><a href="#全虚拟化-x2F-透传-GPU" class="headerlink" title="全虚拟化&#x2F;透传 GPU"></a>全虚拟化&#x2F;透传 GPU</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530374789-9c9d55bc-aee4-45a1-8dae-8b67692df843.png#averageHue=%23f4f8f3&clientId=u5af948fc-64e6-4&from=paste&id=ua1ec0926&originHeight=488&originWidth=340&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=23946&status=done&style=none&taskId=uab90d859-c068-4df4-941a-4d25f2823ba&title=" alt="image.png"><br>全虚拟化，Full Virtualization，又称透传 GPU。</p>
+<ul>
+<li>虚机的 GPU 驱动，不需要做任何修改，基本上访 问的是 GPU 真实的硬件资源；</li>
+<li>整个 GPU 透传给虚机，性能损耗最小；</li>
+<li><strong>因为无法实现 GPU 资源共享，一般认为不属于 GPU 虚拟化。</strong></li>
+</ul>
+<h4 id="NVIDIA-vGPU"><a href="#NVIDIA-vGPU" class="headerlink" title="NVIDIA vGPU"></a>NVIDIA vGPU</h4><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530404556-150f1ecc-2b80-4326-b3fb-c634bc73c5bb.png#averageHue=%23a8cf8f&clientId=u5af948fc-64e6-4&from=paste&id=u53146d4a&originHeight=613&originWidth=705&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=69410&status=done&style=none&taskId=u7d3a5cfd-6cc6-41a9-b5aa-135c7e83a1f&title=" alt="image.png"></p>
+<ul>
+<li>虚拟机内核需要安装特定的虚拟化驱动：GRID 驱动。</li>
+<li>显存按照固定切分，直接分配给 VM；</li>
+<li>算力调度采用时分方案，按时间片分配给 VM；</li>
+</ul>
+<h4 id="NVIDIA-MIG"><a href="#NVIDIA-MIG" class="headerlink" title="NVIDIA MIG"></a>NVIDIA MIG</h4><p>NVIDIA 硬件切分方案：MIG<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588354035-b9dc1e4a-6ce7-45e7-b035-487b8f526ad6.png#averageHue=%23cdd6a2&clientId=u5af948fc-64e6-4&from=paste&height=727&id=u1a4f9865&originHeight=1091&originWidth=1555&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=705282&status=done&style=none&taskId=ud0cd60cc-15ad-4165-a012-d134b95aefd&title=&width=1036.6666666666667" alt="image.png"></p>
+<ul>
+<li>MIG：Multi-Instance GPU，NVIDIA 自己退出的硬件资源切分方案。可以直接把 GPU 切分多分，每一份资源硬件隔离；</li>
+<li>每一 MIG 的切分，可以当作一个 GPU 来使用，同时可以结合容器来部署；</li>
+<li>目前仅在 A30、A100、H100 显卡上支持；</li>
+</ul>
+<h4 id="NVIDIA-MIG-vGPU"><a href="#NVIDIA-MIG-vGPU" class="headerlink" title="NVIDIA MIG vGPU"></a>NVIDIA MIG vGPU</h4><p>MIG 和 vGPU 的结合：NVIDIA MIG vGPU<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588592216-50d18086-0c83-44ef-9002-830e529042e1.png#averageHue=%23a5cc8c&clientId=u5af948fc-64e6-4&from=paste&id=u56f52fa5&originHeight=475&originWidth=553&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=53610&status=done&style=none&taskId=u2476f37b-821b-4009-a438-6b94d29eebb&title=" alt="image.png"></p>
+<ul>
+<li>显存，算力都按照 MIG 硬件切分，直接分配给 VM；</li>
+<li>算力损耗相对 vGPU 小；</li>
+</ul>
+<h4 id="AMD-MxGPU"><a href="#AMD-MxGPU" class="headerlink" title="AMD MxGPU"></a>AMD MxGPU</h4><p>基于 SRIOV 方式切分 GPU 为 VF<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588781638-e1af28a9-ee4c-4453-b54b-7e2ca94ce657.png#averageHue=%2373bfc3&clientId=u5af948fc-64e6-4&from=paste&id=u4842ca20&originHeight=481&originWidth=603&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=251501&status=done&style=none&taskId=u993de90d-6e9a-4db6-9825-e3b29e42337&title=" alt="image.png"></p>
+<h4 id="Intel-GVT-g"><a href="#Intel-GVT-g" class="headerlink" title="Intel GVT-g"></a>Intel GVT-g</h4><p>类似 Nvidia vGPU<br><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530238610-f421d819-5fc0-4c7b-aa3f-6081ce544bc4.png#averageHue=%23e7e69b&clientId=u5af948fc-64e6-4&from=paste&height=422&id=ucc4b1f96&originHeight=633&originWidth=770&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=229016&status=done&style=none&taskId=uf6a69888-801e-49e0-b17b-d96b2d1353b&title=&width=513.3333333333334" alt="image.png"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589013370-95f9bf7c-69cc-4e8a-9ce2-d1f8fea598b5.png#averageHue=%23f9fbfb&clientId=uf7431ec0-1e1e-4&from=paste&id=udc8226dc&originHeight=547&originWidth=931&originalType=binary%E2%88%B6=1.5&rotation=0&showTitle=false&size=87170&status=done&style=none&taskId=ud2c63450-8dcd-4196-987a-2db19254909&title=" alt="image.png"></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gT411J7SE">GPU 虚拟化技术分享 - 泰晓科技</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nvidia.cn/technologies/multi-instance-gpu/">NVIDIA Multi-Instance GPU</a></li>
+<li><a target="_blank" rel="noopener" href="https://medium.com/mlearning-ai/multi-instance-gpu-mig-of-nvidia-gpus-167dc85437e7">Multi-Instance GPU (MIG) of NVIDIA GPUs</a></li>
+</ul>
 	
 		</div>
 		
@@ -345,12 +411,8 @@
 	<span>
 		<a id="totop-post-page">返回顶部</a>
 		
-			<a href="/2020/04/07/yuque/ehef5p/" title="机器学习常用算法原理" rel="prev">
-				&laquo;上一篇
-			</a>
 		
-		
-			<a href="/2020/04/07/yuque/ney5k3/" title="Windows下安装Vue-cli" rel="next">
+			<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化" rel="next">
 				下一篇&raquo;
 			</a>
 			
@@ -368,56 +430,6 @@
 <div class="relate-post">
 	
 		<ul>
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2020/04/07/yuque/noqqg5/" title="(Analog-login)模拟登录知乎">
-								(Analog-login)模拟登录知乎			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								四月 7日, 2020				
-							</p>
-							<p class="relate-post-content">
-								引言正学着scrapy呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。
-准备Python 类库执行 js 代码 pip install PyExecJS利用 reques...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2020/04/07/yuque/noqqg5/" title="(Analog-login)模拟登录知乎">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="(Analog-login)模拟登录知乎"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">
-								GPU虚拟化			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 26日, 2023				
-							</p>
-							<p class="relate-post-content">
-								
-用户层虚拟化本地 API 拦截和 API formwarding
-
-在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
-让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="GPU虚拟化"/>
-							</a>
-						</div>
-					</li>												
 			
 					<li>
 						<div class="relate-post-text">
@@ -628,6 +640,55 @@ GPA...
 							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
+								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								针对汇编几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/07/25/yuque/wkifhl/" title="右值引用">
+								右值引用			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								七月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+
+右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/07/25/yuque/wkifhl/" title="右值引用">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="右值引用"/>
 							</a>
 						</div>
 					</li>												

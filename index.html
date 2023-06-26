@@ -245,6 +245,71 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2023/06/26/yuque/gflddumddhykfgqo/" itemprop="url">
+		GPU虚拟化
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							
+用户层虚拟化本地 API 拦截和 API formwarding
+
+在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+让 APP 调用这个 libwrapper。如何做？
+libwrapper 拦截用户的函数调用，对参数进行解析，然后使用参数去调用实际的底层库相同名称的函数。
+调用完成后，libwrapper 把结果返回给 APP；
+
+实现关键：
+
+APP 和底层可的静态链接变成动态链接；
+libwrapper 使用类似 dlopen 打开底层库；
+
+远程 API forwarding
+
+libwrapper 通过网络，去调用不同机器上的底层库
+l...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2023/06/26/yuque/gflddumddhykfgqo/" itemprop="url">
+		<time datetime="2023-06-26T05:53:18.000Z" itemprop="datePublished">
+	  		2023-06-26
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2023/06/26/yuque/gflddumddhykfgqo/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" itemprop="url">
 		硬件虚拟化
 	</a>
@@ -771,59 +836,6 @@ CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接
 						
 							<span class="right">      	
 								<a href="/2022/09/11/yuque/xa16pm/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/07/25/yuque/wkifhl/" itemprop="url">
-		右值引用
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							
-本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
-
-右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留问题，消除了诸如 std::vector、std::string 之类的额外开销，也才使得函数对象容器 std::function 成为了可能。
-什么是左值右值要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。**左值 (lvalue, left value)**，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋 值表达式...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/07/25/yuque/wkifhl/" itemprop="url">
-		<time datetime="2022-07-25T10:03:46.000Z" itemprop="datePublished">
-	  		2022-07-25
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/07/25/yuque/wkifhl/" title="阅读全文" external="false">阅读全文</a>	
 							</span>
 						
 					</div>
