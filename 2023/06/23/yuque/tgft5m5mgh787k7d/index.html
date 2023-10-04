@@ -431,7 +431,7 @@
 <li>GPA &lt;-&gt; HPA： 硬件支持 EPT&#x2F;NPT</li>
 </ul>
 <p><strong>内存虚拟化目标：如何让 Guest 的访问地址(GVA&#x2F;GPA)转换成 HPA，且由硬件实现。</strong></p>
-<h3 id="软件实现——影子页表"><a href="#软件实现——影子页表" class="headerlink" title="软件实现——影子页表"></a>软件实现——影子页表</h3><p>能够直接完成 GVA-&gt;HPA 的转换。<br>被 Hpyervisor 载入到屋里 MMU 中的页表是影子页表。<br>缺陷：</p>
+<h3 id="软件实现——影子页表"><a href="#软件实现——影子页表" class="headerlink" title="软件实现——影子页表"></a>软件实现——影子页表</h3><p>能够直接完成 GVA-&gt;HPA 的转换。<br>被 Hpyervisor 载入到物理 MMU 中的页表是影子页表。<br>缺陷：</p>
 <ol>
 <li>需要为 Guest OS 的每个进程维护一个影子页表，资源消耗大；</li>
 <li>Guest OS 在读写 CR3、执行 INVLPG 指令或客户页表不完整等情况下均会导致 vm exit，内存虚拟化效率很低；</li>
