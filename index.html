@@ -245,6 +245,114 @@
 				<div class="post-text">
 					<div class="post-title" id="post-title-index">			
 						
+	<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" itemprop="url">
+		《操作系统真象还原》：第十章 输入输出系统
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							
+上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
+
+10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP 异常。
+10.1.2 找出代码中的临界区、互斥、竞争条件公共资源：“显存”临界区：put_char 的多个指令
+10.1.3 信号量信号量是个计数器，它的计数值是自然数，用来记录所积累信号的数量。对于信号量的增减方法用 P、V 操作来表示，P 表示减少，V 表示增加。P 操作（书中为减少操作 down）包括：
+
+判断信号量是否大于 0；
+若大于 0 则加 1...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" itemprop="url">
+		<time datetime="2024-01-08T13:43:26.000Z" itemprop="datePublished">
+	  		2024-01-08
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
+	<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" itemprop="url">
+		《操作系统真象还原》：第九章 线程
+	</a>
+
+					</div>
+
+					<div class="post-content">
+						
+							线程和进程将分两部分实现，本章先讲解线程。
+9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器执行哪个任务。任务调度其是操作系统中用于把软件轮流调度上处理器运行的一个软件模块，它是操作系统的一部分。调度器在内核中维护一个任务表（也称进程表、线程表或调度表），然后按照一定的算法，从任务表中选择一个任务，然后把该任务放到处理器上运行，当任务运行的时间片到期后，再从任务表中找另外一个任务放到处理器上运行。
+9.1.2 线程是什么在线程中调用函数是让所运行的...
+						
+					</div>
+					
+					<div class="post-meta">
+						<span>
+							发布于
+							<i>
+								
+
+
+
+
+
+
+	<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" itemprop="url">
+		<time datetime="2023-10-30T14:59:17.000Z" itemprop="datePublished">
+	  		2023-10-30
+	  </time>
+	</a> 
+
+							</i>
+						</span>
+						
+						
+
+
+
+						
+							<span class="right">      	
+								<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" title="阅读全文" external="false">阅读全文</a>	
+							</span>
+						
+					</div>
+				</div>
+			</div>
+		
+			<div class="post" id="post">
+				<div class="post-text">
+					<div class="post-title" id="post-title-index">			
+						
 	<a href="/2023/06/26/yuque/gflddumddhykfgqo/" itemprop="url">
 		GPU虚拟化
 	</a>
@@ -734,114 +842,6 @@ AH&#x3D;0x88：最多检测出 64MB 内存，实际内存超过此容量也按..
 				</div>
 			</div>
 		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
-		《操作系统真象还原》：第三章 完善MBR——I/O接口
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
-
-设置数据缓冲，解决 CPU 与外设的速度不匹配
-设置信号电平转换电路
-设置数据格式转换
-设置时序控制电路来同步 CPU 和外部设备
-提供地址译码
-
-CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接口通信，当很多的 IO 接口同时想和 CPU 对话时，面对众多接口时 CPU 应该如何选择？这个工作不应该由 CPU 来做，CPU 太忙了，还是好刚使在刀刃上吧，既然分层能解决问题，咱们再加一层，这一层的责任是除了仲裁 IO 接口的竞争，还要连接各种内部总线。由于它的使...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/09/25/yuque/fvxk1z/" itemprop="url">
-		<time datetime="2022-09-25T13:56:27.000Z" itemprop="datePublished">
-	  		2022-09-25
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/09/25/yuque/fvxk1z/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
-			<div class="post" id="post">
-				<div class="post-text">
-					<div class="post-title" id="post-title-index">			
-						
-	<a href="/2022/09/11/yuque/xa16pm/" itemprop="url">
-		《操作系统真象还原》：第三章 完善MBR——CPU的实模式
-	</a>
-
-					</div>
-
-					<div class="post-content">
-						
-							针对汇编几个知识点：
-
-第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及寻址方式字节。寻址方式由 ModR&#x2F;M 字节、SIB 字节、位移量、立即数组成。第 1 行和第 4 行的 mov 的机器码中第 1 宇节都是B8 ，其原因是寻址方式都是立即数。第 5 行的“无条件跳转 jmp”对应的机器码第 宇节是EB。 还有”小于时跳转 j1”、”等于时跳 je “，”不小于等于时跳转 jnle” ······若对此感兴趣，可以...
-						
-					</div>
-					
-					<div class="post-meta">
-						<span>
-							发布于
-							<i>
-								
-
-
-
-
-
-
-	<a href="/2022/09/11/yuque/xa16pm/" itemprop="url">
-		<time datetime="2022-09-11T12:20:10.000Z" itemprop="datePublished">
-	  		2022-09-11
-	  </time>
-	</a> 
-
-							</i>
-						</span>
-						
-						
-
-
-
-						
-							<span class="right">      	
-								<a href="/2022/09/11/yuque/xa16pm/" title="阅读全文" external="false">阅读全文</a>	
-							</span>
-						
-					</div>
-				</div>
-			</div>
-		
 	</div>
 
 	
@@ -901,7 +901,7 @@ CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接
 		<p>
 		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
 			 
-				&copy;2017 - 2023, content by SongqianLi. All Rights Reserved.
+				&copy;2017 - 2024, content by SongqianLi. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
