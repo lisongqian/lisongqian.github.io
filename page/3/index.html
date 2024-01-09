@@ -254,9 +254,16 @@
 					<div class="post-content">
 						
 							首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O 以及业务处理。
-Proactor 模式Proactor 模式是指主线程负责监听、分发事件以及 I&#x2F;O 操作，工作线程只负责业务处理。
-为什么会分为这两种事件处理模式？我们都知道 Proactor 和 Reactor 都是 I&#x2F;O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I&#x2F;O，Proactor 是异...
+ 什么是 Reactor 模式和 Proactor 模式？
+ Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及业务处理。
+
+ Proactor 模式
+Proactor 模式是指主线程负责监听、分发事件以及 I/O 操作，工作线程只负责业务处理。
+
+ 为什么会分为这两种事件处理模式？
+我们都知道 Proactor 和 Reactor 都是 I/O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I/O，Proactor 是异步 I/O。
+ 那什...
 						
 					</div>
 					
@@ -316,7 +323,8 @@ Proactor 模式Proactor 模式是指主线程负责监听、分发事件以及 I
 
 Linux 下 C++轻量级 Web 服务器
 
-这是一个 C++开源项目，帮助初学者快速实践 Linux 网络编程，也能帮助理解 HTTP 请求的过程。更优雅的 C++实现：WebServer
+这是一个 C开源项目，帮助初学者快速实践 Linux 网络编程，也能帮助理解 HTTP 请求的过程。
+更优雅的 C实现：WebServer
 
 						
 					</div>
@@ -428,7 +436,12 @@ Linux 下 C++轻量级 Web 服务器
 
 					<div class="post-content">
 						
-							滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”，然后推论“由于 An 不应该发生，因此我们不应允许 A1 发生”。从 A1 推论至 An 的过程就像一个滑坡。它的问题在于，每个“坡”的因果强度不一，有些因果关系只是可能、而非必然，有些因果关系相当微弱，有些因果关系甚至是未知或缺乏证据，因而即使 A 1 发生，也无法一路滑到 An，An 并非必然发生。若有充足证据显示每个“坡”都有合理、强烈的因果连结，即...
+							滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。
+
+它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 An”，然后推论“由于 An 不应该发生，因此我们不应允许 A1 发生”。
+从 A1 推论至 An 的过程就像一个滑坡。
+它的问题在于，每个“坡”的因果强度不一，有些因果关系只是可能、而非必然，有些因果关系相当微弱，有些因果关系甚至是未知或缺乏证据，因而即使 A 1 发生，也无法一路滑到 An，An 并非必然发生。
+若有充足证据显示每个“坡”都有合理、强烈的因...
 						
 					</div>
 					
@@ -479,12 +492,15 @@ Linux 下 C++轻量级 Web 服务器
 						
 							HDMI 许可管理员：
 
-HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用HDMI 2.0 的功能现在是 2.1 的子集与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、ALLM 和其他所有内容）
+HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用
+HDMI 2.0 的功能现在是 2.1 的子集
+与 HDMI 2.1 相关的所有新功能和特性都是可选的（包括 FRL、更高带宽、VRR、ALLM 和其他所有内容）
 
 这意味着所有 HDMI 2.0 的设备如今都可以并且应该被标记为 HDMI 2.1 的设备。
 例如(小米 24.5 英寸 240Hz 高刷版) 中描述：
+
 文章介绍了高清视频 HDMI 2.1 标准，并且讨论了这个外行人容易误解的细节：令人困惑的 HDMI 2.1
-因此，消费者应了解商品所支持的 HDMI 2.1 是否支持 FRL(...
+因此，消费者应了解商品所支持的 HDMI 2.1 是否支持 F...
 						
 					</div>
 					
@@ -533,16 +549,21 @@ HDMI 2.0 不再存在，设备不应声称符合 v2.0，因为它不再被引用
 
 					<div class="post-content">
 						
-							前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+							 前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
+同时我们需要准备：
 
 一个 GitHub 账号
 一个腾讯云账号
 hexo 安装了 yuque-hexo 插件且能正常运行
 
-实现思路：利用语雀的webhook触发腾讯云云函数，云函数触发GitHub Action，Github Action 执行 hexo 的一系列命令从而实现自动同步。具体步骤详见：https://yichen115.github.io/2020/07/16/gtb5ck/
-注意
+ 实现思路：
+利用语雀的webhook触发腾讯云云函数，云函数触发GitHub Action，Github Action 执行 hexo 的一系列命令从而实现自动同步。
+具体步骤详见：https://yichen115.github.io/2020/07/16/gtb5ck/
+ 注意
+
 云函数是有免费额度的，正常使用不会超出。
-日志服务是收费的，建议调试成功后删除日志资源。具体位置：点开具体函数后，在函数管理 &...
+日志服务是收费的，建议调试成功后删除日志资源。具体位置：点开具体函数后...
 						
 					</div>
 					
@@ -591,18 +612,21 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 
 					<div class="post-content">
 						
-							GIthub：https://github.com/lisongqian/Scriptable百度网盘：https://pan.baidu.com/s/1gOCMtNkO10SUhOU6v3RP0w?pwd=41s8
-2022-11-14 更新
+							GIthub：https://github.com/lisongqian/Scriptable
+百度网盘：https://pan.baidu.com/s/1gOCMtNkO10SUhOU6v3RP0w?pwd=41s8
+ 2022-11-14 更新
+
 新增世界杯赛程小组件。
 英雄联盟小组件更改为显示最近赛程（不局限赛事类别）。
 
-2022-01-20 更新
+ 2022-01-20 更新
+
 百度网盘文件已更新，目前支持 2022 春季赛。
 旧版本的小组件用户可在 Parameter 中输入167即可显示 2022 春季赛赛程。
 
-2021-10-11 更新
-百度网盘文件已更新，目前支持 2021 全球总决赛赛程。
-旧版本的小组...
+ 2021-10-11 更新
+
+百度网盘文件已更新，目前支持 2021 全球总决赛赛程。...
 						
 					</div>
 					
@@ -651,9 +675,15 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 
 					<div class="post-content">
 						
-							格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
-右值引用和左值引用
-C++一共有三种基本值类型: 左值(lvalue), 纯右值(prvalue), 亡值(xvalue);另外还有两种混合值类型: 泛左值(glvalue),右值(rvalue);左值(lvalue)简单理解就是可以出现在&#x3D;的左边，所以是可以被赋值的值；右值(rvalue)类似理解是只可以出现在&#x3D;的右边，所以是不可以被赋值的值；左值(lvalue) &#x3D; {泛左值(glvalue)} - {亡值(x...
+							 格式化输出的执行顺序
+由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
+ 右值引用和左值引用
+
+C++一共有三种基本值类型: 左值(lvalue), 纯右值(prvalue), 亡值(xvalue);
+另外还有两种混合值类型: 泛左值(glvalue),右值(rvalue);
+左值(lvalue)简单理解就是可以出现在=的左边，所以是可以被赋值的值；
+右值(rvalue)类似理解是只可以出现在=的右边，所以是不可以被赋值的值；
+左值(lvalue) = {泛左值(glvalue)} - {亡值(xvalue)}...
 						
 					</div>
 					
@@ -702,8 +732,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prvalue), 亡值(xv
 
 					<div class="post-content">
 						
-							PromisePromise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
-123456789101112131415new Promise((resolve, reject) =&gt; &#123;  console.log(&quot;初始化&quot;);  resolve();&#125;)  .then(() =&gt; &#123;    throw new Error(&quot;有哪里不对了&quot;);    console.log(&quot;执行「这个」”&quot;);  &#125;)  .catch(() =&gt; &#123;...
+							 Promise
+Promise 最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰地分离了
+123456789101112131415new Promise((resolve, reject) =&gt; &#123;  console.log(&quot;初始化&quot;);  resolve();&#125;)  .then(() =&gt; &#123;    throw new Error(&quot;有哪里不对了&quot;);    console.log(&quot;执行「这个」”&quot;);  &#125;)  .catch(() =&gt; &#12...
 						
 					</div>
 					
@@ -754,7 +785,6 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prvalue), 亡值(xv
 						
 							亲测可用的PyTorch和TensorflowBoard版本，不会出现绘制模型结构图片时空白的情况。
 1234torch==1.2.0tensorboard==2.1.1tensorflow==2.1.0tensorboardX==2.0
-
 提醒：作者使用PyTorch1.4 版本没成功绘制出来，建议换成 1.2 或 1.3 版本。
 
 						

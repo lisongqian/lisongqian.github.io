@@ -307,19 +307,25 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。<br>同时我们需要准备：</p>
+			<h3 id="前提"><a class="markdownIt-Anchor" href="#前提"></a> 前提</h3>
+<p>阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。<br />
+同时我们需要准备：</p>
 <ol>
 <li>一个 GitHub 账号</li>
 <li>一个腾讯云账号</li>
 <li>hexo 安装了 yuque-hexo 插件且能正常运行</li>
 </ol>
-<h3 id="实现思路："><a href="#实现思路：" class="headerlink" title="实现思路："></a>实现思路：</h3><p>利用语雀的<code>webhook</code>触发腾讯云<code>云函数</code>，云函数触发<code>GitHub Action</code>，Github Action 执行 hexo 的一系列命令从而实现自动同步。<br>具体步骤详见：<a target="_blank" rel="noopener" href="https://yichen115.github.io/2020/07/16/gtb5ck/">https://yichen115.github.io/2020/07/16/gtb5ck/</a></p>
-<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol>
+<h3 id="实现思路"><a class="markdownIt-Anchor" href="#实现思路"></a> 实现思路：</h3>
+<p>利用语雀的<code>webhook</code>触发腾讯云<code>云函数</code>，云函数触发<code>GitHub Action</code>，Github Action 执行 hexo 的一系列命令从而实现自动同步。<br />
+具体步骤详见：<a target="_blank" rel="noopener" href="https://yichen115.github.io/2020/07/16/gtb5ck/">https://yichen115.github.io/2020/07/16/gtb5ck/</a></p>
+<h3 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h3>
+<ol>
 <li>云函数是有免费额度的，正常使用不会超出。</li>
 <li>日志服务是收费的，建议调试成功后删除日志资源。具体位置：点开具体函数后，在<strong>函数管理</strong> &gt; <strong>函数配置</strong>的<strong>日志配置</strong>下，有<strong>日志集</strong>和<strong>日志主题</strong>，建议都删除掉。</li>
 </ol>
-<hr>
-<p>2022 年 5 月 19 日更新：<br>腾讯云函数要收费了，故将云函数迁移到私人云服务器上，下面附上 php 版云函数代码：</p>
+<hr />
+<p>2022 年 5 月 19 日更新：<br />
+腾讯云函数要收费了，故将云函数迁移到私人云服务器上，下面附上 php 版云函数代码：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">http_post_json</span>(<span class="params"><span class="variable">$url</span>, <span class="variable">$jsonStr</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="variable">$ch</span> = <span class="title function_ invoke__">curl_init</span>();</span><br><span class="line">  <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_POST, <span class="number">1</span>);</span><br><span class="line">  <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_URL, <span class="variable">$url</span>);</span><br><span class="line">  <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_POSTFIELDS, <span class="variable">$jsonStr</span>);</span><br><span class="line">  <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</span><br><span class="line">  <span class="title function_ invoke__">curl_setopt</span>(<span class="variable">$ch</span>, CURLOPT_HTTPHEADER, <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">&#x27;User-Agent:curl/7.51.1&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Accept:application/vnd.github.everest-preview+json&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Authorization:token 填自己的&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;Content-Type: application/json;&#x27;</span></span><br><span class="line">  )</span><br><span class="line">             );</span><br><span class="line">  <span class="variable">$response</span> = <span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);</span><br><span class="line">  <span class="variable">$httpCode</span> = <span class="title function_ invoke__">curl_getinfo</span>(<span class="variable">$ch</span>, CURLINFO_HTTP_CODE);</span><br><span class="line">  <span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">array</span>(<span class="variable">$httpCode</span>, <span class="variable">$response</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$url</span> = <span class="string">&quot;https://api.github.com/repos/填自己的仓库&quot;</span>;</span><br><span class="line"><span class="variable">$jsonStr</span> = <span class="title function_ invoke__">json_encode</span>(<span class="keyword">array</span>(<span class="string">&quot;event_type&quot;</span>=&gt; <span class="string">&quot;run-it&quot;</span>));</span><br><span class="line"><span class="keyword">list</span>(<span class="variable">$returnCode</span>, <span class="variable">$returnContent</span>) = <span class="title function_ invoke__">http_post_json</span>(<span class="variable">$url</span>, <span class="variable">$jsonStr</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span>(<span class="string">&quot;ok&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 	
 		</div>
@@ -373,7 +379,8 @@
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
+								 原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
 							</p>
 						</div>
 
@@ -395,10 +402,14 @@
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								代码整体向后缩进选中多行代码 - 按下 Tab
-代码整体向前缩进选中多行代码 - 按下 Shift + Tab
-查找下一条代码差异F7
-查找上一条代码差异Shift + F7
+								 代码整体向后缩进
+选中多行代码 - 按下 Tab
+ 代码整体向前缩进
+选中多行代码 - 按下 Shift + Tab
+ 查找下一条代码差异
+F7
+ 查找上一条代码差异
+Shift + F7
 
 							</p>
 						</div>
@@ -421,7 +432,8 @@
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								Nginx 跨域（不安全，但快捷）123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With...
+								 Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
 							</p>
 						</div>
 
@@ -443,9 +455,11 @@
 								九月 13日, 2020				
 							</p>
 							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
+								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
+注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：打开注册表编辑器，定位至...
+旧方法：
+打开注册表编辑器，定...
 							</p>
 						</div>
 
@@ -472,8 +486,10 @@
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
-开始修改客户端配置打开 frpc.ini 文件，将文件按照需求更改如下：
-1234567891011121314151617...
+ 开始
+ 修改客户端配置
+打开 frpc.ini 文件，将文件按照需求更改如下：
+123456789101112131415...
 							</p>
 						</div>
 
@@ -495,13 +511,15 @@ frp 客户端文件，包括：frp 客户端，winsw
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								准备
+								 准备
+
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
-安装下载 redis 安装包1wge...
+ 安装
+ 下载 redis 安装...
 							</p>
 						</div>
 
@@ -545,7 +563,9 @@ redis 安装包 4.0.8 版本
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：https://www.amd.com/en/technologies/infinity-hub/pytorchhttps://www.amd.com/e...
+								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：
+https://www.amd.com/en/technologies/infinity-hub/pytorch
+https://www.amd.com...
 							</p>
 						</div>
 
@@ -570,7 +590,9 @@ redis 安装包 4.0.8 版本
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -593,7 +615,9 @@ redis 安装包 4.0.8 版本
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 

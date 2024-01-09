@@ -303,44 +303,59 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>正学着<code>scrapy</code>呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。</p>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h4 id="Python-类库"><a href="#Python-类库" class="headerlink" title="Python 类库"></a>Python 类库</h4><p>执行 js 代码 <code>pip install PyExecJS</code><br>利用 requests 上传 multipart&#x2F;form-data 格式文件 <code>pip install requests_toolbelt</code><br>用于 base64 编码图片数据的解析 <code>import base64  #python自带类库</code><br>用于显示图片的 PIL 或 pillow <code>pip install pillow</code></p>
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="分析登录的-request-head"><a href="#分析登录的-request-head" class="headerlink" title="分析登录的 request head"></a>分析登录的 request head</h3><p><img src="http://cdn.lisongqian.cn/1518177943916gw5e4ym5.png?imageslim#height=416&id=dTFB5&originHeight=416&originWidth=849&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=849"><br>发现几个不同的信息头：</p>
-<h4 id="1-aurhorization"><a href="#1-aurhorization" class="headerlink" title="1.aurhorization"></a>1.aurhorization</h4><p>多测试了几次，发现这个的值没有发生变化<br>c3cef7c66a1843f8b3a9e6a1e3160e20</p>
-<h4 id="2-Content-Type"><a href="#2-Content-Type" class="headerlink" title="2.Content-Type"></a>2.Content-Type</h4><p>感觉像 js 生成的加密字段，先往后看</p>
-<h4 id="3-X-UDID"><a href="#3-X-UDID" class="headerlink" title="3.X-UDID"></a>3.X-UDID</h4><p>Ctrl+Shift+F 全局搜索发现：<br><img src="http://cdn.lisongqian.cn/1518262225842rrtqr2sv.png?imageslim#height=181&id=ELKI2&originHeight=181&originWidth=1113&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1113"><br>可以用 css、xpath、正则表达式来提取出来了</p>
-<h4 id="4-X-Xsrftoken"><a href="#4-X-Xsrftoken" class="headerlink" title="4.X-Xsrftoken"></a>4.X-Xsrftoken</h4><p>全局搜索发现该字段紧跟在 UDID 后面,这时候恍然发现，这是个 json 字符串，一格式化：</p>
+			<h2 id="引言"><a class="markdownIt-Anchor" href="#引言"></a> 引言</h2>
+<p>正学着<code>scrapy</code>呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。</p>
+<h2 id="准备"><a class="markdownIt-Anchor" href="#准备"></a> 准备</h2>
+<h4 id="python-类库"><a class="markdownIt-Anchor" href="#python-类库"></a> Python 类库</h4>
+<p>执行 js 代码 <code>pip install PyExecJS</code><br />
+利用 requests 上传 multipart/form-data 格式文件 <code>pip install requests_toolbelt</code><br />
+用于 base64 编码图片数据的解析 <code>import base64  #python自带类库</code><br />
+用于显示图片的 PIL 或 pillow <code>pip install pillow</code></p>
+<h2 id="开始"><a class="markdownIt-Anchor" href="#开始"></a> 开始</h2>
+<h3 id="分析登录的-request-head"><a class="markdownIt-Anchor" href="#分析登录的-request-head"></a> 分析登录的 request head</h3>
+<p><img src="http://cdn.lisongqian.cn/1518177943916gw5e4ym5.png?imageslim#height=416&amp;id=dTFB5&amp;originHeight=416&amp;originWidth=849&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=849" alt="" /><br />
+发现几个不同的信息头：</p>
+<h4 id="1aurhorization"><a class="markdownIt-Anchor" href="#1aurhorization"></a> 1.aurhorization</h4>
+<p>多测试了几次，发现这个的值没有发生变化<br />
+c3cef7c66a1843f8b3a9e6a1e3160e20</p>
+<h4 id="2content-type"><a class="markdownIt-Anchor" href="#2content-type"></a> 2.Content-Type</h4>
+<p>感觉像 js 生成的加密字段，先往后看</p>
+<h4 id="3x-udid"><a class="markdownIt-Anchor" href="#3x-udid"></a> 3.X-UDID</h4>
+<p>Ctrl+Shift+F 全局搜索发现：<br />
+<img src="http://cdn.lisongqian.cn/1518262225842rrtqr2sv.png?imageslim#height=181&amp;id=ELKI2&amp;originHeight=181&amp;originWidth=1113&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1113" alt="" /><br />
+可以用 css、xpath、正则表达式来提取出来了</p>
+<h4 id="4x-xsrftoken"><a class="markdownIt-Anchor" href="#4x-xsrftoken"></a> 4.X-Xsrftoken</h4>
+<p>全局搜索发现该字段紧跟在 UDID 后面,这时候恍然发现，这是个 json 字符串，一格式化：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;loading&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;global&quot;</span>: &#123;</span><br><span class="line">			<span class="string">&quot;count&quot;</span>: 0</span><br><span class="line">		&#125;,</span><br><span class="line">		<span class="string">&quot;local&quot;</span>: &#123;</span><br><span class="line">			<span class="string">&quot;token/&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">			<span class="string">&quot;env/getExperiments/&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">			<span class="string">&quot;config/getAppConfig/&quot;</span>: <span class="literal">false</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;entities&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;users&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;questions&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;answers&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;articles&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;columns&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;topics&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;roundtables&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;favlists&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;comments&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;notifications&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;ebooks&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;activities&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;feeds&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;pins&quot;</span>: &#123;&#125;,</span><br><span class="line">		<span class="string">&quot;promotions&quot;</span>: &#123;&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;currentUser&quot;</span>: <span class="string">&quot;&quot;</span>,</span><br><span class="line">	<span class="string">&quot;token&quot;</span>: &#123;</span><br><span class="line">		<span class="string">&quot;xsrf&quot;</span>: <span class="string">&quot;2164a9cc-e7da-400b-a2cb-2e456d189680&quot;</span>,</span><br><span class="line">		<span class="string">&quot;xUDID&quot;</span>: <span class="string">&quot;AAACBxCF7guPTkkPXGTN-jrD3cd7krlcxoA=&quot;</span></span><br><span class="line">	&#125;,</span><br><span class="line"> ······（有些长后面省略了）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>发现该字段在<code>json_data[&#39;token&#39;][&#39;xsrf&#39;]</code></p>
-<h3 id="分析表单字段"><a href="#分析表单字段" class="headerlink" title="分析表单字段"></a>分析表单字段</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;client_id&quot;</span><br><span class="line"></span><br><span class="line">c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;grant_type&quot;</span><br><span class="line"></span><br><span class="line">password</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;timestamp&quot;</span><br><span class="line"></span><br><span class="line">1514945556611</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;source&quot;</span><br><span class="line"></span><br><span class="line">com.zhihu.web</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;signature&quot;</span><br><span class="line"></span><br><span class="line">5e2ca2d664e45e4a6ab34f31a87dcdf8937a4149</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;username&quot;</span><br><span class="line"></span><br><span class="line">+8612345678899</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;password&quot;</span><br><span class="line"></span><br><span class="line">hahahahaha</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;captcha&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;lang&quot;</span><br><span class="line"></span><br><span class="line">en</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;ref_source&quot;</span><br><span class="line"></span><br><span class="line">homepage</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;utm_source&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT--</span><br></pre></td></tr></table></figure>
-
+<p>发现该字段在<code>json_data['token']['xsrf']</code></p>
+<h3 id="分析表单字段"><a class="markdownIt-Anchor" href="#分析表单字段"></a> 分析表单字段</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;client_id&quot;</span><br><span class="line"></span><br><span class="line">c3cef7c66a1843f8b3a9e6a1e3160e20</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;grant_type&quot;</span><br><span class="line"></span><br><span class="line">password</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;timestamp&quot;</span><br><span class="line"></span><br><span class="line">1514945556611</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;source&quot;</span><br><span class="line"></span><br><span class="line">com.zhihu.web</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;signature&quot;</span><br><span class="line"></span><br><span class="line">5e2ca2d664e45e4a6ab34f31a87dcdf8937a4149</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;username&quot;</span><br><span class="line"></span><br><span class="line">+8612345678899</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;password&quot;</span><br><span class="line"></span><br><span class="line">hahahahaha</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;captcha&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;lang&quot;</span><br><span class="line"></span><br><span class="line">en</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;ref_source&quot;</span><br><span class="line"></span><br><span class="line">homepage</span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br><span class="line">Content-Disposition: form-data; name=&quot;utm_source&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------WebKitFormBoundaryBcTuMAttnsBhtQPT--</span><br></pre></td></tr></table></figure>
 <p>可以看到参数是以 payload 的形式出现的，这个时候就要结合请求头<code>Content-Type</code>看</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Type:multipart/form-data; boundary=----WebKitFormBoundaryBcTuMAttnsBhtQPT</span><br></pre></td></tr></table></figure>
-
-<p>multipart&#x2F;form-data 是一种表单提交的方式，后面的 boundary&#x3D;xxx 是表单分割的方式<br>用 k-v 方式表示就是：</p>
+<p>multipart/form-data 是一种表单提交的方式，后面的 boundary=xxx 是表单分割的方式<br />
+用 k-v 方式表示就是：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">data = <span class="punctuation">&#123;</span></span><br><span class="line">        &#x27;client_id&#x27;<span class="punctuation">:</span> &#x27;c3cef7c66a1843f8b3a9e6a1e3160e20&#x27;<span class="punctuation">,</span></span><br><span class="line">    &#x27;grant_type&#x27;<span class="punctuation">:</span> &#x27;password&#x27;<span class="punctuation">,</span></span><br><span class="line">    &#x27;timestamp&#x27;<span class="punctuation">:</span> <span class="number">1514945556611</span><span class="punctuation">,</span></span><br><span class="line">    &#x27;source&#x27;<span class="punctuation">:</span> &#x27;com.zhihu.web&#x27;<span class="punctuation">,</span></span><br><span class="line">    &#x27;signature&#x27;<span class="punctuation">:</span><span class="number">5e2</span>ca2d664e45e4a6ab34f31a87dcdf8937a4149<span class="punctuation">,</span></span><br><span class="line">    &#x27;username&#x27;<span class="punctuation">:</span> +<span class="number">8612345678899</span><span class="punctuation">,</span></span><br><span class="line">    &#x27;password&#x27;<span class="punctuation">:</span> hahahahaha<span class="punctuation">,</span></span><br><span class="line">    &#x27;captcha&#x27;<span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    &#x27;lang&#x27;<span class="punctuation">:</span> &#x27;en&#x27;<span class="punctuation">,</span></span><br><span class="line">    &#x27;ref_source&#x27;<span class="punctuation">:</span> &#x27;homepage&#x27;<span class="punctuation">,</span></span><br><span class="line">    &#x27;utm_source&#x27;<span class="punctuation">:</span> &#x27;&#x27;</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
 <p>发现表单里除了<code>signature</code>字段，其他都是用户名，密码，时间戳，验证码等固定字段。</p>
-<h4 id="查找signature字段"><a href="#查找signature字段" class="headerlink" title="查找signature字段"></a>查找<code>signature</code>字段</h4><blockquote>
+<h4 id="查找signature字段"><a class="markdownIt-Anchor" href="#查找signature字段"></a> 查找<code>signature</code>字段</h4>
+<blockquote>
 <p>From <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/32898234">python 模拟登陆知乎（最新版)</a></p>
 </blockquote>
 <p>有先人经过辛苦调试找到了生成该字段值的 js 代码，现在就可以使用 Python 执行下 js 代码来生成。</p>
-<h3 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本文由于只实现登录的功能，所以就使用requests库来进行数据爬取。</span><br></pre></td></tr></table></figure>
-
-<h4 id="1-定制-request-head"><a href="#1-定制-request-head" class="headerlink" title="1.定制 request head"></a>1.定制 request head</h4><p>定义全局变量：</p>
+<h3 id="编写代码"><a class="markdownIt-Anchor" href="#编写代码"></a> 编写代码</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">本文由于只实现登录的功能，所以就使用requests库来进行数据爬取。</span><br></pre></td></tr></table></figure>
+<h4 id="1定制-request-head"><a class="markdownIt-Anchor" href="#1定制-request-head"></a> 1.定制 request head</h4>
+<p>定义全局变量：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">s = requests.session() #用来发起请求的requests对象</span><br><span class="line">s.cookies = cookielib.LWPCookieJar(filename=&quot;cookie.txt&quot;) #使用cookielib库来保存cookie</span><br><span class="line">content_type = &quot;multipart/form-data; boundary=----WebKitFormBoundaryW1NyxWWwr7BAQ5e6&quot; #加密字符串 boundary后面值为随机值</span><br><span class="line"></span><br><span class="line">agent = &quot;Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.32 Mobile Safari/537.36&quot;</span><br><span class="line">header = &#123; #通用header</span><br><span class="line">    &quot;HOST&quot;: &quot;www.zhihu.com&quot;,</span><br><span class="line">    &quot;Referer&quot;: &quot;https://www.zhihu.com&quot;,</span><br><span class="line">    &quot;User-Agent&quot;: agent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>获取和设置特殊字段值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">res = s.get(&quot;https://www.zhihu.com&quot;, headers=header)</span><br><span class="line">    match_obj = re.match(&#x27;.*id=&quot;data&quot;.*data-state=&quot;(.*?)&quot;.*&#x27;, res.text, re.DOTALL)  #正则表达式获取json字符串</span><br><span class="line">    json_data = &#123;&#125;</span><br><span class="line">    if match_obj:</span><br><span class="line">        data_state = match_obj.group(1).replace(&quot;&quot;&quot;, &#x27;&quot;&#x27;)</span><br><span class="line">        json_data = json.loads(data_state) #字符串转json对象</span><br><span class="line">    headers = header</span><br><span class="line">    headers[&#x27;X-UDID&#x27;] = json_data[&#x27;token&#x27;][&#x27;xUDID&#x27;]</span><br><span class="line">    headers[&#x27;X-Xsrftoken&#x27;] = json_data[&#x27;token&#x27;][&#x27;xsrf&#x27;]</span><br><span class="line">    headers[&#x27;authorization&#x27;] = &quot;oauth c3cef7c66a1843f8b3a9e6a1e3160e20&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-定制-form-data"><a href="#2-定制-form-data" class="headerlink" title="2. 定制 form-data"></a>2. 定制 form-data</h4><p>主要是获取<code>signature</code>字段，直接执行 js 代码，具体见文章尾的源码吧</p>
-<h4 id="3-获取登录验证码"><a href="#3-获取登录验证码" class="headerlink" title="3.获取登录验证码"></a>3.获取登录验证码</h4><blockquote>
+<h4 id="2-定制-form-data"><a class="markdownIt-Anchor" href="#2-定制-form-data"></a> 2. 定制 form-data</h4>
+<p>主要是获取<code>signature</code>字段，直接执行 js 代码，具体见文章尾的源码吧</p>
+<h4 id="3获取登录验证码"><a class="markdownIt-Anchor" href="#3获取登录验证码"></a> 3.获取登录验证码</h4>
+<blockquote>
 <p>正常来讲，知乎很少会验证验证码，这里是为了以防万一从而添加了英文验证码，中文验证码不考虑</p>
 </blockquote>
 <p>验证码的验证一是需要在登录的表单里通过<code>captha</code>字段提交，二是需要向验证码端口<code>https://www.zhihu.com/api/v3/oauth/captcha?lang=en</code>的<code>input_text</code>字段提交。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">checkcapthca</span>(<span class="params">headers, cn=<span class="literal">False</span></span>):</span><br><span class="line">    <span class="comment"># 检查是否需要验证码,无论需不需要，必须要发一个请求</span></span><br><span class="line">    <span class="keyword">if</span> cn:</span><br><span class="line">        url = <span class="string">&#x27;https://www.zhihu.com/api/v3/oauth/captcha?lang=cn&#x27;</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        url = <span class="string">&#x27;https://www.zhihu.com/api/v3/oauth/captcha?lang=en&#x27;</span></span><br><span class="line">    show_captcha = s.get(url, headers=headers)</span><br><span class="line">    <span class="keyword">if</span> show_captcha.json()[<span class="string">&#x27;show_captcha&#x27;</span>]:</span><br><span class="line">        req = s.put(url, headers=headers)</span><br><span class="line">        <span class="built_in">print</span>(req)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;captcha.jpg&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            img_data = base64.b64decode(req.json()[<span class="string">&#x27;img_base64&#x27;</span>])</span><br><span class="line">            <span class="comment"># img_src = &quot;data:image/jpg;base64,&quot; + req.json()[&#x27;img_base64&#x27;]</span></span><br><span class="line">            f.write(img_data)</span><br><span class="line">            f.close()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                im = Image.<span class="built_in">open</span>(<span class="string">&#x27;captcha.jpg&#x27;</span>)</span><br><span class="line">                im.show()</span><br><span class="line">                im.close()</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">u&#x27;请到 %s 目录找到captcha.jpg 手动输入&#x27;</span> % os.path.abspath(<span class="string">&#x27;captcha.jpg&#x27;</span>))</span><br><span class="line">            captcha = <span class="built_in">input</span>(<span class="string">&quot;请输入验证码：\n&gt;&quot;</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        captcha = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    data = &#123;</span><br><span class="line">        <span class="string">&#x27;input_text&#x27;</span>: captcha</span><br><span class="line">    &#125;</span><br><span class="line">    encoder = MultipartEncoder(data, boundary=<span class="string">&quot;----WebKitFormBoundarycGPN1xiTi2hCSKKZ&quot;</span>)</span><br><span class="line">    headers[<span class="string">&#x27;Content-Type&#x27;</span>] = encoder.content_type</span><br><span class="line">    res = s.post(url, data=encoder.to_string(), headers=headers)</span><br><span class="line">    <span class="keyword">return</span> captcha</span><br></pre></td></tr></table></figure>
-
 <p>整个的判断过程是：</p>
 <ol>
 <li>知乎首先向验证码端口发送<code>get</code>请求，用来确认是否需要验证验证码</li>
@@ -349,9 +364,10 @@
 <li>将当前输入的验证码答案加到登录表单的<code>captha</code>表单中通过<code>post</code>请求提交。</li>
 <li>登陆成功。返回用户数据。</li>
 </ol>
-<h4 id="4-发起登录请求"><a href="#4-发起登录请求" class="headerlink" title="4.发起登录请求"></a>4.发起登录请求</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_url = <span class="string">&quot;https://www.zhihu.com/api/v3/oauth/sign_in&quot;</span></span><br><span class="line">    data = getdata(account, password)</span><br><span class="line">    data[<span class="string">&#x27;captcha&#x27;</span>] = checkcapthca(headers)</span><br><span class="line">    encoder = MultipartEncoder(data, boundary=<span class="string">&quot;----WebKitFormBoundarycGPN1xiTi2hCSKKZ&quot;</span>)<span class="comment">#将数据转换成multipart/form-data;格式</span></span><br><span class="line">    headers[<span class="string">&#x27;Content-Type&#x27;</span>] = encoder.content_type <span class="comment">#添加请求头字段</span></span><br><span class="line">    res = s.post(post_url, data=encoder.to_string(), headers=headers)</span><br><span class="line">    s.cookies.save()//保存cookie，登录时需验证，必需</span><br></pre></td></tr></table></figure>
-
-<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p>[<a target="_blank" rel="noopener" href="http://www.github.com/lisongqian/file/zhihu_login.py">http://www.github.com/lisongqian/file/zhihu_login.py</a>]</p>
+<h4 id="4发起登录请求"><a class="markdownIt-Anchor" href="#4发起登录请求"></a> 4.发起登录请求</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">post_url = <span class="string">&quot;https://www.zhihu.com/api/v3/oauth/sign_in&quot;</span></span><br><span class="line">    data = getdata(account, password)</span><br><span class="line">    data[<span class="string">&#x27;captcha&#x27;</span>] = checkcapthca(headers)</span><br><span class="line">    encoder = MultipartEncoder(data, boundary=<span class="string">&quot;----WebKitFormBoundarycGPN1xiTi2hCSKKZ&quot;</span>)<span class="comment">#将数据转换成multipart/form-data;格式</span></span><br><span class="line">    headers[<span class="string">&#x27;Content-Type&#x27;</span>] = encoder.content_type <span class="comment">#添加请求头字段</span></span><br><span class="line">    res = s.post(post_url, data=encoder.to_string(), headers=headers)</span><br><span class="line">    s.cookies.save()//保存cookie，登录时需验证，必需</span><br></pre></td></tr></table></figure>
+<h2 id="源码地址"><a class="markdownIt-Anchor" href="#源码地址"></a> 源码地址</h2>
+<p>[<a target="_blank" rel="noopener" href="http://www.github.com/lisongqian/file/zhihu_login.py">http://www.github.com/lisongqian/file/zhihu_login.py</a>]</p>
 	
 		</div>
 		
@@ -400,12 +416,12 @@
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								I.引言
+								 I.引言
+
 值此情人节之际，祝天下有情人终成眷属。
 
 1The knowledage of this article is shallow. Please read it in an ornamental angle.
-
-本文使用的是 ...
+本文使用的是...
 							</p>
 						</div>
 
@@ -430,7 +446,9 @@
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -453,7 +471,9 @@
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -476,11 +496,13 @@
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -502,12 +524,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -517,11 +543,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -543,10 +565,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -568,9 +592,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -592,8 +619,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 
@@ -615,10 +646,11 @@ GPA...
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+								 5.3 加载内核
+ 5.3.1 用 C 语言写内核
+第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-
-这个内核文件什么都没做，通过while(1)这个死循环一直...
+这个内核文件什么都没做，通过while(1)这个死循...
 							</p>
 						</div>
 
@@ -643,7 +675,9 @@ GPA...
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
-5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS...
+ 5.1 获取物理内存容量
+ 5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 ...
 							</p>
 						</div>
 

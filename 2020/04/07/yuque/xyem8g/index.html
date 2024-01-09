@@ -303,30 +303,55 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="I-引言"><a href="#I-引言" class="headerlink" title="I.引言"></a>I.引言</h3><blockquote>
+			<h3 id="i引言"><a class="markdownIt-Anchor" href="#i引言"></a> I.引言</h3>
+<blockquote>
 <p>值此情人节之际，祝天下有情人终成眷属。</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The knowledage of this article is shallow. Please read it in an ornamental angle.</span><br></pre></td></tr></table></figure>
-
 <p>本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。</p>
-<h3 id="II-开始"><a href="#II-开始" class="headerlink" title="II.开始"></a>II.开始</h3><h4 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h4><p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br><img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#height=52&id=sT44b&originHeight=52&originWidth=167&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=167"><br>看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
+<h3 id="ii开始"><a class="markdownIt-Anchor" href="#ii开始"></a> II.开始</h3>
+<h4 id="数据预处理"><a class="markdownIt-Anchor" href="#数据预处理"></a> 数据预处理</h4>
+<p>首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共<code>78755</code>行。<br />
+<img src="http://cdn.lisongqian.cn/151851498837862dtysly.png?imageslim#height=52&amp;id=sT44b&amp;originHeight=52&amp;originWidth=167&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=167" alt="" /><br />
+看起来消息记录的格式很规范，于是便想先用<code>正则表达式</code>把 txt 文件保存成 csv 文件。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">time_patten = &quot;.*([0-9]&#123;4&#125;[-/][0-9]&#123;1,2&#125;[/-][0-9]&#123;1,2&#125;?)[\s]*([\d]*:[\d]*:[\d]&#123;2&#125;?)[\s]*(.*)?&quot; #时间正则表达式</span><br><span class="line">article_patten = &quot;[\n\r\f\t\s]*(.*)&quot; # 内容正则表达式</span><br></pre></td></tr></table></figure>
-
-<p>整理成如下格式：<br><img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#height=43&id=l2Eww&originHeight=43&originWidth=475&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=475"><br>然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
+<p>整理成如下格式：<br />
+<img src="http://cdn.lisongqian.cn/1518515390676pwzxt4ln.png?imageslim#height=43&amp;id=l2Eww&amp;originHeight=43&amp;originWidth=475&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=475" alt="" /><br />
+然后对无效数据和非法数据进行了过滤，开始正式<code>数据分析(WordCount)</code>。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Probably the following word is dog food.</span><br></pre></td></tr></table></figure>
-
-<h4 id="聊天次数"><a href="#聊天次数" class="headerlink" title="聊天次数"></a>聊天次数</h4><p><img src="http://cdn.lisongqian.cn/lisongqian_count.png#height=400&id=u4zzZ&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br><img src="http://cdn.lisongqian.cn/women.png#height=400&id=WebER&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br><img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=Bsz9e&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
-<h4 id="聊天时间"><a href="#聊天时间" class="headerlink" title="聊天时间"></a>聊天时间</h4><p><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&id=KnnD5&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br><img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#height=400&id=o9IyX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br><img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#height=400&id=i4OHC&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000">原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
-<h4 id="聊天关键词"><a href="#聊天关键词" class="headerlink" title="聊天关键词"></a>聊天关键词</h4><p><img src="http://cdn.lisongqian.cn/men_keywords.png#height=400&id=kdk1F&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是我的聊天关键词<br><img src="http://cdn.lisongqian.cn/women_keywords.png#height=400&id=SoIlX&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这是小姐儿的</p>
+<h4 id="聊天次数"><a class="markdownIt-Anchor" href="#聊天次数"></a> 聊天次数</h4>
+<p><img src="http://cdn.lisongqian.cn/lisongqian_count.png#height=400&amp;id=u4zzZ&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+从数据上来看，我在<code>7月16日</code>竟然发了<code>350</code>多条消息。我们的感情或许就是从这天开始的吧。<br />
+<img src="http://cdn.lisongqian.cn/women.png#height=400&amp;id=WebER&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+哦我的上帝！我的小姐儿竟然跟我在同一天发消息最多，竟然达<code>500</code>多条。或许这就是话 lao 吧（哈哈）。<br />
+<img src="http://cdn.lisongqian.cn/%E6%AF%8F%E6%9C%88%E7%9A%84%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&amp;id=Bsz9e&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+这张图是每个月的聊天数量，原来我们在 QQ 上还发了这么多消息，平均都在<code>2000</code>多条，最高竟然近<code>6000</code>条，要谈成网恋了哈哈。</p>
+<h4 id="聊天时间"><a class="markdownIt-Anchor" href="#聊天时间"></a> 聊天时间</h4>
+<p><img src="http://cdn.lisongqian.cn/%E6%B6%88%E6%81%AF%E6%95%B0%E9%87%8F.png#height=400&amp;id=KnnD5&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+柱状图似乎只能看出来每晚睡九个小时啊，换种图：<br />
+<img src="http://cdn.lisongqian.cn/%E5%B0%8F%E6%8F%90%E7%90%B4%E5%9B%BE.png#height=400&amp;id=o9IyX&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+小提琴图似乎能够看出来聊天密度集中在下午和晚上，可能某人的生活中没有上午吧。<br />
+<img src="http://cdn.lisongqian.cn/%E7%83%AD%E7%82%B9%E5%9B%BE.png#height=400&amp;id=i4OHC&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" />原以为热点图可以显示我们在什么时间上聊天最多，结果就成了这样全是黑点了。</p>
+<h4 id="聊天关键词"><a class="markdownIt-Anchor" href="#聊天关键词"></a> 聊天关键词</h4>
+<p><img src="http://cdn.lisongqian.cn/men_keywords.png#height=400&amp;id=kdk1F&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+这是我的聊天关键词<br />
+<img src="http://cdn.lisongqian.cn/women_keywords.png#height=400&amp;id=SoIlX&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+这是小姐儿的</p>
 <p>不知道为啥子哦，<code>不</code>字为啥子出现的频度这么高哦</p>
-<p><strong>来一张词云！</strong><br><img src="http://cdn.lisongqian.cn/wordcloud.png#height=496&id=Mqkbg&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>哇，不行，这不够优雅！过滤重来！</p>
-<p><img src="http://cdn.lisongqian.cn/wordcloud2.png#height=496&id=FwSli&originHeight=496&originWidth=504&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=504"><br>啊，我尽力了。。。这我感觉可以组个句子！</p>
+<p><strong>来一张词云！</strong><br />
+<img src="http://cdn.lisongqian.cn/wordcloud.png#height=496&amp;id=Mqkbg&amp;originHeight=496&amp;originWidth=504&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=504" alt="" /><br />
+哇，不行，这不够优雅！过滤重来！</p>
+<p><img src="http://cdn.lisongqian.cn/wordcloud2.png#height=496&amp;id=FwSli&amp;originHeight=496&amp;originWidth=504&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=504" alt="" /><br />
+啊，我尽力了。。。这我感觉可以组个句子！</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">感觉我喜欢和学姐在宿舍玩手机。</span><br></pre></td></tr></table></figure>
-
-<h4 id="心情分析"><a href="#心情分析" class="headerlink" title="心情分析"></a>心情分析</h4><p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
-<p><img src="http://cdn.lisongqian.cn/women_emotion.png#height=400&id=XsSu0&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
-<p><img src="http://cdn.lisongqian.cn/men_emotion.png#height=400&id=Brv0a&originHeight=400&originWidth=1000&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=1000"><br>我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
+<h4 id="心情分析"><a class="markdownIt-Anchor" href="#心情分析"></a> 心情分析</h4>
+<p>好了，前面都是盲目分析，这个地方应该认真起来了。在一起呢，重要的是要开心！</p>
+<p><img src="http://cdn.lisongqian.cn/women_emotion.png#height=400&amp;id=XsSu0&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+这个是小姐儿的心情分析曲线，我，的，天！这个类似的正弦曲线是什么鬼！不过的确最近的心情不是很好，嗯，应该多陪陪猪佩奇了。</p>
+<p><img src="http://cdn.lisongqian.cn/men_emotion.png#height=400&amp;id=Brv0a&amp;originHeight=400&amp;originWidth=1000&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1000" alt="" /><br />
+我的心情曲线说明了我的情绪波动比较大，或许我应该沉稳点了。。。</p>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<p>When you finish reading this article, you will know the love with us ，Happy Valentine’s Day！</p>
 	
 		</div>
 		
@@ -379,8 +404,12 @@
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								引言正学着scrapy呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。
-准备Python 类库执行 js 代码 pip install PyExecJS利用 reques...
+								 引言
+正学着scrapy呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。
+ 准备
+ Python 类库
+执行 js 代码 pip install PyExecJS
+利用...
 							</p>
 						</div>
 
@@ -405,7 +434,9 @@
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -428,7 +459,9 @@
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -451,11 +484,13 @@
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -477,12 +512,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -492,11 +531,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -518,10 +553,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -543,9 +580,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -567,8 +607,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 
@@ -590,10 +634,11 @@ GPA...
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+								 5.3 加载内核
+ 5.3.1 用 C 语言写内核
+第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-
-这个内核文件什么都没做，通过while(1)这个死循环一直...
+这个内核文件什么都没做，通过while(1)这个死循...
 							</p>
 						</div>
 
@@ -618,7 +663,9 @@ GPA...
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
-5.1 获取物理内存容量5.1.1 Linux 获取内存的方法在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS...
+ 5.1 获取物理内存容量
+ 5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数子啊本质上是通过调用 ...
 							</p>
 						</div>
 

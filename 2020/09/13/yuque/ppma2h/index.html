@@ -294,9 +294,16 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p>现在 edge 和 ICloud 同步已经原生支持，最新：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150128889">win10 的 edge、Chrome 如何让书签与 Safari 双向同步？</a><br>注意手机需要在 iCloud 中打开同步 Safari 浏览器</p>
-<hr>
-<p>旧方法：<br>打开注册表编辑器，定位至 <code>计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\</code> 目录。<br>右键选择「新建项」，将该项名称命名为 <code>MicrosoftEdge</code>。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 <code>Main</code>。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 <code>SyncFavoritesBetweenIEAndMicrosoftEdge</code>。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972115-e2bfdcd8-9964-4fe0-bf16-e692c2f2b627.png#height=443&id=UNSnQ&originHeight=443&originWidth=764&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=764"><br>接着，双击刚才新建的 DWORD 值，将数值数据由 0 改为 1，并单击「确定」按钮，然后重启你的电脑，这样你的 Edge 浏览器的书签项应该就会和 Internet Explorer 保持同步了。<br><img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972134-3356d32c-58b7-4951-b4e0-99b2ef02cbad.png#height=251&id=pjhbY&originHeight=251&originWidth=385&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=385"><br>最后，打开 Windows 版 iCloud 设置，将书签设置为「使用 Internet Explorer」并保存。这样，你的 Edge 浏览器书签应该就会和 iPhone 上的 Safari 书签保持一致了。据本人亲测，书签的双向同步一般会在数秒内完成，体验可以说不亚于原生了。</p>
+			<p>现在 edge 和 ICloud 同步已经原生支持，最新：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150128889">win10 的 edge、Chrome 如何让书签与 Safari 双向同步？</a><br />
+注意手机需要在 iCloud 中打开同步 Safari 浏览器</p>
+<hr />
+<p>旧方法：<br />
+打开注册表编辑器，定位至 <code>计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\</code> 目录。<br />
+右键选择「新建项」，将该项名称命名为 <code>MicrosoftEdge</code>。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 <code>Main</code>。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 <code>SyncFavoritesBetweenIEAndMicrosoftEdge</code>。<br />
+<img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972115-e2bfdcd8-9964-4fe0-bf16-e692c2f2b627.png#height=443&amp;id=UNSnQ&amp;originHeight=443&amp;originWidth=764&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=764" alt="" /><br />
+接着，双击刚才新建的 DWORD 值，将数值数据由 0 改为 1，并单击「确定」按钮，然后重启你的电脑，这样你的 Edge 浏览器的书签项应该就会和 Internet Explorer 保持同步了。<br />
+<img src="https://cdn.nlark.com/yuque/0/2020/png/1249968/1599982972134-3356d32c-58b7-4951-b4e0-99b2ef02cbad.png#height=251&amp;id=pjhbY&amp;originHeight=251&amp;originWidth=385&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=385" alt="" /><br />
+最后，打开 Windows 版 iCloud 设置，将书签设置为「使用 Internet Explorer」并保存。这样，你的 Edge 浏览器书签应该就会和 iPhone 上的 Safari 书签保持一致了。据本人亲测，书签的双向同步一般会在数秒内完成，体验可以说不亚于原生了。</p>
 	
 		</div>
 		
@@ -349,13 +356,16 @@
 								二月 6日, 2022				
 							</p>
 							<p class="relate-post-content">
-								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+								 前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
+同时我们需要准备：
 
 一个 GitHub 账号
 一个腾讯云账号
 hexo 安装了 yuque-hexo 插件且能正常运行
 
-实现思路：利用语雀的webhook触发腾讯云云...
+ 实现思路：
+利用语雀的webhook触...
 							</p>
 						</div>
 
@@ -377,7 +387,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
+								 原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
 							</p>
 						</div>
 
@@ -399,10 +410,14 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								代码整体向后缩进选中多行代码 - 按下 Tab
-代码整体向前缩进选中多行代码 - 按下 Shift + Tab
-查找下一条代码差异F7
-查找上一条代码差异Shift + F7
+								 代码整体向后缩进
+选中多行代码 - 按下 Tab
+ 代码整体向前缩进
+选中多行代码 - 按下 Shift + Tab
+ 查找下一条代码差异
+F7
+ 查找上一条代码差异
+Shift + F7
 
 							</p>
 						</div>
@@ -425,7 +440,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								Nginx 跨域（不安全，但快捷）123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With...
+								 Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
 							</p>
 						</div>
 
@@ -452,8 +468,10 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
-开始修改客户端配置打开 frpc.ini 文件，将文件按照需求更改如下：
-1234567891011121314151617...
+ 开始
+ 修改客户端配置
+打开 frpc.ini 文件，将文件按照需求更改如下：
+123456789101112131415...
 							</p>
 						</div>
 
@@ -475,13 +493,15 @@ frp 客户端文件，包括：frp 客户端，winsw
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								准备
+								 准备
+
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
-安装下载 redis 安装包1wge...
+ 安装
+ 下载 redis 安装...
 							</p>
 						</div>
 
@@ -525,7 +545,9 @@ redis 安装包 4.0.8 版本
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：https://www.amd.com/en/technologies/infinity-hub/pytorchhttps://www.amd.com/e...
+								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：
+https://www.amd.com/en/technologies/infinity-hub/pytorch
+https://www.amd.com...
 							</p>
 						</div>
 
@@ -550,7 +572,9 @@ redis 安装包 4.0.8 版本
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -573,7 +597,9 @@ redis 安装包 4.0.8 版本
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 

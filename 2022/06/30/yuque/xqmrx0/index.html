@@ -311,22 +311,26 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="出现问题的原因"><a href="#出现问题的原因" class="headerlink" title="出现问题的原因"></a>出现问题的原因</h3><ol>
+			<h3 id="出现问题的原因"><a class="markdownIt-Anchor" href="#出现问题的原因"></a> 出现问题的原因</h3>
+<ol>
 <li>Linux Kernel 代码文件有用系统保留字<code>aux</code>命名的文件，导致 clone 名字中有<code>aux</code>、<code>com1</code>等保留字时就会失败；</li>
 <li>Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件</li>
 </ol>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><h4 id="1-开启文件区分大小写："><a href="#1-开启文件区分大小写：" class="headerlink" title="1. 开启文件区分大小写："></a>1. 开启文件区分大小写：</h4><blockquote>
+<h3 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h3>
+<h4 id="1-开启文件区分大小写"><a class="markdownIt-Anchor" href="#1-开启文件区分大小写"></a> 1. 开启文件区分大小写：</h4>
+<blockquote>
 <p>以管理员身份运行 PowerShell</p>
 </blockquote>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux<span class="literal">-prjc</span> enable</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-克隆代码"><a href="#2-克隆代码" class="headerlink" title="2. 克隆代码"></a>2. 克隆代码</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/songqianli/linux<span class="literal">-prjc</span>.git</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-报错处理"><a href="#3-报错处理" class="headerlink" title="3. 报错处理"></a>3. 报错处理</h4><p>错误信息：<code>error: invalid path &#39;drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c&#39;</code><br>解决方案：</p>
+<h4 id="2-克隆代码"><a class="markdownIt-Anchor" href="#2-克隆代码"></a> 2. 克隆代码</h4>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/songqianli/linux<span class="literal">-prjc</span>.git</span><br></pre></td></tr></table></figure>
+<h4 id="3-报错处理"><a class="markdownIt-Anchor" href="#3-报错处理"></a> 3. 报错处理</h4>
+<p>错误信息：<code>error: invalid path 'drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c'</code><br />
+解决方案：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> linux<span class="literal">-prjc</span>/</span><br><span class="line">git config core.protectNTFS false</span><br><span class="line">git reset <span class="literal">--hard</span> HEAD</span><br></pre></td></tr></table></figure>
-
 <p>完成。</p>
-<h3 id="引用："><a href="#引用：" class="headerlink" title="引用："></a>引用：</h3><ol>
+<h3 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用：</h3>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://blog.walterlv.com/post/case-sensitive-in-windows-file-system.html">Windows 10 四月更新，文件夹名称也能区分大小写了</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27575841/article/details/106958387">windows 上下载 github 上的 linux 内核项目遇到的问题</a></li>
 <li><a target="_blank" rel="noopener" href="https://github.com/analogdevicesinc/linux/issues/111">Windows cloning of this repo fails to checkout master.</a></li>
@@ -386,7 +390,8 @@
 								
 本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
 
-纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+ 纯净版内核编译：
+123wget https://gitlab.com/alfredchen/projectc/-/raw...
 							</p>
 						</div>
 
@@ -411,8 +416,9 @@
 								
 本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
 
-下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
-1git clone htt...
+ 下载源代码
+下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone h...
 							</p>
 						</div>
 
@@ -434,7 +440,8 @@
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								Nginx 跨域（不安全，但快捷）123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With...
+								 Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
 							</p>
 						</div>
 
@@ -459,7 +466,9 @@
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -482,7 +491,9 @@
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -505,11 +516,13 @@
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -531,12 +544,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -546,11 +563,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -572,10 +585,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -597,9 +612,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -621,8 +639,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 

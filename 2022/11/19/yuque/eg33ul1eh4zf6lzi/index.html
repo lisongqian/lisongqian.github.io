@@ -310,29 +310,46 @@
 			<blockquote>
 <p>从这一刻起，我们才算开始了真正的操作系统学习之旅</p>
 </blockquote>
-<h2 id="5-1-获取物理内存容量"><a href="#5-1-获取物理内存容量" class="headerlink" title="5.1 获取物理内存容量"></a>5.1 获取物理内存容量</h2><h4 id="5-1-1-Linux-获取内存的方法"><a href="#5-1-1-Linux-获取内存的方法" class="headerlink" title="5.1.1 Linux 获取内存的方法"></a>5.1.1 Linux 获取内存的方法</h4><p>在 Linux 2.6 内核总是用<code>detect_memory</code>函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要层放到寄存器 EAX 或 AX 中，如下：</p>
+<h2 id="51-获取物理内存容量"><a class="markdownIt-Anchor" href="#51-获取物理内存容量"></a> 5.1 获取物理内存容量</h2>
+<h4 id="511-linux-获取内存的方法"><a class="markdownIt-Anchor" href="#511-linux-获取内存的方法"></a> 5.1.1 Linux 获取内存的方法</h4>
+<p>在 Linux 2.6 内核总是用<code>detect_memory</code>函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要层放到寄存器 EAX 或 AX 中，如下：</p>
 <ul>
-<li>EAX&#x3D;0xE820：遍历主机上全部内存</li>
-<li>AX&#x3D;0xE801： 分别检测低 15MB 和 16MB~4GB 的内存，最大支持 4GB</li>
-<li>AH&#x3D;0x88：最多检测出 64MB 内存，实际内存超过此容量也按照 64MB 返回</li>
+<li>EAX=0xE820：遍历主机上全部内存</li>
+<li>AX=0xE801： 分别检测低 15MB 和 16MB~4GB 的内存，最大支持 4GB</li>
+<li>AH=0x88：最多检测出 64MB 内存，实际内存超过此容量也按照 64MB 返回</li>
 </ul>
-<h4 id="5-1-2-利用-BIOS-中断-0x15-子功能-0xe820-获取内存"><a href="#5-1-2-利用-BIOS-中断-0x15-子功能-0xe820-获取内存" class="headerlink" title="5.1.2 利用 BIOS 中断 0x15 子功能 0xe820 获取内存"></a>5.1.2 利用 BIOS 中断 0x15 子功能 0xe820 获取内存</h4><blockquote>
+<h4 id="512-利用-bios-中断-0x15-子功能-0xe820-获取内存"><a class="markdownIt-Anchor" href="#512-利用-bios-中断-0x15-子功能-0xe820-获取内存"></a> 5.1.2 利用 BIOS 中断 0x15 子功能 0xe820 获取内存</h4>
+<blockquote>
 <p>BIOS 中断 0x15 的子功能 0x820 能够获取系统的内存布局</p>
 </blockquote>
-<p>由于系统内存各部分的类型属性不同，BIOS 就按照类型属性来划分这片系统内存，所以这种查询呈迭代式，每次 BIOS 只返回一种类型的内存信息，直到将所有内存类型返回完毕。<code>0xE820</code>返回的内存信息包括多个属性字段，内存信息的内容使用地址范围描述符来描述的，用于存储这种描述符的结构称之为地址范围描述符（Address Range Descriptor Structure, ARDS)。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667891170654-943da487-fc3b-4b5a-bdaf-e0a7a21289b8.png#averageHue=%23e6e6e6&clientId=u080ef608-c7b8-4&from=paste&height=271&id=u46dd6b27&originHeight=406&originWidth=1658&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=288022&status=done&style=none&taskId=u983ea3ef-d4ff-45e0-9520-c60c414fbd1&title=&width=1105.3333333333333" alt="image.png"><br>此结构中的字段大小都是 4 字节，共 5 个字段，所以一个描述符大小为 20 字节。每次 int 0x15 之后，BIOS 就返回这样一个结构的数据。其中 Type 字段用来描述这段内存的类型，即是否可被操作系统使用，具体意义见下表。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892018960-e60698fe-2d35-4504-afd4-a1b0cb21b37a.png#averageHue=%23dddddd&clientId=u40d51b3b-f688-4&from=paste&height=196&id=u86ffde69&originHeight=294&originWidth=1654&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=280281&status=done&style=none&taskId=uf6a8f3a2-b719-4439-9ae0-b61e761db24&title=&width=1102.6666666666667" alt="image.png"><br>为什么 BIOS 会按类型来返回内存信息呢？原因是这段内存可能是：</p>
+<p>由于系统内存各部分的类型属性不同，BIOS 就按照类型属性来划分这片系统内存，所以这种查询呈迭代式，每次 BIOS 只返回一种类型的内存信息，直到将所有内存类型返回完毕。<code>0xE820</code>返回的内存信息包括多个属性字段，内存信息的内容使用地址范围描述符来描述的，用于存储这种描述符的结构称之为地址范围描述符（Address Range Descriptor Structure, ARDS)。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667891170654-943da487-fc3b-4b5a-bdaf-e0a7a21289b8.png#averageHue=%23e6e6e6&amp;clientId=u080ef608-c7b8-4&amp;from=paste&amp;height=271&amp;id=u46dd6b27&amp;originHeight=406&amp;originWidth=1658&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=288022&amp;status=done&amp;style=none&amp;taskId=u983ea3ef-d4ff-45e0-9520-c60c414fbd1&amp;title=&amp;width=1105.3333333333333" alt="image.png" /><br />
+此结构中的字段大小都是 4 字节，共 5 个字段，所以一个描述符大小为 20 字节。每次 int 0x15 之后，BIOS 就返回这样一个结构的数据。其中 Type 字段用来描述这段内存的类型，即是否可被操作系统使用，具体意义见下表。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892018960-e60698fe-2d35-4504-afd4-a1b0cb21b37a.png#averageHue=%23dddddd&amp;clientId=u40d51b3b-f688-4&amp;from=paste&amp;height=196&amp;id=u86ffde69&amp;originHeight=294&amp;originWidth=1654&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=280281&amp;status=done&amp;style=none&amp;taskId=uf6a8f3a2-b719-4439-9ae0-b61e761db24&amp;title=&amp;width=1102.6666666666667" alt="image.png" /><br />
+为什么 BIOS 会按类型来返回内存信息呢？原因是这段内存可能是：</p>
 <ol>
 <li>系统的 ROM</li>
 <li>ROM 用到了这部分内存</li>
 <li>设备内存映射到了这部分内存</li>
 <li>由于某种原因，这段内存不适合标准标准设备使用</li>
 </ol>
-<p>由于我们目前在 32 位环境下工作，所以在 ARDS 结构属性中，我们只用到低 32 位属性。<code>BaseAddrLow+LengthLow</code>是一片内存区域上限，单位是字节。正常情况下，不会出现较大的内存区域不可用的情况，除非安装的物理内存极其小。所以这意味着在所有返回的 ARDS 结构里，此值最大的内存块一定是操作系统可使用的部分，即主板上配置的物理内存容量。<br>BIOS 中断只是一段函数例程，调用它就要为其提供参数，下面介绍一下<code>0x820</code>子功能的参数。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892565147-fbf8e6b8-8ec9-4fc9-8b46-d6bfab53cdb5.png#averageHue=%23d8d8d8&clientId=u40d51b3b-f688-4&from=paste&height=267&id=u54104f8d&originHeight=401&originWidth=1648&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=493601&status=done&style=none&taskId=u1717685e-d2f8-4b75-9320-76f33f4495e&title=&width=1098.6666666666667" alt="image.png"><br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892575079-3d4eba6b-9033-4444-919b-deb2f7719179.png#averageHue=%23dcdcdc&clientId=u40d51b3b-f688-4&from=paste&height=415&id=u46ab9ea4&originHeight=622&originWidth=1658&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=686825&status=done&style=none&taskId=uf5ae8583-7334-4475-b2b1-44459fc2d30&title=&width=1105.3333333333333" alt="image.png"><br>ECX 和 ES：DI 寄存器，是典型的“值-结果”型参数。<br>中断的调用步骤：</p>
+<p>由于我们目前在 32 位环境下工作，所以在 ARDS 结构属性中，我们只用到低 32 位属性。<code>BaseAddrLow+LengthLow</code>是一片内存区域上限，单位是字节。正常情况下，不会出现较大的内存区域不可用的情况，除非安装的物理内存极其小。所以这意味着在所有返回的 ARDS 结构里，此值最大的内存块一定是操作系统可使用的部分，即主板上配置的物理内存容量。<br />
+BIOS 中断只是一段函数例程，调用它就要为其提供参数，下面介绍一下<code>0x820</code>子功能的参数。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892565147-fbf8e6b8-8ec9-4fc9-8b46-d6bfab53cdb5.png#averageHue=%23d8d8d8&amp;clientId=u40d51b3b-f688-4&amp;from=paste&amp;height=267&amp;id=u54104f8d&amp;originHeight=401&amp;originWidth=1648&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=493601&amp;status=done&amp;style=none&amp;taskId=u1717685e-d2f8-4b75-9320-76f33f4495e&amp;title=&amp;width=1098.6666666666667" alt="image.png" /><br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667892575079-3d4eba6b-9033-4444-919b-deb2f7719179.png#averageHue=%23dcdcdc&amp;clientId=u40d51b3b-f688-4&amp;from=paste&amp;height=415&amp;id=u46ab9ea4&amp;originHeight=622&amp;originWidth=1658&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=686825&amp;status=done&amp;style=none&amp;taskId=uf5ae8583-7334-4475-b2b1-44459fc2d30&amp;title=&amp;width=1105.3333333333333" alt="image.png" /><br />
+ECX 和 ES：DI 寄存器，是典型的“值-结果”型参数。<br />
+中断的调用步骤：</p>
 <ol>
 <li>填写好“调用前输入”中列出的寄存器；</li>
 <li>执行中断调用 <code>int 0x15</code>；</li>
 <li>在 CF 位为 0 的情况下，“返回后输出”中对应的寄存器便会有对应的结果。</li>
 </ol>
-<h4 id="5-1-3-利用-BIOS-中断-0x15-子功能-0xe801-获取内存"><a href="#5-1-3-利用-BIOS-中断-0x15-子功能-0xe801-获取内存" class="headerlink" title="5.1.3 利用 BIOS 中断 0x15 子功能 0xe801 获取内存"></a>5.1.3 利用 BIOS 中断 0x15 子功能 0xe801 获取内存</h4><p>此方法最大只能识别 4GB 内存，且检测到的内存是分别存放到两组寄存器中的。<br>低于 15MB 的内存以 1KB 为单位大小来记录， 单位数量在寄存器 AX 和 CX 中记录，其中 AX 和 CX 的值是一样的，所以在 15MB 空间以下的实际内存容量&#x3D;AX<em>1024。AX、CX 最大值为<code>0x3c00</code>，即<code>0x3c00*1024=15MB</code>。<br>16MB ～ 4GB 是以 64KB 为单位大小来记录的，单位数量在寄存器 BX 和 DX 中记录，其中 BX 和 DX 的值是一样的，所以 16MB 以上空间的内存实际大小&#x3D;BX</em>64*1024。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667893427371-5e72bb2a-ec9f-40d5-a227-5612faa13880.png#averageHue=%23e3e3e3&clientId=u40d51b3b-f688-4&from=paste&height=357&id=u0d040948&originHeight=536&originWidth=1651&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=410014&status=done&style=none&taskId=u59c4b518-dca8-4f54-b390-aa4f63b4628&title=&width=1100.6666666666667" alt="image.png"><br>此中断的调用步骤：</p>
+<h4 id="513-利用-bios-中断-0x15-子功能-0xe801-获取内存"><a class="markdownIt-Anchor" href="#513-利用-bios-中断-0x15-子功能-0xe801-获取内存"></a> 5.1.3 利用 BIOS 中断 0x15 子功能 0xe801 获取内存</h4>
+<p>此方法最大只能识别 4GB 内存，且检测到的内存是分别存放到两组寄存器中的。<br />
+低于 15MB 的内存以 1KB 为单位大小来记录， 单位数量在寄存器 AX 和 CX 中记录，其中 AX 和 CX 的值是一样的，所以在 15MB 空间以下的实际内存容量=AX<em>1024。AX、CX 最大值为<code>0x3c00</code>，即<code>0x3c00*1024=15MB</code>。<br />
+16MB ～ 4GB 是以 64KB 为单位大小来记录的，单位数量在寄存器 BX 和 DX 中记录，其中 BX 和 DX 的值是一样的，所以 16MB 以上空间的内存实际大小=BX</em>64*1024。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667893427371-5e72bb2a-ec9f-40d5-a227-5612faa13880.png#averageHue=%23e3e3e3&amp;clientId=u40d51b3b-f688-4&amp;from=paste&amp;height=357&amp;id=u0d040948&amp;originHeight=536&amp;originWidth=1651&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=410014&amp;status=done&amp;style=none&amp;taskId=u59c4b518-dca8-4f54-b390-aa4f63b4628&amp;title=&amp;width=1100.6666666666667" alt="image.png" /><br />
+此中断的调用步骤：</p>
 <ol>
 <li>将 AX 寄存器写入 0xE801；</li>
 <li>执行中断调用 int 0x15；</li>
@@ -344,27 +361,31 @@
 </ol>
 <p>历史遗留问题。</p>
 <blockquote>
-<p>80286 拥有 24 位地址线，其寻址空间是 16MB。当时有一些 ISA 设备要用到地址 15~但以上的内存作为缓冲区，也就是此缓冲区为山田大小，所以硬件系统 就把这部分内存保留下来，操作系统不可以用此段内存空间。<br>保留的这部分内存区域就像不可以访问的黑洞， 这就成了内存空洞<code>memory hole</code>，虽然现在很少能碰到这些老 ISA 设备了，但为了兼容这部分空间还是保留下来，只不过可以通过 BIOS 选项的方式由用户自己选择是否开启。</p>
+<p>80286 拥有 24 位地址线，其寻址空间是 16MB。当时有一些 ISA 设备要用到地址 15~但以上的内存作为缓冲区，也就是此缓冲区为山田大小，所以硬件系统 就把这部分内存保留下来，操作系统不可以用此段内存空间。<br />
+保留的这部分内存区域就像不可以访问的黑洞， 这就成了内存空洞<code>memory hole</code>，虽然现在很少能碰到这些老 ISA 设备了，但为了兼容这部分空间还是保留下来，只不过可以通过 BIOS 选项的方式由用户自己选择是否开启。</p>
 </blockquote>
 <ol start="2">
 <li>为什么寄存器结果是重复的？如寄存器 AX 和 CX 相等， BX 和 DX 相等？</li>
 </ol>
 <p>手册原文：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Not sure what this difference between the ”Extended” and ”Configured” numbers are, but they appear to be identical, as reported from the BIOS.</span><br></pre></td></tr></table></figure>
-
 <p>所以这里就不深究了。</p>
-<h4 id="5-1-4-利用-BIOS-中断-0x15-子功能-0xe88-获取内存"><a href="#5-1-4-利用-BIOS-中断-0x15-子功能-0xe88-获取内存" class="headerlink" title="5.1.4 利用 BIOS 中断 0x15 子功能 0xe88 获取内存"></a>5.1.4 利用 BIOS 中断 0x15 子功能 0xe88 获取内存</h4><blockquote>
+<h4 id="514-利用-bios-中断-0x15-子功能-0xe88-获取内存"><a class="markdownIt-Anchor" href="#514-利用-bios-中断-0x15-子功能-0xe88-获取内存"></a> 5.1.4 利用 BIOS 中断 0x15 子功能 0xe88 获取内存</h4>
+<blockquote>
 <p>此中断只能识别最大 64MB 的内存</p>
 </blockquote>
-<p>即使内存容量大于 64MB，也只会显示 63MB，又因为此中断只会显示 1MB 以上的内存，不包括这 1MB，所以在使用时要自己加上 1MB。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667894126668-1a3a3652-eeb7-4ca6-acb9-738603084eb6.png#averageHue=%23e3e3e3&clientId=u40d51b3b-f688-4&from=paste&height=201&id=ua76d6bf5&originHeight=302&originWidth=1679&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=251194&status=done&style=none&taskId=u155a448f-8af9-47a3-a6cf-a7be665d2b1&title=&width=1119.3333333333333" alt="image.png"><br>中断返回后，AX 寄存器的值的单位是 1KB，调用步骤如下：</p>
+<p>即使内存容量大于 64MB，也只会显示 63MB，又因为此中断只会显示 1MB 以上的内存，不包括这 1MB，所以在使用时要自己加上 1MB。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1667894126668-1a3a3652-eeb7-4ca6-acb9-738603084eb6.png#averageHue=%23e3e3e3&amp;clientId=u40d51b3b-f688-4&amp;from=paste&amp;height=201&amp;id=ua76d6bf5&amp;originHeight=302&amp;originWidth=1679&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=251194&amp;status=done&amp;style=none&amp;taskId=u155a448f-8af9-47a3-a6cf-a7be665d2b1&amp;title=&amp;width=1119.3333333333333" alt="image.png" /><br />
+中断返回后，AX 寄存器的值的单位是 1KB，调用步骤如下：</p>
 <ol>
 <li>将 AX 寄存器（表格中有错误）写入 0x88；</li>
 <li>执行中断调用 int 0x15</li>
 <li>在 CF 位为 0 的情况下，“返回后输出”中对应的寄存器便有对应的结果。</li>
 </ol>
-<h4 id="5-1-5-实战内存容量检测"><a href="#5-1-5-实战内存容量检测" class="headerlink" title="5.1.5 实战内存容量检测"></a>5.1.5 实战内存容量检测</h4><p>将<code>mbr.S</code>中的<code>jmp LOADER_BASE_ADDR</code>改为<code>jmp LOADER_BASE_ADDR + 0x300</code>，<br>将 loader.S 改为下述代码：</p>
+<h4 id="515-实战内存容量检测"><a class="markdownIt-Anchor" href="#515-实战内存容量检测"></a> 5.1.5 实战内存容量检测</h4>
+<p>将<code>mbr.S</code>中的<code>jmp LOADER_BASE_ADDR</code>改为<code>jmp LOADER_BASE_ADDR + 0x300</code>，<br />
+将 loader.S 改为下述代码：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line">%include &quot;boot.inc&quot;</span><br><span class="line">SECTION LOADER vstart=LOADER_BASE_ADDR</span><br><span class="line">LOADER_STACK_TOP	equ	LOADER_BASE_ADDR</span><br><span class="line"></span><br><span class="line">;构建 GDT 及其内部的描述符</span><br><span class="line">GDT_BASE: dd      0x00000000</span><br><span class="line">dd      0x00000000</span><br><span class="line"></span><br><span class="line">CODE_DESC: dd      0x0000FFFF</span><br><span class="line">dd      DESC_CODE_HIGH4</span><br><span class="line"></span><br><span class="line">DATA_STACK_DESC:  dd      0x0000FFFF ;直接用普通的数据段作为栈段</span><br><span class="line">dd      DESC_DATA_HIGH4</span><br><span class="line"></span><br><span class="line">VIDEO_DESC: dd      0x80000007      ;limit=(0xbffff - 0xb8000)/4k = 7</span><br><span class="line">dd      DESC_VIDEO_HIGH4;此时dpl为0</span><br><span class="line"></span><br><span class="line">GDT_SIZE        equ     $ - GDT_BASE    ;获取 GDT 大小</span><br><span class="line">GDT_LIMIT       equ     GDT_SIZE - 1    ;获取 段界限</span><br><span class="line">times   60      dq      0       ;预留60个空位，为以后填入中断描述符表和任务状态段TSS描述符留空间 （times 60 表示后面的内容循环60次，是nasm提供的伪指令）</span><br><span class="line">SELECTOR_CODE   equ     (0x0001 &lt;&lt; 3) + TI_GDT + RPL0 ; 相当于(CODE DESC - GOT BASE) /8 + TI_GDT + RPLO</span><br><span class="line">SELECTOR_DATA   equ     (0x0002 &lt;&lt; 3) + TI_GDT + RPL0</span><br><span class="line">SELECTOR_VIDEO  equ     (0x0003 &lt;&lt; 3) + TI_GDT + RPL0</span><br><span class="line"></span><br><span class="line">; total_mem_bytes用于保存内存容量,以字节为单位,此位置比较好记。</span><br><span class="line">; 当前偏移loader.bin文件头0x200字节,loader.bin的加载地址是0x900,</span><br><span class="line">; 故total_mem_bytes内存中的地址是0xb00.将来在内核中咱们会引用此地址</span><br><span class="line">total_mem_bytes dd 0</span><br><span class="line">;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;</span><br><span class="line"></span><br><span class="line">;以下是 gdt 指针，前2字节是gdt界限，后4字节是gdt起始地址</span><br><span class="line">gdt_ptr dw      GDT_LIMIT</span><br><span class="line">dd      GDT_BASE</span><br><span class="line">;loadermsg db &#x27;2 loader in real.&#x27;</span><br><span class="line">;人工对齐:total_mem_bytes 4字节 + gdt_ptr 6字节 + ards_buf 244字节 + ards_nr 2字节 , 共256字节</span><br><span class="line">ards_buf times 244 db 0</span><br><span class="line">ards_nr dw 0                  ;用于记录ards结构体数量</span><br><span class="line"></span><br><span class="line">loader_start:</span><br><span class="line"></span><br><span class="line">;-------  int 15h eax = 0000E820h ,edx = 534D4150h (&#x27;SMAP&#x27;) 获取内存布局  -------</span><br><span class="line"></span><br><span class="line">xor ebx, ebx               ;第一次调用时，ebx值要为0</span><br><span class="line">mov edx, 0x534d4150        ;edx只赋值一次，循环体中不会改变</span><br><span class="line">mov di, ards_buf           ;ards结构缓冲区</span><br><span class="line">.e820_mem_get_loop:           ;循环获取每个ARDS内存范围描述结构</span><br><span class="line">mov eax, 0x0000e820        ;执行int 0x15后,eax值变为0x534d4150,所以每次执行int前都要更新为子功能号。</span><br><span class="line">mov ecx, 20                ;ARDS地址范围描述符结构大小是20字节</span><br><span class="line">int 0x15</span><br><span class="line">jc .e820_failed_so_try_e801   ;若cf位为1则有错误发生，尝试0xe801子功能</span><br><span class="line">add di, cx                 ;使di增加20字节指向缓冲区中新的ARDS结构位置</span><br><span class="line">inc word [ards_nr]         ;记录ARDS数量</span><br><span class="line">cmp ebx, 0                 ;若ebx为0且cf不为1,这说明ards全部返回，当前已是最后一个</span><br><span class="line">jnz .e820_mem_get_loop</span><br><span class="line"></span><br><span class="line">;在所有ards结构中，找出(base_add_low + length_low)的最大值，即内存的容量。</span><br><span class="line">mov cx, [ards_nr]          ;遍历每一个ARDS结构体,循环次数是ARDS的数量</span><br><span class="line">mov ebx, ards_buf</span><br><span class="line">xor edx, edx               ;edx为最大的内存容量,在此先清0</span><br><span class="line">.find_max_mem_area:           ;无须判断type是否为1,最大的内存块一定是可被使用</span><br><span class="line">mov eax, [ebx]             ;base_add_low</span><br><span class="line">add eax, [ebx+8]           ;length_low</span><br><span class="line">add ebx, 20                ;指向缓冲区中下一个ARDS结构</span><br><span class="line">cmp edx, eax               ;冒泡排序，找出最大,edx寄存器始终是最大的内存容量</span><br><span class="line">jge .next_ards</span><br><span class="line">mov edx, eax               ;edx为总内存大小</span><br><span class="line">.next_ards:</span><br><span class="line">loop .find_max_mem_area</span><br><span class="line">jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;------  int 15h ax = E801h 获取内存大小,最大支持4G  ------</span><br><span class="line">; 返回后, ax cx 值一样,以KB为单位,bx dx值一样,以64KB为单位</span><br><span class="line">; 在ax和cx寄存器中为低16M,在bx和dx寄存器中为16MB到4G。</span><br><span class="line">.e820_failed_so_try_e801:</span><br><span class="line">mov ax,0xe801</span><br><span class="line">int 0x15</span><br><span class="line">jc .e801_failed_so_try88   ;若当前e801方法失败,就尝试0x88方法</span><br><span class="line"></span><br><span class="line">;1 先算出低15M的内存,ax和cx中是以KB为单位的内存数量,将其转换为以byte为单位</span><br><span class="line">mov cx,0x400      ;cx和ax值一样,cx用做乘数</span><br><span class="line">mul cx</span><br><span class="line">shl edx,16</span><br><span class="line">and eax,0x0000FFFF</span><br><span class="line">or edx,eax</span><br><span class="line">add edx, 0x100000 ;ax只是15MB,故要加1MB</span><br><span class="line">mov esi,edx       ;先把低15MB的内存容量存入esi寄存器备份</span><br><span class="line"></span><br><span class="line">;2 再将16MB以上的内存转换为byte为单位,寄存器bx和dx中是以64KB为单位的内存数量</span><br><span class="line">xor eax,eax</span><br><span class="line">mov ax,bx</span><br><span class="line">mov ecx, 0x10000     ;0x10000十进制为64KB</span><br><span class="line">mul ecx              ;32位乘法,默认的被乘数是eax,积为64位,高32位存入edx,低32位存入eax.</span><br><span class="line">add esi,eax          ;由于此方法只能测出4G以内的内存,故32位eax足够了,edx肯定为0,只加eax便可</span><br><span class="line">mov edx,esi          ;edx为总内存大小</span><br><span class="line">jmp .mem_get_ok</span><br><span class="line"></span><br><span class="line">;-----------------  int 15h ah = 0x88 获取内存大小,只能获取64M之内  ----------</span><br><span class="line">.e801_failed_so_try88:</span><br><span class="line">;int 15后，ax存入的是以kb为单位的内存容量</span><br><span class="line">mov  ah, 0x88</span><br><span class="line">int  0x15</span><br><span class="line">jc .error_hlt</span><br><span class="line">and eax,0x0000FFFF</span><br><span class="line"></span><br><span class="line">;16位乘法，被乘数是ax,积为32位.积的高16位在dx中，积的低16位在ax中</span><br><span class="line">mov cx, 0x400     ;0x400等于1024,将ax中的内存容量换为以byte为单位</span><br><span class="line">mul cx</span><br><span class="line">shl edx, 16       ;把dx移到高16位</span><br><span class="line">or edx, eax       ;把积的低16位组合到edx,为32位的积</span><br><span class="line">add edx,0x100000  ;0x88子功能只会返回1MB以上的内存,故实际内存大小要加上1MB</span><br><span class="line"></span><br><span class="line">.mem_get_ok:</span><br><span class="line">mov [total_mem_bytes], edx    ;将内存换为byte单位后存入total_mem_bytes处。</span><br><span class="line">;-------------- 准备进入保护模式 -----------------------</span><br><span class="line">;1 打开A20</span><br><span class="line">;2 加载gdt</span><br><span class="line">;3 将cr0的pe位置1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;------------ 1. 打开A20 ------------------</span><br><span class="line">in al, 0x92</span><br><span class="line">or al, 00000010B</span><br><span class="line">out 0x92, al</span><br><span class="line"></span><br><span class="line">;------------ 2.加载GDT ------------</span><br><span class="line">lgdt [gdt_ptr]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">;------------ 3.将CR0的PE位置1 ------------</span><br><span class="line">mov eax, cr0</span><br><span class="line">or eax, 0x00000001</span><br><span class="line">mov cr0, eax</span><br><span class="line"></span><br><span class="line">jmp dword SELECTOR_CODE:p_mode_start ;刷新流水线 流水线是CPU 的工作方式，会把当前指令和后面的几个指令同时放在流水线中重叠执行，由于之前的代码是16位，接下来的代码变成32位了，指令按照16位进行译码会出错，通过刷新流水线可以解决这个问题</span><br><span class="line"></span><br><span class="line">.error_hlt:                   ;出错则挂起</span><br><span class="line">   hlt</span><br><span class="line"></span><br><span class="line">[bits 32]       ;编译成32位程序</span><br><span class="line">p_mode_start:</span><br><span class="line">mov ax, SELECTOR_DATA</span><br><span class="line">mov ds, ax</span><br><span class="line">mov es, ax</span><br><span class="line">mov ss, ax</span><br><span class="line">mov esp, LOADER_STACK_TOP</span><br><span class="line">mov ax, SELECTOR_VIDEO</span><br><span class="line">mov gs, ax</span><br><span class="line"></span><br><span class="line">mov byte [gs:160],&#x27;P&#x27;</span><br><span class="line"></span><br><span class="line">jmp $</span><br></pre></td></tr></table></figure>
-
 <p>代码说明：</p>
 <ol>
 <li>第 28 行定义了 4 字节的变量 total_mem_bytes，此变量用于存储获取到的内存容量，以字节为单位；</li>
@@ -379,14 +400,22 @@
 <li><code>Ctrl + c</code>中断运行</li>
 <li><code>xp 0xb00</code></li>
 </ol>
-<p>得到的结果为<code>0x02000000</code>，换算为十进制即为 32MB，这与 bochsrc.disk 中<code>megs</code>参数配置的内存大小相同。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668435197841-6d760a5a-c3aa-4891-811e-31b4776f85e2.png#averageHue=%233c2660&clientId=ud24c4643-45ab-4&from=paste&height=367&id=u8a418b78&originHeight=550&originWidth=846&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=112606&status=done&style=none&taskId=ue99ace91-d78e-40d9-81ac-493c599acaa&title=&width=564" alt="image.png"></p>
-<h2 id="5-2-启用内存分页机制，畅游虚拟空间"><a href="#5-2-启用内存分页机制，畅游虚拟空间" class="headerlink" title="5.2 启用内存分页机制，畅游虚拟空间"></a>5.2 启用内存分页机制，畅游虚拟空间</h2><h4 id="5-2-1-内存为什么要分页"><a href="#5-2-1-内存为什么要分页" class="headerlink" title="5.2.1 内存为什么要分页"></a>5.2.1 内存为什么要分页</h4><p>略</p>
-<h4 id="5-2-2-一级页表"><a href="#5-2-2-一级页表" class="headerlink" title="5.2.2 一级页表"></a>5.2.2 一级页表</h4><p>分页机制的作用有两方面</p>
+<p>得到的结果为<code>0x02000000</code>，换算为十进制即为 32MB，这与 bochsrc.disk 中<code>megs</code>参数配置的内存大小相同。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668435197841-6d760a5a-c3aa-4891-811e-31b4776f85e2.png#averageHue=%233c2660&amp;clientId=ud24c4643-45ab-4&amp;from=paste&amp;height=367&amp;id=u8a418b78&amp;originHeight=550&amp;originWidth=846&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=112606&amp;status=done&amp;style=none&amp;taskId=ue99ace91-d78e-40d9-81ac-493c599acaa&amp;title=&amp;width=564" alt="image.png" /></p>
+<h2 id="52-启用内存分页机制畅游虚拟空间"><a class="markdownIt-Anchor" href="#52-启用内存分页机制畅游虚拟空间"></a> 5.2 启用内存分页机制，畅游虚拟空间</h2>
+<h4 id="521-内存为什么要分页"><a class="markdownIt-Anchor" href="#521-内存为什么要分页"></a> 5.2.1 内存为什么要分页</h4>
+<p>略</p>
+<h4 id="522-一级页表"><a class="markdownIt-Anchor" href="#522-一级页表"></a> 5.2.2 一级页表</h4>
+<p>分页机制的作用有两方面</p>
 <ol>
 <li>将线性地址转换成物理地址。</li>
 <li>用大小相等的页代替大小不等的段。</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668497779201-17f49dba-8d6b-421c-b4dc-837460e097e6.png#averageHue=%23e2e2e2&clientId=u36d05f59-afab-4&from=paste&height=387&id=u7c343357&originHeight=581&originWidth=896&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=251460&status=done&style=none&taskId=u7dd41af9-e9fc-48e3-a106-be5a98df079&title=&width=597.3333333333334" alt="image.png"><br>32 位地址表示 4GB 空间，可以将 32 位地址分成高低两部分，低地址部分是<code>内存块大小</code>，高地址部分是<code>内存块数量</code>，它们满足：内存块数＊内存块大小&#x3D;4GB。<br>页是地址空间的计量单位，并不是专属物理地址或线性地址，只要是 4KB 的地址空间都可以称为一 页，所以线性地址的一页也要对应物理地址的一页。一页大小为 4KB ，这样一来， 4GB 地址空间被划分 4GB&#x2F;4KB&#x3D;1M 个页，也就是 4GB 空间中可以容纳 1048576 个页，页表中自然也要有 1048576 个页表项， 这就是我们要说的一级页表。一级页表如图 5-11 内存 所示。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668497965438-27481809-13d0-4970-ad90-4ba42842e0da.png#averageHue=%23f1f1f1&clientId=u36d05f59-afab-4&from=paste&height=409&id=ue42089fb&originHeight=614&originWidth=812&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=154811&status=done&style=none&taskId=uf3cc68db-b398-4faf-bc51-034f9017e84&title=&width=541.3333333333334" alt="image.png"><br>所以虚拟地址的高 20 位用来定位一个物理页，低 12 位用来在该物理页内寻址，那么怎样用线性地址找到页表中对应的页表项呢？</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668497779201-17f49dba-8d6b-421c-b4dc-837460e097e6.png#averageHue=%23e2e2e2&amp;clientId=u36d05f59-afab-4&amp;from=paste&amp;height=387&amp;id=u7c343357&amp;originHeight=581&amp;originWidth=896&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=251460&amp;status=done&amp;style=none&amp;taskId=u7dd41af9-e9fc-48e3-a106-be5a98df079&amp;title=&amp;width=597.3333333333334" alt="image.png" /><br />
+32 位地址表示 4GB 空间，可以将 32 位地址分成高低两部分，低地址部分是<code>内存块大小</code>，高地址部分是<code>内存块数量</code>，它们满足：内存块数＊内存块大小=4GB。<br />
+页是地址空间的计量单位，并不是专属物理地址或线性地址，只要是 4KB 的地址空间都可以称为一 页，所以线性地址的一页也要对应物理地址的一页。一页大小为 4KB ，这样一来， 4GB 地址空间被划分 4GB/4KB=1M 个页，也就是 4GB 空间中可以容纳 1048576 个页，页表中自然也要有 1048576 个页表项， 这就是我们要说的一级页表。一级页表如图 5-11 内存 所示。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668497965438-27481809-13d0-4970-ad90-4ba42842e0da.png#averageHue=%23f1f1f1&amp;clientId=u36d05f59-afab-4&amp;from=paste&amp;height=409&amp;id=ue42089fb&amp;originHeight=614&amp;originWidth=812&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=154811&amp;status=done&amp;style=none&amp;taskId=uf3cc68db-b398-4faf-bc51-034f9017e84&amp;title=&amp;width=541.3333333333334" alt="image.png" /><br />
+所以虚拟地址的高 20 位用来定位一个物理页，低 12 位用来在该物理页内寻址，那么怎样用线性地址找到页表中对应的页表项呢？</p>
 <blockquote>
 <p>在此之前，我们要知道两件事：</p>
 <ol>
@@ -394,15 +423,30 @@
 <li>虽然内存分页机制的作用是将虚拟地址转换成物理地址，但其转换过程相当于在关闭分页机制下 进行，过程中所涉及到的页表及页表项的寻址，它们的地址都被 CPU 当作最终的物理地址直接送上地址总线，不会被分页机制再次转换。</li>
 </ol>
 </blockquote>
-<p>因此地址转换过程原理如下：<br>物理地址 &#x3D; <a href="%E4%B8%AD%E6%8B%AC%E5%8F%B7%E4%B8%BA%E5%8F%96%E5%9D%80%E6%93%8D%E4%BD%9C">线性地址的高 20 位 * 4 + <code>cr3</code>中的页表物理地址</a> + 线性地址的低 12 位<br>由于地址转换算法是固定的，故 CPU 中集成了专门用来干这项工作的硬件模块，这个模块被称为<code>页部件</code>，举个例子，以<code>mov ax, [0x1234]</code>来说：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668498838789-cd63d110-c34e-4751-869f-774c1d0cbc90.png#averageHue=%23dcdcdc&clientId=u040547cc-0d18-4&from=paste&height=419&id=ud556b2fd&originHeight=628&originWidth=848&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=282857&status=done&style=none&taskId=u04f351cb-25b4-404e-99b9-a7cb40fd4e3&title=&width=565.3333333333334" alt="image.png"><br>假设在平坦模型下工作，无论段选择子的值是多少，其所指的段基址都是 0。故指令中的有效地址<code>0x1234</code>，其“段基址：段内偏移地址”为<code>0:0x1234</code>，经过段部件处理后，输出的线性地址是<code>0x1234</code>。此线性地址被送入页部件。页部件分析地址的高 20 位为<code>0x00001</code>，低 12 位为<code>0x234</code>。将高 20 位作为页表项索引，再将其*4+<code>cr3</code>中页表的物理地址，得到索引指代的页表项的物理地址，从该物理地址中读取物理页的地址<code>0x9000</code>，将物理页地址和线性地址低 12 位相加得到<code>0x9234</code>，此为线性地址最终转换为的物理地址。</p>
-<h4 id="5-2-3-二级页表"><a href="#5-2-3-二级页表" class="headerlink" title="5.2.3 二级页表"></a>5.2.3 二级页表</h4><p>为什么要搞二级页表？</p>
+<p>因此地址转换过程原理如下：<br />
+物理地址 = <a href="%E4%B8%AD%E6%8B%AC%E5%8F%B7%E4%B8%BA%E5%8F%96%E5%9D%80%E6%93%8D%E4%BD%9C">线性地址的高 20 位 * 4 + <code>cr3</code>中的页表物理地址</a> + 线性地址的低 12 位<br />
+由于地址转换算法是固定的，故 CPU 中集成了专门用来干这项工作的硬件模块，这个模块被称为<code>页部件</code>，举个例子，以<code>mov ax, [0x1234]</code>来说：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668498838789-cd63d110-c34e-4751-869f-774c1d0cbc90.png#averageHue=%23dcdcdc&amp;clientId=u040547cc-0d18-4&amp;from=paste&amp;height=419&amp;id=ud556b2fd&amp;originHeight=628&amp;originWidth=848&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=282857&amp;status=done&amp;style=none&amp;taskId=u04f351cb-25b4-404e-99b9-a7cb40fd4e3&amp;title=&amp;width=565.3333333333334" alt="image.png" /><br />
+假设在平坦模型下工作，无论段选择子的值是多少，其所指的段基址都是 0。故指令中的有效地址<code>0x1234</code>，其“段基址：段内偏移地址”为<code>0:0x1234</code>，经过段部件处理后，输出的线性地址是<code>0x1234</code>。此线性地址被送入页部件。页部件分析地址的高 20 位为<code>0x00001</code>，低 12 位为<code>0x234</code>。将高 20 位作为页表项索引，再将其*4+<code>cr3</code>中页表的物理地址，得到索引指代的页表项的物理地址，从该物理地址中读取物理页的地址<code>0x9000</code>，将物理页地址和线性地址低 12 位相加得到<code>0x9234</code>，此为线性地址最终转换为的物理地址。</p>
+<h4 id="523-二级页表"><a class="markdownIt-Anchor" href="#523-二级页表"></a> 5.2.3 二级页表</h4>
+<p>为什么要搞二级页表？</p>
 <ol>
 <li>一级页表中最多可容纳 1M (1048576）个页表项，每个页表项是 4 字节，如果页表项全满的话， 便是 4MB 大小；</li>
 <li>一级页表中所有页表项必须要提前建好，原因是操作系统要占用 4GB 虚拟地址空间的高 1GB, 用户进程要占用低 3GB；</li>
 <li>每个进程都有自己的页表，进程一多，光是页表占用的空间就很可观了。</li>
 </ol>
-<p><strong>归根结底，我们要解决的是：不要一次性地将全部页表项建好，需要时动态创建页表项。</strong><br>无论是几级页表，标准页的尺寸都是 4KB。所以 4GB 线性地址空间最多有 1M 个标准页。一级页表是将这 1M 个标准页放到一张页表中，二级页表是每个页表包含 1K 个页表项，共放置到 1K 个页表中。页表项大小是 4B，页表包含 1K 个页表项，故一个页表大小 4KB，这刚好是一个标准页的大小。而 1K 个页表的物理地址又都存放在页目录项中，故页目录项的大小也是 4KB。<br>所以页目录表和页表同样可以存于内存中，它们的内存会由操作系统在物理内存中分配和释放。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668501282351-e1cec094-378f-4e4a-890e-5d255c8469ad.png#averageHue=%23e2e2e2&clientId=u97b06b09-9c09-4&from=paste&height=675&id=u95c938e6&originHeight=1012&originWidth=1173&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=571094&status=done&style=none&taskId=u49479f95-0ac4-415a-8fd3-2285eab68c1&title=&width=782" alt="image.png"><br>故二级页表的地址转换步骤如下：<br>物理地址 &#x3D; [线性地址的中 10 位*4 + [线性地址的高 10 位 *4 + PDT 物理地址] ] + 线性地址的低 12 位<br>例如寻址<code>0x1234567</code>：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668502066720-3a2308cc-5b0c-4a0b-a040-9772beaed679.png#averageHue=%23eeeeee&clientId=u97b06b09-9c09-4&from=paste&height=601&id=uf29c0506&originHeight=902&originWidth=1326&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=422971&status=done&style=none&taskId=u45cb9ac7-1f08-4109-9cb6-ecf99b69ee0&title=&width=884" alt="image.png"><br>每个进程都有自己的页表，另外任务切换时页表也需要跟着切换。</p>
-<h5 id="页目录项（PDE）和页表项（PTE）的结构："><a href="#页目录项（PDE）和页表项（PTE）的结构：" class="headerlink" title="页目录项（PDE）和页表项（PTE）的结构："></a>页目录项（PDE）和页表项（PTE）的结构：</h5><p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668502567421-ba8e5aea-c22c-4add-b168-11a5dd260e40.png#averageHue=%23e9e9e9&clientId=u97b06b09-9c09-4&from=paste&height=252&id=ub325434f&originHeight=378&originWidth=1029&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=163972&status=done&style=none&taskId=ucfead333-2217-4739-a411-548ec4326c5&title=&width=686" alt="image.png"><br>其中 12-31 位，共 20 位用来存放物理地址，剩余 0-11 位可用来添加其他属性：</p>
+<p><strong>归根结底，我们要解决的是：不要一次性地将全部页表项建好，需要时动态创建页表项。</strong><br />
+无论是几级页表，标准页的尺寸都是 4KB。所以 4GB 线性地址空间最多有 1M 个标准页。一级页表是将这 1M 个标准页放到一张页表中，二级页表是每个页表包含 1K 个页表项，共放置到 1K 个页表中。页表项大小是 4B，页表包含 1K 个页表项，故一个页表大小 4KB，这刚好是一个标准页的大小。而 1K 个页表的物理地址又都存放在页目录项中，故页目录项的大小也是 4KB。<br />
+所以页目录表和页表同样可以存于内存中，它们的内存会由操作系统在物理内存中分配和释放。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668501282351-e1cec094-378f-4e4a-890e-5d255c8469ad.png#averageHue=%23e2e2e2&amp;clientId=u97b06b09-9c09-4&amp;from=paste&amp;height=675&amp;id=u95c938e6&amp;originHeight=1012&amp;originWidth=1173&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=571094&amp;status=done&amp;style=none&amp;taskId=u49479f95-0ac4-415a-8fd3-2285eab68c1&amp;title=&amp;width=782" alt="image.png" /><br />
+故二级页表的地址转换步骤如下：<br />
+物理地址 = [线性地址的中 10 位*4 + [线性地址的高 10 位 *4 + PDT 物理地址] ] + 线性地址的低 12 位<br />
+例如寻址<code>0x1234567</code>：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668502066720-3a2308cc-5b0c-4a0b-a040-9772beaed679.png#averageHue=%23eeeeee&amp;clientId=u97b06b09-9c09-4&amp;from=paste&amp;height=601&amp;id=uf29c0506&amp;originHeight=902&amp;originWidth=1326&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=422971&amp;status=done&amp;style=none&amp;taskId=u45cb9ac7-1f08-4109-9cb6-ecf99b69ee0&amp;title=&amp;width=884" alt="image.png" /><br />
+每个进程都有自己的页表，另外任务切换时页表也需要跟着切换。</p>
+<h5 id="页目录项pde和页表项pte的结构"><a class="markdownIt-Anchor" href="#页目录项pde和页表项pte的结构"></a> 页目录项（PDE）和页表项（PTE）的结构：</h5>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668502567421-ba8e5aea-c22c-4add-b168-11a5dd260e40.png#averageHue=%23e9e9e9&amp;clientId=u97b06b09-9c09-4&amp;from=paste&amp;height=252&amp;id=ub325434f&amp;originHeight=378&amp;originWidth=1029&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=163972&amp;status=done&amp;style=none&amp;taskId=ucfead333-2217-4739-a411-548ec4326c5&amp;title=&amp;width=686" alt="image.png" /><br />
+其中 12-31 位，共 20 位用来存放物理地址，剩余 0-11 位可用来添加其他属性：</p>
 <table>
 <thead>
 <tr>
@@ -411,19 +455,20 @@
 <th><strong>解析</strong></th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>P</td>
 <td>Present，存在位</td>
 <td>1 表示该页存在于物理内存中，0 表示不在物理内存中</td>
 </tr>
 <tr>
 <td>RW</td>
-<td>Read&#x2F;Write，读写位</td>
+<td>Read/Write，读写位</td>
 <td>1 可读可写，0 可读不可写</td>
 </tr>
 <tr>
 <td>US</td>
-<td>User&#x2F;Supervisor，普通用户&#x2F;超级用户位</td>
+<td>User/Supervisor，普通用户/超级用户位</td>
 <td>若为 1，表示处于 User 级，任意级别（0,1,2,3）特权的程序都可以访问该页；若为 0 ，表示处于 Supervisor 级，特权级别为 3 的程序不允许访问该页， 该页只允许特权级别为 0,1,2 的程序可以访问。</td>
 </tr>
 <tr>
@@ -461,7 +506,8 @@
 <td>Available，可用位</td>
 <td>操作系统可用该位， CPU 不理会该位的值</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <blockquote>
 <p>清空 TLB 有两种方式：</p>
 <ol>
@@ -477,64 +523,97 @@
 <li>寄存器<code>cr0</code>的 PG 位置 1</li>
 </ol>
 </blockquote>
-<p>控制寄存器<code>cr3</code>用于存储页表物理地址，所以<code>cr3</code>基础怒气又被称为页目录基址寄存器（Page Directory Base Register，PDBR）<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668503648668-e1ecba26-aaa6-4afc-93f2-b9c89e024737.png#averageHue=%23dfdfdf&clientId=u97b06b09-9c09-4&from=paste&height=97&id=u1915600f&originHeight=145&originWidth=748&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=78527&status=done&style=none&taskId=u6e4fd7b9-983b-4a9a-ad35-be9b8081539&title=&width=498.6666666666667" alt="image.png"><br>由于页目录表所在的地址要求在一个自然页内，即页目录的起始地址是 4KB 的整数倍，故其低 12 位地址全是 0，所以只需要在 cr3 中存储物理地址的高 20 位即可。另外 cr3 的低 12 位中，只有 PWT 和 PCD 可用。<br>因为控制寄存器是可以与通用寄存器互相传递数据的，所以为 cr3 寄存器赋值可以用现成的<code>mov</code>指令，例如：<code>mov cr[0~7], r32 或 mov r32, cr[0~7]</code>。<br>最后将<code>cr0</code>寄存器的<code>PG</code>位置<code>1</code>，系统便进入了内存分页运行机制，段部件输出的线性地址成为虚拟地址。</p>
-<h4 id="5-2-4-规划页表之操作系统与用户进程的关系"><a href="#5-2-4-规划页表之操作系统与用户进程的关系" class="headerlink" title="5.2.4 规划页表之操作系统与用户进程的关系"></a>5.2.4 规划页表之操作系统与用户进程的关系</h4><p>分页的第一步就是要准备一个页表，所以现在我们要设计一个页表。设计页表其实就是设计内存布局。<br>由于用户进程是共享操作系统的，所以页表要满足一个基本要求：共享。只要让操作系统属于用户进程的虚拟地址空间就好了。我们可以把 4GB 虚拟地址空间分成两部分，一部分专门划给操作系统，另一部分就归用户进程使用。<br>这里我们可以学习 Linux 的做法，虚拟地址空间的 0<del>3GB 是用户进程，3GB</del>4GB 是操作系统。</p>
-<h4 id="5-2-5-启用分页机制"><a href="#5-2-5-启用分页机制" class="headerlink" title="5.2.5 启用分页机制"></a>5.2.5 启用分页机制</h4><p>页表将按照如下方式部署：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668567577167-00c32c43-e3c2-46b2-98cf-23f3a60f0d77.png#averageHue=%23ebebeb&clientId=u1ddc6e82-263d-4&from=paste&height=387&id=ufcaf825a&originHeight=580&originWidth=811&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=244764&status=done&style=none&taskId=u0cb8dab1-8a4b-46c4-91db-7b3f563533c&title=&width=540.6666666666666" alt="image.png"><br>页目录表的位置我们放在物理地址<code>0x100000</code>处为了让页表和页目录表紧凑一些（非必须），咱们让页表紧挨着页目录表，由于页目录表本身占 4KB，所以第一个页表的物理地址是<code>0x101000</code>。</p>
-<h5 id="代码改动"><a href="#代码改动" class="headerlink" title="代码改动"></a>代码改动</h5><p>boot.inc 新增：</p>
+<p>控制寄存器<code>cr3</code>用于存储页表物理地址，所以<code>cr3</code>基础怒气又被称为页目录基址寄存器（Page Directory Base Register，PDBR）<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668503648668-e1ecba26-aaa6-4afc-93f2-b9c89e024737.png#averageHue=%23dfdfdf&amp;clientId=u97b06b09-9c09-4&amp;from=paste&amp;height=97&amp;id=u1915600f&amp;originHeight=145&amp;originWidth=748&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=78527&amp;status=done&amp;style=none&amp;taskId=u6e4fd7b9-983b-4a9a-ad35-be9b8081539&amp;title=&amp;width=498.6666666666667" alt="image.png" /><br />
+由于页目录表所在的地址要求在一个自然页内，即页目录的起始地址是 4KB 的整数倍，故其低 12 位地址全是 0，所以只需要在 cr3 中存储物理地址的高 20 位即可。另外 cr3 的低 12 位中，只有 PWT 和 PCD 可用。<br />
+因为控制寄存器是可以与通用寄存器互相传递数据的，所以为 cr3 寄存器赋值可以用现成的<code>mov</code>指令，例如：<code>mov cr[0~7], r32 或 mov r32, cr[0~7]</code>。<br />
+最后将<code>cr0</code>寄存器的<code>PG</code>位置<code>1</code>，系统便进入了内存分页运行机制，段部件输出的线性地址成为虚拟地址。</p>
+<h4 id="524-规划页表之操作系统与用户进程的关系"><a class="markdownIt-Anchor" href="#524-规划页表之操作系统与用户进程的关系"></a> 5.2.4 规划页表之操作系统与用户进程的关系</h4>
+<p>分页的第一步就是要准备一个页表，所以现在我们要设计一个页表。设计页表其实就是设计内存布局。<br />
+由于用户进程是共享操作系统的，所以页表要满足一个基本要求：共享。只要让操作系统属于用户进程的虚拟地址空间就好了。我们可以把 4GB 虚拟地址空间分成两部分，一部分专门划给操作系统，另一部分就归用户进程使用。<br />
+这里我们可以学习 Linux 的做法，虚拟地址空间的 0~3GB 是用户进程，3GB~4GB 是操作系统。</p>
+<h4 id="525-启用分页机制"><a class="markdownIt-Anchor" href="#525-启用分页机制"></a> 5.2.5 启用分页机制</h4>
+<p>页表将按照如下方式部署：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668567577167-00c32c43-e3c2-46b2-98cf-23f3a60f0d77.png#averageHue=%23ebebeb&amp;clientId=u1ddc6e82-263d-4&amp;from=paste&amp;height=387&amp;id=ufcaf825a&amp;originHeight=580&amp;originWidth=811&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=244764&amp;status=done&amp;style=none&amp;taskId=u0cb8dab1-8a4b-46c4-91db-7b3f563533c&amp;title=&amp;width=540.6666666666666" alt="image.png" /><br />
+页目录表的位置我们放在物理地址<code>0x100000</code>处为了让页表和页目录表紧凑一些（非必须），咱们让页表紧挨着页目录表，由于页目录表本身占 4KB，所以第一个页表的物理地址是<code>0x101000</code>。</p>
+<h5 id="代码改动"><a class="markdownIt-Anchor" href="#代码改动"></a> 代码改动</h5>
+<p>boot.inc 新增：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;---------- loader 和 kernel ----------</span><br><span class="line">PAGE_DIR_TABLE_POS equ 0x100000</span><br><span class="line">;--------------- 页表相关属性 ---------------</span><br><span class="line">PG_P	equ	1b</span><br><span class="line">PG_RW_R	equ	00b</span><br><span class="line">PG_RW_W	equ	10b</span><br><span class="line">PG_US_S	equ 000b</span><br><span class="line">PG_US_U	equ	100b</span><br></pre></td></tr></table></figure>
-
 <p>下面是关于分页功能的函数，只是为了建立页目录表和页表：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">;1.-------- 创建页目录和页表 --------</span><br><span class="line">setup_page:</span><br><span class="line">;先把页目录占用的空间逐字节清 0</span><br><span class="line">        mov ecx, 4096</span><br><span class="line">        xor esi, esi</span><br><span class="line">.clear_page_dir:</span><br><span class="line">        mov byte [PAGE_DIR_TABLE_POS + esi], 0</span><br><span class="line">        inc esi</span><br><span class="line">        loop .clear_page_dir</span><br><span class="line"></span><br><span class="line">;2.创建页目录项（Page Directory Entry)</span><br><span class="line">.create_pde:</span><br><span class="line">        mov eax, PAGE_DIR_TABLE_POS</span><br><span class="line">        add eax, 0x1000                 ;第一个页表的位置（仅次于页目录表，页目录表大小4KB）</span><br><span class="line">        mov ebx ,eax                    ;0x00101 000</span><br><span class="line"></span><br><span class="line">        ;下面将页目录项0和OxcOO都存为第一个页表的地址 ，每个页表表示4MB内存</span><br><span class="line">        ;这样Oxc03fffff(3G-3G04M)以下的地址和Ox003fffff(0-4M)以下的地址都 指向相同的页表</span><br><span class="line">        ;这是为将地址映射为内核地址做准备</span><br><span class="line">        or  eax, PG_US_U | PG_RW_W | PG_P       ;用户特权级，可读可写，存在内存</span><br><span class="line">        mov [PAGE_DIR_TABLE_POS + 0x0]  , eax   ;第一个目录项，0x00101 007</span><br><span class="line">        mov [PAGE_DIR_TABLE_POS + 0xc00], eax   ;第0xc00高10位0x300=768个页表占用的目录项，0xc00以上属于kernel空间,这里是把第769个目录页和第1个目录页指向同一个页表的物理地址：0x101000</span><br><span class="line">        ;系统实际位于0～0x100000内存地址中，将系统虚拟地址0xc00000000映射到这低1M的空间内，只需要让0xc0000000的地址指向和低1M相同的页表即可</span><br><span class="line"></span><br><span class="line">        sub eax, 0x1000</span><br><span class="line">        mov [PAGE_DIR_TABLE_POS + 4092], eax  ;使最后一个目录项指向页目录表自己的位置</span><br><span class="line"></span><br><span class="line">;3.创建页表项（Page Table Entry）</span><br><span class="line">        mov ecx, 256                            ;1M低端内存/每页大小4K = 256</span><br><span class="line">        mov esi, 0</span><br><span class="line">        mov edx, PG_US_U | PG_RW_W | PG_P       ;地址为0x0，属性为7，111b</span><br><span class="line">        ;这个页表项提供map地址的范围是0x0~0x100000,也就是低端1M</span><br><span class="line">.create_pte:</span><br><span class="line">        mov [ebx+esi*4], edx</span><br><span class="line">        add edx, 0x1000</span><br><span class="line">        inc esi</span><br><span class="line">        loop .create_pte                        ;低端1M内存中，物理地址=虚拟地址，这里创建了1M空间的页表项</span><br><span class="line"></span><br><span class="line">;创建内核其他页表的PDE</span><br><span class="line">        mov eax, PAGE_DIR_TABLE_POS</span><br><span class="line">        add eax, 0x2000                         ;第二个页表</span><br><span class="line">        or  eax, PG_US_U | PG_RW_W | PG_P       ;111b</span><br><span class="line">        mov ebx, PAGE_DIR_TABLE_POS</span><br><span class="line">        mov ecx, 254                            ;769~1022的所有目录项数量</span><br><span class="line">        mov esi, 769</span><br><span class="line">.create_kernel_pde:</span><br><span class="line">        mov [ebx+esi*4], eax</span><br><span class="line">        inc esi</span><br><span class="line">        add eax, 0x1000</span><br><span class="line">        loop .create_kernel_pde</span><br><span class="line">        ret</span><br></pre></td></tr></table></figure>
-
 <ul>
-<li><p>181~ 189 行是清空页目录表</p>
+<li>
+<p>181~ 189 行是清空页目录表</p>
 </li>
-<li><p>191~ 205 行是创建页目录项</p>
+<li>
+<p>191~ 205 行是创建页目录项</p>
 <blockquote>
-<p>为什么要在两处指向同一个页表？<br>是因为在加载内核前，程序运行的一直都是 loader，它本身的代码都是在 1MB 以内，必须保证之前段机制下的线性地址和分页后的虚拟地址对应到物理地址一致。<br>第 0 页目录项代表的页表大小为 4MB，表示空间为<code>0~0x3fffff</code>，包括了 1MB(0<del>0xffffff)，所以用第 0 项来保证 loader 在分页机制下依然运行正确。<br>放到 768 项是因为我们将来会把操作系统内核放在低端 1M 物理内存空间，但操作系统的虚拟地址是<code>0xc0000000</code>以上，即该虚拟地址对应的页目录项是第 768 个。第 768 项表示的空间是&#96;0xc0000000</del>0xc03fffff&#96;，其包含了操作系统内核所占的低端 1MB 物理内存，从而实现了操作系统高 3GB 以上的虚拟地址对应了低端 1MB。</p>
+<p>为什么要在两处指向同一个页表？<br />
+是因为在加载内核前，程序运行的一直都是 loader，它本身的代码都是在 1MB 以内，必须保证之前段机制下的线性地址和分页后的虚拟地址对应到物理地址一致。<br />
+第 0 页目录项代表的页表大小为 4MB，表示空间为<code>0~0x3fffff</code>，包括了 1MB(0~0xffffff)，所以用第 0 项来保证 loader 在分页机制下依然运行正确。<br />
+放到 768 项是因为我们将来会把操作系统内核放在低端 1M 物理内存空间，但操作系统的虚拟地址是<code>0xc0000000</code>以上，即该虚拟地址对应的页目录项是第 768 个。第 768 项表示的空间是<code>0xc0000000~0xc03fffff</code>，其包含了操作系统内核所占的低端 1MB 物理内存，从而实现了操作系统高 3GB 以上的虚拟地址对应了低端 1MB。</p>
 </blockquote>
 </li>
-<li><p>204 ～ 205 行是在页目录的最后二个页目录项中写入页表自己的物理地址</p>
+<li>
+<p>204 ～ 205 行是在页目录的最后二个页目录项中写入页表自己的物理地址</p>
 <blockquote>
-<p>目的是为了将来能够动态操作页表<br>使用<code>PG_US_U</code>是因为将来会实现 init 进程，它是用户级程序但它位于内核地址空间，也就是将来会在特权级 3 下执行 init，这会访问到内核空间。</p>
+<p>目的是为了将来能够动态操作页表<br />
+使用<code>PG_US_U</code>是因为将来会实现 init 进程，它是用户级程序但它位于内核地址空间，也就是将来会在特权级 3 下执行 init，这会访问到内核空间。</p>
 </blockquote>
 </li>
-<li><p>207 ～ 215 行是创建页表</p>
+<li>
+<p>207 ～ 215 行是创建页表</p>
 <blockquote>
-<p>由于目前只用到了 1MB 空间，所以我们只为这 1MB 空间分配物理页，即需要分配 1MB&#x2F;4KB &#x3D; 256 个页表项。</p>
+<p>由于目前只用到了 1MB 空间，所以我们只为这 1MB 空间分配物理页，即需要分配 1MB/4KB = 256 个页表项。</p>
 </blockquote>
 </li>
-<li><p>217 ～ 228 行创建除第 768 个页表之外的其他页表对应的 PDE，也就是内核空间中除第 0 个页表外的其余所有页表对应的目录项。</p>
+<li>
+<p>217 ～ 228 行创建除第 768 个页表之外的其他页表对应的 PDE，也就是内核空间中除第 0 个页表外的其余所有页表对应的目录项。</p>
 <blockquote>
-<p>第 0 个 PDE 刚刚已经创建，第 255 个 PDE 指向了页目录表本身，故在页目录表中还可以为内核额外安装 254 个 PDE。<br>当然必须要为页表中具体的 PTE 分配物理页框后才算真正的内存空间，此处还不算，此处在 页目录表中把内核空间的目录项写满，目的是为将来的用户进程做准备，使所有用户进程共享内核空间。<br>这里还需解释下，我们将来要完成的任务是让每个用户进程都有独立的页表，也就是独立的虚拟 4GB 空间。其中低 3GB 属于用户进程自己的空间，高 1GB 是内核空间，内核将被所有用户进程共享。为了实现所有用户进程共享内核，各用户进程的高 1GB 必须“都”指向内核 所在的物理内存空间，也就是说每个进程页目录表中第 768 ～ 1022 个页目录项都是与其他进程相同的（各进程页目录表中第 1023 个目录项指向页目录表自身）。因此在为用户进程创建页表时，我们应该把内核页表中第 768 ～ 1022 个页目录项复制到用户进程页目录表中的相同位置。<br>一个页目录项对应一个页表地址，页表地址固定了，后来新增的页表项也只会加在这些固定的页表中。如果不这样的话，进程陷入内核时， 假设内核为了某些需求为内核空间新增页表（通常是申请大量内存），因此还需要把新内核页表同步到其他进程的页表中，否则内核无法被“完全”共享，只能是“部分”共享。。所以，实现内核完全共享最简单的办法是提前把内核的所有页目录项定下来，也就是提前把内核的页表固定下来，这是实现内核共享的关键。</p>
+<p>第 0 个 PDE 刚刚已经创建，第 255 个 PDE 指向了页目录表本身，故在页目录表中还可以为内核额外安装 254 个 PDE。<br />
+当然必须要为页表中具体的 PTE 分配物理页框后才算真正的内存空间，此处还不算，此处在 页目录表中把内核空间的目录项写满，目的是为将来的用户进程做准备，使所有用户进程共享内核空间。<br />
+这里还需解释下，我们将来要完成的任务是让每个用户进程都有独立的页表，也就是独立的虚拟 4GB 空间。其中低 3GB 属于用户进程自己的空间，高 1GB 是内核空间，内核将被所有用户进程共享。为了实现所有用户进程共享内核，各用户进程的高 1GB 必须“都”指向内核 所在的物理内存空间，也就是说每个进程页目录表中第 768 ～ 1022 个页目录项都是与其他进程相同的（各进程页目录表中第 1023 个目录项指向页目录表自身）。因此在为用户进程创建页表时，我们应该把内核页表中第 768 ～ 1022 个页目录项复制到用户进程页目录表中的相同位置。<br />
+一个页目录项对应一个页表地址，页表地址固定了，后来新增的页表项也只会加在这些固定的页表中。如果不这样的话，进程陷入内核时， 假设内核为了某些需求为内核空间新增页表（通常是申请大量内存），因此还需要把新内核页表同步到其他进程的页表中，否则内核无法被“完全”共享，只能是“部分”共享。。所以，实现内核完全共享最简单的办法是提前把内核的所有页目录项定下来，也就是提前把内核的页表固定下来，这是实现内核共享的关键。</p>
 </blockquote>
 </li>
 </ul>
 <p>p_load_start 内容改动：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">p_mode_start:</span><br><span class="line">        mov ax, SELECTOR_DATA</span><br><span class="line">        mov ds, ax</span><br><span class="line">        mov es, ax</span><br><span class="line">        mov ss, ax</span><br><span class="line">        mov esp, LOADER_STACK_TOP</span><br><span class="line">        mov ax, SELECTOR_VIDEO</span><br><span class="line">        mov gs, ax</span><br><span class="line"></span><br><span class="line">        mov byte [gs:160],&#x27;P&#x27;</span><br><span class="line">;创建页目录和页表并初始化页内存位图</span><br><span class="line">        call setup_page</span><br><span class="line"></span><br><span class="line">        ;gdt需要放在内核里将描述符表地址&amp;偏移量写入内存gdt_ptr，一会用新的地址加载</span><br><span class="line">        sgdt [gdt_ptr]          ;取出GDT地址和偏移信息，存放在gdt_ptr这个内存位置上</span><br><span class="line"></span><br><span class="line">        ;视频段需要放在内核里与用户进程进行共享</span><br><span class="line">        ;将gdt描述符中视频段的段基址+0xc0000000</span><br><span class="line">        mov ebx, [gdt_ptr + 2]                  ;这里gdt_ptr前2字节是偏移量，后4字节是GDT基址，先选中GDT</span><br><span class="line">        or dword [ebx + 0x18 + 4], 0xc0000000   ;一个描述符8字节，0x18处是第3个段描述符也就是视频段，修改段基址最高位为C，+4进入高4字节，用or修改即可</span><br><span class="line"></span><br><span class="line">        ;将gdt的基址加上 0xc0000000 成为内核所在的地址</span><br><span class="line">        add dword [gdt_ptr + 2], 0xc0000000</span><br><span class="line">        add esp, 0xc0000000     ;将栈指针同样map到内核地址</span><br><span class="line"></span><br><span class="line">        ;页目录赋值给CR3</span><br><span class="line">        mov eax, PAGE_DIR_TABLE_POS</span><br><span class="line">        mov cr3, eax</span><br><span class="line"></span><br><span class="line">        ;打开cr0的pg位（第31位）</span><br><span class="line">        mov eax, cr0</span><br><span class="line">        or eax, 0x80000000</span><br><span class="line">        mov cr0, eax</span><br><span class="line"></span><br><span class="line">        ;开启分页后，用gdt新的地址重新加载</span><br><span class="line">        lgdt [gdt_ptr]</span><br><span class="line">        mov ax, SELECTOR_VIDEO ;这里书上存在问题，寄存器没刷新直接写入，就没往虚拟内存里写入了，这里需要重新初始化一下gs寄存器</span><br><span class="line">        mov gs, ax</span><br><span class="line">        mov byte [gs:320], &#x27;V&#x27;</span><br><span class="line">				jmp $</span><br></pre></td></tr></table></figure>
-
 <ul>
 <li>第 14 ～ 15 行，是为了重启加载 GDT 做准备。因为我们在页表中会将内核放置到 3GB 以上的地址，我们也把 GOT 放在内核的地址空间，在此通过 sgdt 指令，将 GOT 的起始地址和偏移量信息 dump （像倒水一样）出来，依然存放到 gdt_ptr 处， 一会儿待条件成熟时，我们再从地址 gdt_ptr 处重新加载 GDT；</li>
-<li>第 17 ～ 20 行是修改显存段的段描述符的段基址，因为将来内核运行在 3GB 以上，打印功能将来也是在内核中实现，肯定不能让用户进程直接能控制显存。故显存段的段基址也要改为 3GB 以上才行。 大家都知道 32 位虚拟地址空间共 4GB，若用十六进制表示，最高位（第 31 位）每变化 4 位就表示 1GB 空间，也没什么高深的，其实就是 16 位／4GB&#x3D;4 位&#x2F;1GB，意为每 1GB 内存空间需要 4 位来表示；</li>
+<li>第 17 ～ 20 行是修改显存段的段描述符的段基址，因为将来内核运行在 3GB 以上，打印功能将来也是在内核中实现，肯定不能让用户进程直接能控制显存。故显存段的段基址也要改为 3GB 以上才行。 大家都知道 32 位虚拟地址空间共 4GB，若用十六进制表示，最高位（第 31 位）每变化 4 位就表示 1GB 空间，也没什么高深的，其实就是 16 位／4GB=4 位/1GB，意为每 1GB 内存空间需要 4 位来表示；</li>
 <li>第 22 ~ 23 行将 gdt 基址移到内核空间；</li>
 <li>第 24 行将栈地址移到内核空间；</li>
-<li>第 26 ~ 33 行是启用分页机制的第 2&#x2F;3 步，即将页目录地址赋值给<code>cr3</code>寄存器，启用<code>cr0</code>寄存器的 PG 位；</li>
-<li>第 37 ~ 39 行是为了检查在分页急之下程序是否工作正常，在 39 行直接写入字符”V”，但这里书中存在问题，寄存器没刷新直接写入就没有往虚拟内存里写入了，故这里需要重新初始化 gs 寄存器，显示结果：</li>
+<li>第 26 ~ 33 行是启用分页机制的第 2/3 步，即将页目录地址赋值给<code>cr3</code>寄存器，启用<code>cr0</code>寄存器的 PG 位；</li>
+<li>第 37 ~ 39 行是为了检查在分页急之下程序是否工作正常，在 39 行直接写入字符&quot;V&quot;，但这里书中存在问题，寄存器没刷新直接写入就没有往虚拟内存里写入了，故这里需要重新初始化 gs 寄存器，显示结果：</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668669537491-edeebf90-7f20-429e-9a83-e890b4d40bc0.png#averageHue=%23310b26&clientId=u2d55ce98-f697-4&from=paste&height=219&id=u6f6e642f&originHeight=328&originWidth=712&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=69948&status=done&style=none&taskId=ub0d53dd2-173c-43d5-8307-7c8b1d852a7&title=&width=474.6666666666667" alt="image.png"></p>
-<h4 id="5-2-6-用虚拟地址访问页表"><a href="#5-2-6-用虚拟地址访问页表" class="headerlink" title="5.2.6 用虚拟地址访问页表"></a>5.2.6 用虚拟地址访问页表</h4><p>使用<code>info tab</code>可以看到页表中虚拟地址到物理地址的映射关系。（info<br>是用来查看各种数据的命令，tab 是指页表）。<br>下图为我们目前的虚拟地址映射情况：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668669884464-f42a9afd-b79b-4120-b2bc-712d203e2457.png#averageHue=%23300c29&clientId=u2d55ce98-f697-4&from=paste&height=89&id=u6c3a6006&originHeight=134&originWidth=636&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=12701&status=done&style=none&taskId=ud13bb71f-8ceb-4fdf-a326-035f36b1b40&title=&width=424" alt="image.png"><br>其中前两行的映射是第 0 个页表和第 768 个页表的作用，后三行是由于将页目录表写入了最后一个页目录项，也就是<code>mov [PAGE_DIR_TABLE_POS + 4092], eax</code>的作用。<br>针对后三个映射的分析：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668669537491-edeebf90-7f20-429e-9a83-e890b4d40bc0.png#averageHue=%23310b26&amp;clientId=u2d55ce98-f697-4&amp;from=paste&amp;height=219&amp;id=u6f6e642f&amp;originHeight=328&amp;originWidth=712&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=69948&amp;status=done&amp;style=none&amp;taskId=ub0d53dd2-173c-43d5-8307-7c8b1d852a7&amp;title=&amp;width=474.6666666666667" alt="image.png" /></p>
+<h4 id="526-用虚拟地址访问页表"><a class="markdownIt-Anchor" href="#526-用虚拟地址访问页表"></a> 5.2.6 用虚拟地址访问页表</h4>
+<p>使用<code>info tab</code>可以看到页表中虚拟地址到物理地址的映射关系。（info<br />
+是用来查看各种数据的命令，tab 是指页表）。<br />
+下图为我们目前的虚拟地址映射情况：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668669884464-f42a9afd-b79b-4120-b2bc-712d203e2457.png#averageHue=%23300c29&amp;clientId=u2d55ce98-f697-4&amp;from=paste&amp;height=89&amp;id=u6c3a6006&amp;originHeight=134&amp;originWidth=636&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=12701&amp;status=done&amp;style=none&amp;taskId=ud13bb71f-8ceb-4fdf-a326-035f36b1b40&amp;title=&amp;width=424" alt="image.png" /><br />
+其中前两行的映射是第 0 个页表和第 768 个页表的作用，后三行是由于将页目录表写入了最后一个页目录项，也就是<code>mov [PAGE_DIR_TABLE_POS + 4092], eax</code>的作用。<br />
+针对后三个映射的分析：</p>
 <ol>
-<li><code>0x00000000ffc00000-0x00000000ffc00fff -&gt; 0x000000101000-0x000000101fff</code>：<code>0xffc00000</code>高 10 位全为 1，即 1111111111b&#x3D;0x3ff&#x3D;1023，则此为内核空间页目录项的第 1023 项，此目录项存放的是页目录项的地址；中间 10 位全为 0，即检索到第 0 个页表项，此时检索的页表项即为页目录表的第 0 个页目录项，其中记录的是第一个页表的物理地址<code>0x101000</code>，故该值被认定为最终的物理页地址；由于低 12 位为全 0，故最终的物理地址为<code>0x101000+0x000 = 0x101000</code>。<code>0xffc00fff</code>同理。</li>
-<li><code>0x00000000fff00000-0x00000000ffffefff -&gt; 0x000000101000-0x0000001fffff</code>：<code>0xfff00000</code>高 10 位全为 1，中间 10 位为 1100000000b&#x3D;0x300，此为第 768 个页目录项，该目录项指向的页表与第 0 个页目录项相同，故该地址指向的物理地址与上面相同。</li>
+<li><code>0x00000000ffc00000-0x00000000ffc00fff -&gt; 0x000000101000-0x000000101fff</code>：<code>0xffc00000</code>高 10 位全为 1，即 1111111111b=0x3ff=1023，则此为内核空间页目录项的第 1023 项，此目录项存放的是页目录项的地址；中间 10 位全为 0，即检索到第 0 个页表项，此时检索的页表项即为页目录表的第 0 个页目录项，其中记录的是第一个页表的物理地址<code>0x101000</code>，故该值被认定为最终的物理页地址；由于低 12 位为全 0，故最终的物理地址为<code>0x101000+0x000 = 0x101000</code>。<code>0xffc00fff</code>同理。</li>
+<li><code>0x00000000fff00000-0x00000000ffffefff -&gt; 0x000000101000-0x0000001fffff</code>：<code>0xfff00000</code>高 10 位全为 1，中间 10 位为 1100000000b=0x300，此为第 768 个页目录项，该目录项指向的页表与第 0 个页目录项相同，故该地址指向的物理地址与上面相同。</li>
 <li><code>0x00000000fffff000-0x00000000ffffffff -&gt; 0x000000100000-0x000000100fff</code>：<code>0xfffff000</code>高十位全为 1，中间十位也全为 1，故检索的是第 1023 个页目录项对应页表的第 1023 个页表项，第 1023 个页目录项的物理地址是页目录项自身的物理地址<code>0x00100000</code>，也就是找页目录项对应的第 1023 个页表项，即为页目录项第 1023 个页目录项，仍为页目录项的物理地址<code>0x00100000</code>，又由于低 12 位全为 0，故最终物理地址为：<code>0x00100000 + 0x000 = 0x00100000</code>，<code>0x00100fff</code>同理。</li>
 </ol>
-<p><strong>总结：若虚拟地址的高 20 位为</strong><code>**0xfffff**</code><strong>，那么经过页目录表的映射，将会访问到页目录表自身的物理地址。</strong><br>所以用虚拟地址获取页表各数据类型的方法：</p>
+<p><strong>总结：若虚拟地址的高 20 位为</strong><code>**0xfffff**</code><strong>，那么经过页目录表的映射，将会访问到页目录表自身的物理地址。</strong><br />
+所以用虚拟地址获取页表各数据类型的方法：</p>
 <ul>
 <li><strong>获取页目录表物理地址</strong>：让虚拟地址的高 20 位为 0xfffff，低 12 位为 0x000，即 <code>0xfffff000</code>，这是页目录表中第 0 个页目录项自身的物理地址；</li>
 <li>访问页目录中的页目录项，即获取页表物理地址：要使虚拟地址为<code>0xfffffxxx</code>，其中 xxx 是页目录项的索引*4 的积；</li>
 <li>访问页表中的页表项：要使虚拟地址高 10 位为 0x3ff，目的是获取页目录表物理地址。中间 10 位为页表的索引，因为是 10 位的索引值，所以这里不用乘以 4。低 12 位为页表内的偏移地址，用来定位页表项，它必须是己经乘以 4 后的值。公式为：<code>0x3ff&lt;&lt;22 + 中间10位&lt;&lt;12 + 低12位</code></li>
 </ul>
-<h4 id="5-2-7-快表-TLB（Translation-Lookaside-Buffer）简介"><a href="#5-2-7-快表-TLB（Translation-Lookaside-Buffer）简介" class="headerlink" title="5.2.7 快表 TLB（Translation Lookaside Buffer）简介"></a>5.2.7 快表 TLB（Translation Lookaside Buffer）简介</h4><p>专门用来存放虚拟地址页框与物理地址页框的映射关系，这个调整缓存就是 TLB，俗称快表。<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668673297929-5f2a40ca-ee2b-4c12-8d7e-60b6448da242.png#averageHue=%23d1d1d1&clientId=ue0ee66e5-1304-4&from=paste&height=123&id=udce3972c&originHeight=184&originWidth=530&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=70861&status=done&style=none&taskId=u2eb2da79-3a55-4365-9897-149ddb4c996&title=&width=353.3333333333333" alt="image.png"><br>TLB 中的条目是虚拟地址的高 20 位到物理地址高 20 位的映射结果，实际上就是从虚拟页框到物理页框的映射。除此之外 TLB 中还有一些属性位，比如页表项的 RW 属性。<br>有了 TLB，处理器在寻址之前会用虚拟地址的高 20 位作为索引来查找 TLB 中的相关条目，如果命中则返回虚拟地址所映射的物理页框地址，否则会查询内存中的页表，获得页框物理地址后再更新 TLB。<br>缓存相当于数据源的快照，为了保证缓存与数据源同步变化，这就涉及到缓存刷新的问题。目前 TLB 并不自动更新，处理器也不负责，而是把维护工作交给操作系统开发人员。<br>尽管 TLB 对开发人员不可见，但依然有两种方法可以间接更新 TLB：</p>
+<h4 id="527-快表-tlbtranslation-lookaside-buffer简介"><a class="markdownIt-Anchor" href="#527-快表-tlbtranslation-lookaside-buffer简介"></a> 5.2.7 快表 TLB（Translation Lookaside Buffer）简介</h4>
+<p>专门用来存放虚拟地址页框与物理地址页框的映射关系，这个调整缓存就是 TLB，俗称快表。<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1668673297929-5f2a40ca-ee2b-4c12-8d7e-60b6448da242.png#averageHue=%23d1d1d1&amp;clientId=ue0ee66e5-1304-4&amp;from=paste&amp;height=123&amp;id=udce3972c&amp;originHeight=184&amp;originWidth=530&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=70861&amp;status=done&amp;style=none&amp;taskId=u2eb2da79-3a55-4365-9897-149ddb4c996&amp;title=&amp;width=353.3333333333333" alt="image.png" /><br />
+TLB 中的条目是虚拟地址的高 20 位到物理地址高 20 位的映射结果，实际上就是从虚拟页框到物理页框的映射。除此之外 TLB 中还有一些属性位，比如页表项的 RW 属性。<br />
+有了 TLB，处理器在寻址之前会用虚拟地址的高 20 位作为索引来查找 TLB 中的相关条目，如果命中则返回虚拟地址所映射的物理页框地址，否则会查询内存中的页表，获得页框物理地址后再更新 TLB。<br />
+缓存相当于数据源的快照，为了保证缓存与数据源同步变化，这就涉及到缓存刷新的问题。目前 TLB 并不自动更新，处理器也不负责，而是把维护工作交给操作系统开发人员。<br />
+尽管 TLB 对开发人员不可见，但依然有两种方法可以间接更新 TLB：</p>
 <ol>
 <li>一是针对 TLB 中所有条目的方法一一重新加载 CR3，比如将 CR3 寄存器的数据读出来后再写入 CR3，这会使整个 TLB 失效。</li>
 <li>二是方法是针对 TLB 中某个条目的更新。处理器提供了指令 invlpg (invalidate page），它用于在 TLB 中刷新某个虚拟地址对应的条目，处理器是用虚拟地址来检索 TLB 的，因此很自然地，指令 invlpg 的操作数也是虚拟地址，其指令格式为 <code>invlpg m</code>。</li>
@@ -591,10 +670,12 @@
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -616,9 +697,12 @@
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -640,8 +724,12 @@
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 
@@ -663,10 +751,11 @@
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+								 5.3 加载内核
+ 5.3.1 用 C 语言写内核
+第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-
-这个内核文件什么都没做，通过while(1)这个死循环一直...
+这个内核文件什么都没做，通过while(1)这个死循...
 							</p>
 						</div>
 
@@ -688,7 +777,9 @@
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								4.1 保护模式概述在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel 紧...
+								 4.1 保护模式概述
+在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
 							</p>
 						</div>
 
@@ -710,13 +801,14 @@
 								九月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
+								 3.3 让我们对显示器说点什么吧
+ 3.3.1 CPU 如何与外设通信——IO 接口
+IO 接口功能：
 
 设置数据缓冲，解决 CPU 与外设的速度不匹配
 设置信号电平转换电路
 设置数据格式转换
-设置时序控制电路来同步 CPU 和外部设备
-提...
+设置时序控制电路来同步 CPU 和外部...
 							</p>
 						</div>
 
@@ -738,9 +830,11 @@
 								九月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								针对汇编几个知识点：
+								 针对汇编
 
-第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及...
+几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字...
 							</p>
 						</div>
 
@@ -762,7 +856,8 @@
 								五月 23日, 2022				
 							</p>
 							<p class="relate-post-content">
-								先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器...
+								 先了解 CPU 的两种工作模式：实模式和保护模式
+实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存...
 							</p>
 						</div>
 
@@ -784,10 +879,13 @@
 								五月 9日, 2022				
 							</p>
 							<p class="relate-post-content">
-								第 0 章：一些你可能正感到迷惑的问题
+								 第 0 章：一些你可能正感到迷惑的问题
+
 摘记
 
-0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇...
+ 0.28 MBR、EBR、DBR 和 OBR 各是什么
+
+MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分...
 							</p>
 						</div>
 

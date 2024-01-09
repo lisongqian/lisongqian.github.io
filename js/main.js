@@ -726,4 +726,15 @@ jQuery(document).ready(function ($) {
 	})();
 });
 
+// 获取所有图片元素
+let change_small_images = document.querySelectorAll('img');
+change_small_images.forEach(function(image) {
+	// 检查图片宽度是否小于100像素
+	if (image.width < 100) {
+		// 如果宽度小于100像素，添加特定的CSS类
+		image.classList.add('small-width-image');
+		console.log("change img width: ",image.width);
+	}
+});
+
 console.log("%c Github %c", "background: #222222; color: #ffffff", " ", "https://github.com/Sariay/hexo-theme-Annie");

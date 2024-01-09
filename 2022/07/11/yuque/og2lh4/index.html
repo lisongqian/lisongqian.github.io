@@ -310,22 +310,24 @@
 			<blockquote>
 <p>本文章介绍了对<a target="_blank" rel="noopener" href="https://gitlab.com/alfredchen/linux-prjc">project-c 社区 linux-prjc 项目</a>5.15 版本内核编译测试的准备工作。</p>
 </blockquote>
-<h3 id="纯净版内核编译："><a href="#纯净版内核编译：" class="headerlink" title="纯净版内核编译："></a>纯净版内核编译：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitlab.com/alfredchen/projectc/-/raw/master/vm_kernel_config/5.15-pds-vm-mini-smt_nice.config?inline=<span class="literal">false</span></span><br><span class="line"><span class="built_in">cp</span> 5.15-pds-vm-mini-smt_nice.config linux-prjc/.config</span><br><span class="line"><span class="built_in">nice</span> -n 10 make -j8</span><br></pre></td></tr></table></figure>
-
-<h3 id="KVM-准备工作"><a href="#KVM-准备工作" class="headerlink" title="KVM 准备工作"></a>KVM 准备工作</h3><blockquote>
+<h3 id="纯净版内核编译"><a class="markdownIt-Anchor" href="#纯净版内核编译"></a> 纯净版内核编译：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://gitlab.com/alfredchen/projectc/-/raw/master/vm_kernel_config/5.15-pds-vm-mini-smt_nice.config?inline=<span class="literal">false</span></span><br><span class="line"><span class="built_in">cp</span> 5.15-pds-vm-mini-smt_nice.config linux-prjc/.config</span><br><span class="line"><span class="built_in">nice</span> -n 10 make -j8</span><br></pre></td></tr></table></figure>
+<h3 id="kvm-准备工作"><a class="markdownIt-Anchor" href="#kvm-准备工作"></a> KVM 准备工作</h3>
+<blockquote>
 <p>必须拥有 支持 VT-x（vmx）的 Intel 处理器 或者支持 AMD-V (svm) 技术的 AMD 处理器</p>
 </blockquote>
 <ol>
 <li>确认 BIOS 中的 VT 或 AMD-V 开启</li>
 <li>使用 VM 的用户确认<code>虚拟机设置</code>-&gt;<code>处理器</code>-&gt;<code>虚拟化引擎</code>中的<code>虚拟化Intel VT-x/EPT 或 AMD-V/RVI(V)</code>开启</li>
 </ol>
-<h3 id="安装编译-qemu-的依赖"><a href="#安装编译-qemu-的依赖" class="headerlink" title="安装编译 qemu 的依赖"></a>安装编译 qemu 的依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ninja-build libglib2.0-dev libpixman-1-dev</span><br></pre></td></tr></table></figure>
-
-<h3 id="源码安装-qemu："><a href="#源码安装-qemu：" class="headerlink" title="源码安装 qemu："></a>源码安装 qemu：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.qemu.org/qemu-6.2.0.tar.xz</span><br><span class="line">tar xvf qemu-6.2.0.tar.xz</span><br><span class="line"><span class="built_in">cd</span> qemu-6.2.0</span><br><span class="line">./configure</span><br><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-<h3 id="启动-qemu："><a href="#启动-qemu：" class="headerlink" title="启动 qemu："></a>启动 qemu：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> vmk=<span class="string">&#x27;qemu-system-x86_64 -nographic -serial mon:stdio -machine q35,accel=kvm -cpu Haswell -smp cores=2,threads=2,sockets=2 -kernel arch/x86/boot/bzImage -append &quot;console=ttyS0 ignore_loglevel threadirqs nokaslr&quot;&#x27;</span></span><br><span class="line"><span class="built_in">cd</span> ~/linux-prjc/</span><br><span class="line">vmk</span><br></pre></td></tr></table></figure>
-
-<h3 id="退出-qemu："><a href="#退出-qemu：" class="headerlink" title="退出 qemu："></a>退出 qemu：</h3><p>先按<code>Ctrl+A</code>，然后按<code>x</code></p>
+<h3 id="安装编译-qemu-的依赖"><a class="markdownIt-Anchor" href="#安装编译-qemu-的依赖"></a> 安装编译 qemu 的依赖</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ninja-build libglib2.0-dev libpixman-1-dev</span><br></pre></td></tr></table></figure>
+<h3 id="源码安装-qemu"><a class="markdownIt-Anchor" href="#源码安装-qemu"></a> 源码安装 qemu：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.qemu.org/qemu-6.2.0.tar.xz</span><br><span class="line">tar xvf qemu-6.2.0.tar.xz</span><br><span class="line"><span class="built_in">cd</span> qemu-6.2.0</span><br><span class="line">./configure</span><br><span class="line">make -j8</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h3 id="启动-qemu"><a class="markdownIt-Anchor" href="#启动-qemu"></a> 启动 qemu：</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> vmk=<span class="string">&#x27;qemu-system-x86_64 -nographic -serial mon:stdio -machine q35,accel=kvm -cpu Haswell -smp cores=2,threads=2,sockets=2 -kernel arch/x86/boot/bzImage -append &quot;console=ttyS0 ignore_loglevel threadirqs nokaslr&quot;&#x27;</span></span><br><span class="line"><span class="built_in">cd</span> ~/linux-prjc/</span><br><span class="line">vmk</span><br></pre></td></tr></table></figure>
+<h3 id="退出-qemu"><a class="markdownIt-Anchor" href="#退出-qemu"></a> 退出 qemu：</h3>
+<p>先按<code>Ctrl+A</code>，然后按<code>x</code></p>
 	
 		</div>
 		
@@ -378,9 +380,10 @@
 								六月 30日, 2022				
 							</p>
 							<p class="relate-post-content">
-								出现问题的原因
+								 出现问题的原因
+
 Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
-Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不...
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小...
 							</p>
 						</div>
 
@@ -405,8 +408,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 								
 本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
 
-下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
-1git clone htt...
+ 下载源代码
+下载 kernel 源代码，默认为 5.15-lts 分支
+1git clone h...
 							</p>
 						</div>
 
@@ -431,7 +435,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -454,7 +460,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -477,11 +485,13 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -503,12 +513,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -518,11 +532,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -544,10 +554,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -569,9 +581,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -593,8 +608,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 
@@ -616,10 +635,11 @@ GPA...
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+								 5.3 加载内核
+ 5.3.1 用 C 语言写内核
+第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-
-这个内核文件什么都没做，通过while(1)这个死循环一直...
+这个内核文件什么都没做，通过while(1)这个死循...
 							</p>
 						</div>
 

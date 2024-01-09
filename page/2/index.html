@@ -253,7 +253,9 @@
 
 					<div class="post-content">
 						
-							3.3 让我们对显示器说点什么吧3.3.1 CPU 如何与外设通信——IO 接口IO 接口功能：
+							 3.3 让我们对显示器说点什么吧
+ 3.3.1 CPU 如何与外设通信——IO 接口
+IO 接口功能：
 
 设置数据缓冲，解决 CPU 与外设的速度不匹配
 设置信号电平转换电路
@@ -261,7 +263,7 @@
 设置时序控制电路来同步 CPU 和外部设备
 提供地址译码
 
-CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接口通信，当很多的 IO 接口同时想和 CPU 对话时，面对众多接口时 CPU 应该如何选择？这个工作不应该由 CPU 来做，CPU 太忙了，还是好刚使在刀刃上吧，既然分层能解决问题，咱们再加一层，这一层的责任是除了仲裁 IO 接口的竞争，还要连接各种内部总线。由于它的使...
+CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接口通信，当很多的 IO 接口同时想和 CPU 对话时，面对众多接口时 CPU 应该如何选择？这个工作不应该由 CPU 来做，CPU 太忙了，还是好刚使在刀刃上吧，既然分层能解决问题，咱们再加一层，这一层的责任是除了仲裁 IO 接口的竞争，还要连接各种内部总线。由...
 						
 					</div>
 					
@@ -310,9 +312,11 @@ CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接
 
 					<div class="post-content">
 						
-							针对汇编几个知识点：
+							 针对汇编
 
-第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及寻址方式字节。寻址方式由 ModR&#x2F;M 字节、SIB 字节、位移量、立即数组成。第 1 行和第 4 行的 mov 的机器码中第 1 宇节都是B8 ，其原因是寻址方式都是立即数。第 5 行的“无条件跳转 jmp”对应的机器码第 宇节是EB。 还有”小于时跳转 j1”、”等于时跳 je “，”不小于等于时跳转 jnle” ······若对此感兴趣，可以...
+几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字节以及寻址方式字节。寻址方式由 ModR/M 字节、SIB 字节、位移量、立即数组成。第 1 行和第 4 行的 mov 的机器码中第 1 宇节都是B8 ，其原因是寻址方式都是立即数。第 5 行的“无条件跳转 jmp”对应的机器码第 宇节是EB。 还有&quot;小于时跳转 j1&quot;、&quot;等于时跳 je &quot;，“不小于等于时跳转 jnl...
 						
 					</div>
 					
@@ -362,10 +366,13 @@ CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接
 					<div class="post-content">
 						
 							
-本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+本文整理自《modeln C++ Tutorial：C++11/14/17/20》
 
-右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留问题，消除了诸如 std::vector、std::string 之类的额外开销，也才使得函数对象容器 std::function 成为了可能。
-什么是左值右值要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。**左值 (lvalue, left value)**，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋 值表达式...
+右值引用是 C11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C 中大 量的历史遗留问题，消除了诸如 std::vector、std::string 之类的额外开销，也才使得函数对象容器 std::function 成为了可能。
+ 什么是左值右值
+要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。
+左值 (lvalue, left value)，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋 值表达式）后依然存在的持久对象。
+右值 (rva...
 						
 					</div>
 					
@@ -417,10 +424,11 @@ CPU 通过总线访问 IO 接口，但是同一时刻 CPU 只能和一个 IO 接
 							
 本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
 
-纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/master/vm_kernel_config/5.15-pds-vm-mini-smt_nice.config?inline=falsecp 5.15-pds-vm-mini-smt_nice.config linux-prjc/.confignice -n 10 make -j8
+ 纯净版内核编译：
+123wget https://gitlab.com/alfredchen/projectc/-/raw/master/vm_kernel_config/5.15-pds-vm-mini-smt_nice.config?inline=falsecp 5.15-pds-vm-mini-smt_nice.config linux-prjc/.confignice -n 10 make -j8
+ KVM 准备工作
 
-KVM 准备工作
-必须拥有 支持 VT-x（vmx）的 Intel 处理器...
+必须拥有 支持 VT-x（vmx）的 Intel ...
 						
 					</div>
 					
@@ -469,16 +477,19 @@ KVM 准备工作
 
 					<div class="post-content">
 						
-							出现问题的原因
+							 出现问题的原因
+
 Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
 Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件
 
-解决方案1. 开启文件区分大小写：
+ 解决方案
+ 1. 开启文件区分大小写：
+
 以管理员身份运行 PowerShell
 
 1fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux-prjc enable
-
-2. 克隆代码1git clone https://gitlab.com/songqianli/l...
+ 2. 克隆代码
+1git clone https://gitlab.com/songq...
 						
 					</div>
 					
@@ -530,15 +541,16 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							
 本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
 
-下载源代码下载 kernel 源代码，默认为 5.15-lts 分支
+ 下载源代码
+下载 kernel 源代码，默认为 5.15-lts 分支
 1git clone https://gitlab.com/songqianli/linux-prjc.git
+ 安装软件包
+1sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
+ 内核代码配置
 
-安装软件包1sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison
-
-内核代码配置
 进入源代码目录
 
-1cd lin...
+1cd...
 						
 					</div>
 					
@@ -643,7 +655,11 @@ Linux kernel stable tree - 5.15 commit message：kernel5.15 版本更新日志
 
 					<div class="post-content">
 						
-							先了解 CPU 的两种工作模式：实模式和保护模式实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。保护模式：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。实模式的寻址方式是：cs&lt;4+ip...
+							 先了解 CPU 的两种工作模式：实模式和保护模式
+实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。
+保护模式：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。
+
+实模式的寻址方式是：cs&lt...
 						
 					</div>
 					
@@ -699,9 +715,9 @@ Chapter 2. Debian package management
 
 
 
-2.1.6. Package dependencies
-The Debian system offers a consistent set of binary packages through its versioned binary dependency declaration mechanism in the control file fields. Here is a bit over simplified definition for them.
-...
+ 2.1.6. Package dependencies
+
+The Debian system offers a consistent set of binary packages through its versioned binary dependency declaration mechanism in the control file fields. Here is a bit over simplified definition for them...
 						
 					</div>
 					
@@ -750,11 +766,16 @@ The Debian system offers a consistent set of binary packages through its version
 
 					<div class="post-content">
 						
-							第 0 章：一些你可能正感到迷惑的问题
+							 第 0 章：一些你可能正感到迷惑的问题
+
 摘记
 
-0.28 MBR、EBR、DBR 和 OBR 各是什么MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇区，而 OBR 则属于主分区和逻辑分区最开始的扇区，每个主分区和逻辑分区中都有 OBR 引导扇区。
-操作系统时如何被启动的？计算机在接电后运行的是 BIOS，BIOS 进行一些简单的检测和初始化工作后，将存在0盘0道1扇区的主引导记录 MBR 加载到内存固定位置0x7c00，此时 BIOS 就把 CPU 使用权交给了 MBR。MBR 扇区中除了引导程序外，还...
+ 0.28 MBR、EBR、DBR 和 OBR 各是什么
+
+MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇区，而 OBR 则属于主分区和逻辑分区最开始的扇区，每个主分区和逻辑分区中都有 OBR 引导扇区。
+ 操作系统时如何被启动的？
+计算机在接电后运行的是 BIOS，BIOS 进行一些简单的检测和初始化工作后，将存在0盘0道1扇区的主引导记录 MBR 加载到内存固定位置0x7c00，此时 BIOS 就把 CPU 使用权交给了 MBR。
+MBR 扇区中除...
 						
 					</div>
 					

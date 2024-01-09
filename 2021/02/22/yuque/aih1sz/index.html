@@ -308,20 +308,57 @@
 
 		<div class="article-content" id="article-content">
 			<p>本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾<code>Reference</code>.</p>
-<h3 id="Base-Attention"><a href="#Base-Attention" class="headerlink" title="Base-Attention"></a>Base-Attention</h3><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412100228393.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191446-67eb1d4a-2bf5-43a1-ad9b-ca860f871f86.png#height=337&id=MyNvs&originHeight=337&originWidth=709&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=709"></a><br>如左图所示，为了实现<code>Attention</code>机制，我们需要一个 Z0Z0，与 h1h1 计算得到一个<code>scale</code>α10α01，这个 α10α01 可以简单看做 hh 与 zz 的相似度.<br>将 Z0Z0 与每一个 hihi 进行相乘然后 SoftmaxSoftmax 计算得到<code>distribution</code> αi0α0i，就变成了右图。这个<code>distribution</code>就是<code>Attention</code>机制的<code>Weight</code>。得到<code>Attention</code>之后将^αi0α^0i 乘上 hihi 后加到一起形成<code>Vector</code>C0C0，C0C0 就是预测第一个单词的特征向量。<br>注：本例中的<code>Value</code>是与<code>Key</code>相同的，但是实际上<code>Value</code>可以与<code>Key</code>不同，因为<code>Key</code>是用来计算<code>Attention</code>的<code>Weight</code>αα 的，而<code>Value</code>是用来与 αα 相乘得到<code>Vector</code>的，因此<code>Key</code>与<code>Value</code>不需要一定相同。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412140538223.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191409-c1a2c26f-0492-48c1-83ed-e5b13ea0fc08.png#height=491&id=NerWi&originHeight=491&originWidth=777&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=777"></a><br><code>Dot-Product Attention</code>是 Base 的一种计算方式，图中表示了 Attention 的计算公式以及相对应的 Q,K,VQ,K,V 的维度。</p>
-<h3 id="Self-Attention"><a href="#Self-Attention" class="headerlink" title="Self-Attention"></a>Self-Attention</h3><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412153633191.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191348-39d55af7-ac0e-4e08-a7bf-f13f5133af42.png#height=813&id=KZHfG&originHeight=813&originWidth=1429&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1429"></a><br><code>Self-Attention</code>主要解决了训练时的并行问题，计算每个单词<code>Attention</code>时不用等前一个单词计算完成即可开始计算，以图中<code>a</code>为例。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412211908862.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191505-c0d8df7d-2e88-4774-85dd-43277d49ecfa.png#height=745&id=z81FI&originHeight=745&originWidth=1263&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1263"></a><br>如图以 e2e2 为例，把自身的<code>vector</code>作为<code>Query</code>，Dot-Product 的<code>Key</code>就是 e1e1。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415141938375.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191415-c7c1a9c2-7f46-4faf-becc-3fb58b2680d3.png#height=480&id=iJ4wd&originHeight=480&originWidth=818&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=818"></a><br>而在 decoder 的时候需要把 e2e2 后面的词给 mask 掉，因为<code>inference</code>阶段是没有后面输入。</p>
-<h3 id="Multi-Head-Attention"><a href="#Multi-Head-Attention" class="headerlink" title="Multi-Head Attention"></a>Multi-Head Attention</h3><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413154942609.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191498-39e92559-6df0-49be-8cc0-a0b758712b0f.png#height=819&id=zujCA&originHeight=819&originWidth=1523&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1523"></a><br>对<code>Multi-Head Attention</code>的相关解释如图所示。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415143424126.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191416-b40d8540-979a-488a-9cd5-fb29b0b93734.png#height=470&id=SnRl7&originHeight=470&originWidth=946&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=946"></a><br><code>Scaled Dot-Product Attention</code>的<code>h</code>指的是<code>Multi-Head Attention</code>的数量。</p>
-<h3 id="Transformer"><a href="#Transformer" class="headerlink" title="Transformer"></a>Transformer</h3><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412202544188.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191283-020828b2-a4c5-4bb8-8b82-c67e97aa4700.png#height=787&id=Lvblk&originHeight=787&originWidth=1203&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1203"></a><br>Transformer 就是用 Self-Attention 替换了序列模型的 RNN 单元。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413171304672.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191456-955a4543-3b44-4454-9a74-62a0caa31e5f.png#height=808&id=ui53z&originHeight=808&originWidth=1536&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1536"></a><br>本图主要解释了加入<code>Scaled</code>过程的原因，如上图中间的图像所示，蓝色是 QKTQKT，橙色是 softmax(QKT)softmax(QKT)，明显可以看出函数变的很尖，这样导致梯度变得很小，只有高数值的信息才会使模型更新，因此为了解决这个问题，在计算 softmax 之前除以 √dkdk。<br>这里可以理解为两个独立的矩阵，均值为 0，方差为 1。经过矩阵相乘之后，均值还是 0，方差会变成 dkdk，这样就会导致 Softmax 之后梯度变得很小。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413180003131.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191232-6a6d2be0-4e0b-4f71-b201-3255af6d5801.png#height=812&id=RdrBk&originHeight=812&originWidth=1468&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1468"></a><br>residual connection 是指经过一个 F(x)F(x)后，输出结果是 F(x)+xF(x)+x，这样做的目的是为了解决模型在多次进行 F(x)F(x)计算之后没有更多的<code>signore</code>的时候,模型可以弹性的选择哪部分要经过 F(x)F(x)，哪部分可以跳过 F(x)F(x)，而且模型也不需要更多的参数来进行训练。<br><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200414151913660.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981192468-01860395-b3e6-4d10-a442-6b36575eeb33.png#height=804&id=na2lw&originHeight=804&originWidth=1528&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1528"></a><br>在<code>Decoder</code>中，因为序列的预测过程是从左往右，所以右面单词的<code>Attention</code>是未知的，这就是绿色框中<code>Masked</code>与红色框之间有区别的原因。<br>在蓝色框中，<code>Decoder</code>提供 Attention 的<code>Query</code>，<code>Encoder</code>提供 Attenion 的<code>Key</code>和<code>Query</code>。</p>
-<h3 id="Training-Trick"><a href="#Training-Trick" class="headerlink" title="Training Trick"></a>Training Trick</h3><p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200414164511250.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981192403-78e67c1e-c92b-425f-b2ad-c2fec0ea0713.png#height=511&id=rvLM9&originHeight=511&originWidth=1248&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=0&status=done&style=none&title=&width=1248"></a></p>
-<h4 id="Byte-pair-encodings"><a href="#Byte-pair-encodings" class="headerlink" title="Byte-pair encodings"></a>Byte-pair encodings</h4><p>BPE 算法的基本思路是把经常出现的<code>byte pair</code>用一个新的<code>byte</code>来代替，例如假设<code>(&#39;A&#39;, ’B‘）</code>经常顺序出现，则用一个新的标志<code>&#39;AB&#39;</code>来代替它们。<br>例如，假设我们的文本库中出现的单词及其出现次数为<code>&#123;&#39;l o w&#39;: 5, &#39;l o w e r&#39;: 2, &#39;n e w e s t&#39;: 6, &#39;w i d e s t&#39;: 3&#125;</code>，我们的初始词汇库为<code>&#123; &#39;l&#39;, &#39;o&#39;, &#39;w&#39;, &#39;e&#39;, &#39;r&#39;, &#39;n&#39;, &#39;w&#39;, &#39;s&#39;, &#39;t&#39;, &#39;i&#39;, &#39;d&#39;&#125;</code>，出现频率最高的 ngram pair 是<code>(&#39;e&#39;,&#39;s&#39;)</code> 9 次，所以我们将’es’作为新的词汇加入到词汇库中，由于’es’作为一个整体出现在词汇库中，这时文本库可表示为 <code>&#123;&#39;l o w&#39;: 5, &#39;l o w e r&#39;: 2, &#39;n e w es t&#39;: 6, &#39;w i d es t&#39;: 3&#125;</code>，这时出现频率最高的 ngram pair 是<code>(&#39;es&#39;,&#39;t&#39;)</code>9 次，将’est’加入到词汇库中，文本库更新为<code>&#123;&#39;l o w&#39;: 5, &#39;l o w e r&#39;: 2, &#39;n e w est&#39;: 6, &#39;w i d est&#39;: 3&#125;</code>，新的出现频率最高的 ngram pair 是(‘l’,’o’)7 次，将’lo’加入到词汇库中，文本库更新为<code>&#123;&#39;lo w&#39;: 5, &#39;lo w e r&#39;: 2, &#39;n e w est&#39;: 6, &#39;w i d est&#39;: 3&#125;</code>。以此类推，直到词汇库大小达到我们所设定的目标。这个例子中词汇量较小，对于词汇量很大的实际情况，我们就可以通过 BPE 逐步建造一个较小的基于 subword unit 的词汇库来表示所有的词汇。</p>
-<h4 id="Checkpoint-averaging"><a href="#Checkpoint-averaging" class="headerlink" title="Checkpoint averaging"></a>Checkpoint averaging</h4><p>对训练过程中 checkpoint 保存的模型进行参数平均</p>
-<h4 id="Boom-Search："><a href="#Boom-Search：" class="headerlink" title="Boom Search："></a>Boom Search：</h4><ol>
+<h3 id="base-attention"><a class="markdownIt-Anchor" href="#base-attention"></a> Base-Attention</h3>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412100228393.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191446-67eb1d4a-2bf5-43a1-ad9b-ca860f871f86.png#height=337&amp;id=MyNvs&amp;originHeight=337&amp;originWidth=709&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=709" alt="" /></a><br />
+如左图所示，为了实现<code>Attention</code>机制，我们需要一个 Z0Z0，与 h1h1 计算得到一个<code>scale</code>α10α01，这个 α10α01 可以简单看做 hh 与 zz 的相似度.<br />
+将 Z0Z0 与每一个 hihi 进行相乘然后 SoftmaxSoftmax 计算得到<code>distribution</code> αi0α0i，就变成了右图。这个<code>distribution</code>就是<code>Attention</code>机制的<code>Weight</code>。得到<code>Attention</code>之后将<sup>αi0α</sup>0i 乘上 hihi 后加到一起形成<code>Vector</code>C0C0，C0C0 就是预测第一个单词的特征向量。<br />
+注：本例中的<code>Value</code>是与<code>Key</code>相同的，但是实际上<code>Value</code>可以与<code>Key</code>不同，因为<code>Key</code>是用来计算<code>Attention</code>的<code>Weight</code>αα 的，而<code>Value</code>是用来与 αα 相乘得到<code>Vector</code>的，因此<code>Key</code>与<code>Value</code>不需要一定相同。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412140538223.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191409-c1a2c26f-0492-48c1-83ed-e5b13ea0fc08.png#height=491&amp;id=NerWi&amp;originHeight=491&amp;originWidth=777&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=777" alt="" /></a><br />
+<code>Dot-Product Attention</code>是 Base 的一种计算方式，图中表示了 Attention 的计算公式以及相对应的 Q,K,VQ,K,V 的维度。</p>
+<h3 id="self-attention"><a class="markdownIt-Anchor" href="#self-attention"></a> Self-Attention</h3>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412153633191.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191348-39d55af7-ac0e-4e08-a7bf-f13f5133af42.png#height=813&amp;id=KZHfG&amp;originHeight=813&amp;originWidth=1429&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1429" alt="" /></a><br />
+<code>Self-Attention</code>主要解决了训练时的并行问题，计算每个单词<code>Attention</code>时不用等前一个单词计算完成即可开始计算，以图中<code>a</code>为例。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412211908862.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191505-c0d8df7d-2e88-4774-85dd-43277d49ecfa.png#height=745&amp;id=z81FI&amp;originHeight=745&amp;originWidth=1263&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1263" alt="" /></a><br />
+如图以 e2e2 为例，把自身的<code>vector</code>作为<code>Query</code>，Dot-Product 的<code>Key</code>就是 e1e1。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415141938375.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191415-c7c1a9c2-7f46-4faf-becc-3fb58b2680d3.png#height=480&amp;id=iJ4wd&amp;originHeight=480&amp;originWidth=818&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=818" alt="" /></a><br />
+而在 decoder 的时候需要把 e2e2 后面的词给 mask 掉，因为<code>inference</code>阶段是没有后面输入。</p>
+<h3 id="multi-head-attention"><a class="markdownIt-Anchor" href="#multi-head-attention"></a> Multi-Head Attention</h3>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413154942609.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191498-39e92559-6df0-49be-8cc0-a0b758712b0f.png#height=819&amp;id=zujCA&amp;originHeight=819&amp;originWidth=1523&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1523" alt="" /></a><br />
+对<code>Multi-Head Attention</code>的相关解释如图所示。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415143424126.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191416-b40d8540-979a-488a-9cd5-fb29b0b93734.png#height=470&amp;id=SnRl7&amp;originHeight=470&amp;originWidth=946&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=946" alt="" /></a><br />
+<code>Scaled Dot-Product Attention</code>的<code>h</code>指的是<code>Multi-Head Attention</code>的数量。</p>
+<h3 id="transformer"><a class="markdownIt-Anchor" href="#transformer"></a> Transformer</h3>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200412202544188.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191283-020828b2-a4c5-4bb8-8b82-c67e97aa4700.png#height=787&amp;id=Lvblk&amp;originHeight=787&amp;originWidth=1203&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1203" alt="" /></a><br />
+Transformer 就是用 Self-Attention 替换了序列模型的 RNN 单元。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413171304672.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191456-955a4543-3b44-4454-9a74-62a0caa31e5f.png#height=808&amp;id=ui53z&amp;originHeight=808&amp;originWidth=1536&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1536" alt="" /></a><br />
+本图主要解释了加入<code>Scaled</code>过程的原因，如上图中间的图像所示，蓝色是 QKTQKT，橙色是 softmax(QKT)softmax(QKT)，明显可以看出函数变的很尖，这样导致梯度变得很小，只有高数值的信息才会使模型更新，因此为了解决这个问题，在计算 softmax 之前除以 √dkdk。<br />
+这里可以理解为两个独立的矩阵，均值为 0，方差为 1。经过矩阵相乘之后，均值还是 0，方差会变成 dkdk，这样就会导致 Softmax 之后梯度变得很小。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200413180003131.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981191232-6a6d2be0-4e0b-4f71-b201-3255af6d5801.png#height=812&amp;id=RdrBk&amp;originHeight=812&amp;originWidth=1468&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1468" alt="" /></a><br />
+residual connection 是指经过一个 F(x)F(x)后，输出结果是 F(x)+xF(x)+x，这样做的目的是为了解决模型在多次进行 F(x)F(x)计算之后没有更多的<code>signore</code>的时候,模型可以弹性的选择哪部分要经过 F(x)F(x)，哪部分可以跳过 F(x)F(x)，而且模型也不需要更多的参数来进行训练。<br />
+<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200414151913660.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981192468-01860395-b3e6-4d10-a442-6b36575eeb33.png#height=804&amp;id=na2lw&amp;originHeight=804&amp;originWidth=1528&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1528" alt="" /></a><br />
+在<code>Decoder</code>中，因为序列的预测过程是从左往右，所以右面单词的<code>Attention</code>是未知的，这就是绿色框中<code>Masked</code>与红色框之间有区别的原因。<br />
+在蓝色框中，<code>Decoder</code>提供 Attention 的<code>Query</code>，<code>Encoder</code>提供 Attenion 的<code>Key</code>和<code>Query</code>。</p>
+<h3 id="training-trick"><a class="markdownIt-Anchor" href="#training-trick"></a> Training Trick</h3>
+<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200414164511250.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981192403-78e67c1e-c92b-425f-b2ad-c2fec0ea0713.png#height=511&amp;id=rvLM9&amp;originHeight=511&amp;originWidth=1248&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1248" alt="" /></a></p>
+<h4 id="byte-pair-encodings"><a class="markdownIt-Anchor" href="#byte-pair-encodings"></a> Byte-pair encodings</h4>
+<p>BPE 算法的基本思路是把经常出现的<code>byte pair</code>用一个新的<code>byte</code>来代替，例如假设<code>('A', ’B‘）</code>经常顺序出现，则用一个新的标志<code>'AB'</code>来代替它们。<br />
+例如，假设我们的文本库中出现的单词及其出现次数为<code>&#123;'l o w': 5, 'l o w e r': 2, 'n e w e s t': 6, 'w i d e s t': 3&#125;</code>，我们的初始词汇库为<code>&#123; 'l', 'o', 'w', 'e', 'r', 'n', 'w', 's', 't', 'i', 'd'&#125;</code>，出现频率最高的 ngram pair 是<code>('e','s')</code> 9 次，所以我们将’es’作为新的词汇加入到词汇库中，由于’es’作为一个整体出现在词汇库中，这时文本库可表示为 <code>&#123;'l o w': 5, 'l o w e r': 2, 'n e w es t': 6, 'w i d es t': 3&#125;</code>，这时出现频率最高的 ngram pair 是<code>('es','t')</code>9 次，将’est’加入到词汇库中，文本库更新为<code>&#123;'l o w': 5, 'l o w e r': 2, 'n e w est': 6, 'w i d est': 3&#125;</code>，新的出现频率最高的 ngram pair 是(‘l’,’o’)7 次，将’lo’加入到词汇库中，文本库更新为<code>&#123;'lo w': 5, 'lo w e r': 2, 'n e w est': 6, 'w i d est': 3&#125;</code>。以此类推，直到词汇库大小达到我们所设定的目标。这个例子中词汇量较小，对于词汇量很大的实际情况，我们就可以通过 BPE 逐步建造一个较小的基于 subword unit 的词汇库来表示所有的词汇。</p>
+<h4 id="checkpoint-averaging"><a class="markdownIt-Anchor" href="#checkpoint-averaging"></a> Checkpoint averaging</h4>
+<p>对训练过程中 checkpoint 保存的模型进行参数平均</p>
+<h4 id="boom-search"><a class="markdownIt-Anchor" href="#boom-search"></a> Boom Search：</h4>
+<ol>
 <li><code>step 1</code>：在预测第一个单词的时候选择前<code>Beam width</code>个概率最大的单词作为第一个单词；</li>
-<li><code>step 2</code>：假设词汇表长<code>10000</code>,<code>B=3</code>按照 P(y&lt;1&gt;,y&lt;2&gt;|x)&#x3D;P(y&lt;1&gt;|x)P(y&lt;2&gt;|x,y&lt;1&gt;)P(y&lt;1&gt;,y&lt;2&gt;|x)&#x3D;P(y&lt;1&gt;|x)P(y&lt;2&gt;|x,y&lt;1&gt;)最大，就会在开头为(y&lt;1&gt;,y&lt;2&gt;)(y&lt;1&gt;,y&lt;2&gt;)的<code>30000</code>种选择中选取概率最大的<code>3</code>种，并将(y&lt;1&gt;,y&lt;2&gt;)(y&lt;1&gt;,y&lt;2&gt;)作为新的开头；</li>
+<li><code>step 2</code>：假设词汇表长<code>10000</code>,<code>B=3</code>按照 P(y&lt;1&gt;,y&lt;2&gt;|x)=P(y&lt;1&gt;|x)P(y&lt;2&gt;|x,y&lt;1&gt;)P(y&lt;1&gt;,y&lt;2&gt;|x)=P(y&lt;1&gt;|x)P(y&lt;2&gt;|x,y&lt;1&gt;)最大，就会在开头为(y&lt;1&gt;,y&lt;2&gt;)(y&lt;1&gt;,y&lt;2&gt;)的<code>30000</code>种选择中选取概率最大的<code>3</code>种，并将(y&lt;1&gt;,y&lt;2&gt;)(y&lt;1&gt;,y&lt;2&gt;)作为新的开头；</li>
 <li><code>step 3</code>：将<code>step 2</code>中选取的新的开头作为条件,重复计算<code>step 2</code>，如果遇到终止符则停止。</li>
 </ol>
-<p>改进集束搜索（改进其打分规则）：<br>由于$\displaystyle argmax \prod_{t&#x3D;1}^{T_y}P(y^{}|x,y^{1},\dots,y^{t-1})$，是多个小于 1 的概率相乘，最终得到的数值会很小很小，出现数值下溢，因此对上述公式取对数：<br>argmaxTy∑t&#x3D;1log,P(y|x,y1,…,yt−1)argmax∑t&#x3D;1Tylog,P(y|x,y1,…,yt−1)<br>但是 log 函数在(0,1)是负数，序列越长数值越低，所以模型会更倾向于短文本输出而不是简洁的文本。于是第二次改进：<br>1TαyTy∑t&#x3D;1log,P(y|x,y1,…,yt−1)1Tyα∑t&#x3D;1Tylog,P(y|x,y1,…,yt−1)<br>对和函数进行归一化，但是不是单纯的除以单词数量，而是除以 TyTy 的 αα 次幂，这里的 αα 是一个超参数。</p>
-<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ol>
+<p>改进集束搜索（改进其打分规则）：<br />
+由于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mstyle scriptlevel="0" displaystyle="true"><mi>a</mi><mi>r</mi><mi>g</mi><mi>m</mi><mi>a</mi><mi>x</mi><munderover><mo>∏</mo><mrow><mi>t</mi><mo>=</mo><mn>1</mn></mrow><msub><mi>T</mi><mi>y</mi></msub></munderover><mi>P</mi><mo stretchy="false">(</mo><msup><mi>y</mi><mrow></mrow></msup><mi mathvariant="normal">∣</mi><mi>x</mi><mo separator="true">,</mo><msup><mi>y</mi><mn>1</mn></msup><mo separator="true">,</mo><mo>…</mo><mo separator="true">,</mo><msup><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msup><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\displaystyle argmax \prod_{t=1}^{T_y}P(y^{}|x,y^{1},\dots,y^{t-1})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:3.2037690000000003em;vertical-align:-1.267113em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.9366560000000004em;"><span style="top:-1.882887em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mrel mtight">=</span><span class="mord mtight">1</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∏</span></span></span><span style="top:-4.4083250000000005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285716em;"><span style="top:-2.357em;margin-left:-0.13889em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03588em;">y</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2818857142857143em;"><span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.267113em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.413em;"><span style="top:-2.413em;margin-right:0.05em;"><span class="pstrut" style="height:2em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"></span></span></span></span></span></span></span></span><span class="mord">∣</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.864108em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">t</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，是多个小于 1 的概率相乘，最终得到的数值会很小很小，出现数值下溢，因此对上述公式取对数：<br />
+argmaxTy∑t=1log,P(y|x,y1,…,yt−1)argmax∑t=1Tylog,P(y|x,y1,…,yt−1)<br />
+但是 log 函数在(0,1)是负数，序列越长数值越低，所以模型会更倾向于短文本输出而不是简洁的文本。于是第二次改进：<br />
+1TαyTy∑t=1log,P(y|x,y1,…,yt−1)1Tyα∑t=1Tylog,P(y|x,y1,…,yt−1)<br />
+对和函数进行归一化，但是不是单纯的除以单词数量，而是除以 TyTy 的 αα 次幂，这里的 αα 是一个超参数。</p>
+<h3 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> Reference</h3>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19g4y1b7vx?p=1">台大《应用深度学习》国语课程(2020) by 陈蕴侬</a></li>
 <li><a target="_blank" rel="noopener" href="https://mooc.study.163.com/course/2001280005#/info">序列模型 by Andrew Ng</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/69414965">CS224N 笔记(十二):Subword 模型</a></li>
@@ -402,7 +439,7 @@
 							</p>
 							<p class="relate-post-content">
 								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
-BERT: Bidirectional Encoder Representations f...
+ BERT: Bidirectional Encoder Representations ...
 							</p>
 						</div>
 
@@ -431,11 +468,11 @@ BERT: Bidirectional Encoder Representations f...
 L2 范数：
 L1 范数：
 
-推导过程
+ 推导过程
+
 泰勒公式  
 
-为什么可以减少过拟合
-直...
+ 为什么可以减少过拟...
 							</p>
 						</div>
 
@@ -457,14 +494,15 @@ L1 范数：
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								Logistic Regression逻辑回归的假设函数：
+								 Logistic Regression
+逻辑回归的假设函数：
 
 其中是输入,是要求解的参数。
 函数图像：
 
 一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
 
-它的意思是在给定的...
+它的意思是在给...
 							</p>
 						</div>
 
@@ -489,7 +527,9 @@ L1 范数：
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -512,7 +552,9 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -535,11 +577,13 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -561,12 +605,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -576,11 +624,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -602,10 +646,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -627,9 +673,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 

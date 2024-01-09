@@ -303,17 +303,19 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h3><p>逻辑回归的假设函数：</p>
-<p><img src="https://g.yuque.com/gr/latex?h_%7B%5Ctheta%7D(x)%20=%5Cfrac%7B1%7D%7B1+e%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&code=h_%7B%5Ctheta%7D%28x%29%20%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&height=53&id=WSNTK"></p>
-<p>其中<img src="https://g.yuque.com/gr/latex?x#card=math&code=x&height=14&id=F71OV">是输入,<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&code=%5Ctheta&height=19&id=JXWVG">是要求解的参数。</p>
+			<h3 id="logistic-regression"><a class="markdownIt-Anchor" href="#logistic-regression"></a> Logistic Regression</h3>
+<p>逻辑回归的假设函数：</p>
+<p><img src="https://g.yuque.com/gr/latex?h_%7B%5Ctheta%7D(x)%20%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&amp;code=h_%7B%5Ctheta%7D%28x%29%20%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&amp;height=53&amp;id=WSNTK" alt="" /></p>
+<p>其中<img src="https://g.yuque.com/gr/latex?x#card=math&amp;code=x&amp;height=14&amp;id=F71OV" alt="" />是输入,<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&amp;code=%5Ctheta&amp;height=19&amp;id=JXWVG" alt="" />是要求解的参数。</p>
 <p>函数图像：</p>
-<p><img src="http://cdn.lisongqian.cn/1555825110196.png#height=298&id=t1urK&originHeight=298&originWidth=582&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=582"></p>
+<p><img src="http://cdn.lisongqian.cn/1555825110196.png#height=298&amp;id=t1urK&amp;originHeight=298&amp;originWidth=582&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=582" alt="" /></p>
 <p>一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：</p>
-<p><img src="https://g.yuque.com/gr/latex?P(y=1%7Cx;%5Ctheta)%20%20=%20g(%5Ctheta%5E%7BT%7Dx)=%5Cfrac%7B1%7D%7B1+e%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&code=P%28y%3D1%7Cx%3B%5Ctheta%29%20%20%3D%20g%28%5Ctheta%5E%7BT%7Dx%29%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&height=53&id=W3j9A"></p>
-<p>它的意思是在给定的<img src="https://g.yuque.com/gr/latex?x#card=math&code=x&height=14&id=tiKBg">和<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&code=%5Ctheta&height=19&id=HHYIn">条件下,<img src="https://g.yuque.com/gr/latex?y=1#card=math&code=y%3D1&height=22&id=qtxGd">的概率。</p>
-<h3 id="Support-Vector-Machine"><a href="#Support-Vector-Machine" class="headerlink" title="Support Vector Machine"></a>Support Vector Machine</h3><p>直观理解：将数据点通过<strong>某个函数</strong>映射到<strong>高维空间</strong>中（我们称这个函数为<strong>核函数</strong>），这时寻找一个<strong>平面</strong>（我们称这个平面为<strong>超平面</strong>）对空间进行切分，达到同类的数据点在同一面的效果，最后将该平面与空间曲面形成的交线投影到原维度中，得到分类结果。</p>
+<p><img src="https://g.yuque.com/gr/latex?P(y%3D1%7Cx%3B%5Ctheta)%20%20%3D%20g(%5Ctheta%5E%7BT%7Dx)%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A#card=math&amp;code=P%28y%3D1%7Cx%3B%5Ctheta%29%20%20%3D%20g%28%5Ctheta%5E%7BT%7Dx%29%3D%5Cfrac%7B1%7D%7B1%2Be%5E%7B-%5Ctheta%5E%7BT%7Dx%7D%7D%0A&amp;height=53&amp;id=W3j9A" alt="" /></p>
+<p>它的意思是在给定的<img src="https://g.yuque.com/gr/latex?x#card=math&amp;code=x&amp;height=14&amp;id=tiKBg" alt="" />和<img src="https://g.yuque.com/gr/latex?%5Ctheta#card=math&amp;code=%5Ctheta&amp;height=19&amp;id=HHYIn" alt="" />条件下,<img src="https://g.yuque.com/gr/latex?y%3D1#card=math&amp;code=y%3D1&amp;height=22&amp;id=qtxGd" alt="" />的概率。</p>
+<h3 id="support-vector-machine"><a class="markdownIt-Anchor" href="#support-vector-machine"></a> Support Vector Machine</h3>
+<p>直观理解：将数据点通过<strong>某个函数</strong>映射到<strong>高维空间</strong>中（我们称这个函数为<strong>核函数</strong>），这时寻找一个<strong>平面</strong>（我们称这个平面为<strong>超平面</strong>）对空间进行切分，达到同类的数据点在同一面的效果，最后将该平面与空间曲面形成的交线投影到原维度中，得到分类结果。</p>
 <p>直观演示视频：<a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=3liCbRZPrZA">https://www.youtube.com/watch?v=3liCbRZPrZA</a></p>
-<p><img src="http://cdn.lisongqian.cn/svm.gif#height=356&id=ETBNE&originHeight=356&originWidth=444&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=444"></p>
+<p><img src="http://cdn.lisongqian.cn/svm.gif#height=356&amp;id=ETBNE&amp;originHeight=356&amp;originWidth=444&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=444" alt="" /></p>
 <blockquote>
 <p>不定期更新……</p>
 </blockquote>
@@ -393,7 +395,7 @@
 							</p>
 							<p class="relate-post-content">
 								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
-BERT: Bidirectional Encoder Representations f...
+ BERT: Bidirectional Encoder Representations ...
 							</p>
 						</div>
 
@@ -444,11 +446,11 @@ BERT: Bidirectional Encoder Representations f...
 L2 范数：
 L1 范数：
 
-推导过程
+ 推导过程
+
 泰勒公式  
 
-为什么可以减少过拟合
-直...
+ 为什么可以减少过拟...
 							</p>
 						</div>
 
@@ -473,7 +475,9 @@ L1 范数：
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -496,7 +500,9 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -519,11 +525,13 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -545,12 +553,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -560,11 +572,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -586,10 +594,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -611,9 +621,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 

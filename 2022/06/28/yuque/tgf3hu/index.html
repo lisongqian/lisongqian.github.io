@@ -310,44 +310,45 @@
 			<blockquote>
 <p>本文介绍了如何安装 Project-C 维护的带有<code>Alternative CPU Schedulers</code>的 Linux Kernel</p>
 </blockquote>
-<h2 id="下载源代码"><a href="#下载源代码" class="headerlink" title="下载源代码"></a>下载源代码</h2><p>下载 kernel 源代码，默认为 5.15-lts 分支</p>
+<h2 id="下载源代码"><a class="markdownIt-Anchor" href="#下载源代码"></a> 下载源代码</h2>
+<p>下载 kernel 源代码，默认为 5.15-lts 分支</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://gitlab.com/songqianli/linux-prjc.git</span><br></pre></td></tr></table></figure>
-
-<h2 id="安装软件包"><a href="#安装软件包" class="headerlink" title="安装软件包"></a>安装软件包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison</span><br></pre></td></tr></table></figure>
-
-<h2 id="内核代码配置"><a href="#内核代码配置" class="headerlink" title="内核代码配置"></a>内核代码配置</h2><ol>
+<h2 id="安装软件包"><a class="markdownIt-Anchor" href="#安装软件包"></a> 安装软件包</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install git fakeroot build-essential ncurses-dev xz-utils libssl-dev bc flex libelf-dev bison</span><br></pre></td></tr></table></figure>
+<h2 id="内核代码配置"><a class="markdownIt-Anchor" href="#内核代码配置"></a> 内核代码配置</h2>
+<ol>
 <li>进入源代码目录</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> linux-prjc/</span><br></pre></td></tr></table></figure>
-
 <ol start="2">
-<li>从当前机器的启动目录拷贝配置信息到源代码目录<blockquote>
+<li>从当前机器的启动目录拷贝配置信息到源代码目录
+<blockquote>
 <p>这步操作的目的是将我们编译内核的配置采用用当前环境一致的配置</p>
 </blockquote>
 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> -v /boot/config-$(<span class="built_in">uname</span> -r) .config</span><br></pre></td></tr></table></figure>
-
 <ol start="3">
 <li>可以通过如下命令启动配置界面</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656403151370-c8e23f27-17c5-4c8a-be62-4fa1ad4a66ef.png#clientId=u26aefea8-4b6f-4&from=paste&height=605&id=ub03fa209&originHeight=605&originWidth=832&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=97512&status=done&style=none&taskId=u371fd70e-1464-456a-99d8-1a18044eec2&title=&width=832" alt="image.png"><br>可以看出里面包含所有的内核组件，包括文件系统，网络，IO 栈，虚拟化和设备驱动等等。如果你不熟悉，可以不做任何修改。</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><ol>
-<li>启动编译<blockquote>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656403151370-c8e23f27-17c5-4c8a-be62-4fa1ad4a66ef.png#clientId=u26aefea8-4b6f-4&amp;from=paste&amp;height=605&amp;id=ub03fa209&amp;originHeight=605&amp;originWidth=832&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=97512&amp;status=done&amp;style=none&amp;taskId=u371fd70e-1464-456a-99d8-1a18044eec2&amp;title=&amp;width=832" alt="image.png" /><br />
+可以看出里面包含所有的内核组件，包括文件系统，网络，IO 栈，虚拟化和设备驱动等等。如果你不熟悉，可以不做任何修改。</p>
+<h2 id="编译"><a class="markdownIt-Anchor" href="#编译"></a> 编译</h2>
+<ol>
+<li>启动编译
+<blockquote>
 <p>参数是并发数量，通常是 CPU 的 2 倍</p>
 </blockquote>
 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j 12</span><br></pre></td></tr></table></figure>
-
 <ol start="2">
 <li>提醒是否配置<code>Alternative CPU Schedulers</code></li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*</span><br><span class="line">* Restart config...</span><br><span class="line">*</span><br><span class="line">*</span><br><span class="line">* Alternative CPU Schedulers</span><br><span class="line">*</span><br><span class="line">Alternative CPU Schedulers (SCHED_ALT) [Y/n/?] (NEW) y</span><br><span class="line">  Alternative CPU Scheduler</span><br><span class="line">  &gt; 1. BMQ CPU scheduler (SCHED_BMQ) (NEW)</span><br><span class="line">    2. PDS CPU scheduler (SCHED_PDS) (NEW)</span><br><span class="line">  choice[1-2?]: 1</span><br></pre></td></tr></table></figure>
-
-<p>如果要使用<code>BMQ</code>或者<code>PDS-mq</code>算法，输入<code>Y</code>，否则输入<code>n</code><br>输入<code>Y</code>后会提示选择<code>BMQ</code>还是<code>PDS</code>算法。</p>
+<p>如果要使用<code>BMQ</code>或者<code>PDS-mq</code>算法，输入<code>Y</code>，否则输入<code>n</code><br />
+输入<code>Y</code>后会提示选择<code>BMQ</code>还是<code>PDS</code>算法。</p>
 <blockquote>
 <p>这里如果不使用 Project-C 的调度算法就输入<code>n</code>后跳过，默认使用<code>CFS</code>算法进行 CPU 调度。</p>
 </blockquote>
@@ -355,58 +356,58 @@
 <li>安装模块</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make modules_install</span><br></pre></td></tr></table></figure>
-
-<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656411389157-9baef93f-dce8-460f-be58-8210a1df196d.png#clientId=u26aefea8-4b6f-4&from=paste&height=221&id=u2cdbf860&originHeight=221&originWidth=665&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=61064&status=done&style=none&taskId=u230cca3e-e2d2-40d5-a875-df4123784e3&title=&width=665" alt="image.png"></p>
+<p>成功输出：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656411389157-9baef93f-dce8-460f-be58-8210a1df196d.png#clientId=u26aefea8-4b6f-4&amp;from=paste&amp;height=221&amp;id=u2cdbf860&amp;originHeight=221&amp;originWidth=665&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=61064&amp;status=done&amp;style=none&amp;taskId=u230cca3e-e2d2-40d5-a875-df4123784e3&amp;title=&amp;width=665" alt="image.png" /></p>
 <ol start="4">
 <li>安装内核</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
-
-<p>成功输出：<br><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656481826244-aea85c56-a623-4051-ac9a-b86019ed2b97.png#clientId=u4098e969-48df-4&from=paste&height=217&id=uf6a751e5&originHeight=217&originWidth=558&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=46099&status=done&style=none&taskId=u0d09d583-9fb1-4c45-9dc7-f93a9d879fc&title=&width=558" alt="image.png"></p>
-<h2 id="启用内核做引导"><a href="#启用内核做引导" class="headerlink" title="启用内核做引导"></a>启用内核做引导</h2><ol>
+<p>成功输出：<br />
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1656481826244-aea85c56-a623-4051-ac9a-b86019ed2b97.png#clientId=u4098e969-48df-4&amp;from=paste&amp;height=217&amp;id=uf6a751e5&amp;originHeight=217&amp;originWidth=558&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=46099&amp;status=done&amp;style=none&amp;taskId=u0d09d583-9fb1-4c45-9dc7-f93a9d879fc&amp;title=&amp;width=558" alt="image.png" /></p>
+<h2 id="启用内核做引导"><a class="markdownIt-Anchor" href="#启用内核做引导"></a> 启用内核做引导</h2>
+<ol>
 <li>启用内核做引导</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-initramfs -c -k 5.15.3+</span><br></pre></td></tr></table></figure>
-
 <ol start="2">
 <li>更新 grub</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-
-<h2 id="设置默认启动内核"><a href="#设置默认启动内核" class="headerlink" title="设置默认启动内核"></a>设置默认启动内核</h2><ol>
+<h2 id="设置默认启动内核"><a class="markdownIt-Anchor" href="#设置默认启动内核"></a> 设置默认启动内核</h2>
+<ol>
 <li>修改 grub 配置</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vi /etc/default/grub</span><br></pre></td></tr></table></figure>
-
 <p>将<code>GRUB_DEFAULT</code>改为<code>GRUB_DEFAULT=&quot;1&gt;0&quot;</code>（含义：第一个菜单的第 2 项，第二个菜单的第 1 项），或者<code>GRUB_DEFAULT=&quot;Advanced options for Ubuntu&gt;Ubuntu, with Linux 5.15.3+&quot;</code></p>
 <ol start="2">
 <li>更新 grub</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub</span><br></pre></td></tr></table></figure>
-
-<h2 id="问题排查："><a href="#问题排查：" class="headerlink" title="问题排查："></a>问题排查：</h2><h4 id="1-CONFIG-X86-X32-enabled-but-no-binutils-support"><a href="#1-CONFIG-X86-X32-enabled-but-no-binutils-support" class="headerlink" title="1. CONFIG_X86_X32 enabled but no binutils support"></a>1. CONFIG_X86_X32 enabled but no binutils support</h4><ol>
+<h2 id="问题排查"><a class="markdownIt-Anchor" href="#问题排查"></a> 问题排查：</h2>
+<h4 id="1-config_x86_x32-enabled-but-no-binutils-support"><a class="markdownIt-Anchor" href="#1-config_x86_x32-enabled-but-no-binutils-support"></a> 1. CONFIG_X86_X32 enabled but no binutils support</h4>
+<ol>
 <li>先尝试：<code>sudo apt install binutils</code></li>
 <li>如果不是工具的版本问题，再排查在<code>make -j 12</code>时有没有报错，检查报错的问题</li>
 </ol>
-<h4 id="2-No-rule-to-make-target-‘debian-x2F-certs-x2F-debian-uefi-certs-pem’"><a href="#2-No-rule-to-make-target-‘debian-x2F-certs-x2F-debian-uefi-certs-pem’" class="headerlink" title="2. No rule to make target ‘debian&#x2F;certs&#x2F;debian-uefi-certs.pem’"></a>2. No rule to make target ‘debian&#x2F;certs&#x2F;debian-uefi-certs.pem’</h4><p>编辑<code>.config</code>将下面两项的配置改为空：</p>
+<h4 id="2-no-rule-to-make-target-debiancertsdebian-uefi-certspem"><a class="markdownIt-Anchor" href="#2-no-rule-to-make-target-debiancertsdebian-uefi-certspem"></a> 2. No rule to make target ‘debian/certs/debian-uefi-certs.pem’</h4>
+<p>编辑<code>.config</code>将下面两项的配置改为空：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CONFIG_SYSTEM_TRUSTED_KEYS=<span class="string">&quot;&quot;</span></span><br><span class="line">CONFIG_SYSTEM_REVOCATION_KEYS=<span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="3-sed-can’t-read-modules-order-No-such-file-or-directory"><a href="#3-sed-can’t-read-modules-order-No-such-file-or-directory" class="headerlink" title="3. sed: can’t read modules.order: No such file or directory"></a>3. sed: can’t read modules.order: No such file or directory</h4><p><code>make</code>出错，检查<code>make -j 12</code>的 log 有没有报错</p>
-<h4 id="4-BTF-tmp-vmlinux-btf-pahole-pahole-is-not-available"><a href="#4-BTF-tmp-vmlinux-btf-pahole-pahole-is-not-available" class="headerlink" title="4. BTF: .tmp_vmlinux.btf: pahole (pahole) is not available"></a>4. BTF: .tmp_vmlinux.btf: pahole (pahole) is not available</h4><p>完整错误信息：</p>
+<h4 id="3-sed-cant-read-modulesorder-no-such-file-or-directory"><a class="markdownIt-Anchor" href="#3-sed-cant-read-modulesorder-no-such-file-or-directory"></a> 3. sed: can’t read modules.order: No such file or directory</h4>
+<p><code>make</code>出错，检查<code>make -j 12</code>的 log 有没有报错</p>
+<h4 id="4-btf-tmp_vmlinuxbtf-pahole-pahole-is-not-available"><a class="markdownIt-Anchor" href="#4-btf-tmp_vmlinuxbtf-pahole-pahole-is-not-available"></a> 4. BTF: .tmp_vmlinux.btf: pahole (pahole) is not available</h4>
+<p>完整错误信息：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BTF: .tmp_vmlinux.btf: pahole (pahole) is not available</span><br><span class="line">Failed to generate BTF for vmlinux</span><br><span class="line">Try to disable CONFIG_DEBUG_INFO_BTF</span><br></pre></td></tr></table></figure>
-
 <p>解决方案：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install dwarves</span><br></pre></td></tr></table></figure>
-
-<h4 id="5-Missing-file-arch-x2F-x86-x2F-boot-x2F-bzImage"><a href="#5-Missing-file-arch-x2F-x86-x2F-boot-x2F-bzImage" class="headerlink" title="5. *** Missing file: arch&#x2F;x86&#x2F;boot&#x2F;bzImage"></a>5. *** Missing file: arch&#x2F;x86&#x2F;boot&#x2F;bzImage</h4><p>错误信息：</p>
+<h4 id="5-missing-file-archx86bootbzimage"><a class="markdownIt-Anchor" href="#5-missing-file-archx86bootbzimage"></a> 5. *** Missing file: arch/x86/boot/bzImage</h4>
+<p>错误信息：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*** Missing file: arch/x86/boot/bzImage</span><br><span class="line">*** you need to run &quot;make before &quot;make install&quot;.</span><br></pre></td></tr></table></figure>
-
 <p>解决方案：在<code>sudo make install</code>前编译<code>bzImage</code>：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make bzImage</span><br></pre></td></tr></table></figure>
-
-<h4 id="6-x2F-bin-x2F-sh-1-zstd-not-found"><a href="#6-x2F-bin-x2F-sh-1-zstd-not-found" class="headerlink" title="6. &#x2F;bin&#x2F;sh: 1: zstd: not found"></a>6. &#x2F;bin&#x2F;sh: 1: zstd: not found</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zstd</span><br></pre></td></tr></table></figure>
-
-<h2 id="附："><a href="#附：" class="headerlink" title="附："></a>附：</h2><ol>
+<h4 id="6-binsh-1-zstd-not-found"><a class="markdownIt-Anchor" href="#6-binsh-1-zstd-not-found"></a> 6. /bin/sh: 1: zstd: not found</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install zstd</span><br></pre></td></tr></table></figure>
+<h2 id="附"><a class="markdownIt-Anchor" href="#附"></a> 附：</h2>
+<ol>
 <li><a target="_blank" rel="noopener" href="https://www.linuxdashen.com/ubuntu%E5%A6%82%E4%BD%95%E5%88%A0%E9%99%A4%E6%97%A7%E5%86%85%E6%A0%B8%E4%BB%A5%E8%8A%82%E7%BA%A6%E7%A1%AC%E7%9B%98%E7%A9%BA%E9%97%B4">删除旧内核方法</a></li>
 </ol>
 	
@@ -464,7 +465,8 @@
 								
 本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
 
-纯净版内核编译：123wget https://gitlab.com/alfredchen/projectc/-/raw/m...
+ 纯净版内核编译：
+123wget https://gitlab.com/alfredchen/projectc/-/raw...
 							</p>
 						</div>
 
@@ -486,9 +488,10 @@
 								六月 30日, 2022				
 							</p>
 							<p class="relate-post-content">
-								出现问题的原因
+								 出现问题的原因
+
 Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
-Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不...
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小...
 							</p>
 						</div>
 
@@ -513,7 +516,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -536,7 +541,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -559,11 +566,13 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -585,12 +594,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -600,11 +613,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -626,10 +635,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -651,9 +662,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -675,8 +689,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 
@@ -698,10 +716,11 @@ GPA...
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								5.3 加载内核5.3.1 用 C 语言写内核第一个 C 语言代码：
+								 5.3 加载内核
+ 5.3.1 用 C 语言写内核
+第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-
-这个内核文件什么都没做，通过while(1)这个死循环一直...
+这个内核文件什么都没做，通过while(1)这个死循...
 							</p>
 						</div>
 

@@ -310,27 +310,29 @@
 			<blockquote>
 <p>注：本文引自：<a target="_blank" rel="noopener" href="https://guodong.plus/2020/0529-002048/">https://guodong.plus/2020/0529-002048/</a></p>
 </blockquote>
-<h2 id="v1-0——基本实现"><a href="#v1-0——基本实现" class="headerlink" title="v1.0——基本实现"></a>v1.0——基本实现</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_instance; &#125;	<span class="comment">// 返回引用</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Function</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Singleton</span>() &#123;&#125;	<span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="type">static</span> Singleton s_instance;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton Singleton::s_instance;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Singleton::<span class="built_in">Get</span>().<span class="built_in">Function</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<h2 id="v10基本实现"><a class="markdownIt-Anchor" href="#v10基本实现"></a> v1.0——基本实现</h2>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="type">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_instance; &#125;	<span class="comment">// 返回引用</span></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Function</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Singleton</span>() &#123;&#125;	<span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="type">static</span> Singleton s_instance;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton Singleton::s_instance;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Singleton::<span class="built_in">Get</span>().<span class="built_in">Function</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>因为我们只需要一个 Singleton 实例，所以可以在 Singleton 类中声明一个静态的 Singleton 实例，在类外定义这个实例。然后将构造函数设为私有，这样就只能通过 Get 方法获取 Singleton 的实例，注意这里 Get 返回的是引用，毕竟我们只需要一个 Singleton 实例。</p>
-<h2 id="v2-0——解决”多例”问题"><a href="#v2-0——解决”多例”问题" class="headerlink" title="v2.0——解决”多例”问题"></a>v2.0——解决”多例”问题</h2><p>第一个版本看似已经不错了，但还是有缺陷的。如果我们的 main 函数是这样：</p>
+<h2 id="v20解决多例问题"><a class="markdownIt-Anchor" href="#v20解决多例问题"></a> v2.0——解决&quot;多例&quot;问题</h2>
+<p>第一个版本看似已经不错了，但还是有缺陷的。如果我们的 main 函数是这样：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Singleton instance = Singleton::<span class="built_in">Get</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;Copy</span><br></pre></td></tr></table></figure>
-
 <p>我们在 main 函数中又定义了一个 Singleton 实例！并且将 Get 获得的静态 Singleton 实例拷贝赋值给了局部自动变量 instance，于是，我们的单例模式就宣告终结了。所以我们还需要将拷贝赋值以及拷贝构造等函数设为删除：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 将拷贝构造和拷贝赋值都设为 delete</span></span><br><span class="line">  <span class="built_in">Singleton</span>(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  Singleton&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Singleton&amp;) = <span class="keyword">delete</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">static</span> Singleton&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_instance; &#125;	<span class="comment">// 返回引用</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="type">void</span> <span class="title">Function</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Singleton</span>() &#123;&#125;	<span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="type">static</span> Singleton s_instance;</span><br><span class="line">&#125;;</span><br><span class="line">Singleton Singleton::s_instance;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  Singleton&amp; instance = Singleton::<span class="built_in">Get</span>();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
 <p>这样的话，main 函数中第 19 行就必须使用引用了，如果不是引用，编译器就会报错。这样就实现了完整的 Singleton 模式。</p>
-<h2 id="v3-0——优化使用体验"><a href="#v3-0——优化使用体验" class="headerlink" title="v3.0——优化使用体验"></a>v3.0——优化使用体验</h2><p>假设我们有如下的类：</p>
+<h2 id="v30优化使用体验"><a class="markdownIt-Anchor" href="#v30优化使用体验"></a> v3.0——优化使用体验</h2>
+<p>假设我们有如下的类：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Random</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 将拷贝构造和拷贝赋值都设为 delete</span></span><br><span class="line">  <span class="built_in">Random</span>(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  Random&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  <span class="function"><span class="type">static</span> Random&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_instance; &#125;  <span class="comment">// 返回引用</span></span><br><span class="line">  <span class="function"><span class="type">float</span> <span class="title">Float</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> m_random_generator; &#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Random</span>() &#123;&#125;  <span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="type">static</span> Random s_instance;</span><br><span class="line">  <span class="type">float</span> m_random_generator = <span class="number">0.5f</span>;</span><br><span class="line">&#125;;</span><br><span class="line">Random Random::s_instance;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="type">float</span> number = Random::<span class="built_in">Get</span>().<span class="built_in">Float</span>();  <span class="comment">// 非常麻烦的写法</span></span><br><span class="line">  <span class="comment">// 我们希望可以用如下方式调用 Float()</span></span><br><span class="line">  <span class="comment">// float number = Random::Float();</span></span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是一个 Random 类，调用 Float 方法可以返回一个随机数（这里假设 m_random_generator 是一个随机数生成器）。于是在 main 函数中，我们需要像 <code>Random::Get().Float()</code> 这样先获得实例，再去调用 Float 方法来获取随机数。Singleton 之所以是 Singleton，是因为它是一个类，可以拥有并使用自己的成员（成员函数使用成员变量 m_random_generator)。不然的话，我们可以直接将 Random 里面的东西都声明为静态的就好了，根本不需要 Singleton（比如将 Random 变成一个 namespace，然后在这个 namespace 中去声明函数和变量）。<br>然而为了支持类的特性，我们的 Singleton 不得不像上面代码那样非常麻烦的去调用 Get 再调用 Float。我们希望的是只需要像这样<code>Random::Float()</code> 使用即可。那么如何既可以像调用静态方法那样使用 Float 成员函数，又可以让成员函数使用成员变量呢（静态成员函数是不可以使用非静态成员变量的）？<br>Youtube 的大神给出的方法如下：</p>
+<p>这是一个 Random 类，调用 Float 方法可以返回一个随机数（这里假设 m_random_generator 是一个随机数生成器）。于是在 main 函数中，我们需要像 <code>Random::Get().Float()</code> 这样先获得实例，再去调用 Float 方法来获取随机数。Singleton 之所以是 Singleton，是因为它是一个类，可以拥有并使用自己的成员（成员函数使用成员变量 m_random_generator)。不然的话，我们可以直接将 Random 里面的东西都声明为静态的就好了，根本不需要 Singleton（比如将 Random 变成一个 namespace，然后在这个 namespace 中去声明函数和变量）。<br />
+然而为了支持类的特性，我们的 Singleton 不得不像上面代码那样非常麻烦的去调用 Get 再调用 Float。我们希望的是只需要像这样<code>Random::Float()</code> 使用即可。那么如何既可以像调用静态方法那样使用 Float 成员函数，又可以让成员函数使用成员变量呢（静态成员函数是不可以使用非静态成员变量的）？<br />
+Youtube 的大神给出的方法如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Random</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 将拷贝构造和拷贝赋值都设为 delete</span></span><br><span class="line">  <span class="built_in">Random</span>(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  Random&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  <span class="function"><span class="type">static</span> Random&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> s_instance; &#125;  <span class="comment">// 返回引用</span></span><br><span class="line">  <span class="comment">/* 这里的 Float 变为了静态函数 */</span></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">float</span> <span class="title">Float</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* 将获取实例以及调用成员函数的工作都交给 Float() 静态成员函数来做 */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Get</span>().<span class="built_in">IFloat</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Random</span>() &#123;&#125;  <span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="type">static</span> Random s_instance;</span><br><span class="line">  <span class="comment">/* 将原来的 Float 成员函数设为私有，并更名为 IFloat */</span></span><br><span class="line">  <span class="function"><span class="type">float</span> <span class="title">IFloat</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> m_random_generator; &#125;</span><br><span class="line">  <span class="type">float</span> m_random_generator = <span class="number">0.5f</span>;</span><br><span class="line">&#125;;</span><br><span class="line">Random Random::s_instance;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cout &lt;&lt; Random::<span class="built_in">Float</span>() &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>是不是很聪明？只是又抽象了一层而已，我们将原来的 Float 成员函数设为私有，并更名为 IFloat（可以理解为 Internal Float 或者 Interface Float 或者 Implement Float），然后将 Float 方法以静态成员函数的形式暴露给调用者，之前获取实例的 Get 步骤本应该由 Float 的调用者去负责，现在我们将这一步交给了 Float 自己去做，并将 Float 变为了一个静态成员函数。<br>于是我们现在使用 Random 中的方法，就可以全部通过 <code>Random::Method()</code> 来操作了，而不需要自己去将 Random 进行实例化或者是需要先获取 Random 实例了。并且我们还拥有了所有类的特性（在方法中使用成员变量等）。</p>
-<h2 id="v4-0——线程安全优化"><a href="#v4-0——线程安全优化" class="headerlink" title="v4.0——线程安全优化"></a>v4.0——线程安全优化</h2><p>可以看到为了实现单例模式，我们在类中声明了一个静态的 Random 实例，然后在另外一个地方去定义了这个实例。这种写法会存在一些问题，比如在哪里定义这个实例比较合适？什么时候定义它比较合适？有些时候（比如多线程环境下）这些问题非常的关键。于是就有了以下写法：</p>
+<p>是不是很聪明？只是又抽象了一层而已，我们将原来的 Float 成员函数设为私有，并更名为 IFloat（可以理解为 Internal Float 或者 Interface Float 或者 Implement Float），然后将 Float 方法以静态成员函数的形式暴露给调用者，之前获取实例的 Get 步骤本应该由 Float 的调用者去负责，现在我们将这一步交给了 Float 自己去做，并将 Float 变为了一个静态成员函数。<br />
+于是我们现在使用 Random 中的方法，就可以全部通过 <code>Random::Method()</code> 来操作了，而不需要自己去将 Random 进行实例化或者是需要先获取 Random 实例了。并且我们还拥有了所有类的特性（在方法中使用成员变量等）。</p>
+<h2 id="v40线程安全优化"><a class="markdownIt-Anchor" href="#v40线程安全优化"></a> v4.0——线程安全优化</h2>
+<p>可以看到为了实现单例模式，我们在类中声明了一个静态的 Random 实例，然后在另外一个地方去定义了这个实例。这种写法会存在一些问题，比如在哪里定义这个实例比较合适？什么时候定义它比较合适？有些时候（比如多线程环境下）这些问题非常的关键。于是就有了以下写法：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Random</span> &#123;</span><br><span class="line"> <span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">// 将拷贝构造和拷贝赋值都设为 delete</span></span><br><span class="line">  <span class="built_in">Random</span>(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  Random&amp; <span class="keyword">operator</span>=(<span class="type">const</span> Random&amp;) = <span class="keyword">delete</span>;</span><br><span class="line">  <span class="function"><span class="type">static</span> Random&amp; <span class="title">Get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">static</span> Random s_instance;</span><br><span class="line">    <span class="keyword">return</span> s_instance;</span><br><span class="line">  &#125;  <span class="comment">// 返回引用</span></span><br><span class="line">  <span class="comment">/* 这里的 Float 变为了静态函数 */</span></span><br><span class="line">  <span class="function"><span class="type">static</span> <span class="type">float</span> <span class="title">Float</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* 将获取实例以及调用成员函数的工作都交给 Float() 静态成员函数来做 */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Get</span>().<span class="built_in">IFloat</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> <span class="keyword">private</span>:</span><br><span class="line">  <span class="built_in">Random</span>() &#123;&#125;  <span class="comment">// 构造函数设为私有</span></span><br><span class="line">  <span class="comment">/* 将原来的 Float 成员函数设为私有，并更名为 IFloat */</span></span><br><span class="line">  <span class="function"><span class="type">float</span> <span class="title">IFloat</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> m_random_generator; &#125;</span><br><span class="line">  <span class="type">float</span> m_random_generator = <span class="number">0.5f</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  cout &lt;&lt; Random::<span class="built_in">Float</span>() &lt;&lt; endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>为了让代码更简洁、更安全，我们将之前的静态 Random 实例的声明以及定义放在了 Get 方法中，让其成为一个局部静态变量，这样的话，我们在第一次调用 Get 方法的时候，它就会实例化，并且之后调用 Get 方法，使用的都是同一个实例。<br>这样的写法除了让代码更简洁，还有可以让代码更安全。我们不用担心在使用 Random 的时候，Random 有没有被实例化，因为第一次调用 Get 方法时，我们就顺带进行了实例化操作。并且在 C++ 11 中，局部的静态变量是线程安全的（除非在编译时使用了 –fno-threadsafe-statics 参数），而单纯的静态成员变量是非线程安全的，非线程安全引起的 bug 有时可是很难发现的。</p>
+<p>为了让代码更简洁、更安全，我们将之前的静态 Random 实例的声明以及定义放在了 Get 方法中，让其成为一个局部静态变量，这样的话，我们在第一次调用 Get 方法的时候，它就会实例化，并且之后调用 Get 方法，使用的都是同一个实例。<br />
+这样的写法除了让代码更简洁，还有可以让代码更安全。我们不用担心在使用 Random 的时候，Random 有没有被实例化，因为第一次调用 Get 方法时，我们就顺带进行了实例化操作。并且在 C++ 11 中，局部的静态变量是线程安全的（除非在编译时使用了 --fno-threadsafe-statics 参数），而单纯的静态成员变量是非线程安全的，非线程安全引起的 bug 有时可是很难发现的。</p>
 	
 		</div>
 		
@@ -384,9 +386,9 @@
 							</p>
 							<p class="relate-post-content">
 								
-本文整理自《modeln C++ Tutorial：C++11&#x2F;14&#x2F;17&#x2F;20》
+本文整理自《modeln C++ Tutorial：C++11/14/17/20》
 
-右值引用是 C++11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C++ 中大 量的历史遗留...
+右值引用是 C11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C 中大 量的历史遗留问题，消除了诸如 std::vecto...
 							</p>
 						</div>
 
@@ -409,7 +411,9 @@
 							</p>
 							<p class="relate-post-content">
 								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+ 什么是 Reactor 模式和 Proactor 模式？
+ Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O ...
 							</p>
 						</div>
 
@@ -431,9 +435,11 @@
 								三月 17日, 2021				
 							</p>
 							<p class="relate-post-content">
-								格式化输出的执行顺序由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
-右值引用和左值引用
-C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
+								 格式化输出的执行顺序
+由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
+ 右值引用和左值引用
+
+C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 							</p>
 						</div>
 
@@ -458,7 +464,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -481,7 +489,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -504,11 +514,13 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值(prv...
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -530,12 +542,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -545,11 +561,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -571,10 +583,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -596,9 +610,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
@@ -620,8 +637,12 @@ GPA...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								6.1 函数调用约定简介咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
-12int subtract(int a, in...
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
 							</p>
 						</div>
 

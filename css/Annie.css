@@ -215,9 +215,16 @@ dl {
 ul {
   list-style: disc;
   list-style-position: inside;
+  padding-inline-start: 20px;
 }
 ol {
-  list-style: decimal-leading-zero;
+  list-style: decimal;
+  list-style-position: inside;
+  padding-inline-start: 20px;
+}
+ol ol {
+  margin-bottom: 0;
+  list-style: lower-roman;
   list-style-position: inside;
 }
 dt {
@@ -3858,4 +3865,11 @@ p.relate-post-content {
 }
 header {
   overflow: hidden;
+}
+.small-width-image {
+  display: inline;
+  vertical-align: middle;
+}
+li p {
+  display: inline;
 }

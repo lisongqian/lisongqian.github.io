@@ -307,70 +307,72 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ul>
+			<h2 id="准备"><a class="markdownIt-Anchor" href="#准备"></a> 准备</h2>
+<ul>
 <li>CentOS Linux release 7.2</li>
 <li>gcc 编译器 <code>yum install gcc-c++</code></li>
 <li>TCL <code>yum install -y tcl</code></li>
 <li>redis 安装包 <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-4.0.8.tar.gz">4.0.8 版本</a></li>
 </ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h4 id="下载-redis-安装包"><a href="#下载-redis-安装包" class="headerlink" title="下载 redis 安装包"></a>下载 redis 安装包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h4 id="解压文件"><a href="#解压文件" class="headerlink" title="解压文件"></a>解压文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h4 id="将文件拷贝到公共目录"><a href="#将文件拷贝到公共目录" class="headerlink" title="将文件拷贝到公共目录"></a>将文件拷贝到公共目录</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv redis-4.0.8 /opt/redis-4.0.8</span><br></pre></td></tr></table></figure>
-
-<h4 id="编译代码"><a href="#编译代码" class="headerlink" title="编译代码"></a>编译代码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装应用"><a href="#安装应用" class="headerlink" title="安装应用"></a>安装应用</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<h4 id="启动-Redis"><a href="#启动-Redis" class="headerlink" title="启动 Redis"></a>启动 Redis</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server</span><br></pre></td></tr></table></figure>
-
-<h4 id="安装成功"><a href="#安装成功" class="headerlink" title="安装成功"></a>安装成功</h4><p><img src="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim#height=640&id=DUIpS&originHeight=640&originWidth=796&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=796"></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h4 id="启动-Redis-客户端"><a href="#启动-Redis-客户端" class="headerlink" title="启动 Redis 客户端"></a>启动 Redis 客户端</h4><p>在<code>/opt/redis-4.0.8/src/</code>路径下，输入：</p>
+<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
+<h4 id="下载-redis-安装包"><a class="markdownIt-Anchor" href="#下载-redis-安装包"></a> 下载 redis 安装包</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="解压文件"><a class="markdownIt-Anchor" href="#解压文件"></a> 解压文件</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="将文件拷贝到公共目录"><a class="markdownIt-Anchor" href="#将文件拷贝到公共目录"></a> 将文件拷贝到公共目录</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv redis-4.0.8 /opt/redis-4.0.8</span><br></pre></td></tr></table></figure>
+<h4 id="编译代码"><a class="markdownIt-Anchor" href="#编译代码"></a> 编译代码</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h4 id="安装应用"><a class="markdownIt-Anchor" href="#安装应用"></a> 安装应用</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h4 id="启动-redis"><a class="markdownIt-Anchor" href="#启动-redis"></a> 启动 Redis</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server</span><br></pre></td></tr></table></figure>
+<h4 id="安装成功"><a class="markdownIt-Anchor" href="#安装成功"></a> 安装成功</h4>
+<p><img src="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim#height=640&amp;id=DUIpS&amp;originHeight=640&amp;originWidth=796&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=796" alt="" /></p>
+<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
+<h4 id="启动-redis-客户端"><a class="markdownIt-Anchor" href="#启动-redis-客户端"></a> 启动 Redis 客户端</h4>
+<p>在<code>/opt/redis-4.0.8/src/</code>路径下，输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli</span><br></pre></td></tr></table></figure>
-
-<p>进入 Redis 命令行，下图为使用测试。<br><img src="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim#height=141&id=P0AmJ&originHeight=141&originWidth=658&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=658"></p>
-<h4 id="Redis-的命令"><a href="#Redis-的命令" class="headerlink" title="Redis 的命令"></a>Redis 的命令</h4><p>String &amp; Integer</p>
+<p>进入 Redis 命令行，下图为使用测试。<br />
+<img src="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim#height=141&amp;id=P0AmJ&amp;originHeight=141&amp;originWidth=658&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=658" alt="" /></p>
+<h4 id="redis-的命令"><a class="markdownIt-Anchor" href="#redis-的命令"></a> Redis 的命令</h4>
+<p>String &amp; Integer</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">incr num //将num自增1</span><br><span class="line">decrby num 2 //将num自减2</span><br></pre></td></tr></table></figure>
-
 <p>List(元素可重复)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lpush list1 12   //从左面添加一个“12”入list1</span><br><span class="line">rpush list1 12   //从右面添加一个“12”入list1</span><br><span class="line">lpop  list1 12   //从左面输出一个“12”出list1</span><br><span class="line">rpop  list1 12   //从右面输出一个“12”出list1</span><br><span class="line">llen  list       //输出list1的元素个数</span><br></pre></td></tr></table></figure>
-
 <p>Set(元素不可重复)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sadd      set1 12    //向set1中插入一个“12”</span><br><span class="line">scard     set1       //查看set中有多少元素</span><br><span class="line">sisnumber set1 12    //在set1中找“12”这个元素</span><br><span class="line">srem      set1 12    //将“12”从set1中删除</span><br></pre></td></tr></table></figure>
-
-<p>Hash(key&#x3D;&gt;value)</p>
+<p>Hash(key=&gt;value)</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hset hash1 key1 1    //向hash1中添加键值对 key1:1</span><br><span class="line">hget hash1 key1      //从hash1中读取key1的值</span><br><span class="line">hlen hash1           //获取hash1的键值对的个数（即key的个数）</span><br><span class="line">hmget hash1 key1 key2//获取hash1中key1和key2的值</span><br></pre></td></tr></table></figure>
-
 <p>Sort set</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zadd   zset1  12 val1 //向zset1中添加元素</span><br><span class="line">zcard  zset1  //查看zset1中元素的个数</span><br><span class="line">zrange zset1 0 2 withscores //查看排序后的0-2号元素</span><br><span class="line">zrank  zset1 val1    //查看 val1元素的排名</span><br></pre></td></tr></table></figure>
-
-<h2 id="PHP-的-Redis-扩展"><a href="#PHP-的-Redis-扩展" class="headerlink" title="PHP 的 Redis 扩展"></a>PHP 的 Redis 扩展</h2><h4 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h4><p><strong>PHP 有安装 phpize 和 php-config 扩展，可以执行 which phpize 和 which php-config 来查看有无该扩展。</strong><br>安装该扩展：</p>
+<h2 id="php-的-redis-扩展"><a class="markdownIt-Anchor" href="#php-的-redis-扩展"></a> PHP 的 Redis 扩展</h2>
+<h4 id="前提"><a class="markdownIt-Anchor" href="#前提"></a> 前提</h4>
+<p><strong>PHP 有安装 phpize 和 php-config 扩展，可以执行 which phpize 和 which php-config 来查看有无该扩展。</strong><br />
+安装该扩展：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install php-devel</span><br></pre></td></tr></table></figure>
-
-<h4 id="下载-Redis-扩展"><a href="#下载-Redis-扩展" class="headerlink" title="下载 Redis 扩展"></a>下载 Redis 扩展</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/phpredis/phpredis/archive/develop.zip</span><br></pre></td></tr></table></figure>
-
-<h4 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip develop.zip</span><br></pre></td></tr></table></figure>
-
-<h4 id="生成-configure-工具"><a href="#生成-configure-工具" class="headerlink" title="生成 configure 工具"></a>生成 configure 工具</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd phpredis-develop</span><br><span class="line">phpize</span><br></pre></td></tr></table></figure>
-
-<h4 id="进行编译和-Check"><a href="#进行编译和-Check" class="headerlink" title="进行编译和 Check"></a>进行编译和 Check</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -with-php-config=/usr/bin/php-config</span><br></pre></td></tr></table></figure>
-
+<h4 id="下载-redis-扩展"><a class="markdownIt-Anchor" href="#下载-redis-扩展"></a> 下载 Redis 扩展</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/phpredis/phpredis/archive/develop.zip</span><br></pre></td></tr></table></figure>
+<h4 id="解压缩"><a class="markdownIt-Anchor" href="#解压缩"></a> 解压缩</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip develop.zip</span><br></pre></td></tr></table></figure>
+<h4 id="生成-configure-工具"><a class="markdownIt-Anchor" href="#生成-configure-工具"></a> 生成 configure 工具</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd phpredis-develop</span><br><span class="line">phpize</span><br></pre></td></tr></table></figure>
+<h4 id="进行编译和-check"><a class="markdownIt-Anchor" href="#进行编译和-check"></a> 进行编译和 Check</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -with-php-config=/usr/bin/php-config</span><br></pre></td></tr></table></figure>
 <p>注：</p>
 <ul>
 <li><code>-with-php-config</code>参数后面填写<code>php-config</code>扩展的路径</li>
 </ul>
-<h4 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-
-<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>查看 php.ini 文件目录<code>php --ini</code></p>
+<h4 id="编译"><a class="markdownIt-Anchor" href="#编译"></a> 编译</h4>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<h4 id="修改配置文件"><a class="markdownIt-Anchor" href="#修改配置文件"></a> 修改配置文件</h4>
+<p>查看 php.ini 文件目录<code>php --ini</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/php.ini</span><br></pre></td></tr></table></figure>
-
 <p>在最后一行添加：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=redis.so</span><br></pre></td></tr></table></figure>
-
-<h4 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -m</span><br></pre></td></tr></table></figure>
-
-<p><img src="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim#height=383&id=C9yGC&originHeight=383&originWidth=661&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&status=done&style=none&title=&width=661"></p>
+<h4 id="检查是否安装成功"><a class="markdownIt-Anchor" href="#检查是否安装成功"></a> 检查是否安装成功</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -m</span><br></pre></td></tr></table></figure>
+<p><img src="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim#height=383&amp;id=C9yGC&amp;originHeight=383&amp;originWidth=661&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=661" alt="" /></p>
 	
 		</div>
 		
@@ -423,13 +425,16 @@
 								二月 6日, 2022				
 							</p>
 							<p class="relate-post-content">
-								前提阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+								 前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
+同时我们需要准备：
 
 一个 GitHub 账号
 一个腾讯云账号
 hexo 安装了 yuque-hexo 插件且能正常运行
 
-实现思路：利用语雀的webhook触发腾讯云云...
+ 实现思路：
+利用语雀的webhook触...
 							</p>
 						</div>
 
@@ -451,7 +456,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								原因新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 ...
+								 原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
 							</p>
 						</div>
 
@@ -473,10 +479,14 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								代码整体向后缩进选中多行代码 - 按下 Tab
-代码整体向前缩进选中多行代码 - 按下 Shift + Tab
-查找下一条代码差异F7
-查找上一条代码差异Shift + F7
+								 代码整体向后缩进
+选中多行代码 - 按下 Tab
+ 代码整体向前缩进
+选中多行代码 - 按下 Shift + Tab
+ 查找下一条代码差异
+F7
+ 查找上一条代码差异
+Shift + F7
 
 							</p>
 						</div>
@@ -499,7 +509,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								Nginx 跨域（不安全，但快捷）123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With...
+								 Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
 							</p>
 						</div>
 
@@ -521,9 +532,11 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								九月 13日, 2020				
 							</p>
 							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
+								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
+注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：打开注册表编辑器，定位至...
+旧方法：
+打开注册表编辑器，定...
 							</p>
 						</div>
 
@@ -550,8 +563,10 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
-开始修改客户端配置打开 frpc.ini 文件，将文件按照需求更改如下：
-1234567891011121314151617...
+ 开始
+ 修改客户端配置
+打开 frpc.ini 文件，将文件按照需求更改如下：
+123456789101112131415...
 							</p>
 						</div>
 
@@ -595,7 +610,9 @@ frp 客户端文件，包括：frp 客户端，winsw
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：https://www.amd.com/en/technologies/infinity-hub/pytorchhttps://www.amd.com/e...
+								目前 ROCm 已支持 TensorFlow 和 Pytorch，无需自行编译：
+https://www.amd.com/en/technologies/infinity-hub/pytorch
+https://www.amd.com...
 							</p>
 						</div>
 
@@ -618,7 +635,9 @@ frp 客户端文件，包括：frp 客户端，winsw
 							</p>
 							<p class="relate-post-content">
 								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
-什么是 Reactor 模式和 Proactor 模式？Reactor 模式Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I&#x2F;O...
+ 什么是 Reactor 模式和 Proactor 模式？
+ Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O ...
 							</p>
 						</div>
 
@@ -643,7 +662,9 @@ frp 客户端文件，包括：frp 客户端，winsw
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 

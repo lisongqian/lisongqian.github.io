@@ -296,7 +296,6 @@
 		<div class="article-content" id="article-content">
 			<p>亲测可用的<code>PyTorch</code>和<code>TensorflowBoard</code>版本，不会出现绘制模型结构图片时空白的情况。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">torch==1.2.0</span><br><span class="line">tensorboard==2.1.1</span><br><span class="line">tensorflow==2.1.0</span><br><span class="line">tensorboardX==2.0</span><br></pre></td></tr></table></figure>
-
 <p>提醒：作者使用<code>PyTorch</code>1.4 版本没成功绘制出来，建议换成 1.2 或 1.3 版本。</p>
 	
 		</div>
@@ -351,7 +350,7 @@
 							</p>
 							<p class="relate-post-content">
 								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
-BERT: Bidirectional Encoder Representations f...
+ BERT: Bidirectional Encoder Representations ...
 							</p>
 						</div>
 
@@ -402,11 +401,11 @@ BERT: Bidirectional Encoder Representations f...
 L2 范数：
 L1 范数：
 
-推导过程
+ 推导过程
+
 泰勒公式  
 
-为什么可以减少过拟合
-直...
+ 为什么可以减少过拟...
 							</p>
 						</div>
 
@@ -428,14 +427,15 @@ L1 范数：
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								Logistic Regression逻辑回归的假设函数：
+								 Logistic Regression
+逻辑回归的假设函数：
 
 其中是输入,是要求解的参数。
 函数图像：
 
 一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
 
-它的意思是在给定的...
+它的意思是在给...
 							</p>
 						</div>
 
@@ -460,7 +460,9 @@ L1 范数：
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
-10.1 同步机制——锁10.1.1 排查 GP 异常，理解原子操作多线程执行刷屏时光标值越界导致 GP ...
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
 							</p>
 						</div>
 
@@ -483,7 +485,9 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
-9.1 实现内核线程9.1.1 执行流在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器...
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
 							</p>
 						</div>
 
@@ -506,11 +510,13 @@ L1 范数：
 							</p>
 							<p class="relate-post-content">
 								
-用户层虚拟化本地 API 拦截和 API formwarding
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
 让 APP 调用这个 libwrapper。如何做？
-libwrapper ...
+libwrap...
 							</p>
 						</div>
 
@@ -532,12 +538,16 @@ libwrapper ...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								硬件虚拟化介绍硬件虚拟化要做的事情体系结构支持
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
 
 
 体系结构
 实现功能
 作用
+
 
 
 
@@ -547,11 +557,7 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA
-
-
-
-GPA...
+GVA-&gt; GPA...
 							</p>
 						</div>
 
@@ -573,10 +579,12 @@ GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								8.1 makefile 简介
+								 8.1 makefile 简介
+
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
-8.1.1 makefile 是什么makefile 是 Linux 下编...
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
 							</p>
 						</div>
 
@@ -598,9 +606,12 @@ GPA...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								7.1 中断是什么，为什么要有中断运用中断能够显著提升并发，从而大幅提升效率。
-7.2 操作系统是中断驱动的略
-7.3 中断分类把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。外部中...
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
 							</p>
 						</div>
 
