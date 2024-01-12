@@ -278,7 +278,7 @@
 
 	<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" itemprop="url">
 		<time datetime="2022-12-25T07:26:36.000Z" itemprop="dateUpdated">
-	  		2024-01-09
+	  		2024-01-12
 	  </time>
 	</a> 
 
@@ -394,13 +394,13 @@ CPU 内的过程：</p>
 <p>以上过程如图所示：<br />
 <img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671503207885-e62f7abf-2f0c-4e6c-93da-96327457dc44.png#averageHue=%23eeeeee&amp;clientId=u8754f491-f28a-4&amp;from=paste&amp;height=373&amp;id=ue5d0b1f4&amp;originHeight=373&amp;originWidth=685&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=117125&amp;status=done&amp;style=none&amp;taskId=u16a72042-c9cb-4882-b4a5-4903a752486&amp;title=&amp;width=685" alt="image.png" /><br />
 中断发生后， eflags 中的 NT 位和 TF 位会被置 0。如果中断对应的门描述符是中断门，标志寄存器 eflags 中的 IF 位被自动置 0，避免中断嵌套。</p>
-<blockquote>
-<p>NT，即 Nest Task ，意为任务嵌套标志位。 当一个任务中又嵌套调用了另一个任务（进程）时，此 NT 位为 1 。<br />
-TF 位，即 Trap Flag，意为陷阱标志位。在调试环境中，当 TF 为 0 时表示禁止单步执行。</p>
-</blockquote>
+<ul>
+<li>NT 位，即 Nest Task ，意为任务嵌套标志位。 当一个任务中又嵌套调用了另一个任务（进程）时，此 NT 位为 1 。</li>
+<li>TF 位，即 Trap Flag，意为陷阱标志位。在调试环境中，当 TF 为 0 时表示禁止单步执行。</li>
+</ul>
 <p>CPU 提供了专门用于控制 IF 位的指令，使用<code>cli</code>使 IF 位为 0，称为关中断；使用<code>sti</code>使 IF 位为 1，称为开中断。当然，不可屏蔽中断不受 IF 控制。</p>
 <p>这里说一下任务嵌套调用（或 NT 位的作用）：<br />
-任务嵌套调用是指 CPU 将当前政治性的就任务挂起，转去执行另外的新任务，待新任务执行完后，CPU 再回到旧任务继续执行。CPU 在执行新任务前做了两件准备工作：</p>
+任务嵌套调用是指 CPU 将当前正执行的旧任务挂起，转去执行另外的新任务，待新任务执行完后，CPU 再回到旧任务继续执行。CPU 在执行新任务前做了两件准备工作：</p>
 <ol>
 <li>将就任务 TSS 选择子写到了新任务 TSS 中的“上一个任务 TSS 的指针”字段中；</li>
 <li>将新任务标志寄存器 eflags 中的 NT 位置 1，表示新任务之所以能够执行，是因为有别的任务调用了它。</li>
@@ -411,9 +411,9 @@ TF 位，即 Trap Flag，意为陷阱标志位。在调试环境中，当 TF 为
 寄存器入栈情况及顺序：</p>
 <ol>
 <li>CPU 根据 CPL 和中断门描述符选择子对应的目标代码段 DPL 比对，若 CPL 权限&lt;DPL，表示向高特权级转移，需要切换到高特权级栈，故将寄存器 SS、ESP 的值临时保存，然后在 TSS 中找到同目标代码段 DPL 级别相同的栈加载到 SS、ESP 寄存器中，并将之前临时保存的 SS 和 ESP 寄存器的值压栈，如图 7-8 A 所示。</li>
-<li>新栈中压入 eflags 寄存器，如图 B 所示。</li>
-<li>切换代码段是段间转移，需要备份 CS 和 EIP，如图 C 所示。</li>
-<li>某些异常会有错误码，此错误码用于报告异常是在哪个段上发生的，所以错误码中包含选择子等信息，这里也需要将错误码入栈，如图 D 所示。</li>
+<li>新栈中压入 eflags 寄存器，如图 7-8 B 所示。</li>
+<li>切换代码段是段间转移，需要备份 CS 和 EIP，如图 7-8 C 所示。</li>
+<li>某些异常会有错误码，此错误码用于报告异常是在哪个段上发生的，所以错误码中包含选择子等信息，这里也需要将错误码入栈，如图 7-8 D 所示。</li>
 </ol>
 <p>若不涉及特权级转移，就不会到 TSS 中寻找新栈，栈中数据就不会有 SS 和 ESP 的值，如图 7-9 所示。<br />
 <img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1671524597675-edf916c0-da0d-4cc9-9673-6862452d780a.png#averageHue=%23e6e6e6&amp;clientId=ub4151975-6cc5-4&amp;from=paste&amp;height=273&amp;id=u5fef9af4&amp;originHeight=273&amp;originWidth=293&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=62099&amp;status=done&amp;style=none&amp;taskId=u67763171-6510-476f-9701-19784f2ffa8&amp;title=&amp;width=293" alt="image.png" /><br />
