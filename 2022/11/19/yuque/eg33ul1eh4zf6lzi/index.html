@@ -278,7 +278,7 @@
 
 	<a href="/2022/11/19/yuque/eg33ul1eh4zf6lzi/" itemprop="url">
 		<time datetime="2022-11-19T09:17:42.000Z" itemprop="dateUpdated">
-	  		2024-01-12
+	  		2024-01-14
 	  </time>
 	</a> 
 
@@ -312,7 +312,7 @@
 </blockquote>
 <h2 id="51-获取物理内存容量"><a class="markdownIt-Anchor" href="#51-获取物理内存容量"></a> 5.1 获取物理内存容量</h2>
 <h4 id="511-linux-获取内存的方法"><a class="markdownIt-Anchor" href="#511-linux-获取内存的方法"></a> 5.1.1 Linux 获取内存的方法</h4>
-<p>在 Linux 2.6 内核总是用<code>detect_memory</code>函数来获取内存容量的。其函数子啊本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要层放到寄存器 EAX 或 AX 中，如下：</p>
+<p>在 Linux 2.6 内核总是用<code>detect_memory</code>函数来获取内存容量的。其函数本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要存放到寄存器 EAX 或 AX 中，如下：</p>
 <ul>
 <li>EAX=0xE820：遍历主机上全部内存</li>
 <li>AX=0xE801： 分别检测低 15MB 和 16MB~4GB 的内存，最大支持 4GB</li>
