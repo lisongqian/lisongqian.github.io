@@ -310,38 +310,48 @@
 			<blockquote>
 <p>模型越复杂越容易出现<strong>过拟合</strong>状态，所以需要一种机制来保证我们模型的“简单”，这样我们的模型才能有较好的泛化能力，正则化是这类机制之一。</p>
 </blockquote>
-<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20%3D%20%5Csum_%7Bj%3D1%7D%5E%7Bn_x%7Dw_j%5E2%20%3D%20%20w%5ETw#height=81&amp;id=KrMmK&amp;originHeight=66&amp;originWidth=204&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=249" alt="" /></p>
-<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w%2Cb)%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%2C%20%5Chat%7By%7D)%20%2B%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#height=59&amp;id=xnvUu&amp;originHeight=48&amp;originWidth=308&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=376" alt="" /></p>
-<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj%3D1%7D%5E%7Bu_x%7D%7Cw_j%7C%3D%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#height=81&amp;id=aNMUj&amp;originHeight=66&amp;originWidth=220&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=269" alt="" /></p>
-<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#height=139&amp;id=TUiES&amp;originHeight=139&amp;originWidth=387&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=387" alt="" /></p>
-<h4 id="推导过程"><a class="markdownIt-Anchor" href="#推导过程"></a> 推导过程</h4>
+<p>欧几里得范数：<img src="https://g.yuque.com/gr/latex?%7C%7Cw%7C%7C_2%5E2%20%3D%20%5Csum_%7Bj%3D1%7D%5E%7Bn_x%7Dw_j%5E2%20%3D%20%20w%5ETw#height=81&amp;id=KrMmK&amp;originHeight=66&amp;originWidth=204&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=249" alt=""></p>
+<p>L2 范数：<img src="https://g.yuque.com/gr/latex?J(w%2Cb)%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%2C%20%5Chat%7By%7D)%20%2B%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_2%5E2#height=59&amp;id=xnvUu&amp;originHeight=48&amp;originWidth=308&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=376" alt=""></p>
+<p>L1 范数：<img src="https://g.yuque.com/gr/latex?%5Cfrac%7B%5Clambda%7D%7B2m%7D%20%5Csum_%7Bj%3D1%7D%5E%7Bu_x%7D%7Cw_j%7C%3D%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%7C%7C_1#height=81&amp;id=aNMUj&amp;originHeight=66&amp;originWidth=220&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=269" alt=""></p>
+<p><img src="http://cdn.lisongqian.cn/15307551919108rxdn1vo.png?imageslim#height=139&amp;id=TUiES&amp;originHeight=139&amp;originWidth=387&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=387" alt=""></p>
+<h4 id="推导过程">推导过程</h4>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20%3D%20%5Cfrac%7Bf(a)%7D%7B0!%7D%2B%5Cfrac%7Bf'(a)%7D%7B1!%7D(x-a)%2B%5Cfrac%7Bf''(a)%7D%7B2!%7D(x-a)%5E2%2B...%2B%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20%2BR_n(x)#height=68&amp;id=XQ4HN&amp;originHeight=56&amp;originWidth=701&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=856" alt="" /></p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B3%B0%E5%8B%92%E5%85%AC%E5%BC%8F">泰勒公式</a>  <img src="https://g.yuque.com/gr/latex?f(x)%20%3D%20%5Cfrac%7Bf(a)%7D%7B0!%7D%2B%5Cfrac%7Bf'(a)%7D%7B1!%7D(x-a)%2B%5Cfrac%7Bf''(a)%7D%7B2!%7D(x-a)%5E2%2B...%2B%5Cfrac%7Bf%5E%7B(n)%7D(a)%7D%7Bn!%7D(x-a)%5En%20%2BR_n(x)#height=68&amp;id=XQ4HN&amp;originHeight=56&amp;originWidth=701&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=856" alt=""></p>
 </blockquote>
-<h4 id="为什么可以减少过拟合"><a class="markdownIt-Anchor" href="#为什么可以减少过拟合"></a> 为什么可以减少过拟合</h4>
-<p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D%2Cb%5E%7B%5B%5Cell%5D%7D)%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei%2C%20%5Chat%7By%7D%5Ei)%20%2B%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#height=59&amp;id=KNyJB&amp;originHeight=48&amp;originWidth=372&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=454" alt="" /></p>
-<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#height=25&amp;id=I9HRH&amp;originHeight=20&amp;originWidth=12&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=15" alt="" />增加到足够大，<img src="https://g.yuque.com/gr/latex?w#height=18&amp;id=VLdqA&amp;originHeight=15&amp;originWidth=15&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=18" alt="" />会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
-<h4 id="正则化结果"><a class="markdownIt-Anchor" href="#正则化结果"></a> 正则化结果</h4>
-<p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#height=32&amp;id=d5ur0&amp;originHeight=26&amp;originWidth=31&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=38" alt="" />很小，<img src="https://g.yuque.com/gr/latex?z#height=18&amp;id=UimEY&amp;originHeight=15&amp;originWidth=10&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=12" alt="" /> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#height=18&amp;id=OsUAE&amp;originHeight=15&amp;originWidth=10&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=12" alt="" />的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
-<h2 id="dropout-正则化"><a class="markdownIt-Anchor" href="#dropout-正则化"></a> Dropout 正则化</h2>
+<h4 id="为什么可以减少过拟合">为什么可以减少过拟合</h4>
+<p><img src="https://g.yuque.com/gr/latex?J(w%5E%7B%5B%5Cell%5D%7D%2Cb%5E%7B%5B%5Cell%5D%7D)%20%3D%20%5Cfrac%7B1%7D%7Bm%7D%20*L(y%5Ei%2C%20%5Chat%7By%7D%5Ei)%20%2B%20%5Cfrac%7B%5Clambda%7D%7B2m%7D%7C%7Cw%5E%7B%5B%5Cell%5D%7D%7C%7C_2%5E2%0A#height=59&amp;id=KNyJB&amp;originHeight=48&amp;originWidth=372&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=454" alt=""></p>
+<p>直观理解就是<img src="https://g.yuque.com/gr/latex?%5Clambda#height=25&amp;id=I9HRH&amp;originHeight=20&amp;originWidth=12&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=15" alt="">增加到足够大，<img src="https://g.yuque.com/gr/latex?w#height=18&amp;id=VLdqA&amp;originHeight=15&amp;originWidth=15&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=18" alt="">会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，<strong>在直觉上认为大量隐藏单元被完全消除了</strong>，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。</p>
+<h4 id="正则化结果">正则化结果</h4>
+<p>如果正则化参数很大，<img src="https://g.yuque.com/gr/latex?w%5E%7B%5B%5Cell%5D%7D#height=32&amp;id=d5ur0&amp;originHeight=26&amp;originWidth=31&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=38" alt="">很小，<img src="https://g.yuque.com/gr/latex?z#height=18&amp;id=UimEY&amp;originHeight=15&amp;originWidth=10&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=12" alt=""> 将会相对变小。由于<img src="https://g.yuque.com/gr/latex?z#height=18&amp;id=OsUAE&amp;originHeight=15&amp;originWidth=10&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=12" alt="">的取值范围很小，会导致激活函数相对呈线性，整个神经网络会计算离线性函数近的值，不会成为一个极复杂的高度非线性函数，不会发生过拟合。</p>
+<h2 id="Dropout-正则化">Dropout 正则化</h2>
 <p>Dropout 正则化是随机减少每层的神经元来实现的。</p>
-<h4 id="dropout-方法inverted-dropout"><a class="markdownIt-Anchor" href="#dropout-方法inverted-dropout"></a> Dropout 方法——Inverted Dropout</h4>
+<h4 id="Dropout-方法——Inverted-Dropout">Dropout 方法——Inverted Dropout</h4>
 <ol>
-<li>定义一个向量<img src="https://g.yuque.com/gr/latex?d#height=24&amp;id=Iy6BP&amp;originHeight=20&amp;originWidth=11&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=13" alt="" />，<img src="https://g.yuque.com/gr/latex?d3#height=25&amp;id=pCQ7v&amp;originHeight=20&amp;originWidth=21&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=26" alt="" />表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#height=28&amp;id=TvIzB&amp;originHeight=23&amp;originWidth=106&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=129" alt="" /> 表示保留某个隐藏单元的概率：</li>
+<li class="lvl-3">
+<p>定义一个向量<img src="https://g.yuque.com/gr/latex?d#height=24&amp;id=Iy6BP&amp;originHeight=20&amp;originWidth=11&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=13" alt="">，<img src="https://g.yuque.com/gr/latex?d3#height=25&amp;id=pCQ7v&amp;originHeight=20&amp;originWidth=21&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=26" alt="">表示一个三层的 Dropout 向量，<img src="https://g.yuque.com/gr/latex?keep-prob#height=28&amp;id=TvIzB&amp;originHeight=23&amp;originWidth=106&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=129" alt=""> 表示保留某个隐藏单元的概率：</p>
+</li>
 </ol>
-<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#height=24&amp;id=Dl3Hs&amp;originHeight=20&amp;originWidth=11&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=13" alt="" />的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#height=24&amp;id=EOvOX&amp;originHeight=20&amp;originWidth=22&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=26" alt="" />：</p>
+<p><code>d3=np.random.rand(a3.shape[0],a3.shape[1])&lt;keep-prob</code> 2. 从第三层中获取激活函数(<img src="https://g.yuque.com/gr/latex?d#height=24&amp;id=Dl3Hs&amp;originHeight=20&amp;originWidth=11&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=13" alt="">的值变为了 0 或 1，从而实现随机移除神经元)，这里叫做<img src="https://g.yuque.com/gr/latex?a3#height=24&amp;id=EOvOX&amp;originHeight=20&amp;originWidth=22&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=26" alt="">：</p>
 <p><code>a3=np.multply(a3,d3) # a3*=d3</code> 3. 由于我们随机的移除了一些节点，这样最终的预测值会发生改变，所以在这一步骤中对期望值进行补偿：</p>
 <p><code>a/=keep-prob</code></p>
 <p>在测试集中不需要使用 Dropout。</p>
-<h2 id="其他正则化方法"><a class="markdownIt-Anchor" href="#其他正则化方法"></a> 其他正则化方法</h2>
-<ul>
-<li>数据扩增（data augmentation）</li>
-<li>提前停止训练神经网络（early stopping）</li>
+<h2 id="其他正则化方法">其他正则化方法</h2>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>数据扩增（data augmentation）</p>
+</li>
+<li class="lvl-2">
+<p>提前停止训练神经网络（early stopping）</p>
+</li>
 </ul>
-<h5 id="references"><a class="markdownIt-Anchor" href="#references"></a> REFERENCES</h5>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://www.niuxuewei.com/2018/04/07/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E5%8C%96%E5%87%8F%E5%B0%91%E6%96%B9%E5%B7%AE/">神经网络中使用正则化减少方差</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20924039">机器学习中常常提到的正则化到底是什么意思</a></li>
+<h5 id="REFERENCES">REFERENCES</h5>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="http://www.niuxuewei.com/2018/04/07/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E5%8C%96%E5%87%8F%E5%B0%91%E6%96%B9%E5%B7%AE/">神经网络中使用正则化减少方差</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20924039">机器学习中常常提到的正则化到底是什么意思</a></p>
+</li>
 </ul>
 	
 		</div>
@@ -419,7 +429,7 @@
 							</p>
 							<p class="relate-post-content">
 								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
- BERT: Bidirectional Encoder Representations ...
+BERT: Bidirectional Encoder Representations f...
 							</p>
 						</div>
 
@@ -463,12 +473,15 @@
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								 Logistic Regression
+								Logistic Regression
 逻辑回归的假设函数：
-$ h_{\theta}(x) =\frac{1}{1+e{-\theta{T}x}}
-$
-其中$ x 是输入,是输入,是输入, \theta $是要求解的参数。
-函数图...
+
+其中是输入,是要求解的参数。
+函数图像：
+
+一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
+
+它的意思是在给定...
 							</p>
 						</div>
 
@@ -491,8 +504,9 @@ $
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -517,9 +531,9 @@ $
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -542,9 +556,9 @@ $
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -567,13 +581,18 @@ $
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -595,9 +614,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -614,7 +633,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -636,12 +658,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 

@@ -311,68 +311,73 @@
 <p>本文整理自《modeln C++ Tutorial：C++11/14/17/20》</p>
 </blockquote>
 <p>右值引用是 C<ins>11 引入的与 Lambda 表达式齐名的重要特性之一。它的引入解决了 C</ins> 中大 量的历史遗留问题，消除了诸如 std::vector、std::string 之类的额外开销，也才使得函数对象容器 std::function 成为了可能。</p>
-<h3 id="什么是左值右值"><a class="markdownIt-Anchor" href="#什么是左值右值"></a> 什么是左值右值</h3>
-<p>要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。<br />
-<strong>左值 (lvalue, left value)</strong>，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋 值表达式）后依然存在的持久对象。<br />
-<strong>右值 (rvalue, right value)</strong>，右边的值，是指表达式结束后就不再存在的临时对象。<br />
-而 C++11 中为了引入强大的右值引用，将右值的概念进行了进一步的划分，分为：纯右值、将亡值。<br />
-<strong>纯右值 (prvalue, pure rvalue)</strong>，纯粹的右值，要么是纯粹的字面量，例如 10, true；要么是求值结果相当于字面量或匿名临时对象，例如 1+2。非引用返回的临时变量、运算表达式产生的临时变量、原始字面量、Lambda 表达式都属于纯右值。<br />
+<h3 id="什么是左值右值">什么是左值右值</h3>
+<p>要弄明白右值引用到底是怎么一回事，必须要对左值和右值做一个明确的理解。<br>
+<strong>左值 (lvalue, left value)</strong>，顾名思义就是赋值符号左边的值。准确来说，左值是表达式（不一定是赋 值表达式）后依然存在的持久对象。<br>
+<strong>右值 (rvalue, right value)</strong>，右边的值，是指表达式结束后就不再存在的临时对象。<br>
+而 C++11 中为了引入强大的右值引用，将右值的概念进行了进一步的划分，分为：纯右值、将亡值。<br>
+<strong>纯右值 (prvalue, pure rvalue)</strong>，纯粹的右值，要么是纯粹的字面量，例如 10, true；要么是求值结果相当于字面量或匿名临时对象，例如 1+2。非引用返回的临时变量、运算表达式产生的临时变量、原始字面量、Lambda 表达式都属于纯右值。<br>
 需要注意的是，字面量除了字符串字面量以外，均为纯右值。而字符串字面量是一个左值，类型为 const char 数组。例如：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;type_traits&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 正确，&quot;01234&quot; 类型为 const char [6]，因此是左值</span></span><br><span class="line">	<span class="function"><span class="type">const</span> <span class="title">char</span> <span class="params">(&amp;left)</span>[6] </span>= <span class="string">&quot;01234&quot;</span>;</span><br><span class="line">	<span class="comment">// 断言正确，确实是 const char [6] 类型，注意 decltype(expr) 在 expr 是左值</span></span><br><span class="line">	<span class="comment">// 且非无括号包裹的 id 表达式与类成员表达式时，会返回左值引用</span></span><br><span class="line">	<span class="built_in">static_assert</span>(std::is_same&lt;<span class="keyword">decltype</span>(<span class="string">&quot;01234&quot;</span>), <span class="type">const</span> <span class="built_in">char</span>(&amp;)[<span class="number">6</span>]&gt;::value, <span class="string">&quot;&quot;</span>);</span><br><span class="line">	<span class="comment">// 错误，&quot;01234&quot; 是左值，不可被右值引用</span></span><br><span class="line">	<span class="comment">// const char (&amp;&amp;right)[6] = &quot;01234&quot;;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是注意，数组可以被隐式转换成相对应的指针类型，而转换表达式的结果（如果不是左值引用）则 一定是个右值（右值引用为将亡值，否则为纯右值）。例如：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">char</span>* p = <span class="string">&quot;01234&quot;</span>; <span class="comment">// 正确，&quot;01234&quot; 被隐式转换为 const char*</span></span><br><span class="line"><span class="type">const</span> <span class="type">char</span>*&amp;&amp; pr = <span class="string">&quot;01234&quot;</span>; <span class="comment">// 正确，&quot;01234&quot; 被隐式转换为 const char*，该转换的结果是纯右值</span></span><br><span class="line"><span class="comment">// const char*&amp; pl = &quot;01234&quot;; // 错误，此处不存在 const char* 类型的左值</span></span><br></pre></td></tr></table></figure>
-<p><strong>将亡值 (xvalue, expiring value)</strong>，是 C<ins>11 为了引入右值引用而提出的概念（因此在传统 C</ins> 中，纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。<br />
-我们来看这样的代码：</p>
+<p><strong>将亡值 (xvalue, expiring value)</strong>，是 C<ins>11 为了引入右值引用而提出的概念（因此在传统 C</ins> 中，纯右值和右值是同一个概念），也就是即将被销毁、却能够被移动的值。我们来看这样的代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">std::vector&lt;<span class="type">int</span>&gt; <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::vector&lt;<span class="type">int</span>&gt; temp = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">	<span class="keyword">return</span> temp;</span><br><span class="line">&#125;</span><br><span class="line">std::vector&lt;<span class="type">int</span>&gt; v = <span class="built_in">foo</span>();</span><br></pre></td></tr></table></figure>
-<p>在这样的代码中，就传统的理解而言，函数 foo 的返回值 temp 在内部创建然后被赋值给 v，然而 v 获得这个对象时，会将整个 temp 拷贝一份，然后把 temp 销毁，如果这个 temp 非常大，这将造成大量 额外的开销（这也就是传统 C++ 一直被诟病的问题）。在最后一行中，v 是左值、foo() 返回的值就是 右值（也是纯右值）。但是，v 可以被别的变量捕获到，而 foo() 产生的那个返回值作为一个临时值，一 旦被 v 复制后，将立即被销毁，无法获取、也不能修改。而将亡值就定义了这样一种行为：<strong>临时的值能够被识别、同时又能够被移动。</strong><br />
+<p>在这样的代码中，就传统的理解而言，函数 foo 的返回值 temp 在内部创建然后被赋值给 v，然而 v 获得这个对象时，会将整个 temp 拷贝一份，然后把 temp 销毁，如果这个 temp 非常大，这将造成大量 额外的开销（这也就是传统 C++ 一直被诟病的问题）。在最后一行中，v 是左值、foo() 返回的值就是 右值（也是纯右值）。但是，v 可以被别的变量捕获到，而 foo() 产生的那个返回值作为一个临时值，一 旦被 v 复制后，将立即被销毁，无法获取、也不能修改。而将亡值就定义了这样一种行为：<strong>临时的值能够被识别、同时又能够被移动。</strong><br>
 在 C++11 之后，编译器为我们做了一些工作，此处的左值 temp 会被进行此隐式右值转换，等价于<code>static_cast &lt;&amp;&amp;&gt;(temp)</code>，进而此处的 v 会将 foo 局部返回的值进行移动。也就是后面我们将会提到的移动语义。</p>
-<h3 id="什么是左值引用右值引用"><a class="markdownIt-Anchor" href="#什么是左值引用右值引用"></a> 什么是左值引用右值引用</h3>
-<p>要拿到一个将亡值，就需要用到右值引用：<code>T &amp;&amp;</code>，其中 T 是类型。右值引用的声明让这个临时值的生命周期得以延长、只要变量还活着，那么将亡值将继续存活。<br />
+<h3 id="什么是左值引用右值引用">什么是左值引用右值引用</h3>
+<p>要拿到一个将亡值，就需要用到右值引用：<code>T &amp;&amp;</code>，其中 T 是类型。右值引用的声明让这个临时值的生命周期得以延长、只要变量还活着，那么将亡值将继续存活。<br>
 C++11 提供了 std::move 这个方法将左值参数无条件的转换为右值，有了它我们就能够方便的获得一个右值临时对象，例如：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(std::string&amp; str)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 左值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(std::string&amp;&amp; str)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 右值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::string lv1 = <span class="string">&quot;string,&quot;</span>; <span class="comment">// lv1 是一个左值</span></span><br><span class="line">	<span class="comment">// std::string&amp;&amp; r1 = lv1; // 非法, 右值引用不能引用左值</span></span><br><span class="line">	std::string&amp;&amp; rv1 = std::<span class="built_in">move</span>(lv1); <span class="comment">// 合法, std::move 可以将左值转移为右值</span></span><br><span class="line">	std::cout &lt;&lt; rv1 &lt;&lt; std::endl; <span class="comment">// string,</span></span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> std::string&amp; lv2 = lv1 + lv1; <span class="comment">// 合法, 常量左值引用能够延长临时变量的生命周期</span></span><br><span class="line">	<span class="comment">// lv2 += &quot;Test&quot;; // 非法, 常量引用无法被修改</span></span><br><span class="line">	std::cout &lt;&lt; lv2 &lt;&lt; std::endl; <span class="comment">// string,string,</span></span><br><span class="line"></span><br><span class="line">	std::string&amp;&amp; rv2 = lv1 + lv2; <span class="comment">// 合法, 右值引用延长临时对象生命周期</span></span><br><span class="line">	rv2 += <span class="string">&quot;Test&quot;</span>; <span class="comment">// 合法, 非常量引用能够修改临时变量</span></span><br><span class="line">	std::cout &lt;&lt; rv2 &lt;&lt; std::endl; <span class="comment">// string,string,string,Test</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">reference</span>(rv2); <span class="comment">// 输出左值</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>rv2 虽然引用了一个右值，但由于它是一个引用，所以 rv2 依然是一个左值（补充：具名的右值引用是左值，不具名的右值引用是右值）。 注意，这里有一个很有趣的历史遗留问题，我们先看下面的代码：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// int &amp;a = std::move(1); // 不合法，非常量左引用无法引用右值</span></span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> &amp;b = std::<span class="built_in">move</span>(<span class="number">1</span>); <span class="comment">// 合法, 常量左引用允许引用右值</span></span><br><span class="line">	std::cout &lt;&lt; a &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第一个问题，为什么不允许非常量引用绑定到非左值？这是因为这种做法存在逻辑错误：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">increase</span><span class="params">(<span class="type">int</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	v++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">foo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">double</span> s = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">increase</span>(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>由于 int&amp; 不能引用 double 类型的参数，因此必须产生一个临时值来保存 s 的值，从而当 increase() 修改这个临时值时，调用完成后 s 本身并没有被修改。<br />
-第二个问题，为什么常量引用允许绑定到非左值？原因很简单，因为 Fortran 需要。</p>
-<h3 id="移动语义"><a class="markdownIt-Anchor" href="#移动语义"></a> 移动语义</h3>
-<p>传统 C++ 通过拷贝构造函数和赋值操作符为类对象设计了拷贝/复制的概念，但为了实现对资源的 移动操作，调用者必须使用先复制、再析构的方式，否则就需要自己实现移动对象的接口。<br />
-传统的 C++ 没有区分『移动』和『拷贝』的概念，造成了大量的数据拷贝，浪费时间和空间。右值引用的出现恰好就解决了这两个概念的混淆问题，例如：</p>
+<p>由于 int&amp; 不能引用 double 类型的参数，因此必须产生一个临时值来保存 s 的值，从而当 increase() 修改这个临时值时，调用完成后 s 本身并没有被修改。第二个问题，为什么常量引用允许绑定到非左值？原因很简单，因为 Fortran 需要。</p>
+<h3 id="移动语义">移动语义</h3>
+<p>传统 C++ 通过拷贝构造函数和赋值操作符为类对象设计了拷贝/复制的概念，但为了实现对资源的 移动操作，调用者必须使用先复制、再析构的方式，否则就需要自己实现移动对象的接口。传统的 C++ 没有区分『移动』和『拷贝』的概念，造成了大量的数据拷贝，浪费时间和空间。右值引用的出现恰好就解决了这两个概念的混淆问题，例如：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">A</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="type">int</span> *pointer;</span><br><span class="line">    <span class="built_in">A</span>():<span class="built_in">pointer</span>(<span class="keyword">new</span> <span class="built_in">int</span>(<span class="number">1</span>)) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; 构造&quot;</span> &lt;&lt; pointer &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">A</span>(A&amp; a):<span class="built_in">pointer</span>(<span class="keyword">new</span> <span class="built_in">int</span>(*a.pointer)) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; 拷贝&quot;</span> &lt;&lt; pointer &lt;&lt; std::endl;</span><br><span class="line">    &#125; <span class="comment">// 无意义的对象拷贝</span></span><br><span class="line">    <span class="built_in">A</span>(A&amp;&amp; a):<span class="built_in">pointer</span>(a.pointer) &#123;</span><br><span class="line">        a.pointer = <span class="literal">nullptr</span>;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; 移动&quot;</span> &lt;&lt; pointer &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    ~<span class="built_in">A</span>()&#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot; 析构&quot;</span> &lt;&lt; pointer &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">delete</span> pointer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 防止编译器优化</span></span><br><span class="line"><span class="function">A <span class="title">return_rvalue</span><span class="params">(<span class="type">bool</span> test)</span> </span>&#123;</span><br><span class="line">    A a,b;</span><br><span class="line">    <span class="keyword">if</span>(test) <span class="keyword">return</span> a; <span class="comment">// 等价于 static_cast&lt;A&amp;&amp;&gt;(a);</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> b; <span class="comment">// 等价于 static_cast&lt;A&amp;&amp;&gt;(b);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    A obj = <span class="built_in">return_rvalue</span>(<span class="literal">false</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;obj:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; obj.pointer &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; *obj.pointer &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在上面的代码中：</p>
 <ol>
-<li>首先会在 return_rvalue 内部构造两个 A 对象，于是获得两个构造函数的输出；</li>
-<li>函数返回后，产生一个将亡值，被 A 的移动构造（A(A&amp;&amp;)）引用，从而延长生命周期，并将这个右<br />
-值中的指针拿到，保存到了 obj 中，而将亡值的指针被设置为 nullptr，防止了这块内存区域被销<br />
-毁。</li>
+<li class="lvl-3">
+<p>首先会在 return_rvalue 内部构造两个 A 对象，于是获得两个构造函数的输出；</p>
+</li>
+<li class="lvl-3">
+<p>函数返回后，产生一个将亡值，被 A 的移动构造（A(A&amp;&amp;)）引用，从而延长生命周期，并将这个右值中的指针拿到，保存到了 obj 中，而将亡值的指针被设置为 nullptr，防止了这块内存区域被销毁。</p>
+</li>
 </ol>
 <p>从而避免了无意义的拷贝构造，加强了性能。再来看看涉及标准库的例子：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span> <span class="comment">// std::cout</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span> <span class="comment">// std::move</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span> <span class="comment">// std::vector</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span> <span class="comment">// std::string</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::string str = <span class="string">&quot;Hello world.&quot;</span>;</span><br><span class="line">	std::vector&lt;std::string&gt; v;</span><br><span class="line">	<span class="comment">// 将使用 push_back(const T&amp;), 即产生拷贝行为</span></span><br><span class="line">	v.<span class="built_in">push_back</span>(str);</span><br><span class="line">	<span class="comment">// 将输出 &quot;str: Hello world.&quot;</span></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;str: &quot;</span> &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">	<span class="comment">// 将使用 push_back(const T&amp;&amp;), 不会出现拷贝行为</span></span><br><span class="line">	<span class="comment">// 而整个字符串会被移动到 vector 中，所以有时候 std::move 会用来减少拷贝出现的开销</span></span><br><span class="line">	<span class="comment">// 这步操作后, str 中的值会变为空</span></span><br><span class="line">	v.<span class="built_in">push_back</span>(std::<span class="built_in">move</span>(str));</span><br><span class="line">	<span class="comment">// 将输出 &quot;str: &quot;</span></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;str: &quot;</span> &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="完美转发"><a class="markdownIt-Anchor" href="#完美转发"></a> 完美转发</h3>
+<h3 id="完美转发">完美转发</h3>
 <p>前面我们提到了，一个声明的右值引用其实是一个左值。这就为我们进行参数转发（传递）造成了 问题：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 左值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 右值&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pass</span><span class="params">(T&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 普通传参:&quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(v); <span class="comment">// 始终调用 reference(int&amp;)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递右值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="built_in">pass</span>(<span class="number">1</span>); <span class="comment">// 1 是右值, 但输出是左值</span></span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递左值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="type">int</span> l = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">pass</span>(l); <span class="comment">// l 是左值, 输出左值</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于 pass(1) 来说，虽然传递的是右值，但由于 v 是一个引用，所以同时也是左值。因此 reference(v) 会调用 reference(int&amp;)，输出『左值』。而对于 pass(l) 而言，l 是一个左值，为什么会成功传递给 pass(T&amp;&amp;) 呢？<br />
-这是基于<strong>引用坍缩规则</strong>的：在传统 C++ 中，我们不能够对一个引用类型继续进行引用，但 C++ 由于右值引用的出现而放宽了这一做法，从而产生了引用坍缩规则，允许我们对引用进行引用，既能左引用，又能右引用。但是却遵循如下规则：<br />
-<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658657515235-0a844fd9-1e4b-42e3-8c97-593f62dc32a5.png#clientId=u60dc8bed-8727-4&amp;from=paste&amp;height=209&amp;id=uddaccbcd&amp;originHeight=209&amp;originWidth=517&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=24120&amp;status=done&amp;style=none&amp;taskId=u6097115f-3fc1-48da-85a4-0e73890a414&amp;title=&amp;width=517" alt="image.png" /><br />
-因此，模板函数中使用 T&amp;&amp; 不一定能进行右值引用，当传入左值时，此函数的引用将被推导为左值。<br />
-更准确的讲，<strong>无论模板参数是什么类型的引用，当且仅当实参类型为右引用时，模板参数才能被推导为右引用类型</strong>。这才使得 v 作为左值的成功传递。<br />
-完美转发就是基于上述规律产生的。所谓完美转发，就是为了让我们在传递参数的时候，保持原来 的参数类型（左引用保持左引用，右引用保持右引用）。为了解决这个问题，我们应该使用 std::forward 来进行参数的转发（传递）：</p>
+<p>对于 pass(1) 来说，虽然传递的是右值，但由于 v 是一个引用，所以同时也是左值。因此 reference(v) 会调用 reference(int&amp;)，输出『左值』。而对于 pass(l) 而言，l 是一个左值，为什么会成功传递给 pass(T&amp;&amp;) 呢？<br>
+这是基于<strong>引用坍缩规则</strong>的：在传统 C++ 中，我们不能够对一个引用类型继续进行引用，但 C++ 由于右值引用的出现而放宽了这一做法，从而产生了引用坍缩规则，允许我们对引用进行引用，既能左引用，又能右引用。但是却遵循如下规则：<br>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1658657515235-0a844fd9-1e4b-42e3-8c97-593f62dc32a5.png#clientId=u60dc8bed-8727-4&amp;from=paste&amp;height=209&amp;id=uddaccbcd&amp;originHeight=209&amp;originWidth=517&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=24120&amp;status=done&amp;style=none&amp;taskId=u6097115f-3fc1-48da-85a4-0e73890a414&amp;title=&amp;width=517" alt="image.png">因此，模板函数中使用 T&amp;&amp; 不一定能进行右值引用，当传入左值时，此函数的引用将被推导为左值。<br>
+更准确的讲，<strong>无论模板参数是什么类型的引用，当且仅当实参类型为右引用时，模板参数才能被推导为右引用类型</strong>。这才使得 v 作为左值的成功传递。完美转发就是基于上述规律产生的。所谓完美转发，就是为了让我们在传递参数的时候，保持原来 的参数类型（左引用保持左引用，右引用保持右引用）。为了解决这个问题，我们应该使用 std::forward 来进行参数的转发（传递）：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 左值引用&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">reference</span><span class="params">(<span class="type">int</span>&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 右值引用&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pass</span><span class="params">(T&amp;&amp; v)</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 普通传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(v);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; std::move 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(std::<span class="built_in">move</span>(v));</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; std::forward 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(std::forward&lt;T&gt;(v));</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;static_cast&lt;T&amp;&amp;&gt; 传参: &quot;</span>;</span><br><span class="line">	<span class="built_in">reference</span>(<span class="built_in">static_cast</span>&lt;T&amp;&amp;&gt;(v));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递右值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="built_in">pass</span>(<span class="number">1</span>);</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot; 传递左值:&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">	<span class="type">int</span> v = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">pass</span>(v);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>输出结果为：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 传递右值:</span><br><span class="line"> 普通传参:  左值引用</span><br><span class="line"> std::move 传参:  右值引用</span><br><span class="line"> std::forward 传参:  右值引用</span><br><span class="line"><span class="keyword">static_cast</span>&lt;T&amp;&amp;&gt; 传参:  右值引用</span><br><span class="line"> 传递左值:</span><br><span class="line"> 普通传参:  左值引用</span><br><span class="line"> std::move 传参:  右值引用</span><br><span class="line"> std::forward 传参:  左值引用</span><br><span class="line"><span class="keyword">static_cast</span>&lt;T&amp;&amp;&gt; 传参:  左值引用</span><br></pre></td></tr></table></figure>
 <p>无论传递参数为左值还是右值，普通传参都会将参数作为左值进行转发，所以 std::move 总会接受到一个左值，从而转发调用了 reference(int&amp;&amp;) 输出右值引用。 唯独 std::forward 即没有造成任何多余的拷贝，同时**完美转发 **(传递) 了函数的实参给了内部调用的其他函数。 std::forward 和 std::move 一样，没有做任何事情，std::move 单纯的将左值转化为右值， std::forward 也只是单纯的将参数做了一个类型的转换，从现象上来看，std::forward(v) 和 static_cast(v) 是完全一样的。 读者可能会好奇，为何一条语句能够针对两种类型的返回对应的值，我们再简单看一看 std::forward 的具体实现机制，std::forward 包含两个重载：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> _Tp&amp;&amp; <span class="title">forward</span><span class="params">(<span class="keyword">typename</span> std::remove_reference&lt;_Tp&gt;::type&amp; <span class="type">__t</span>)</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function"></span>&#123; <span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;_Tp&amp;&amp;&gt;(<span class="type">__t</span>); &#125;</span><br><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> _Tp&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">constexpr</span> _Tp&amp;&amp; <span class="title">forward</span><span class="params">(<span class="keyword">typename</span> std::remove_reference&lt;_Tp&gt;::type&amp;&amp; <span class="type">__t</span>)</span> <span class="keyword">noexcept</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="built_in">static_assert</span>(!std::is_lvalue_reference&lt;_Tp&gt;::value, <span class="string">&quot;template argument&quot;</span></span><br><span class="line"><span class="string">&quot; substituting _Tp is an lvalue reference type&quot;</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">static_cast</span>&lt;_Tp&amp;&amp;&gt;(<span class="type">__t</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在这份实现中，std::remove_reference 的功能是消除类型中的引用，std::is_lvalue_reference 则用于检查类型推导是否正确，在 std::forward 的第二个实现中检查了接收到的值确实是一个左值，进 而体现了坍缩规则。 当 std::forward 接受左值时，_Tp 被推导为左值，所以返回值为左值；而当其接受右值时，_Tp 被 推导为右值引用，则基于坍缩规则，返回值便成为了 &amp;&amp; + &amp;&amp; 的右值。可见 std::forward 的原理在于巧妙的利用了模板类型推导中产生的差异。 这时我们能回答这样一个问题：为什么在使用循环语句的过程中，auto&amp;&amp; 是最安全的方式？因为当 auto 被推导为不同的左右引用时，与 &amp;&amp; 的坍缩组合是完美转发。</p>
-<h3 id="补充整理"><a class="markdownIt-Anchor" href="#补充整理"></a> 补充整理</h3>
+<h3 id="补充整理">补充整理</h3>
 <ol>
-<li>具名的右值引用是左值，不具名的右值引用是右值；</li>
-<li>字符串常量是左值；</li>
+<li class="lvl-3">
+<p>具名的右值引用是左值，不具名的右值引用是右值；</p>
+</li>
+<li class="lvl-3">
+<p>字符串常量是左值；</p>
+</li>
 </ol>
-<h3 id="参考文章"><a class="markdownIt-Anchor" href="#参考文章"></a> 参考文章</h3>
+<h3 id="参考文章">参考文章</h3>
 <ol>
-<li>《modeln C++ Tutorial：C++11/14/17/20》</li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zpcdbky/p/5275959.html">https://www.cnblogs.com/zpcdbky/p/5275959.html</a></li>
+<li class="lvl-3">
+<p>《modeln C++ Tutorial：C++11/14/17/20》</p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zpcdbky/p/5275959.html">https://www.cnblogs.com/zpcdbky/p/5275959.html</a></p>
+</li>
 </ol>
 	
 		</div>
@@ -427,9 +432,9 @@ C++11 提供了 std::move 这个方法将左值参数无条件的转换为右值
 							</p>
 							<p class="relate-post-content">
 								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
- 什么是 Reactor 模式和 Proactor 模式？
- Reactor 模式
-Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O ...
+什么是 Reactor 模式和 Proactor 模式？
+Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及...
 							</p>
 						</div>
 
@@ -451,11 +456,11 @@ Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/
 								三月 17日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 格式化输出的执行顺序
+								格式化输出的执行顺序
 由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
- 右值引用和左值引用
+右值引用和左值引用
 
-C++一共有三种基本值类型: 左值(lvalue), 纯右值...
+C++一共有三种基本值类型: 左值(lvalue), 纯右值(p...
 							</p>
 						</div>
 
@@ -480,8 +485,8 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 								
 注：本文引自：https://guodong.plus/2020/0529-002048/
 
- v1.0——基本实现
-12345678910111213class Singleton &#123; public:  static S...
+v1.0——基本实现
+12345678910111213class Singleton &#123; public:  static Si...
 							</p>
 						</div>
 
@@ -504,8 +509,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -530,9 +536,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -555,9 +561,9 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -580,13 +586,18 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -608,9 +619,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -627,7 +638,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -649,12 +663,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -676,12 +690,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 

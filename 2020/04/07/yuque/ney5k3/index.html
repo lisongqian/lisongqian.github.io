@@ -296,51 +296,63 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="环境搭建"><a class="markdownIt-Anchor" href="#环境搭建"></a> 环境搭建</h3>
-<h4 id="安装-nodejs"><a class="markdownIt-Anchor" href="#安装-nodejs"></a> 安装 Node.js</h4>
-<p>从<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js 官网</a>上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。<br />
-注：</p>
-<ul>
-<li>使用 Win+R 输入 cmd 打开命令行输入<code>node -v</code>，出现版本号，则说明安装成功。</li>
+			<h3 id="环境搭建">环境搭建</h3>
+<h4 id="安装-Node-js">安装 Node.js</h4>
+<p>从<a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js 官网</a>上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。注：</p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>使用 Win+R 输入 cmd 打开命令行输入<code>node -v</code>，出现版本号，则说明安装成功。</p>
+</li>
 </ul>
-<p><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#height=148&amp;id=uTI1x&amp;originHeight=148&amp;originWidth=687&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=687" alt="" /></p>
-<ul>
-<li>包管理工具<code>npm</code>在安装 Node.js 时会一起安装好。</li>
+<p><img src="http://cdn.lisongqian.cn/1521005006159e7rgx9ki.png?imageslim#height=148&amp;id=uTI1x&amp;originHeight=148&amp;originWidth=687&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=687" alt=""></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>包管理工具<code>npm</code>在安装 Node.js 时会一起安装好。</p>
+</li>
 </ul>
-<h4 id="安装-webpack"><a class="markdownIt-Anchor" href="#安装-webpack"></a> 安装 Webpack</h4>
+<h4 id="安装-Webpack">安装 Webpack</h4>
 <p>在命令行中输入<code>npm install webpack -g</code>。</p>
 <p>注：</p>
-<ul>
-<li>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。<br />
-<img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#height=51&amp;id=jKSJW&amp;originHeight=51&amp;originWidth=635&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=635" alt="" /></li>
-<li>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。<br />
-<img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#height=93&amp;id=aznF7&amp;originHeight=93&amp;originWidth=670&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=670" alt="" /></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安装完成后<code>webpack -v</code>，出现版本号，则说明安装成功。<br>
+<img src="http://cdn.lisongqian.cn/1521005380201xio1rksy.png?imageslim#height=51&amp;id=jKSJW&amp;originHeight=51&amp;originWidth=635&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=635" alt=""></p>
+</li>
+<li class="lvl-2">
+<p>若出现如下报错，执行<code>npm install webpack-cli -D</code>，安装 webpack-cli。<br>
+<img src="http://cdn.lisongqian.cn/15210231558529exqakl5.png?imageslim#height=93&amp;id=aznF7&amp;originHeight=93&amp;originWidth=670&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=670" alt=""></p>
+</li>
 </ul>
-<h4 id="安装-vue-cli"><a class="markdownIt-Anchor" href="#安装-vue-cli"></a> 安装 Vue-cli</h4>
+<h4 id="安装-Vue-cli">安装 Vue-cli</h4>
 <p>在命令行中输入<code>npm install -g @vue/cli</code>。</p>
 <p>注：</p>
-<ul>
-<li>安装完成后输入<code>vue -V</code>(大写 V)，出现版本号，则说明安装成功。</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>安装完成后输入<code>vue -V</code>(大写 V)，出现版本号，则说明安装成功。</p>
+</li>
 </ul>
-<h3 id="项目准备"><a class="markdownIt-Anchor" href="#项目准备"></a> 项目准备</h3>
+<h3 id="项目准备">项目准备</h3>
 <p>我的项目都是使用的 Webstorm 搭建的</p>
 <p>我的工程地址在<code>C:\User\s5\WebstormProjects</code>，所以在命令行中执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> WebstormProjects</span><br><span class="line">vue init webpack projectname</span><br></pre></td></tr></table></figure>
 <p>注：</p>
-<ul>
-<li>projectname 为项目名。</li>
-<li><code>package.json</code>配置过程：<br />
-（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>projectname 为项目名。</p>
+</li>
+<li class="lvl-2">
+<p><code>package.json</code>配置过程：（建议：除了<code>Use ESLint to lint your code?</code>选<code>no</code>，其他配置全部回车就好。）</p>
+</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$ vue init webpack exprice --------------------- 这个是那个安装vue脚手架的命令</span><br><span class="line">This will install Vue 2.x version of the template. ---------------------这里说明将要创建一个vue 2.x版本的项目</span><br><span class="line">For Vue 2.x use: vue init webpack</span><br><span class="line">? Project name (projectname) ---------------------项目名称</span><br><span class="line">? Project name projectname</span><br><span class="line">? Project description (A Vue.js project) ---------------------项目描述</span><br><span class="line">? Project description A Vue.js project</span><br><span class="line">? Author Datura --------------------- 项目创建者</span><br><span class="line">? Author Datura</span><br><span class="line">? Vue build (Use arrow keys)</span><br><span class="line">? Vue build standalone</span><br><span class="line">? Install vue-router? (Y/n) --------------------- 是否安装Vue路由，也就是以后是spa（但页面应用需要的模块）</span><br><span class="line">? Install vue-router? Yes</span><br><span class="line">? Use ESLint to lint your code? (Y/n) n ---------------------是否启用eslint检测规则，这里个人建议选no</span><br><span class="line">? Use ESLint to lint your code? No</span><br><span class="line">? Setup unit tests with Karma + Mocha? (Y/n)</span><br><span class="line">? Setup unit tests with Karma + Mocha? Yes</span><br><span class="line">? Setup e2e tests with Nightwatch? (Y/n)</span><br><span class="line">? Setup e2e tests with Nightwatch? Yes</span><br><span class="line">vue-cli · Generated &quot;projectname&quot;.</span><br></pre></td></tr></table></figure>
-<h4 id="目录结构"><a class="markdownIt-Anchor" href="#目录结构"></a> 目录结构：</h4>
-<p><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#height=453&amp;id=vj1XW&amp;originHeight=453&amp;originWidth=315&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=315" alt="" /></p>
-<h2 id="项目运行"><a class="markdownIt-Anchor" href="#项目运行"></a> 项目运行</h2>
+<h4 id="目录结构：">目录结构：</h4>
+<p><img src="http://cdn.lisongqian.cn/1521024612574rgfo9k0v.png?imageslim#height=453&amp;id=vj1XW&amp;originHeight=453&amp;originWidth=315&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=315" alt=""></p>
+<h2 id="项目运行">项目运行</h2>
 <p>命令行进入刚才创建的项目目录，然后执行命令：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd projectname</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
-<p><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#height=200&amp;id=XiMNh&amp;originHeight=200&amp;originWidth=963&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=963" alt="" /></p>
+<p><img src="http://cdn.lisongqian.cn/15210244704930q2bnoj1.png?imageslim#height=200&amp;id=XiMNh&amp;originHeight=200&amp;originWidth=963&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=963" alt=""></p>
 <p>此时可以在浏览器中输入<code>localhost:8080</code> 查看到实例页面。</p>
-<p><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#height=600&amp;id=v8xHq&amp;originHeight=600&amp;originWidth=1154&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1154" alt="" /></p>
+<p><img src="http://cdn.lisongqian.cn/1521024540357004pj7g9.png?imageslim#height=600&amp;id=v8xHq&amp;originHeight=600&amp;originWidth=1154&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=1154" alt=""></p>
 <blockquote>
 <p>参考<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1626b8643676">Vue2.0 史上最全入坑教程</a></p>
 </blockquote>
@@ -397,8 +409,9 @@
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -423,9 +436,9 @@
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -448,9 +461,9 @@
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -473,13 +486,18 @@
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -501,9 +519,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -520,7 +538,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -542,12 +563,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -569,12 +590,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -596,12 +617,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -623,11 +642,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -652,9 +671,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 

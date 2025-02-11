@@ -303,120 +303,200 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589180710-b61cd542-cd26-4c2a-9805-b8e12ca026e3.png#averageHue=%23fafbfb&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;id=u012a665b&amp;originHeight=598&amp;originWidth=1252&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=104550&amp;status=done&amp;style=none&amp;taskId=uc2bc4833-6cb7-433c-a5bf-51233c96d35&amp;title=" alt="image.png" /></p>
-<h3 id="用户层虚拟化"><a class="markdownIt-Anchor" href="#用户层虚拟化"></a> 用户层虚拟化</h3>
-<h4 id="本地-api-拦截和-api-formwarding"><a class="markdownIt-Anchor" href="#本地-api-拦截和-api-formwarding"></a> 本地 API 拦截和 API formwarding</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589853258-2fa5f8ec-7c87-41b1-82cf-b93b8248c038.png#averageHue=%23dfe6f2&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;height=261&amp;id=ubba90b93&amp;originHeight=391&amp;originWidth=314&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=20166&amp;status=done&amp;style=none&amp;taskId=u1a004ec7-62ca-4ae4-8d47-a4dac04d5c8&amp;title=&amp;width=209.33333333333334" alt="image.png" /></p>
-<ul>
-<li>在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；</li>
-<li>让 APP 调用这个 libwrapper。如何做？</li>
-<li>libwrapper 拦截用户的函数调用，对参数进行解析，然后使用参数去调用实际的底层库相同名称的函数。</li>
-<li>调用完成后，libwrapper 把结果返回给 APP；</li>
+			<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589180710-b61cd542-cd26-4c2a-9805-b8e12ca026e3.png#averageHue=%23fafbfb&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;id=u012a665b&amp;originHeight=598&amp;originWidth=1252&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=104550&amp;status=done&amp;style=none&amp;taskId=uc2bc4833-6cb7-433c-a5bf-51233c96d35&amp;title=" alt="image.png"></p>
+<h3 id="用户层虚拟化">用户层虚拟化</h3>
+<h4 id="本地-API-拦截和-API-formwarding">本地 API 拦截和 API formwarding</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589853258-2fa5f8ec-7c87-41b1-82cf-b93b8248c038.png#averageHue=%23dfe6f2&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;height=261&amp;id=ubba90b93&amp;originHeight=391&amp;originWidth=314&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=20166&amp;status=done&amp;style=none&amp;taskId=u1a004ec7-62ca-4ae4-8d47-a4dac04d5c8&amp;title=&amp;width=209.33333333333334" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；</p>
+</li>
+<li class="lvl-2">
+<p>让 APP 调用这个 libwrapper。如何做？</p>
+</li>
+<li class="lvl-2">
+<p>libwrapper 拦截用户的函数调用，对参数进行解析，然后使用参数去调用实际的底层库相同名称的函数。</p>
+</li>
+<li class="lvl-2">
+<p>调用完成后，libwrapper 把结果返回给 APP；</p>
+</li>
 </ul>
 <p>实现关键：</p>
 <ol>
-<li>APP 和底层可的静态链接变成动态链接；</li>
-<li>libwrapper 使用类似 dlopen 打开底层库；</li>
+<li class="lvl-3">
+<p>APP 和底层可的静态链接变成动态链接；</p>
+</li>
+<li class="lvl-3">
+<p>libwrapper 使用类似 dlopen 打开底层库；</p>
+</li>
 </ol>
-<h4 id="远程-api-forwarding"><a class="markdownIt-Anchor" href="#远程-api-forwarding"></a> 远程 API forwarding</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687590687993-e384a7dd-7809-4189-b4e8-2faee3022b13.png#averageHue=%23ebeff5&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;height=424&amp;id=udcb4c35b&amp;originHeight=636&amp;originWidth=428&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=44772&amp;status=done&amp;style=none&amp;taskId=ufcfe8012-2d6f-49ed-a11e-ff44ae6273e&amp;title=&amp;width=285.3333333333333" alt="image.png" /></p>
-<ul>
-<li>libwrapper 通过网络，去调用不同机器上的底层库</li>
-<li>libwrapper 变为两部分
-<ul>
-<li>client：拦截，转发</li>
-<li>server：接收，调用</li>
+<h4 id="远程-API-forwarding">远程 API forwarding</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687590687993-e384a7dd-7809-4189-b4e8-2faee3022b13.png#averageHue=%23ebeff5&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;height=424&amp;id=udcb4c35b&amp;originHeight=636&amp;originWidth=428&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=44772&amp;status=done&amp;style=none&amp;taskId=ufcfe8012-2d6f-49ed-a11e-ff44ae6273e&amp;title=&amp;width=285.3333333333333" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>libwrapper 通过网络，去调用不同机器上的底层库</p>
+</li>
+<li class="lvl-2">
+<p>libwrapper 变为两部分</p>
+<ul class="lvl-2">
+<li class="lvl-4">client：拦截，转发</li>
+<li class="lvl-4">server：接收，调用</li>
 </ul>
 </li>
 </ul>
-<p>可以实现 GPU 池化：即多个 GPU 可以组成调用池，由多个 client 来调用，<strong>可以做到让不具备 GPU 的机器能实现 GPU 的功能</strong>。<br />
-实现关键：</p>
+<p>可以实现 GPU 池化：即多个 GPU 可以组成调用池，由多个 client 来调用，<strong>可以做到让不具备 GPU 的机器能实现 GPU 的功能</strong>。实现关键：</p>
 <ol>
-<li>调用函数类似 RPC，参数需要进行序列化和反序列化；</li>
-<li>相对本机来说，远程数据传输的性能对函数调用的延迟影响很大。一般可以通过 RDMA 进行网络加速。</li>
+<li class="lvl-3">
+<p>调用函数类似 RPC，参数需要进行序列化和反序列化；</p>
+</li>
+<li class="lvl-3">
+<p>相对本机来说，远程数据传输的性能对函数调用的延迟影响很大。一般可以通过 RDMA 进行网络加速。</p>
+</li>
 </ol>
-<h4 id="半虚拟化-api-forwarding"><a class="markdownIt-Anchor" href="#半虚拟化-api-forwarding"></a> 半虚拟化 API forwarding</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687755529207-48236113-3a1f-4289-a40f-11ed6a1e9b24.png#averageHue=%2381c95f&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;id=ue1c3d34b&amp;originHeight=392&amp;originWidth=368&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=67137&amp;status=done&amp;style=none&amp;taskId=u4bc56374-3053-44a1-8195-5a16077c3a9&amp;title=" alt="image.png" /></p>
+<h4 id="半虚拟化-API-forwarding">半虚拟化 API forwarding</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687755529207-48236113-3a1f-4289-a40f-11ed6a1e9b24.png#averageHue=%2381c95f&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;id=ue1c3d34b&amp;originHeight=392&amp;originWidth=368&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=67137&amp;status=done&amp;style=none&amp;taskId=u4bc56374-3053-44a1-8195-5a16077c3a9&amp;title=" alt="image.png"></p>
 <ol>
-<li>APP 和 libwrapper 运行在虚机中；</li>
-<li>libwrapper 通过半虚拟化(virtio)进行通讯，调用宿主机的底层库；</li>
-<li>VM 的内核要实现 virtio frontend</li>
-<li>Host 的 Hypervisor 要实现 virtio backend</li>
-<li>宿主机完成底层库的调用</li>
+<li class="lvl-3">
+<p>APP 和 libwrapper 运行在虚机中；</p>
+</li>
+<li class="lvl-3">
+<p>libwrapper 通过半虚拟化(virtio)进行通讯，调用宿主机的底层库；</p>
+</li>
+<li class="lvl-3">
+<p>VM 的内核要实现 virtio frontend</p>
+</li>
+<li class="lvl-3">
+<p>Host 的 Hypervisor 要实现 virtio backend</p>
+</li>
+<li class="lvl-3">
+<p>宿主机完成底层库的调用</p>
+</li>
 </ol>
-<h3 id="内核层虚拟化"><a class="markdownIt-Anchor" href="#内核层虚拟化"></a> 内核层虚拟化</h3>
-<h4 id="内核层-gpu-驱动拦截"><a class="markdownIt-Anchor" href="#内核层-gpu-驱动拦截"></a> 内核层 GPU 驱动拦截</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687757792487-8e47ee38-b84b-48fc-9151-4e3253cc609d.png#averageHue=%23fafbfb&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;height=333&amp;id=ua990078d&amp;originHeight=500&amp;originWidth=564&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=41975&amp;status=done&amp;style=none&amp;taskId=u111f9409-cd7e-4c5a-afe3-2f7f9366d0c&amp;title=&amp;width=376" alt="image.png" /><br />
+<h3 id="内核层虚拟化">内核层虚拟化</h3>
+<h4 id="内核层-GPU-驱动拦截">内核层 GPU 驱动拦截</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687757792487-8e47ee38-b84b-48fc-9151-4e3253cc609d.png#averageHue=%23fafbfb&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;height=333&amp;id=ua990078d&amp;originHeight=500&amp;originWidth=564&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=41975&amp;status=done&amp;style=none&amp;taskId=u111f9409-cd7e-4c5a-afe3-2f7f9366d0c&amp;title=&amp;width=376" alt="image.png"><br>
 实现原理：内核模块通过设备文件拦截</p>
-<ul>
-<li>通常底层库通过设备文件访问 GPU 驱动的功能，假设为/dev/realgpu</li>
-<li>实现一个内核模块，输出模拟的设备文件给用户空间，/dev/fakegpu</li>
-<li>把模拟的设备文件 bind mount 到容器里，伪装成真的设备文件，/dev/realgpu</li>
-<li>APP 和底层库都在容器里运行，底层库访问伪装的设备文件/dev/realgpu，此时所有访问被内核模块拦截；</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>通常底层库通过设备文件访问 GPU 驱动的功能，假设为/dev/realgpu</p>
+</li>
+<li class="lvl-2">
+<p>实现一个内核模块，输出模拟的设备文件给用户空间，/dev/fakegpu</p>
+</li>
+<li class="lvl-2">
+<p>把模拟的设备文件 bind mount 到容器里，伪装成真的设备文件，/dev/realgpu</p>
+</li>
+<li class="lvl-2">
+<p>APP 和底层库都在容器里运行，底层库访问伪装的设备文件/dev/realgpu，此时所有访问被内核模块拦截；</p>
+</li>
 </ul>
 <p>实现关键</p>
 <ol>
-<li>需要了解底层库调用 GPU 驱动的系统调用的含义；</li>
-<li>内核拦截模块只需要拦截必要的系统调用；</li>
-<li>适合容器应用；</li>
+<li class="lvl-3">
+<p>需要了解底层库调用 GPU 驱动的系统调用的含义；</p>
+</li>
+<li class="lvl-3">
+<p>内核拦截模块只需要拦截必要的系统调用；</p>
+</li>
+<li class="lvl-3">
+<p>适合容器应用；</p>
+</li>
 </ol>
-<h4 id="内核层-gpu-驱动半虚拟化"><a class="markdownIt-Anchor" href="#内核层-gpu-驱动半虚拟化"></a> 内核层 GPU 驱动半虚拟化</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687758612861-51fe9964-ad72-46f2-8dd2-c13119937509.png#averageHue=%23fafbfb&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;height=357&amp;id=udf686b6b&amp;originHeight=535&amp;originWidth=501&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=36605&amp;status=done&amp;style=none&amp;taskId=u0a28302c-2108-4ded-abc9-0bbf08fa285&amp;title=&amp;width=334" alt="image.png" /><br />
+<h4 id="内核层-GPU-驱动半虚拟化">内核层 GPU 驱动半虚拟化</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687758612861-51fe9964-ad72-46f2-8dd2-c13119937509.png#averageHue=%23fafbfb&amp;clientId=u554f6f09-adbf-4&amp;from=paste&amp;height=357&amp;id=udf686b6b&amp;originHeight=535&amp;originWidth=501&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=36605&amp;status=done&amp;style=none&amp;taskId=u0a28302c-2108-4ded-abc9-0bbf08fa285&amp;title=&amp;width=334" alt="image.png"><br>
 实现原理：GPU 驱动半虚拟化</p>
-<ul>
-<li>APP 和底层库都在 VM 里；</li>
-<li>VM 的 GPU 驱动实现半虚拟化接口，通过类似 hpyercall 的方式，调用 Host 实际的 GPU 驱动；</li>
-<li>hpyercall 切换 guest 到 Hypervisor，Hypervisor 通过内核中的驱动代理来访问实际的 GPU 驱动；</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>APP 和底层库都在 VM 里；</p>
+</li>
+<li class="lvl-2">
+<p>VM 的 GPU 驱动实现半虚拟化接口，通过类似 hpyercall 的方式，调用 Host 实际的 GPU 驱动；</p>
+</li>
+<li class="lvl-2">
+<p>hpyercall 切换 guest 到 Hypervisor，Hypervisor 通过内核中的驱动代理来访问实际的 GPU 驱动；</p>
+</li>
 </ul>
 <p>实现关键</p>
 <ol>
-<li>适合 VM 应用；</li>
-<li>结合硬件虚拟化支持类似 vGPU 功能；</li>
+<li class="lvl-3">
+<p>适合 VM 应用；</p>
+</li>
+<li class="lvl-3">
+<p>结合硬件虚拟化支持类似 vGPU 功能；</p>
+</li>
 </ol>
-<h3 id="硬件虚拟化"><a class="markdownIt-Anchor" href="#硬件虚拟化"></a> 硬件虚拟化</h3>
-<h4 id="全虚拟化透传-gpu"><a class="markdownIt-Anchor" href="#全虚拟化透传-gpu"></a> 全虚拟化/透传 GPU</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530374789-9c9d55bc-aee4-45a1-8dae-8b67692df843.png#averageHue=%23f4f8f3&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=ua1ec0926&amp;originHeight=488&amp;originWidth=340&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=23946&amp;status=done&amp;style=none&amp;taskId=uab90d859-c068-4df4-941a-4d25f2823ba&amp;title=" alt="image.png" /><br />
+<h3 id="硬件虚拟化">硬件虚拟化</h3>
+<h4 id="全虚拟化-透传-GPU">全虚拟化/透传 GPU</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530374789-9c9d55bc-aee4-45a1-8dae-8b67692df843.png#averageHue=%23f4f8f3&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=ua1ec0926&amp;originHeight=488&amp;originWidth=340&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=23946&amp;status=done&amp;style=none&amp;taskId=uab90d859-c068-4df4-941a-4d25f2823ba&amp;title=" alt="image.png"><br>
 全虚拟化，Full Virtualization，又称透传 GPU。</p>
-<ul>
-<li>虚机的 GPU 驱动，不需要做任何修改，基本上访 问的是 GPU 真实的硬件资源；</li>
-<li>整个 GPU 透传给虚机，性能损耗最小；</li>
-<li><strong>因为无法实现 GPU 资源共享，一般认为不属于 GPU 虚拟化。</strong></li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>虚机的 GPU 驱动，不需要做任何修改，基本上访 问的是 GPU 真实的硬件资源；</p>
+</li>
+<li class="lvl-2">
+<p>整个 GPU 透传给虚机，性能损耗最小；</p>
+</li>
+<li class="lvl-2">
+<p><strong>因为无法实现 GPU 资源共享，一般认为不属于 GPU 虚拟化。</strong></p>
+</li>
 </ul>
-<h4 id="nvidia-vgpu"><a class="markdownIt-Anchor" href="#nvidia-vgpu"></a> NVIDIA vGPU</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530404556-150f1ecc-2b80-4326-b3fb-c634bc73c5bb.png#averageHue=%23a8cf8f&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u53146d4a&amp;originHeight=613&amp;originWidth=705&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=69410&amp;status=done&amp;style=none&amp;taskId=u7d3a5cfd-6cc6-41a9-b5aa-135c7e83a1f&amp;title=" alt="image.png" /></p>
-<ul>
-<li>虚拟机内核需要安装特定的虚拟化驱动：GRID 驱动。</li>
-<li>显存按照固定切分，直接分配给 VM；</li>
-<li>算力调度采用时分方案，按时间片分配给 VM；</li>
+<h4 id="NVIDIA-vGPU">NVIDIA vGPU</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530404556-150f1ecc-2b80-4326-b3fb-c634bc73c5bb.png#averageHue=%23a8cf8f&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u53146d4a&amp;originHeight=613&amp;originWidth=705&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=69410&amp;status=done&amp;style=none&amp;taskId=u7d3a5cfd-6cc6-41a9-b5aa-135c7e83a1f&amp;title=" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>虚拟机内核需要安装特定的虚拟化驱动：GRID 驱动。</p>
+</li>
+<li class="lvl-2">
+<p>显存按照固定切分，直接分配给 VM；</p>
+</li>
+<li class="lvl-2">
+<p>算力调度采用时分方案，按时间片分配给 VM；</p>
+</li>
 </ul>
-<h4 id="nvidia-mig"><a class="markdownIt-Anchor" href="#nvidia-mig"></a> NVIDIA MIG</h4>
-<p>NVIDIA 硬件切分方案：MIG<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588354035-b9dc1e4a-6ce7-45e7-b035-487b8f526ad6.png#averageHue=%23cdd6a2&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;height=727&amp;id=u1a4f9865&amp;originHeight=1091&amp;originWidth=1555&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=705282&amp;status=done&amp;style=none&amp;taskId=ud0cd60cc-15ad-4165-a012-d134b95aefd&amp;title=&amp;width=1036.6666666666667" alt="image.png" /></p>
-<ul>
-<li>MIG：Multi-Instance GPU，NVIDIA 自己退出的硬件资源切分方案。可以直接把 GPU 切分多分，每一份资源硬件隔离；</li>
-<li>每一 MIG 的切分，可以当作一个 GPU 来使用，同时可以结合容器来部署；</li>
-<li>目前仅在 A30、A100、H100 显卡上支持；</li>
+<h4 id="NVIDIA-MIG">NVIDIA MIG</h4>
+<p>NVIDIA 硬件切分方案：MIG<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588354035-b9dc1e4a-6ce7-45e7-b035-487b8f526ad6.png#averageHue=%23cdd6a2&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;height=727&amp;id=u1a4f9865&amp;originHeight=1091&amp;originWidth=1555&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=705282&amp;status=done&amp;style=none&amp;taskId=ud0cd60cc-15ad-4165-a012-d134b95aefd&amp;title=&amp;width=1036.6666666666667" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>MIG：Multi-Instance GPU，NVIDIA 自己退出的硬件资源切分方案。可以直接把 GPU 切分多分，每一份资源硬件隔离；</p>
+</li>
+<li class="lvl-2">
+<p>每一 MIG 的切分，可以当作一个 GPU 来使用，同时可以结合容器来部署；</p>
+</li>
+<li class="lvl-2">
+<p>目前仅在 A30、A100、H100 显卡上支持；</p>
+</li>
 </ul>
-<h4 id="nvidia-mig-vgpu"><a class="markdownIt-Anchor" href="#nvidia-mig-vgpu"></a> NVIDIA MIG vGPU</h4>
-<p>MIG 和 vGPU 的结合：NVIDIA MIG vGPU<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588592216-50d18086-0c83-44ef-9002-830e529042e1.png#averageHue=%23a5cc8c&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u56f52fa5&amp;originHeight=475&amp;originWidth=553&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=53610&amp;status=done&amp;style=none&amp;taskId=u2476f37b-821b-4009-a438-6b94d29eebb&amp;title=" alt="image.png" /></p>
-<ul>
-<li>显存，算力都按照 MIG 硬件切分，直接分配给 VM；</li>
-<li>算力损耗相对 vGPU 小；</li>
+<h4 id="NVIDIA-MIG-vGPU">NVIDIA MIG vGPU</h4>
+<p>MIG 和 vGPU 的结合：NVIDIA MIG vGPU<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588592216-50d18086-0c83-44ef-9002-830e529042e1.png#averageHue=%23a5cc8c&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u56f52fa5&amp;originHeight=475&amp;originWidth=553&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=53610&amp;status=done&amp;style=none&amp;taskId=u2476f37b-821b-4009-a438-6b94d29eebb&amp;title=" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>显存，算力都按照 MIG 硬件切分，直接分配给 VM；</p>
+</li>
+<li class="lvl-2">
+<p>算力损耗相对 vGPU 小；</p>
+</li>
 </ul>
-<h4 id="amd-mxgpu"><a class="markdownIt-Anchor" href="#amd-mxgpu"></a> AMD MxGPU</h4>
-<p>基于 SRIOV 方式切分 GPU 为 VF<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588781638-e1af28a9-ee4c-4453-b54b-7e2ca94ce657.png#averageHue=%2373bfc3&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u4842ca20&amp;originHeight=481&amp;originWidth=603&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=251501&amp;status=done&amp;style=none&amp;taskId=u993de90d-6e9a-4db6-9825-e3b29e42337&amp;title=" alt="image.png" /></p>
-<h4 id="intel-gvt-g"><a class="markdownIt-Anchor" href="#intel-gvt-g"></a> Intel GVT-g</h4>
-<p>类似 Nvidia vGPU<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530238610-f421d819-5fc0-4c7b-aa3f-6081ce544bc4.png#averageHue=%23e7e69b&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;height=422&amp;id=ucc4b1f96&amp;originHeight=633&amp;originWidth=770&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=229016&amp;status=done&amp;style=none&amp;taskId=uf6a69888-801e-49e0-b17b-d96b2d1353b&amp;title=&amp;width=513.3333333333334" alt="image.png" /></p>
-<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589013370-95f9bf7c-69cc-4e8a-9ce2-d1f8fea598b5.png#averageHue=%23f9fbfb&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;id=udc8226dc&amp;originHeight=547&amp;originWidth=931&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=87170&amp;status=done&amp;style=none&amp;taskId=ud2c63450-8dcd-4196-987a-2db19254909&amp;title=" alt="image.png" /></p>
-<h4 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h4>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gT411J7SE">GPU 虚拟化技术分享 - 泰晓科技</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.nvidia.cn/technologies/multi-instance-gpu/">NVIDIA Multi-Instance GPU</a></li>
-<li><a target="_blank" rel="noopener" href="https://medium.com/mlearning-ai/multi-instance-gpu-mig-of-nvidia-gpus-167dc85437e7">Multi-Instance GPU (MIG) of NVIDIA GPUs</a></li>
+<h4 id="AMD-MxGPU">AMD MxGPU</h4>
+<p>基于 SRIOV 方式切分 GPU 为 VF<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687588781638-e1af28a9-ee4c-4453-b54b-7e2ca94ce657.png#averageHue=%2373bfc3&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;id=u4842ca20&amp;originHeight=481&amp;originWidth=603&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=251501&amp;status=done&amp;style=none&amp;taskId=u993de90d-6e9a-4db6-9825-e3b29e42337&amp;title=" alt="image.png"></p>
+<h4 id="Intel-GVT-g">Intel GVT-g</h4>
+<p>类似 Nvidia vGPU<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687530238610-f421d819-5fc0-4c7b-aa3f-6081ce544bc4.png#averageHue=%23e7e69b&amp;clientId=u5af948fc-64e6-4&amp;from=paste&amp;height=422&amp;id=ucc4b1f96&amp;originHeight=633&amp;originWidth=770&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=229016&amp;status=done&amp;style=none&amp;taskId=uf6a69888-801e-49e0-b17b-d96b2d1353b&amp;title=&amp;width=513.3333333333334" alt="image.png"></p>
+<h3 id="总结">总结</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687589013370-95f9bf7c-69cc-4e8a-9ce2-d1f8fea598b5.png#averageHue=%23f9fbfb&amp;clientId=uf7431ec0-1e1e-4&amp;from=paste&amp;id=udc8226dc&amp;originHeight=547&amp;originWidth=931&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=87170&amp;status=done&amp;style=none&amp;taskId=ud2c63450-8dcd-4196-987a-2db19254909&amp;title=" alt="image.png"></p>
+<h4 id="参考">参考</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1gT411J7SE">GPU 虚拟化技术分享 - 泰晓科技</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://www.nvidia.cn/technologies/multi-instance-gpu/">NVIDIA Multi-Instance GPU</a></p>
+</li>
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://medium.com/mlearning-ai/multi-instance-gpu-mig-of-nvidia-gpus-167dc85437e7">Multi-Instance GPU (MIG) of NVIDIA GPUs</a></p>
+</li>
 </ul>
 	
 		</div>
@@ -470,9 +550,9 @@
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -489,7 +569,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -512,8 +595,9 @@ GVA-&gt; GPA...
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -538,9 +622,9 @@ GVA-&gt; GPA...
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -563,9 +647,9 @@ GVA-&gt; GPA...
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -587,12 +671,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -614,12 +698,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -641,12 +725,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -668,11 +750,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -697,9 +779,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 
@@ -721,9 +803,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 4.1 保护模式概述
+								4.1 保护模式概述
 在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
-保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel...
 							</p>
 						</div>
 

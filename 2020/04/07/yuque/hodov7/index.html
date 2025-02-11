@@ -312,63 +312,63 @@
 
 		<div class="article-content" id="article-content">
 			<p>CentOS6 中自带的 yum 依赖的 python 版本是 2.6.6 版本，而 python core team 已不再提供支持，且 pip 至少要求 2.7 版本,因此系统上应该有 2.6,2.7 两个版本的 python 并存。</p>
-<h3 id="一-python26-及-yum-安装仅供-yum-出问题用户使用"><a class="markdownIt-Anchor" href="#一-python26-及-yum-安装仅供-yum-出问题用户使用"></a> 一. python2.6 及 yum 安装（仅供 yum 出问题用户使用）</h3>
-<h4 id="查看-linux-发行版"><a class="markdownIt-Anchor" href="#查看-linux-发行版"></a> 查看 Linux 发行版</h4>
+<h3 id="一-python2-6-及-yum-安装（仅供-yum-出问题用户使用）">一. python2.6 及 yum 安装（仅供 yum 出问题用户使用）</h3>
+<h4 id="查看-Linux-发行版">查看 Linux 发行版</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
-<h4 id="卸载-python"><a class="markdownIt-Anchor" href="#卸载-python"></a> 卸载 Python</h4>
+<h4 id="卸载-Python">卸载 Python</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep python|xargs rpm -e --allmatches --nodeps</span><br><span class="line">whereis python|xargs <span class="built_in">rm</span> -fr</span><br></pre></td></tr></table></figure>
-<h4 id="卸载-yum"><a class="markdownIt-Anchor" href="#卸载-yum"></a> 卸载 yum</h4>
+<h4 id="卸载-yum">卸载 yum</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa|grep yum|xargs rpm -e --allmatches --nodeps</span><br><span class="line"><span class="built_in">rm</span> -rf /etc/yum.repos.d/*</span><br><span class="line">whereis yum|xargs <span class="built_in">rm</span> -fr</span><br></pre></td></tr></table></figure>
-<h4 id="创建-python-目录"><a class="markdownIt-Anchor" href="#创建-python-目录"></a> 创建 python 目录</h4>
+<h4 id="创建-python-目录">创建 python 目录</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /usr/local/src/python</span><br></pre></td></tr></table></figure>
-<h4 id="下载-python-的-rpm-包"><a class="markdownIt-Anchor" href="#下载-python-的-rpm-包"></a> 下载 python 的 rpm 包</h4>
+<h4 id="下载-python-的-rpm-包">下载 python 的 rpm 包</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/python</span><br><span class="line"></span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-2.6.6-66.el6_8.x86_64.rpm</span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-iniparse-0.3.1-2.1.el6.noarch.rpm</span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-pycurl-7.19.0-9.el6.x86_64.rpm</span><br><span class="line">wget  http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-devel-2.6.6-66.el6_8.x86_64.rpm</span><br><span class="line">wget  http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-libs-2.6.6-66.el6_8.x86_64.rpm</span><br><span class="line">wget  http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/python-urlgrabber-3.9.1-11.el6.noarch.rpm</span><br><span class="line">wget  http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/rpm-python-4.8.0-59.el6.x86_64.rpm</span><br></pre></td></tr></table></figure>
-<h4 id="安装-python"><a class="markdownIt-Anchor" href="#安装-python"></a> 安装 python</h4>
+<h4 id="安装-python">安装 python</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/python</span><br><span class="line">rpm -ivh python-*   rpm-python-*  <span class="comment">#--nodeps --force为不考虑依赖包，强制安装</span></span><br></pre></td></tr></table></figure>
-<h4 id="创建-yum-目录"><a class="markdownIt-Anchor" href="#创建-yum-目录"></a> 创建 yum 目录</h4>
+<h4 id="创建-yum-目录">创建 yum 目录</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /usr/local/src/yum</span><br></pre></td></tr></table></figure>
-<h4 id="下载-yum-的-rpm-包"><a class="markdownIt-Anchor" href="#下载-yum-的-rpm-包"></a> 下载 yum 的 rpm 包</h4>
+<h4 id="下载-yum-的-rpm-包">下载 yum 的 rpm 包</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/yum</span><br><span class="line"></span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/yum-3.2.29-81.el6.centos.noarch.rpm</span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/yum-metadata-parser-1.1.2-16.el6.x86_64.rpm</span><br><span class="line">wget http://mirrors.ustc.edu.cn/centos/6/os/x86_64/Packages/yum-plugin-fastestmirror-1.1.30-41.el6.noarch.rpm</span><br></pre></td></tr></table></figure>
-<h4 id="安装-yum"><a class="markdownIt-Anchor" href="#安装-yum"></a> 安装 yum</h4>
+<h4 id="安装-yum">安装 yum</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/src/yum</span><br><span class="line">rpm -ivh yum-*</span><br></pre></td></tr></table></figure>
-<h4 id="更新-yum-源"><a class="markdownIt-Anchor" href="#更新-yum-源"></a> 更新 yum 源</h4>
+<h4 id="更新-yum-源">更新 yum 源</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line"></span><br><span class="line">//更新为阿里云的源 二选一</span><br><span class="line">wget -O CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-6.repo</span><br><span class="line"></span><br><span class="line">//更新为163的源</span><br><span class="line">wget -O CentOS-Base.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo</span><br></pre></td></tr></table></figure>
-<h4 id="生成-yum-缓存"><a class="markdownIt-Anchor" href="#生成-yum-缓存"></a> 生成 yum 缓存</h4>
+<h4 id="生成-yum-缓存">生成 yum 缓存</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum clean all</span><br><span class="line">yum update</span><br><span class="line">yum makecache</span><br></pre></td></tr></table></figure>
-<h3 id="二-安装-python27"><a class="markdownIt-Anchor" href="#二-安装-python27"></a> 二 安装 python2.7</h3>
-<h4 id="配置环境"><a class="markdownIt-Anchor" href="#配置环境"></a> 配置环境</h4>
+<h3 id="二-安装-python2-7">二 安装 python2.7</h3>
+<h4 id="配置环境">配置环境</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum -y update</span><br><span class="line">yum groupinstall <span class="string">&#x27;Development Tools&#x27;</span></span><br><span class="line">yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel expat-devel</span><br></pre></td></tr></table></figure>
-<h4 id="安装-python-2"><a class="markdownIt-Anchor" href="#安装-python-2"></a> 安装 python</h4>
+<h4 id="安装-python-2">安装 python</h4>
 <p>python 最新版本下载地址：<a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tgz</span><br><span class="line">tar -zxvf Python-2.7.15.tgz</span><br><span class="line"><span class="built_in">cd</span> Python-2.7.15</span><br><span class="line">./configure --prefix=/usr/local</span><br><span class="line">make all</span><br><span class="line">make altinstall</span><br><span class="line">make clean</span><br></pre></td></tr></table></figure>
-<h4 id="创建软连接"><a class="markdownIt-Anchor" href="#创建软连接"></a> 创建软连接</h4>
+<h4 id="创建软连接">创建软连接</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s /usr/local/bin/python2.7 /usr/bin/python</span><br></pre></td></tr></table></figure>
-<h4 id="修改-yum"><a class="markdownIt-Anchor" href="#修改-yum"></a> 修改 yum</h4>
+<h4 id="修改-yum">修改 yum</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/bin/yum</span><br></pre></td></tr></table></figure>
 <p>将第一行  #!/usr/bin/python   改为 #!/usr/bin/python2.6</p>
-<h4 id="安装-setuptools"><a class="markdownIt-Anchor" href="#安装-setuptools"></a> 安装 setuptools</h4>
+<h4 id="安装-setuptools">安装 setuptools</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://files.pythonhosted.org/packages/1d/64/a18a487b4391a05b9c7f938b94a16d80305bf0369c6b0b9509e86165e1d3/setuptools-41.0.1.zip</span><br><span class="line">unzip setuptools-41.0.1.zip</span><br><span class="line"><span class="built_in">cd</span> setuptools-41.0.1</span><br><span class="line">python setup.py  install</span><br></pre></td></tr></table></figure>
-<h4 id="安装-pip"><a class="markdownIt-Anchor" href="#安装-pip"></a> 安装 pip</h4>
+<h4 id="安装-pip">安装 pip</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://files.pythonhosted.org/packages/51/5f/802a04274843f634469ef299fcd273de4438386deb7b8681dd059f0ee3b7/pip-19.1.tar.gz</span><br><span class="line">tar -xvf pip-19.1.tar.gz</span><br><span class="line"><span class="built_in">cd</span> pip-19.1</span><br><span class="line">python setup.py  install</span><br></pre></td></tr></table></figure>
-<h4 id="修改-pip"><a class="markdownIt-Anchor" href="#修改-pip"></a> 修改 pip</h4>
+<h4 id="修改-pip">修改 pip</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  File &quot;/usr/bin/pip&quot;, line 7, in &lt;module&gt;</span><br><span class="line">    from pip import main</span><br><span class="line">ImportError: cannot import name main</span><br></pre></td></tr></table></figure>
-<h4 id="更新-pip"><a class="markdownIt-Anchor" href="#更新-pip"></a> 更新 pip</h4>
+<h4 id="更新-pip">更新 pip</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/bin/pip</span><br></pre></td></tr></table></figure>
 <p>将<code>from pip import main</code>改为<code>from pip import __main__</code>,</p>
 <p><code>sys.exit(_main())</code>改为<code>sys.exit(__main__._main())</code></p>
 <p>最终得到：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">from</span> pip <span class="keyword">import</span> __main__</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    sys.exit(__main__._main())</span><br></pre></td></tr></table></figure>
-<h3 id="三-宝塔面板相关问题"><a class="markdownIt-Anchor" href="#三-宝塔面板相关问题"></a> 三. 宝塔面板相关问题</h3>
+<h3 id="三-宝塔面板相关问题">三. 宝塔面板相关问题</h3>
 <p>出现<code>您请求的页面因发生异常而中断!</code>，按照下述处理：</p>
-<h4 id="宝塔日志"><a class="markdownIt-Anchor" href="#宝塔日志"></a> 宝塔日志</h4>
+<h4 id="宝塔日志">宝塔日志</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /tmp/panelBoot.pl</span><br></pre></td></tr></table></figure>
-<h4 id="宝塔需要的启动环境"><a class="markdownIt-Anchor" href="#宝塔需要的启动环境"></a> 宝塔需要的启动环境</h4>
+<h4 id="宝塔需要的启动环境">宝塔需要的启动环境</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install psutil</span><br><span class="line">pip install web.py</span><br></pre></td></tr></table></figure>
-<h4 id="挂载硬盘"><a class="markdownIt-Anchor" href="#挂载硬盘"></a> 挂载硬盘</h4>
+<h4 id="挂载硬盘">挂载硬盘</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fdisk -l # 查看硬盘信息</span><br><span class="line">mount /dev/vdb5 /storage</span><br></pre></td></tr></table></figure>
-<h4 id="定时任务需要的-python-环境"><a class="markdownIt-Anchor" href="#定时任务需要的-python-环境"></a> 定时任务需要的 python 环境</h4>
+<h4 id="定时任务需要的-python-环境">定时任务需要的 python 环境</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install mysql-python</span><br></pre></td></tr></table></figure>
-<h4 id="启动-xxl-定时任务"><a class="markdownIt-Anchor" href="#启动-xxl-定时任务"></a> 启动 xxl 定时任务</h4>
+<h4 id="启动-xxl-定时任务">启动 xxl 定时任务</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /storage/admin.lisongqian.cn</span><br><span class="line">java -jar xxl-job-admin-2.0.1.jar &amp;</span><br><span class="line">java -jar xxl-job-executor-sample-springboot-2.0.1.jar &amp;</span><br></pre></td></tr></table></figure>
 	
 		</div>
@@ -422,16 +422,21 @@
 								二月 6日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 前提
-阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
-同时我们需要准备：
+								前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
 
 一个 GitHub 账号
+
+
 一个腾讯云账号
+
+
 hexo 安装了 yuque-hexo 插件且能正常运行
 
- 实现思路：
-利用语雀的webhook触...
+
+实现思路：
+利用语雀的webho...
 							</p>
 						</div>
 
@@ -453,8 +458,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 原因
-新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
+								原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部...
 							</p>
 						</div>
 
@@ -476,13 +481,13 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 代码整体向后缩进
+								代码整体向后缩进
 选中多行代码 - 按下 Tab
- 代码整体向前缩进
+代码整体向前缩进
 选中多行代码 - 按下 Shift + Tab
- 查找下一条代码差异
+查找下一条代码差异
 F7
- 查找上一条代码差异
+查找上一条代码差异
 Shift + F7
 
 							</p>
@@ -506,8 +511,8 @@ Shift + F7
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 Nginx 跨域（不安全，但快捷）
-123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
+								Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wit...
 							</p>
 						</div>
 
@@ -529,11 +534,9 @@ Shift + F7
 								九月 13日, 2020				
 							</p>
 							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
-注意手机需要在 iCloud 中打开同步 Safari 浏览器
+								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：
-打开注册表编辑器，定...
+旧方法：打开注册表编辑器，定位至...
 							</p>
 						</div>
 
@@ -560,10 +563,10 @@ Shift + F7
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
- 开始
- 修改客户端配置
+开始
+修改客户端配置
 打开 frpc.ini 文件，将文件按照需求更改如下：
-123456789101112131415...
+12345678910111213141516...
 							</p>
 						</div>
 
@@ -585,15 +588,16 @@ frp 客户端文件，包括：frp 客户端，winsw
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								 准备
+								准备
 
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
- 安装
- 下载 redis 安装...
+安装
+下载 redis 安装包
+1...
 							</p>
 						</div>
 
@@ -640,9 +644,9 @@ https://www.amd.com...
 							</p>
 							<p class="relate-post-content">
 								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
- 什么是 Reactor 模式和 Proactor 模式？
- Reactor 模式
-Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O ...
+什么是 Reactor 模式和 Proactor 模式？
+Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及...
 							</p>
 						</div>
 
@@ -665,8 +669,9 @@ Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 

@@ -323,37 +323,42 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="nginx-跨域不安全但快捷"><a class="markdownIt-Anchor" href="#nginx-跨域不安全但快捷"></a> Nginx 跨域（不安全，但快捷）</h3>
+			<h3 id="Nginx-跨域（不安全，但快捷）">Nginx 跨域（不安全，但快捷）</h3>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Origin *;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Headers X-Requested-With;</span><br><span class="line"><span class="attribute">add_header</span> Access-Control-Allow-Methods GET,POST,OPTIONS;</span><br></pre></td></tr></table></figure>
-<h3 id="更改-npm-源"><a class="markdownIt-Anchor" href="#更改-npm-源"></a> 更改 npm 源</h3>
+<h3 id="更改-npm-源">更改 npm 源</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<h3 id="docker-加速"><a class="markdownIt-Anchor" href="#docker-加速"></a> docker 加速</h3>
+<h3 id="docker-加速">docker 加速</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://gckih6c6.mirror.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
-<h3 id="clion-无法使用-ctrl左键进行代码跳转"><a class="markdownIt-Anchor" href="#clion-无法使用-ctrl左键进行代码跳转"></a> Clion 无法使用 Ctrl+左键进行代码跳转</h3>
+<h3 id="Clion-无法使用-Ctrl-左键进行代码跳转">Clion 无法使用 Ctrl+左键进行代码跳转</h3>
 <p>右键项目根目录，点击<code>Mark Directory as</code>-&gt;<code>Projects Sources and Headers</code></p>
-<h3 id="git-配置使用-clash-本地-proxy"><a class="markdownIt-Anchor" href="#git-配置使用-clash-本地-proxy"></a> Git 配置使用 Clash 本地 proxy</h3>
-<p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地 proxy，当然也可以开启系统的全局 proxy<br />
-添加 proxy：<code>git config --global http.proxy 127.0.0.1:7890</code><br />
-解除 proxy：<code>git config --global --unset http.proxy</code></p>
-<h3 id="qt-国内源"><a class="markdownIt-Anchor" href="#qt-国内源"></a> QT 国内源</h3>
+<h3 id="Git-配置使用-Clash-本地-proxy">Git 配置使用 Clash 本地 proxy</h3>
+<p>git 出现<code>unable to access https://github.com/XXX.git</code>时，可以配置本地 proxy，当然也可以开启系统的全局 proxy<br>
+添加 proxy：<code>git config --global http.proxy 127.0.0.1:7890</code>解除 proxy：<code>git config --global --unset http.proxy</code></p>
+<h3 id="QT-国内源">QT 国内源</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://mirrors.tuna.tsinghua.edu.cn/qt/online/qtsdkrepository/windows_x86/root/qt/</span><br><span class="line"></span><br><span class="line">https://mirrors.ustc.edu.cn/qtproject/online/qtsdkrepository/windows_x86/root/qt/</span><br></pre></td></tr></table></figure>
-<h3 id="linux-上使用-awk-或者-tr-更换换行符后结果消失"><a class="markdownIt-Anchor" href="#linux-上使用-awk-或者-tr-更换换行符后结果消失"></a> Linux 上使用 awk 或者 tr 更换换行符后结果消失</h3>
+<h3 id="Linux-上使用-awk-或者-tr-更换换行符后结果消失">Linux 上使用 awk 或者 tr 更换换行符后结果消失</h3>
 <p>检查换行符是否为 LF(\n)，若是 CR(\r)或者 CRLF(\r\n)请更换为 LF。</p>
-<h3 id="windows-clone-linux-源码报错-invalid-path-xxxauxc"><a class="markdownIt-Anchor" href="#windows-clone-linux-源码报错-invalid-path-xxxauxc"></a> Windows clone linux 源码报错 <code>invalid path XXX/aux.c'</code></h3>
+<h3 id="Windows-clone-linux-源码报错-invalid-path-XXX-aux-c">Windows clone linux 源码报错 <code>invalid path XXX/aux.c'</code></h3>
 <p>在项目目录执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config core.protectNTFS <span class="literal">false</span></span><br><span class="line">git reset --hard HEAD</span><br></pre></td></tr></table></figure>
-<h2 id="vmware-和-wsl2-的-hyper-v-冲突问题"><a class="markdownIt-Anchor" href="#vmware-和-wsl2-的-hyper-v-冲突问题"></a> VMware 和 wsl2 的 hyper-v 冲突问题</h2>
-<p>启用 VMware<br />
-<code>bcdedit /set hypervisorlaunchtype off</code><br />
-启用 WSL<br />
+<h2 id="VMware-和-wsl2-的-hyper-v-冲突问题">VMware 和 wsl2 的 hyper-v 冲突问题</h2>
+<p>启用 VMware<br>
+<code>bcdedit /set hypervisorlaunchtype off</code><br>
+启用 WSL<br>
 <code>bcdedit /set hypervisorlaunchtype auto</code></p>
-<h2 id="vmware-对-ubuntu-磁盘扩容"><a class="markdownIt-Anchor" href="#vmware-对-ubuntu-磁盘扩容"></a> VMware 对 Ubuntu 磁盘扩容</h2>
+<h2 id="VMware-对-Ubuntu-磁盘扩容">VMware 对 Ubuntu 磁盘扩容</h2>
 <ol>
-<li>虚拟机关机后选中磁盘，选择<code>扩展</code>;</li>
-<li>安装 gparted 对指定磁盘进行 Resize：<code>apt install gparted</code>；</li>
-<li>使用<code>df -lh</code>查看磁盘容量。</li>
+<li class="lvl-3">
+<p>虚拟机关机后选中磁盘，选择<code>扩展</code>;</p>
+</li>
+<li class="lvl-3">
+<p>安装 gparted 对指定磁盘进行 Resize：<code>apt install gparted</code>；</p>
+</li>
+<li class="lvl-3">
+<p>使用<code>df -lh</code>查看磁盘容量。</p>
+</li>
 </ol>
-<h2 id="ubuntu-network-manager-bug-fix"><a class="markdownIt-Anchor" href="#ubuntu-network-manager-bug-fix"></a> Ubuntu Network Manager Bug Fix</h2>
+<h2 id="Ubuntu-Network-Manager-Bug-Fix">Ubuntu Network Manager Bug Fix</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo touch /etc/NetworkManager/conf.d/10-globally-managed-devices.conf</span><br><span class="line">sudo systemctl restart NetworkManager</span><br></pre></td></tr></table></figure>
 	
 		</div>
@@ -407,16 +412,21 @@
 								二月 6日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 前提
-阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
-同时我们需要准备：
+								前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
 
 一个 GitHub 账号
+
+
 一个腾讯云账号
+
+
 hexo 安装了 yuque-hexo 插件且能正常运行
 
- 实现思路：
-利用语雀的webhook触...
+
+实现思路：
+利用语雀的webho...
 							</p>
 						</div>
 
@@ -438,8 +448,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 原因
-新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
+								原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部...
 							</p>
 						</div>
 
@@ -461,13 +471,13 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 代码整体向后缩进
+								代码整体向后缩进
 选中多行代码 - 按下 Tab
- 代码整体向前缩进
+代码整体向前缩进
 选中多行代码 - 按下 Shift + Tab
- 查找下一条代码差异
+查找下一条代码差异
 F7
- 查找上一条代码差异
+查找上一条代码差异
 Shift + F7
 
 							</p>
@@ -491,11 +501,9 @@ Shift + F7
 								九月 13日, 2020				
 							</p>
 							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
-注意手机需要在 iCloud 中打开同步 Safari 浏览器
+								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：
-打开注册表编辑器，定...
+旧方法：打开注册表编辑器，定位至...
 							</p>
 						</div>
 
@@ -522,10 +530,10 @@ Shift + F7
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
- 开始
- 修改客户端配置
+开始
+修改客户端配置
 打开 frpc.ini 文件，将文件按照需求更改如下：
-123456789101112131415...
+12345678910111213141516...
 							</p>
 						</div>
 
@@ -547,15 +555,16 @@ frp 客户端文件，包括：frp 客户端，winsw
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								 准备
+								准备
 
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
- 安装
- 下载 redis 安装...
+安装
+下载 redis 安装包
+1...
 							</p>
 						</div>
 
@@ -623,10 +632,10 @@ https://www.amd.com...
 								六月 30日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 出现问题的原因
+								出现问题的原因
 
 Linux Kernel 代码文件有用系统保留字aux命名的文件，导致 clone 名字中有aux、com1等保留字时就会失败；
-Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小...
+Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写...
 							</p>
 						</div>
 
@@ -649,8 +658,9 @@ Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 

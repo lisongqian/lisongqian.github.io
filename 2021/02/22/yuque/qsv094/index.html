@@ -350,7 +350,7 @@
 							</p>
 							<p class="relate-post-content">
 								本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
- BERT: Bidirectional Encoder Representations ...
+BERT: Bidirectional Encoder Representations f...
 							</p>
 						</div>
 
@@ -401,11 +401,12 @@
 L2 范数：
 L1 范数：
 
- 推导过程
+推导过程
 
 泰勒公式  
 
- 为什么可以减少过拟...
+为什么可以减少过拟合
+...
 							</p>
 						</div>
 
@@ -427,12 +428,15 @@ L1 范数：
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								 Logistic Regression
+								Logistic Regression
 逻辑回归的假设函数：
-$ h_{\theta}(x) =\frac{1}{1+e{-\theta{T}x}}
-$
-其中$ x 是输入,是输入,是输入, \theta $是要求解的参数。
-函数图...
+
+其中是输入,是要求解的参数。
+函数图像：
+
+一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
+
+它的意思是在给定...
 							</p>
 						</div>
 
@@ -455,8 +459,9 @@ $
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -481,9 +486,9 @@ $
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -506,9 +511,9 @@ $
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -531,13 +536,18 @@ $
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -559,9 +569,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -578,7 +588,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -600,12 +613,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 

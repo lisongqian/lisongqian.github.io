@@ -71,7 +71,119 @@
 	
  
     <meta name="referrer" content="no-referrer"/>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 	<body>
 		<!-- Preloader -->
 
@@ -254,9 +366,15 @@
 					<div class="post-content">
 						
 							本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s 到到到 t 时间内事件发生的次数，那么在简单模型下，事件的发生次数时间内事件发生的次数，那么在简单模型下，事件的发生次数时间内事件发生的次数，那么在简单模型下，事件的发生次数 N([s,t])= \frac{t-s}{T} $。
-众所周知，在实际生活中事件发生的间隔不会是相同的，例如网站中的用户登录事件、路由器中的数据包到达事件等。所以这里我们把发生事件的间...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔不会是相同的，例如网站中的用户登录事件、路由器中的数据包到达事件等。所以这里我们把发生事件的间隔定义为，表示第个事件发生后，经过个时间间隔第个事件发生，这时为一个随机变量，此时事件的发生次数可以表示为，代表时间内发生事件的次数，这个随机过程就称为计数过程。
+II. 计数过程的条件
+由定义可知，代表时间内发生事件的次数，那么。
+计数过程还需满足：
+
+
+独立增量...
 						
 					</div>
 					
@@ -308,18 +426,22 @@
 							
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
 多线程执行刷屏时光标值越界导致 GP 异常。
- 10.1.2 找出代码中的临界区、互斥、竞争条件
+10.1.2 找出代码中的临界区、互斥、竞争条件
 公共资源：“显存”
 临界区：put_char 的多个指令
- 10.1.3 信号量
+10.1.3 信号量
 信号量是个计数器，它的计数值是自然数，用来记录所积累信号的数量。
 对于信号量的增减方法用 P、V 操作来表示，P 表示减少，V 表示增加。
 P 操作（书中为减少操作 down）包括：
 
-判断信号量是否大于 0；...
+
+判断信号量是否大于 0；
+
+
+...
 						
 					</div>
 					
@@ -369,12 +491,12 @@ P 操作（书中为减少操作 down）包括：
 					<div class="post-content">
 						
 							线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
+9.1 实现内核线程
+9.1.1 执行流
 在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处理器执行哪个任务。
 任务调度其是操作系统中用于把软件轮流调度上处理器运行的一个软件模块，它是操作系统的一部分。调度器在内核中维护一个任务表（也称进程表、线程表或调度表），然后按照一定的算法，从任务表中选择一个任务，然后把该任务放到处理器上运行，当任务运行的时间片到期后，再从任务表中找另外一个任务放到处理器上运行。
- 9.1.2 线程是什么
-在线程中调用函...
+9.1.2 线程是什么
+在线程中调用函数是让...
 						
 					</div>
 					
@@ -424,24 +546,37 @@ P 操作（书中为减少操作 down）包括：
 					<div class="post-content">
 						
 							
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
+
+
 libwrapper 拦截用户的函数调用，对参数进行解析，然后使用参数去调用实际的底层库相同名称的函数。
+
+
 调用完成后，libwrapper 把结果返回给 APP；
+
 
 实现关键：
 
+
 APP 和底层可的静态链接变成动态链接；
+
+
 libwrapper 使用类似 dlopen 打开底层库；
 
- 远程 API forwarding
+
+远程 API forwarding
 
 
-libwrapper 通过网络，去调用不同机器上...
+
+libwrapper 通过网...
 						
 					</div>
 					
@@ -490,9 +625,9 @@ libwrapper 通过网络，去调用不同机器上...
 
 					<div class="post-content">
 						
-							 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+							硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -529,14 +664,14 @@ DMA 和设备访问内存隔离
 
 
 
- 相应的硬件实现
+相应的硬件实现
 x86 架构
 
 AMD 架构
 
 RISC-V 架构
 
- 相关软件支持
+相关软件支持
 
 
 
@@ -550,7 +685,8 @@ Firmware
 OpenSBI、BIOS
 
 
-Hypervisor...
+Hypervisor
+KVM，...
 						
 					</div>
 					
@@ -599,13 +735,13 @@ Hypervisor...
 
 					<div class="post-content">
 						
-							 8.1 makefile 简介
+							8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
+8.1.1 makefile 是什么
 makefile 是 Linux 下编译大型程序的工具，是 make 程序的搭档，两者的主要功能就是发现某个文件更新后，只编译该文件和受该文件影响的相关文件，从而提高了编译效率。
-make 和 makefile 并不是用来编译程序的，它只负责找出哪些文件有变化， 并 且根据依赖关系找出受影响的文件，然后执行事先在 makefile 中定义好的命令规则。因为 make 就是在 shell ...
+make 和 makefile 并不是用来编译程序的，它只负责找出哪些文件有变化， 并 且根据依赖关系找出受影响的文件，然后执行事先在 makefile 中定义好的命令规则。因为 make 就是在 shell 下执...
 						
 					</div>
 					
@@ -654,19 +790,19 @@ make 和 makefile 并不是用来编译程序的，它只负责找出哪些文�
 
 					<div class="post-content">
 						
-							 7.1 中断是什么，为什么要有中断
+							7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
+7.3 中断分类
 把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。
 外部中断按是否导致宕机来划分，可分为可屏蔽中断和不可屏蔽中断两种。
 内部中断按中断是否正常来划分，可分为软中断和异常。
- 7.3.1 外部中断
+7.3.1 外部中断
 
 外部中断是指来自 CPU 外部的中断，而外部的中断源必须是某个硬件，所以外部中断又称为硬件中断。
 
-外部硬件的中断通过两根信号线通知 CPU，一个是 INTR（Interrupt Require），一个是 ...
+外部硬件的中断通过两根信号线通知 CPU，一个是 INTR（Interrupt Require），一个是 NMI（...
 						
 					</div>
 					
@@ -715,14 +851,12 @@ make 和 makefile 并不是用来编译程序的，它只负责找出哪些文�
 
 					<div class="post-content">
 						
-							 6.1 函数调用约定简介
+							6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
 12int subtract(int a, int b);int sub = subtract(3,2);
 上面的 c 代码编译后的汇编语句是：
-1234567891011121314151617# 主调用push 2push 3call subtract# 被调用者push ebp			;压入 ebp 备份mov ebp,esp			;将 esp 赋值给 ebp					;用 ebp 作为基址...
+1234567891011121314151617# 主调用push 2push 3call subtract# 被调用者push ebp			;压入 ebp 备份mov ebp,esp			;将 esp 赋值给 ebp					;用 ebp 作为基址来访问...
 						
 					</div>
 					
@@ -771,16 +905,13 @@ stdcall是被调用者清理参数所占的栈空间。
 
 					<div class="post-content">
 						
-							 5.3 加载内核
- 5.3.1 用 C 语言写内核
+							5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循环一直使用 CPU，目的是停在这里。这个死循环仅仅是为了演示 elf 文件解析以及加载内核的作用。
-用 gcc 编译该程序：
+这个内核文件什么都没做，通过while(1)这个死循环一直使用 CPU，目的是停在这里。这个死循环仅仅是为了演示 elf 文件解析以及加载内核的作用。用 gcc 编译该程序：
 1gcc -m32 -c -o kernel/main.o kernel/main.c
--c的作用是编译、汇编到目标代码，不进行链接，也就是直接生成目标文件。
--o的作用是将输出的文件以指定文件名来存储，有同名文件存在时直接覆盖。
-m...
+-c的作用是编译、汇编到目标代码，不进行链接，也就是直接生成目标文件。-o的作用是将输出的文件以指定文件名来存储，有同名文件存在时直接覆盖。main.o...
 						
 					</div>
 					
@@ -832,15 +963,19 @@ m...
 							
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
 在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS 中断 0x15 实现的，分别是 BIOS 中断 0x15 的三个子功能，子功能号要存放到寄存器 EAX 或 AX 中，如下：
 
-EAX=0xE820：遍历主机上全部内存
-AX=0xE801： 分别检测低 15MB 和 16MB~4GB 的内存，最大支持 4GB
-AH=0x88：最多检测出 64MB 内存，实际内存超过此容量也按照 64MB 返回
 
- 5...
+EAX=0xE820：遍历主机上全部内存
+
+
+AX=0xE801： 分别检测低 15MB 和 16MB~4GB 的内存，最大支持 4GB
+
+
+AH=0x88：最多检测出 64MB 内存，实际内存超过此容量也按照 64MB 返回
+...
 						
 					</div>
 					

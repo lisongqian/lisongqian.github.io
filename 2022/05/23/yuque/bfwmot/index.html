@@ -307,26 +307,26 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="先了解-cpu-的两种工作模式实模式和保护模式"><a class="markdownIt-Anchor" href="#先了解-cpu-的两种工作模式实模式和保护模式"></a> 先了解 CPU 的两种工作模式：实模式和保护模式</h3>
-<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9C%9F%E5%AF%A6%E6%A8%A1%E5%BC%8F">实模式</a>（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。<br />
-<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F">保护模式</a>：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。<br />
-<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1653299138964-ceaa9c6c-9550-4ada-83cc-a4402d7a04cd.png#averageHue=%23e2e2e2&amp;clientId=ua8790fd7-a1d7-4&amp;from=paste&amp;height=616&amp;id=u490d3777&amp;originHeight=616&amp;originWidth=1211&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=487094&amp;status=done&amp;style=none&amp;taskId=udd2f2e71-b415-4a6e-ae8e-6cab2c8b5e8&amp;title=&amp;width=1211" alt="image.png" /><br />
-实模式的寻址方式是：<code>cs&lt;4+ip</code><br />
+			<h3 id="先了解-CPU-的两种工作模式：实模式和保护模式">先了解 CPU 的两种工作模式：实模式和保护模式</h3>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E7%9C%9F%E5%AF%A6%E6%A8%A1%E5%BC%8F">实模式</a>（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存储器可以被寻址），可以直接软件访问 BIOS 程序以及周边硬件，没有任何硬件等级的存储器保护观念或多任务。<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BF%9D%E6%8A%A4%E6%A8%A1%E5%BC%8F">保护模式</a>：寻址采用 32 位段和偏移量，最大寻址空间 4GB，最大分段 4GB (Pentium Pre 及以后为 64GB)。在保护模式下 CPU 可以进入虚拟 8086 方式，这是在保护模式下的实模式程序运行环境。<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1653299138964-ceaa9c6c-9550-4ada-83cc-a4402d7a04cd.png#averageHue=%23e2e2e2&amp;clientId=ua8790fd7-a1d7-4&amp;from=paste&amp;height=616&amp;id=u490d3777&amp;originHeight=616&amp;originWidth=1211&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=487094&amp;status=done&amp;style=none&amp;taskId=udd2f2e71-b415-4a6e-ae8e-6cab2c8b5e8&amp;title=&amp;width=1211" alt="image.png"><br>
+实模式的寻址方式是：<code>cs&lt;4+ip</code><br>
 MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰好出现在该扇区的最后两个字节处。由于 bochs 模拟的是 x86 平台，所以是小端字节序，故最后两个字节的内容是 0xaa55.</p>
-<h3 id="编写-mbr"><a class="markdownIt-Anchor" href="#编写-mbr"></a> 编写 MBR：</h3>
+<h3 id="编写-MBR：">编写 MBR：</h3>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">;主引导程序</span><br><span class="line">;-----------------------------------------------------</span><br><span class="line">SECTION MBR vstart=0x7c00</span><br><span class="line">	mov ax,cs</span><br><span class="line">	mov ds,ax</span><br><span class="line">	mov es,ax</span><br><span class="line">	mov ss,ax</span><br><span class="line">	mov fs,ax</span><br><span class="line">	mov sp,0x7c00</span><br><span class="line"></span><br><span class="line">; 清屏利用0x06号功能，上卷全部行，则可清屏</span><br><span class="line">; -----------------------------------------------------</span><br><span class="line">; INT 0x10	功能号：0x06		功能描述:上卷窗口</span><br><span class="line">;输入：</span><br><span class="line">;AH 功能号=0x06</span><br><span class="line">;AL = 上卷的行数</span><br><span class="line">;BH = 上卷行属性</span><br><span class="line">;(CL,CH) = 窗口左下角的(X,Y)位置</span><br><span class="line">;(DL,DH) = 窗口右下角的(X,Y)位置</span><br><span class="line">;无返回值</span><br><span class="line">	mov ax,0x600</span><br><span class="line">	mov bx,0x700</span><br><span class="line">	mov cx,0			; 左上角: (0,0)</span><br><span class="line">	mov dx,0x184f		; 右下角：(80,25)</span><br><span class="line">						; 下标从0开始,所以0x18=24,0x4f=79</span><br><span class="line">	int 0x10			; int 0x10</span><br><span class="line"></span><br><span class="line">;;;;;;;;	下面这三行代码获取光标位置		;;;;;;;;</span><br><span class="line">;.get_cursor获取当前光标位置，在光标位置处打印字符。</span><br><span class="line">	mov ah,3			; 输入：3号子功能是获取光标位置，需要存入ah寄存器</span><br><span class="line">	mov bh,0 			; bh寄存器存储的是待获取光标的页号</span><br><span class="line"></span><br><span class="line">	int 0x10			; 输出：ch=光标开始行，c1=光标结束行</span><br><span class="line">						; dh=光标所在行号，dl=光标所在列号</span><br><span class="line"></span><br><span class="line">;;;;;;;;		获取光标位置结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">;;;;;;;;		打印字符串			;;;;;;;;</span><br><span class="line">	; 还是用10h中断，不过这次调用13号子功能打印字符串</span><br><span class="line">	mov ax, message</span><br><span class="line">	mov bp,ax			; es:bp 为串首地址,es此时同cs一致,</span><br><span class="line">                ; 开头时已经为sreg初始化</span><br><span class="line"></span><br><span class="line">	; 光标位置要用到dx寄存器中内容，cx中的光标位置可忽略</span><br><span class="line">	mov cx,11 			; cx为串长度，不包括结束符0的字符个数</span><br><span class="line">	mov ax, 0x1301		; 子功能号13显示字符及属性，要存入ah寄存器，</span><br><span class="line">                ; al 设置写字符方式 ah=01：显示字符串，光标跟随移动</span><br><span class="line">	mov bx, 0x2			; bh存储要显示的页号，此处是第0页,</span><br><span class="line">						; bl中是字符属性，属性黑底绿字(bl= 02h)</span><br><span class="line">	int 0x10			; 执行BIOS 0x10号中断</span><br><span class="line">;;;;;;;;		打印字符串结束		;;;;;;;;</span><br><span class="line"></span><br><span class="line">	jmp $				; 程序悬停在此</span><br><span class="line"></span><br><span class="line">	message db &quot;Hello World&quot;</span><br><span class="line">	times 510-($-$$) db 0</span><br><span class="line">	db 0x55,0xaa</span><br></pre></td></tr></table></figure>
-<h3 id="编译"><a class="markdownIt-Anchor" href="#编译"></a> 编译</h3>
+<h3 id="编译">编译</h3>
 <p><code>nasm mbr.S -o mbr.bin</code></p>
-<h3 id="将-mbr-写入磁盘"><a class="markdownIt-Anchor" href="#将-mbr-写入磁盘"></a> 将 MBR 写入磁盘</h3>
-<p><code>dd if=./mbr.bin of=./hd60M.img bs=512 count=1 conv=notrunc</code><br />
+<h3 id="将-MBR-写入磁盘">将 MBR 写入磁盘</h3>
+<p><code>dd if=./mbr.bin of=./hd60M.img bs=512 count=1 conv=notrunc</code><br>
 输出下述结果，证明写入成功。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1+0 records <span class="keyword">in</span></span><br><span class="line">1+0 records out</span><br><span class="line">512 bytes copied, 0.000183707 s, 2.8 MB/s</span><br></pre></td></tr></table></figure>
 <p>启动 bochs，在命令行输入 c 回车，此时窗口中显示出打印的字符。</p>
-<h3 id="附-1dd-命令参数解释"><a class="markdownIt-Anchor" href="#附-1dd-命令参数解释"></a> 附 1：dd 命令参数解释</h3>
+<h3 id="附-1：dd-命令参数解释">附 1：dd 命令参数解释</h3>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>=FILE					<span class="comment">#指定要读取的文件</span></span><br><span class="line">of=FILE					<span class="comment">#指定要输出到的文件</span></span><br><span class="line">bs=BYTES				<span class="comment">#指定块的大小，dd是以块为单位来进行IO操作的，此项是同时配置了输入块大小ibs和输出块大小obs</span></span><br><span class="line">count=BLOCKS		<span class="comment">#指定拷贝的块数</span></span><br><span class="line">seek=BLOCKS			<span class="comment">#指定当把块输出到文件时想跳过多少块</span></span><br><span class="line">conv=CONVS			<span class="comment">#指定如何转换文件</span></span><br></pre></td></tr></table></figure>
-<h3 id="参考文章"><a class="markdownIt-Anchor" href="#参考文章"></a> 参考文章</h3>
+<h3 id="参考文章">参考文章</h3>
 <ol>
-<li>《操作系统真象还原》第 2 章</li>
+<li class="lvl-3">
+<p>《操作系统真象还原》第 2 章</p>
+</li>
 </ol>
 	
 		</div>
@@ -383,9 +383,9 @@ MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰�
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -408,9 +408,9 @@ MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰�
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -432,12 +432,12 @@ MBR 的大小必须是 512 字节，这是为了保证魔数 0x55 和 0xaa 恰�
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -459,12 +459,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -486,12 +486,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -513,11 +511,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -542,9 +540,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 
@@ -566,9 +564,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 4.1 保护模式概述
+								4.1 保护模式概述
 在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
-保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel...
 							</p>
 						</div>
 
@@ -590,14 +588,21 @@ stdcall是被调用者清理参数所占的栈空间。
 								九月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 3.3 让我们对显示器说点什么吧
- 3.3.1 CPU 如何与外设通信——IO 接口
+								3.3 让我们对显示器说点什么吧
+3.3.1 CPU 如何与外设通信——IO 接口
 IO 接口功能：
 
+
 设置数据缓冲，解决 CPU 与外设的速度不匹配
+
+
 设置信号电平转换电路
+
+
 设置数据格式转换
-设置时序控制电路来同步 CPU 和外部...
+
+
+设置时序控制电路来同步 CP...
 							</p>
 						</div>
 
@@ -619,9 +624,10 @@ IO 接口功能：
 								九月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 针对汇编
+								针对汇编
 
 几个知识点：
+
 
 第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字...
 							</p>

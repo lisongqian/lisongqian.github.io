@@ -312,28 +312,26 @@
 
 		<div class="article-content" id="article-content">
 			<p>首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。</p>
-<h2 id="什么是-reactor-模式和-proactor-模式"><a class="markdownIt-Anchor" href="#什么是-reactor-模式和-proactor-模式"></a> 什么是 Reactor 模式和 Proactor 模式？</h2>
-<h4 id="reactor-模式"><a class="markdownIt-Anchor" href="#reactor-模式"></a> Reactor 模式</h4>
-<p>Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及业务处理。<br />
-<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828848070-f4704732-8989-4782-90b0-dc50f2b4ea63.png#clientId=ue65ecce2-aea6-4&amp;from=paste&amp;id=u14ee7955&amp;originHeight=421&amp;originWidth=720&amp;originalType=url%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=160919&amp;status=done&amp;style=none&amp;taskId=u9771c5b1-7dfe-4401-975f-356c3d1acb8&amp;title=" alt="image.png" /></p>
-<h4 id="proactor-模式"><a class="markdownIt-Anchor" href="#proactor-模式"></a> Proactor 模式</h4>
-<p>Proactor 模式是指主线程负责监听、分发事件以及 I/O 操作，工作线程只负责业务处理。<br />
-<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828800448-dac4771c-545f-4701-b40e-df231f859937.png#clientId=ue65ecce2-aea6-4&amp;from=paste&amp;id=ucdb09718&amp;originHeight=330&amp;originWidth=720&amp;originalType=url%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=119605&amp;status=done&amp;style=none&amp;taskId=ud09e076b-5e0a-4656-b3fb-732074638c9&amp;title=" alt="image.png" /></p>
-<h2 id="为什么会分为这两种事件处理模式"><a class="markdownIt-Anchor" href="#为什么会分为这两种事件处理模式"></a> 为什么会分为这两种事件处理模式？</h2>
+<h2 id="什么是-Reactor-模式和-Proactor-模式？">什么是 Reactor 模式和 Proactor 模式？</h2>
+<h4 id="Reactor-模式">Reactor 模式</h4>
+<p>Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及业务处理。<br>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828848070-f4704732-8989-4782-90b0-dc50f2b4ea63.png#clientId=ue65ecce2-aea6-4&amp;from=paste&amp;id=u14ee7955&amp;originHeight=421&amp;originWidth=720&amp;originalType=url%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=160919&amp;status=done&amp;style=none&amp;taskId=u9771c5b1-7dfe-4401-975f-356c3d1acb8&amp;title=" alt="image.png"></p>
+<h4 id="Proactor-模式">Proactor 模式</h4>
+<p>Proactor 模式是指主线程负责监听、分发事件以及 I/O 操作，工作线程只负责业务处理。<br>
+<img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1651828800448-dac4771c-545f-4701-b40e-df231f859937.png#clientId=ue65ecce2-aea6-4&amp;from=paste&amp;id=ucdb09718&amp;originHeight=330&amp;originWidth=720&amp;originalType=url%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=119605&amp;status=done&amp;style=none&amp;taskId=ud09e076b-5e0a-4656-b3fb-732074638c9&amp;title=" alt="image.png"></p>
+<h2 id="为什么会分为这两种事件处理模式？">为什么会分为这两种事件处理模式？</h2>
 <p>我们都知道 Proactor 和 Reactor 都是 I/O 复用的两种解决方案，他们的最主要的区别在于 Reactor 是同步 I/O，Proactor 是异步 I/O。</p>
-<h2 id="那什么是同步-io什么是异步-io"><a class="markdownIt-Anchor" href="#那什么是同步-io什么是异步-io"></a> 那什么是同步 I/O，什么是异步 I/O？</h2>
-<p><strong>同步 I/O</strong>是指用户进程发起一个 I/O 操作后，需要等待数据从内核态拷贝到用户程序的缓冲区，这个过程中用户程序始终在同步的等待着 I/O 的完成。<br />
-而<strong>异步 I/O</strong>是指用户进程发起一个 I/O 操作后，无需等待内核完成数据拷贝，待 I/O 完成时，内核会通知用户程序 I/O 完成。</p>
-<h2 id="为什么-proactor-比-reactor-模式更优"><a class="markdownIt-Anchor" href="#为什么-proactor-比-reactor-模式更优"></a> 为什么 Proactor 比 Reactor 模式更优？</h2>
-<p>我们先来理一下 Reactor 模式和 Proactor 模式。<br />
-Reactor 模式是同步 I/O 模型，所以用户进程在进行 I/O 操作时需要等待 I/O 操作完成，只有当前事件 I/O 操作完成后才能进行处理其他事件。<br />
+<h2 id="那什么是同步-I-O，什么是异步-I-O？">那什么是同步 I/O，什么是异步 I/O？</h2>
+<p><strong>同步 I/O</strong>是指用户进程发起一个 I/O 操作后，需要等待数据从内核态拷贝到用户程序的缓冲区，这个过程中用户程序始终在同步的等待着 I/O 的完成。而<strong>异步 I/O</strong>是指用户进程发起一个 I/O 操作后，无需等待内核完成数据拷贝，待 I/O 完成时，内核会通知用户程序 I/O 完成。</p>
+<h2 id="为什么-Proactor-比-Reactor-模式更优？">为什么 Proactor 比 Reactor 模式更优？</h2>
+<p>我们先来理一下 Reactor 模式和 Proactor 模式。<br>
+Reactor 模式是同步 I/O 模型，所以用户进程在进行 I/O 操作时需要等待 I/O 操作完成，只有当前事件 I/O 操作完成后才能进行处理其他事件。<br>
 Proactor 模式是异步 I/O 模型，所以用户进程无需等待内核 I/O 操作，省出来的时间可以处理其他事件。待内核 I/O 完成后内核通知用户进程再对当前事件进行后续处理。<strong>由于 Proactor 模式相比 Reactor 模式节省了 I/O 等待时间，所以 Proactor 模式会比 Reactor 更优。</strong></p>
-<h2 id="如何优化"><a class="markdownIt-Anchor" href="#如何优化"></a> 如何优化？</h2>
-<p>对 Reactor 模式来说，性能瓶颈在于 I/O 操作占用进程资源，故可使用线程池来解决相应问题。而使用线程池之后由于只有主进程进行事件的监听转发，在面对高并发的场景时也容易遇到性能瓶颈。这时可以使用多进程来对事件进行监听转发，也就是多 Reactor、多线程模型。<br />
-对 Proactor 模式来说，性能瓶颈就不再是 I/O 时间，而是业务逻辑操作，所以此时可以使用线程池处理多个事件的业务逻辑。</p>
-<h4 id="相关"><a class="markdownIt-Anchor" href="#相关"></a> 相关：</h4>
-<p>[1] <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26943938">如何深刻理解 Reactor 和 Proactor？</a><br />
-[2] <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018331509">Proactor 与 Reactor</a><br />
+<h2 id="如何优化？">如何优化？</h2>
+<p>对 Reactor 模式来说，性能瓶颈在于 I/O 操作占用进程资源，故可使用线程池来解决相应问题。而使用线程池之后由于只有主进程进行事件的监听转发，在面对高并发的场景时也容易遇到性能瓶颈。这时可以使用多进程来对事件进行监听转发，也就是多 Reactor、多线程模型。对 Proactor 模式来说，性能瓶颈就不再是 I/O 时间，而是业务逻辑操作，所以此时可以使用线程池处理多个事件的业务逻辑。</p>
+<h4 id="相关：">相关：</h4>
+<p>[1] <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/26943938">如何深刻理解 Reactor 和 Proactor？</a><br>
+[2] <a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000018331509">Proactor 与 Reactor</a><br>
 [3] <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzAxNzU2MzcwMw==%E2%88%A3=2649274278&amp;idx=4&amp;sn=caa323faf0c51d882453c0e0c6a62282&amp;chksm=83ffbefeb48837e841a6dbff292217475d9075e91cbe14042ad6e55b87437dcd01e6d9219e7d&amp;scene=0&amp;xtrack=1#rd">最新版 Web 服务器项目详解 - 02 半同步半反应堆线程池（上）</a></p>
 	
 		</div>
@@ -412,11 +410,11 @@ Proactor 模式是异步 I/O 模型，所以用户进程无需等待内核 I/O �
 								三月 17日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 格式化输出的执行顺序
+								格式化输出的执行顺序
 由于 C 语言参数压栈顺序是从右往左，所以 printf 和 cout 函数在执行时是从右往左读入缓冲区，然后从左往右输出。
- 右值引用和左值引用
+右值引用和左值引用
 
-C++一共有三种基本值类型: 左值(lvalue), 纯右值...
+C++一共有三种基本值类型: 左值(lvalue), 纯右值(p...
 							</p>
 						</div>
 
@@ -441,8 +439,8 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 								
 注：本文引自：https://guodong.plus/2020/0529-002048/
 
- v1.0——基本实现
-12345678910111213class Singleton &#123; public:  static S...
+v1.0——基本实现
+12345678910111213class Singleton &#123; public:  static Si...
 							</p>
 						</div>
 
@@ -464,15 +462,16 @@ C++一共有三种基本值类型: 左值(lvalue), 纯右值...
 								四月 7日, 2020				
 							</p>
 							<p class="relate-post-content">
-								 准备
+								准备
 
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
- 安装
- 下载 redis 安装...
+安装
+下载 redis 安装包
+1...
 							</p>
 						</div>
 
@@ -517,8 +516,9 @@ redis 安装包 4.0.8 版本
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -543,9 +543,9 @@ redis 安装包 4.0.8 版本
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -568,9 +568,9 @@ redis 安装包 4.0.8 版本
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -593,13 +593,18 @@ redis 安装包 4.0.8 版本
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -621,9 +626,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -640,7 +645,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 

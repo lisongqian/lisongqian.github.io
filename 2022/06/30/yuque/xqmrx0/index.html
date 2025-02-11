@@ -311,29 +311,34 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h3 id="出现问题的原因"><a class="markdownIt-Anchor" href="#出现问题的原因"></a> 出现问题的原因</h3>
+			<h3 id="出现问题的原因">出现问题的原因</h3>
 <ol>
-<li>Linux Kernel 代码文件有用系统保留字<code>aux</code>命名的文件，导致 clone 名字中有<code>aux</code>、<code>com1</code>等保留字时就会失败；</li>
-<li>Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件</li>
+<li class="lvl-3">Linux Kernel 代码文件有用系统保留字<code>aux</code>命名的文件，导致 clone 名字中有<code>aux</code>、<code>com1</code>等保留字时就会失败；</li>
+<li class="lvl-3">Linux 文件名区分大小写，但 Win 下不区分大小写，导致当两个文件只是名字大小写不同时 win 就只能识别一个文件</li>
 </ol>
-<h3 id="解决方案"><a class="markdownIt-Anchor" href="#解决方案"></a> 解决方案</h3>
-<h4 id="1-开启文件区分大小写"><a class="markdownIt-Anchor" href="#1-开启文件区分大小写"></a> 1. 开启文件区分大小写：</h4>
+<h3 id="解决方案">解决方案</h3>
+<h4 id="1-开启文件区分大小写：">1. 开启文件区分大小写：</h4>
 <blockquote>
 <p>以管理员身份运行 PowerShell</p>
 </blockquote>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fsutil.exe file SetCaseSensitiveInfo D:\CLionProjects\linux<span class="literal">-prjc</span> enable</span><br></pre></td></tr></table></figure>
-<h4 id="2-克隆代码"><a class="markdownIt-Anchor" href="#2-克隆代码"></a> 2. 克隆代码</h4>
+<h4 id="2-克隆代码">2. 克隆代码</h4>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://gitlab.com/songqianli/linux<span class="literal">-prjc</span>.git</span><br></pre></td></tr></table></figure>
-<h4 id="3-报错处理"><a class="markdownIt-Anchor" href="#3-报错处理"></a> 3. 报错处理</h4>
-<p>错误信息：<code>error: invalid path 'drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c'</code><br />
-解决方案：</p>
+<h4 id="3-报错处理">3. 报错处理</h4>
+<p>错误信息：<code>error: invalid path 'drivers/gpu/drm/nouveau/nvkm/subdev/i2c/aux.c'</code>解决方案：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> linux<span class="literal">-prjc</span>/</span><br><span class="line">git config core.protectNTFS false</span><br><span class="line">git reset <span class="literal">--hard</span> HEAD</span><br></pre></td></tr></table></figure>
 <p>完成。</p>
-<h3 id="引用"><a class="markdownIt-Anchor" href="#引用"></a> 引用：</h3>
+<h3 id="引用：">引用：</h3>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://blog.walterlv.com/post/case-sensitive-in-windows-file-system.html">Windows 10 四月更新，文件夹名称也能区分大小写了</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27575841/article/details/106958387">windows 上下载 github 上的 linux 内核项目遇到的问题</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/analogdevicesinc/linux/issues/111">Windows cloning of this repo fails to checkout master.</a></li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://blog.walterlv.com/post/case-sensitive-in-windows-file-system.html">Windows 10 四月更新，文件夹名称也能区分大小写了</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_27575841/article/details/106958387">windows 上下载 github 上的 linux 内核项目遇到的问题</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://github.com/analogdevicesinc/linux/issues/111">Windows cloning of this repo fails to checkout master.</a></p>
+</li>
 </ol>
 	
 		</div>
@@ -390,8 +395,8 @@
 								
 本文章介绍了对project-c 社区 linux-prjc 项目5.15 版本内核编译测试的准备工作。
 
- 纯净版内核编译：
-123wget https://gitlab.com/alfredchen/projectc/-/raw...
+纯净版内核编译：
+123wget https://gitlab.com/alfredchen/projectc/-/raw/...
 							</p>
 						</div>
 
@@ -416,9 +421,9 @@
 								
 本文介绍了如何安装 Project-C 维护的带有Alternative CPU Schedulers的 Linux Kernel
 
- 下载源代码
+下载源代码
 下载 kernel 源代码，默认为 5.15-lts 分支
-1git clone h...
+1git clone ht...
 							</p>
 						</div>
 
@@ -440,8 +445,8 @@
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 Nginx 跨域（不安全，但快捷）
-123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
+								Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wit...
 							</p>
 						</div>
 
@@ -464,8 +469,9 @@
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -490,9 +496,9 @@
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -515,9 +521,9 @@
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -540,13 +546,18 @@
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -568,9 +579,9 @@ libwrap...
 								六月 23日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
+								硬件虚拟化介绍
+硬件虚拟化要做的事情
+体系结构支持
 
 
 
@@ -587,7 +598,10 @@ CPU 资源隔离
 
 
 二阶段地址转换
-GVA-&gt; GPA...
+GVA-&gt; GPA
+
+
+...
 							</p>
 						</div>
 
@@ -609,12 +623,12 @@ GVA-&gt; GPA...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -636,12 +650,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 

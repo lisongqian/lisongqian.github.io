@@ -307,35 +307,35 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="准备"><a class="markdownIt-Anchor" href="#准备"></a> 准备</h2>
-<ul>
-<li>CentOS Linux release 7.2</li>
-<li>gcc 编译器 <code>yum install gcc-c++</code></li>
-<li>TCL <code>yum install -y tcl</code></li>
-<li>redis 安装包 <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-4.0.8.tar.gz">4.0.8 版本</a></li>
+			<h2 id="准备">准备</h2>
+<ul class="lvl-0">
+<li class="lvl-2">CentOS Linux release 7.2</li>
+<li class="lvl-2">gcc 编译器 <code>yum install gcc-c++</code></li>
+<li class="lvl-2">TCL <code>yum install -y tcl</code></li>
+<li class="lvl-2">redis 安装包 <a target="_blank" rel="noopener" href="http://download.redis.io/releases/redis-4.0.8.tar.gz">4.0.8 版本</a></li>
 </ul>
-<h2 id="安装"><a class="markdownIt-Anchor" href="#安装"></a> 安装</h2>
-<h4 id="下载-redis-安装包"><a class="markdownIt-Anchor" href="#下载-redis-安装包"></a> 下载 redis 安装包</h4>
+<h2 id="安装">安装</h2>
+<h4 id="下载-redis-安装包">下载 redis 安装包</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://download.redis.io/releases/redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-<h4 id="解压文件"><a class="markdownIt-Anchor" href="#解压文件"></a> 解压文件</h4>
+<h4 id="解压文件">解压文件</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf redis-4.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-<h4 id="将文件拷贝到公共目录"><a class="markdownIt-Anchor" href="#将文件拷贝到公共目录"></a> 将文件拷贝到公共目录</h4>
+<h4 id="将文件拷贝到公共目录">将文件拷贝到公共目录</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv redis-4.0.8 /opt/redis-4.0.8</span><br></pre></td></tr></table></figure>
-<h4 id="编译代码"><a class="markdownIt-Anchor" href="#编译代码"></a> 编译代码</h4>
+<h4 id="编译代码">编译代码</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.8</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
-<h4 id="安装应用"><a class="markdownIt-Anchor" href="#安装应用"></a> 安装应用</h4>
+<h4 id="安装应用">安装应用</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd src</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h4 id="启动-redis"><a class="markdownIt-Anchor" href="#启动-redis"></a> 启动 Redis</h4>
+<h4 id="启动-Redis">启动 Redis</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-server</span><br></pre></td></tr></table></figure>
-<h4 id="安装成功"><a class="markdownIt-Anchor" href="#安装成功"></a> 安装成功</h4>
-<p><img src="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim#height=640&amp;id=DUIpS&amp;originHeight=640&amp;originWidth=796&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=796" alt="" /></p>
-<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
-<h4 id="启动-redis-客户端"><a class="markdownIt-Anchor" href="#启动-redis-客户端"></a> 启动 Redis 客户端</h4>
+<h4 id="安装成功">安装成功</h4>
+<p><img src="http://cdn.lisongqian.cn/1521099902264vxj9b17w.png?imageslim#height=640&amp;id=DUIpS&amp;originHeight=640&amp;originWidth=796&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=796" alt=""></p>
+<h2 id="使用">使用</h2>
+<h4 id="启动-Redis-客户端">启动 Redis 客户端</h4>
 <p>在<code>/opt/redis-4.0.8/src/</code>路径下，输入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./redis-cli</span><br></pre></td></tr></table></figure>
-<p>进入 Redis 命令行，下图为使用测试。<br />
-<img src="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim#height=141&amp;id=P0AmJ&amp;originHeight=141&amp;originWidth=658&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=658" alt="" /></p>
-<h4 id="redis-的命令"><a class="markdownIt-Anchor" href="#redis-的命令"></a> Redis 的命令</h4>
+<p>进入 Redis 命令行，下图为使用测试。<br>
+<img src="http://cdn.lisongqian.cn/1521100328992ziaupsv0.png?imageslim#height=141&amp;id=P0AmJ&amp;originHeight=141&amp;originWidth=658&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=658" alt=""></p>
+<h4 id="Redis-的命令">Redis 的命令</h4>
 <p>String &amp; Integer</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">incr num //将num自增1</span><br><span class="line">decrby num 2 //将num自减2</span><br></pre></td></tr></table></figure>
 <p>List(元素可重复)</p>
@@ -346,33 +346,35 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hset hash1 key1 1    //向hash1中添加键值对 key1:1</span><br><span class="line">hget hash1 key1      //从hash1中读取key1的值</span><br><span class="line">hlen hash1           //获取hash1的键值对的个数（即key的个数）</span><br><span class="line">hmget hash1 key1 key2//获取hash1中key1和key2的值</span><br></pre></td></tr></table></figure>
 <p>Sort set</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zadd   zset1  12 val1 //向zset1中添加元素</span><br><span class="line">zcard  zset1  //查看zset1中元素的个数</span><br><span class="line">zrange zset1 0 2 withscores //查看排序后的0-2号元素</span><br><span class="line">zrank  zset1 val1    //查看 val1元素的排名</span><br></pre></td></tr></table></figure>
-<h2 id="php-的-redis-扩展"><a class="markdownIt-Anchor" href="#php-的-redis-扩展"></a> PHP 的 Redis 扩展</h2>
-<h4 id="前提"><a class="markdownIt-Anchor" href="#前提"></a> 前提</h4>
-<p><strong>PHP 有安装 phpize 和 php-config 扩展，可以执行 which phpize 和 which php-config 来查看有无该扩展。</strong><br />
+<h2 id="PHP-的-Redis-扩展">PHP 的 Redis 扩展</h2>
+<h4 id="前提">前提</h4>
+<p><strong>PHP 有安装 phpize 和 php-config 扩展，可以执行 which phpize 和 which php-config 来查看有无该扩展。</strong><br>
 安装该扩展：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install php-devel</span><br></pre></td></tr></table></figure>
-<h4 id="下载-redis-扩展"><a class="markdownIt-Anchor" href="#下载-redis-扩展"></a> 下载 Redis 扩展</h4>
+<h4 id="下载-Redis-扩展">下载 Redis 扩展</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/phpredis/phpredis/archive/develop.zip</span><br></pre></td></tr></table></figure>
-<h4 id="解压缩"><a class="markdownIt-Anchor" href="#解压缩"></a> 解压缩</h4>
+<h4 id="解压缩">解压缩</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip develop.zip</span><br></pre></td></tr></table></figure>
-<h4 id="生成-configure-工具"><a class="markdownIt-Anchor" href="#生成-configure-工具"></a> 生成 configure 工具</h4>
+<h4 id="生成-configure-工具">生成 configure 工具</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd phpredis-develop</span><br><span class="line">phpize</span><br></pre></td></tr></table></figure>
-<h4 id="进行编译和-check"><a class="markdownIt-Anchor" href="#进行编译和-check"></a> 进行编译和 Check</h4>
+<h4 id="进行编译和-Check">进行编译和 Check</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure -with-php-config=/usr/bin/php-config</span><br></pre></td></tr></table></figure>
 <p>注：</p>
-<ul>
-<li><code>-with-php-config</code>参数后面填写<code>php-config</code>扩展的路径</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><code>-with-php-config</code>参数后面填写<code>php-config</code>扩展的路径</p>
+</li>
 </ul>
-<h4 id="编译"><a class="markdownIt-Anchor" href="#编译"></a> 编译</h4>
+<h4 id="编译">编译</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<h4 id="修改配置文件"><a class="markdownIt-Anchor" href="#修改配置文件"></a> 修改配置文件</h4>
+<h4 id="修改配置文件">修改配置文件</h4>
 <p>查看 php.ini 文件目录<code>php --ini</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/php.ini</span><br></pre></td></tr></table></figure>
 <p>在最后一行添加：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=redis.so</span><br></pre></td></tr></table></figure>
-<h4 id="检查是否安装成功"><a class="markdownIt-Anchor" href="#检查是否安装成功"></a> 检查是否安装成功</h4>
+<h4 id="检查是否安装成功">检查是否安装成功</h4>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php -m</span><br></pre></td></tr></table></figure>
-<p><img src="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim#height=383&amp;id=C9yGC&amp;originHeight=383&amp;originWidth=661&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=661" alt="" /></p>
+<p><img src="http://cdn.lisongqian.cn/1521106763202358gzkcc.png?imageslim#height=383&amp;id=C9yGC&amp;originHeight=383&amp;originWidth=661&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=661" alt=""></p>
 	
 		</div>
 		
@@ -425,16 +427,21 @@
 								二月 6日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 前提
-阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。
-同时我们需要准备：
+								前提
+阅读本文之前，需要已经正常搭建好 hexo 博客和语雀账号。同时我们需要准备：
+
 
 一个 GitHub 账号
+
+
 一个腾讯云账号
+
+
 hexo 安装了 yuque-hexo 插件且能正常运行
 
- 实现思路：
-利用语雀的webhook触...
+
+实现思路：
+利用语雀的webho...
 							</p>
 						</div>
 
@@ -456,8 +463,8 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 28日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 原因
-新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外...
+								原因
+新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部...
 							</p>
 						</div>
 
@@ -479,13 +486,13 @@ hexo 安装了 yuque-hexo 插件且能正常运行
 								一月 27日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 代码整体向后缩进
+								代码整体向后缩进
 选中多行代码 - 按下 Tab
- 代码整体向前缩进
+代码整体向前缩进
 选中多行代码 - 按下 Shift + Tab
- 查找下一条代码差异
+查找下一条代码差异
 F7
- 查找上一条代码差异
+查找上一条代码差异
 Shift + F7
 
 							</p>
@@ -509,8 +516,8 @@ Shift + F7
 								一月 16日, 2021				
 							</p>
 							<p class="relate-post-content">
-								 Nginx 跨域（不安全，但快捷）
-123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wi...
+								Nginx 跨域（不安全，但快捷）
+123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-Wit...
 							</p>
 						</div>
 
@@ -532,11 +539,9 @@ Shift + F7
 								九月 13日, 2020				
 							</p>
 							<p class="relate-post-content">
-								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
-注意手机需要在 iCloud 中打开同步 Safari 浏览器
+								现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：
-打开注册表编辑器，定...
+旧方法：打开注册表编辑器，定位至...
 							</p>
 						</div>
 
@@ -563,10 +568,10 @@ Shift + F7
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
- 开始
- 修改客户端配置
+开始
+修改客户端配置
 打开 frpc.ini 文件，将文件按照需求更改如下：
-123456789101112131415...
+12345678910111213141516...
 							</p>
 						</div>
 
@@ -635,9 +640,9 @@ https://www.amd.com...
 							</p>
 							<p class="relate-post-content">
 								首先，我们先了解一下什么是 Reactor 模式和 Proactor 模式。
- 什么是 Reactor 模式和 Proactor 模式？
- Reactor 模式
-Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O ...
+什么是 Reactor 模式和 Proactor 模式？
+Reactor 模式
+Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/O 以及...
 							</p>
 						</div>
 
@@ -660,8 +665,9 @@ Reactor 模式是指主线程负责监听和分发事件，工作线程负责 I/
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 

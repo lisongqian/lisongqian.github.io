@@ -303,9 +303,9 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="硬件虚拟化介绍"><a class="markdownIt-Anchor" href="#硬件虚拟化介绍"></a> 硬件虚拟化介绍</h2>
-<h3 id="硬件虚拟化要做的事情"><a class="markdownIt-Anchor" href="#硬件虚拟化要做的事情"></a> 硬件虚拟化要做的事情</h3>
-<h3 id="体系结构支持"><a class="markdownIt-Anchor" href="#体系结构支持"></a> 体系结构支持</h3>
+			<h2 id="硬件虚拟化介绍">硬件虚拟化介绍</h2>
+<h3 id="硬件虚拟化要做的事情">硬件虚拟化要做的事情</h3>
+<h3 id="体系结构支持">体系结构支持</h3>
 <table>
 <thead>
 <tr>
@@ -342,14 +342,14 @@
 </tr>
 </tbody>
 </table>
-<h3 id="相应的硬件实现"><a class="markdownIt-Anchor" href="#相应的硬件实现"></a> 相应的硬件实现</h3>
-<p>x86 架构<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528938230-d2e10050-e978-409a-a275-930ce6712556.png#averageHue=%23fbfbfb&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=247&amp;id=u0e958032&amp;originHeight=370&amp;originWidth=807&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=33157&amp;status=done&amp;style=none&amp;taskId=u8175104e-8eac-454e-aecc-81583ba20b7&amp;title=&amp;width=538" alt="image.png" /><br />
-AMD 架构<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528949676-74886978-3805-4006-a665-9a26cf1d10b9.png#averageHue=%23f8f8f7&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=219&amp;id=uc707a7a9&amp;originHeight=328&amp;originWidth=876&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=59326&amp;status=done&amp;style=none&amp;taskId=u1b7c211c-20c7-46e7-891a-bafc0984536&amp;title=&amp;width=584" alt="image.png" /><br />
-RISC-V 架构<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528961158-3418ac0f-5c1b-4661-bc45-07dcfe6bf876.png#averageHue=%23f6f5f4&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=125&amp;id=uf5d1fa15&amp;originHeight=188&amp;originWidth=839&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=42609&amp;status=done&amp;style=none&amp;taskId=ua02bfc8d-8c5f-4f76-ae49-6cdc31e5e06&amp;title=&amp;width=559.3333333333334" alt="image.png" /></p>
-<h3 id="相关软件支持"><a class="markdownIt-Anchor" href="#相关软件支持"></a> 相关软件支持</h3>
+<h3 id="相应的硬件实现">相应的硬件实现</h3>
+<p>x86 架构<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528938230-d2e10050-e978-409a-a275-930ce6712556.png#averageHue=%23fbfbfb&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=247&amp;id=u0e958032&amp;originHeight=370&amp;originWidth=807&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=33157&amp;status=done&amp;style=none&amp;taskId=u8175104e-8eac-454e-aecc-81583ba20b7&amp;title=&amp;width=538" alt="image.png"><br>
+AMD 架构<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528949676-74886978-3805-4006-a665-9a26cf1d10b9.png#averageHue=%23f8f8f7&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=219&amp;id=uc707a7a9&amp;originHeight=328&amp;originWidth=876&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=59326&amp;status=done&amp;style=none&amp;taskId=u1b7c211c-20c7-46e7-891a-bafc0984536&amp;title=&amp;width=584" alt="image.png"><br>
+RISC-V 架构<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687528961158-3418ac0f-5c1b-4661-bc45-07dcfe6bf876.png#averageHue=%23f6f5f4&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=125&amp;id=uf5d1fa15&amp;originHeight=188&amp;originWidth=839&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=42609&amp;status=done&amp;style=none&amp;taskId=ua02bfc8d-8c5f-4f76-ae49-6cdc31e5e06&amp;title=&amp;width=559.3333333333334" alt="image.png"></p>
+<h3 id="相关软件支持">相关软件支持</h3>
 <table>
 <thead>
 <tr>
@@ -376,278 +376,445 @@ RISC-V 架构<br />
 </tr>
 </tbody>
 </table>
-<h2 id="cpu-虚拟化"><a class="markdownIt-Anchor" href="#cpu-虚拟化"></a> CPU 虚拟化</h2>
-<h4 id="cpu-支持模式切换硬件支持"><a class="markdownIt-Anchor" href="#cpu-支持模式切换硬件支持"></a> CPU 支持模式切换：硬件支持</h4>
-<ul>
-<li>Host CPU &lt;-&gt; Guest CPU：CPU 运行环境的隔离，CPU 虚拟化的基础</li>
+<h2 id="CPU-虚拟化">CPU 虚拟化</h2>
+<h4 id="CPU-支持模式切换：硬件支持">CPU 支持模式切换：硬件支持</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Host CPU &lt;-&gt; Guest CPU：CPU 运行环境的隔离，CPU 虚拟化的基础</p>
+</li>
 </ul>
-<h4 id="模式切换"><a class="markdownIt-Anchor" href="#模式切换"></a> 模式切换</h4>
-<ul>
-<li>vm entry：从 Host CPU 进入到 Guest CPU，由特殊指令实现；</li>
-<li>vm exit：从 Guest CPU 退出到 Host CPU，执行特定指令；中断；异常</li>
+<h4 id="模式切换">模式切换</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>vm entry：从 Host CPU 进入到 Guest CPU，由特殊指令实现；</p>
+</li>
+<li class="lvl-2">
+<p>vm exit：从 Guest CPU 退出到 Host CPU，执行特定指令；中断；异常</p>
+</li>
 </ul>
-<h4 id="切换过程的上下文的保存和恢复"><a class="markdownIt-Anchor" href="#切换过程的上下文的保存和恢复"></a> 切换过程的上下文的保存和恢复</h4>
+<h4 id="切换过程的上下文的保存和恢复">切换过程的上下文的保存和恢复</h4>
 <blockquote>
 <p>由于 guest CPU 看不到 Host CPU state，故都是在 Host CPU 模式下操作</p>
 </blockquote>
-<ul>
-<li>vm entry 前：保存 Host CPU State，恢复 Guest CPU state</li>
-<li>vm exit 后：保存 Guest CPU state，恢复 Host CPU State</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>vm entry 前：保存 Host CPU State，恢复 Guest CPU state</p>
+</li>
+<li class="lvl-2">
+<p>vm exit 后：保存 Guest CPU state，恢复 Host CPU State</p>
+</li>
 </ul>
-<h3 id="vcpu一个-linux-线程"><a class="markdownIt-Anchor" href="#vcpu一个-linux-线程"></a> vCPU：一个 Linux 线程</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423040792-d9b9f9a2-cf97-44bb-ae45-6487b0139f92.png#averageHue=%23e3e8d3&amp;clientId=u5445b59c-ada5-4&amp;from=paste&amp;height=405&amp;id=u390eda40&amp;originHeight=608&amp;originWidth=1745&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=542109&amp;status=done&amp;style=none&amp;taskId=uda767807-0afc-4f25-858c-62cfb02f6d5&amp;title=&amp;width=1163.3333333333333" alt="image.png" /></p>
-<h3 id="x86-架构"><a class="markdownIt-Anchor" href="#x86-架构"></a> x86 架构</h3>
-<h4 id="vmx-operation-mode"><a class="markdownIt-Anchor" href="#vmx-operation-mode"></a> VMX Operation Mode</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529260210-f23ffa8c-8c51-4ede-a97a-d7150cd3ad4c.png#averageHue=%23f2f2f2&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u8a70a365&amp;originHeight=389&amp;originWidth=504&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=58327&amp;status=done&amp;style=none&amp;taskId=u158ff3a6-e57e-4e51-9a87-97db1a7b599&amp;title=" alt="image.png" /><br />
+<h3 id="vCPU：一个-Linux-线程">vCPU：一个 Linux 线程</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687423040792-d9b9f9a2-cf97-44bb-ae45-6487b0139f92.png#averageHue=%23e3e8d3&amp;clientId=u5445b59c-ada5-4&amp;from=paste&amp;height=405&amp;id=u390eda40&amp;originHeight=608&amp;originWidth=1745&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=542109&amp;status=done&amp;style=none&amp;taskId=uda767807-0afc-4f25-858c-62cfb02f6d5&amp;title=&amp;width=1163.3333333333333" alt="image.png"></p>
+<h3 id="x86-架构">x86 架构</h3>
+<h4 id="VMX-Operation-Mode">VMX Operation Mode</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529260210-f23ffa8c-8c51-4ede-a97a-d7150cd3ad4c.png#averageHue=%23f2f2f2&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u8a70a365&amp;originHeight=389&amp;originWidth=504&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=58327&amp;status=done&amp;style=none&amp;taskId=u158ff3a6-e57e-4e51-9a87-97db1a7b599&amp;title=" alt="image.png"><br>
 只有在 VMX Operation Mode 下才可以实现：</p>
-<ul>
-<li>VMX root mode：Host CPU</li>
-<li>VMX non-root mode: Guest CPU</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>VMX root mode：Host CPU</p>
+</li>
+<li class="lvl-2">
+<p>VMX non-root mode: Guest CPU</p>
+</li>
 </ul>
 <p>使用 VMXON 和 VMXOFF 开启和关闭。</p>
-<h4 id="模式切换方法"><a class="markdownIt-Anchor" href="#模式切换方法"></a> 模式切换方法</h4>
-<ul>
-<li>vm entry: vmlaunch/vmresume 指令</li>
-<li>vm exit:执行指令；发生异常或中断</li>
+<h4 id="模式切换方法">模式切换方法</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>vm entry: vmlaunch/vmresume 指令</p>
+</li>
+<li class="lvl-2">
+<p>vm exit:执行指令；发生异常或中断</p>
+</li>
 </ul>
-<h4 id="上下文状态vmcsvirtual-machine-control-structure"><a class="markdownIt-Anchor" href="#上下文状态vmcsvirtual-machine-control-structure"></a> 上下文状态：VMCS,Virtual Machine Control Structure</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529304837-70bce67d-f612-4a34-b2f4-15b12ef8befe.png#averageHue=%23edecec&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=uf54bb69f&amp;originHeight=413&amp;originWidth=752&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=153955&amp;status=done&amp;style=none&amp;taskId=u08c8ae8b-d1a6-4e77-b078-758b05392e1&amp;title=" alt="image.png" /><br />
+<h4 id="上下文状态：VMCS-Virtual-Machine-Control-Structure">上下文状态：VMCS,Virtual Machine Control Structure</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529304837-70bce67d-f612-4a34-b2f4-15b12ef8befe.png#averageHue=%23edecec&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=uf54bb69f&amp;originHeight=413&amp;originWidth=752&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=153955&amp;status=done&amp;style=none&amp;taskId=u08c8ae8b-d1a6-4e77-b078-758b05392e1&amp;title=" alt="image.png"><br>
 Notions：</p>
 <ol>
-<li>一个 vCPU 对应一个 VMCS 状态；</li>
-<li><strong>只有 x86 支持在 vm-entry 和 vm exit 的时候，VMCS 由硬件进行保存和恢复。</strong></li>
-<li><strong>虚拟化优化方向：减少</strong><code>vm emtry</code><strong>和</strong><code>vm exit</code><strong>过程。</strong></li>
+<li class="lvl-3">
+<p>一个 vCPU 对应一个 VMCS 状态；</p>
+</li>
+<li class="lvl-3">
+<p><strong>只有 x86 支持在 vm-entry 和 vm exit 的时候，VMCS 由硬件进行保存和恢复。</strong></p>
+</li>
+<li class="lvl-3">
+<p><strong>虚拟化优化方向：减少</strong><code>vm emtry</code><strong>和</strong><code>vm exit</code><strong>过程。</strong></p>
+</li>
 </ol>
-<h3 id="arm-架构"><a class="markdownIt-Anchor" href="#arm-架构"></a> ARM 架构</h3>
-<h4 id="exception-level"><a class="markdownIt-Anchor" href="#exception-level"></a> Exception Level</h4>
-<ul>
-<li>EL0
-<ul>
-<li>Host App: Host CPU</li>
-<li>Guest App:Guest CPU</li>
+<h3 id="ARM-架构">ARM 架构</h3>
+<h4 id="Exception-Level">Exception Level</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>EL0</p>
+<ul class="lvl-2">
+<li class="lvl-4">Host App: Host CPU</li>
+<li class="lvl-4">Guest App:Guest CPU</li>
 </ul>
 </li>
-<li>EL1：Guest CPU</li>
-<li>EL2: Host CPU</li>
-<li>EL3</li>
+<li class="lvl-2">
+<p>EL1：Guest CPU</p>
+</li>
+<li class="lvl-2">
+<p>EL2: Host CPU</p>
+</li>
+<li class="lvl-2">
+<p>EL3</p>
+</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529334000-3e0765d7-f048-47ee-becf-4aa704318559.png#averageHue=%23f6f6f3&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u66eb89d7&amp;originHeight=414&amp;originWidth=747&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=159175&amp;status=done&amp;style=none&amp;taskId=u2d8987d3-8c2c-4edf-b1a4-c0572c06629&amp;title=" alt="image.png" /></p>
-<h4 id="模式切换方法-2"><a class="markdownIt-Anchor" href="#模式切换方法-2"></a> 模式切换方法</h4>
-<ul>
-<li>vm entry: eret 指令</li>
-<li>vm exit: 指令或异常</li>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529334000-3e0765d7-f048-47ee-becf-4aa704318559.png#averageHue=%23f6f6f3&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u66eb89d7&amp;originHeight=414&amp;originWidth=747&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=159175&amp;status=done&amp;style=none&amp;taskId=u2d8987d3-8c2c-4edf-b1a4-c0572c06629&amp;title=" alt="image.png"></p>
+<h4 id="模式切换方法-2">模式切换方法</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>vm entry: eret 指令</p>
+</li>
+<li class="lvl-2">
+<p>vm exit: 指令或异常</p>
+</li>
 </ul>
-<h4 id="上下文状态"><a class="markdownIt-Anchor" href="#上下文状态"></a> 上下文状态</h4>
+<h4 id="上下文状态">上下文状态</h4>
 <p>上下文状态自定义，由软件来实现保存和恢复。</p>
-<h3 id="risc-v-架构"><a class="markdownIt-Anchor" href="#risc-v-架构"></a> RISC-V 架构</h3>
-<h4 id="privilege-level"><a class="markdownIt-Anchor" href="#privilege-level"></a> Privilege Level</h4>
-<ul>
-<li>U(User Mode，用户态)： Host CPU</li>
-<li>VU(Virtualized User Mode，虚拟化用户态)：Guest CPU</li>
-<li>VS(Virtual Supervisor Mode，虚拟化监管态)：Guest CPU</li>
-<li>HS(Host Supervisor Mode，宿主机监管态)：Host CPU</li>
-<li>M(Machine Mode，机器态)</li>
+<h3 id="RISC-V-架构">RISC-V 架构</h3>
+<h4 id="Privilege-Level">Privilege Level</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>U(User Mode，用户态)： Host CPU</p>
+</li>
+<li class="lvl-2">
+<p>VU(Virtualized User Mode，虚拟化用户态)：Guest CPU</p>
+</li>
+<li class="lvl-2">
+<p>VS(Virtual Supervisor Mode，虚拟化监管态)：Guest CPU</p>
+</li>
+<li class="lvl-2">
+<p>HS(Host Supervisor Mode，宿主机监管态)：Host CPU</p>
+</li>
+<li class="lvl-2">
+<p>M(Machine Mode，机器态)</p>
+</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529357302-0e5c5c0e-0b8e-4dfe-b53c-b98a6a32c86b.png#averageHue=%23d5ac7b&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=ua416e4ac&amp;originHeight=565&amp;originWidth=769&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=190600&amp;status=done&amp;style=none&amp;taskId=u08ce08e7-d40e-4b36-a763-144d5c44743&amp;title=" alt="image.png" /></p>
-<h4 id="模式切换方法-3"><a class="markdownIt-Anchor" href="#模式切换方法-3"></a> 模式切换方法</h4>
-<ul>
-<li>vm entry: sret 指令</li>
-<li>vm exit: 指令或异常</li>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529357302-0e5c5c0e-0b8e-4dfe-b53c-b98a6a32c86b.png#averageHue=%23d5ac7b&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=ua416e4ac&amp;originHeight=565&amp;originWidth=769&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=190600&amp;status=done&amp;style=none&amp;taskId=u08ce08e7-d40e-4b36-a763-144d5c44743&amp;title=" alt="image.png"></p>
+<h4 id="模式切换方法-3">模式切换方法</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>vm entry: sret 指令</p>
+</li>
+<li class="lvl-2">
+<p>vm exit: 指令或异常</p>
+</li>
 </ul>
-<h4 id="上下文状态-2"><a class="markdownIt-Anchor" href="#上下文状态-2"></a> 上下文状态</h4>
-<p>上下文状态自定义，由软件来实现保存和恢复。<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529687338-ad40e7fc-cfff-446d-821d-1dff460f29a9.png#averageHue=%23b7c5e3&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=371&amp;id=u2b6414e4&amp;originHeight=556&amp;originWidth=1311&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=102933&amp;status=done&amp;style=none&amp;taskId=uf68057bf-6103-40ea-bf70-6cbfe003999&amp;title=&amp;width=874" alt="image.png" /></p>
-<h2 id="内存虚拟化"><a class="markdownIt-Anchor" href="#内存虚拟化"></a> 内存虚拟化</h2>
-<h3 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h3>
-<p>GVA：Guest Virtual Address<br />
-GPA：Guest Physical Address<br />
-HVA：Host Virual Address，主机虚拟地址<br />
+<h4 id="上下文状态-2">上下文状态</h4>
+<p>上下文状态自定义，由软件来实现保存和恢复。<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529687338-ad40e7fc-cfff-446d-821d-1dff460f29a9.png#averageHue=%23b7c5e3&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;height=371&amp;id=u2b6414e4&amp;originHeight=556&amp;originWidth=1311&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=102933&amp;status=done&amp;style=none&amp;taskId=uf68057bf-6103-40ea-bf70-6cbfe003999&amp;title=&amp;width=874" alt="image.png"></p>
+<h2 id="内存虚拟化">内存虚拟化</h2>
+<h3 id="基本概念">基本概念</h3>
+<p>GVA：Guest Virtual Address<br>
+GPA：Guest Physical Address<br>
+HVA：Host Virual Address，主机虚拟地址<br>
 HPA：Host Physical Address，主机物理地址</p>
-<h3 id="转换关系和维护"><a class="markdownIt-Anchor" href="#转换关系和维护"></a> 转换关系和维护</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529386671-826b08a6-e4c0-42e1-a69b-54df5e80cfb7.png#averageHue=%23abb991&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u9b160bdd&amp;originHeight=421&amp;originWidth=413&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=115982&amp;status=done&amp;style=none&amp;taskId=u272dcf3f-6fd9-4da5-a2ab-3eef674863f&amp;title=" alt="image.png" /></p>
-<ul>
-<li>GVA -&gt;GPA：Guest OS 维护</li>
-<li>HVA -&gt; HPA： Host OS 维护</li>
-<li><strong>GPA &lt;-&gt; HVA： qemu/KVM</strong></li>
-<li>GPA &lt;-&gt; HPA： 硬件支持 EPT/NPT</li>
+<h3 id="转换关系和维护">转换关系和维护</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529386671-826b08a6-e4c0-42e1-a69b-54df5e80cfb7.png#averageHue=%23abb991&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u9b160bdd&amp;originHeight=421&amp;originWidth=413&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=115982&amp;status=done&amp;style=none&amp;taskId=u272dcf3f-6fd9-4da5-a2ab-3eef674863f&amp;title=" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>GVA -&gt;GPA：Guest OS 维护</p>
+</li>
+<li class="lvl-2">
+<p>HVA -&gt; HPA： Host OS 维护</p>
+</li>
+<li class="lvl-2">
+<p><strong>GPA &lt;-&gt; HVA： qemu/KVM</strong></p>
+</li>
+<li class="lvl-2">
+<p>GPA &lt;-&gt; HPA： 硬件支持 EPT/NPT</p>
+</li>
 </ul>
 <p><strong>内存虚拟化目标：如何让 Guest 的访问地址(GVA/GPA)转换成 HPA，且由硬件实现。</strong></p>
-<h3 id="软件实现影子页表"><a class="markdownIt-Anchor" href="#软件实现影子页表"></a> 软件实现——影子页表</h3>
-<p>能够直接完成 GVA-&gt;HPA 的转换。<br />
-被 Hpyervisor 载入到物理 MMU 中的页表是影子页表。<br />
-缺陷：</p>
+<h3 id="软件实现——影子页表">软件实现——影子页表</h3>
+<p>能够直接完成 GVA-&gt;HPA 的转换。被 Hpyervisor 载入到物理 MMU 中的页表是影子页表。缺陷：</p>
 <ol>
-<li>需要为 Guest OS 的每个进程维护一个影子页表，资源消耗大；</li>
-<li>Guest OS 在读写 CR3、执行 INVLPG 指令或客户页表不完整等情况下均会导致 vm exit，内存虚拟化效率很低；</li>
-<li>Guest OS 的页表和和影子页表的同步也比较复杂；</li>
+<li class="lvl-3">
+<p>需要为 Guest OS 的每个进程维护一个影子页表，资源消耗大；</p>
+</li>
+<li class="lvl-3">
+<p>Guest OS 在读写 CR3、执行 INVLPG 指令或客户页表不完整等情况下均会导致 vm exit，内存虚拟化效率很低；</p>
+</li>
+<li class="lvl-3">
+<p>Guest OS 的页表和和影子页表的同步也比较复杂；</p>
+</li>
 </ol>
-<h3 id="x86-架构-2"><a class="markdownIt-Anchor" href="#x86-架构-2"></a> x86 架构</h3>
-<h4 id="eptnpt"><a class="markdownIt-Anchor" href="#eptnpt"></a> EPT/NPT</h4>
-<ul>
-<li>Intel：EPT，Extended Page Table</li>
-<li>AMD：NPT</li>
+<h3 id="x86-架构-2">x86 架构</h3>
+<h4 id="EPT-NPT">EPT/NPT</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Intel：EPT，Extended Page Table</p>
+</li>
+<li class="lvl-2">
+<p>AMD：NPT</p>
+</li>
 </ul>
-<h4 id="二阶段地址转换完成内存虚拟化"><a class="markdownIt-Anchor" href="#二阶段地址转换完成内存虚拟化"></a> 二阶段地址转换，完成内存虚拟化</h4>
+<h4 id="二阶段地址转换，完成内存虚拟化">二阶段地址转换，完成内存虚拟化</h4>
 <ol>
-<li>GVA -&gt; GPA：CR3 指向 Guest OS 页表，完成第一阶段转换，由硬件 MMU 完成；</li>
-<li>GPA -&gt; HPA：EPTP，指向 EPT 表，完成第二阶段转换，由硬件自动完成。</li>
+<li class="lvl-3">
+<p>GVA -&gt; GPA：CR3 指向 Guest OS 页表，完成第一阶段转换，由硬件 MMU 完成；</p>
+</li>
+<li class="lvl-3">
+<p>GPA -&gt; HPA：EPTP，指向 EPT 表，完成第二阶段转换，由硬件自动完成。</p>
+</li>
 </ol>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687444239286-3b15e9f7-9c1c-4282-9d1a-7a2a5b1a35d5.png#averageHue=%23efefef&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;id=u07f1c40a&amp;originHeight=448&amp;originWidth=923&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=145722&amp;status=done&amp;style=none&amp;taskId=u62cd5f81-df75-49d6-93c4-12ffbf10f46&amp;title=" alt="image.png" /><br />
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687444239286-3b15e9f7-9c1c-4282-9d1a-7a2a5b1a35d5.png#averageHue=%23efefef&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;id=u07f1c40a&amp;originHeight=448&amp;originWidth=923&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=145722&amp;status=done&amp;style=none&amp;taskId=u62cd5f81-df75-49d6-93c4-12ffbf10f46&amp;title=" alt="image.png"><br>
 相对影子页表，只需要一张表即可完成 Guest OS 的内存虚拟化。</p>
-<h3 id="armv8-架构"><a class="markdownIt-Anchor" href="#armv8-架构"></a> ARMv8 架构</h3>
-<h4 id="vttbr"><a class="markdownIt-Anchor" href="#vttbr"></a> VTTBR</h4>
-<p>VTTBR：Virtualization Translation Table Base Register<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687494824157-fa574bce-cb48-4df7-bec2-61b56a346a46.png#averageHue=%23e5e1d9&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=839&amp;id=uf8baeab7&amp;originHeight=1259&amp;originWidth=1549&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=516946&amp;status=done&amp;style=none&amp;taskId=u59a2ad31-fa9d-4cb8-94b0-1ea0af144fd&amp;title=&amp;width=1032.6666666666667" alt="image.png" /></p>
-<h4 id="二阶段地址转换"><a class="markdownIt-Anchor" href="#二阶段地址转换"></a> 二阶段地址转换</h4>
+<h3 id="ARMv8-架构">ARMv8 架构</h3>
+<h4 id="VTTBR">VTTBR</h4>
+<p>VTTBR：Virtualization Translation Table Base Register<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687494824157-fa574bce-cb48-4df7-bec2-61b56a346a46.png#averageHue=%23e5e1d9&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=839&amp;id=uf8baeab7&amp;originHeight=1259&amp;originWidth=1549&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=516946&amp;status=done&amp;style=none&amp;taskId=u59a2ad31-fa9d-4cb8-94b0-1ea0af144fd&amp;title=&amp;width=1032.6666666666667" alt="image.png"></p>
+<h4 id="二阶段地址转换">二阶段地址转换</h4>
 <ol>
-<li>GVA -&gt; GPA(IPA)：TTBRn_EL1</li>
-<li>GPA -&gt; HPA：VTTBR0_EL2</li>
+<li class="lvl-3">
+<p>GVA -&gt; GPA(IPA)：TTBRn_EL1</p>
+</li>
+<li class="lvl-3">
+<p>GPA -&gt; HPA：VTTBR0_EL2</p>
+</li>
 </ol>
-<h3 id="risc-v-架构-2"><a class="markdownIt-Anchor" href="#risc-v-架构-2"></a> RISC-V 架构</h3>
-<h4 id="vsatphgatp"><a class="markdownIt-Anchor" href="#vsatphgatp"></a> vsatp&amp;hgatp</h4>
-<p>vsatp：Virtual Supervisor Address Translation and Protection Register<br />
-hgatp：Hypervisor Guest Address Translation and Protection Register<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529431196-05b0e79c-63a6-4263-b9c1-97a44841262d.png#averageHue=%23f9f9d7&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u16924875&amp;originHeight=249&amp;originWidth=386&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=34598&amp;status=done&amp;style=none&amp;taskId=uebab7afb-a053-4f67-bfc6-df3c9187a4a&amp;title=" alt="image.png" /></p>
-<h4 id="二阶段地址转换-2"><a class="markdownIt-Anchor" href="#二阶段地址转换-2"></a> 二阶段地址转换</h4>
+<h3 id="RISC-V-架构-2">RISC-V 架构</h3>
+<h4 id="vsatp-hgatp">vsatp&amp;hgatp</h4>
+<p>vsatp：Virtual Supervisor Address Translation and Protection Register<br>
+hgatp：Hypervisor Guest Address Translation and Protection Register<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529431196-05b0e79c-63a6-4263-b9c1-97a44841262d.png#averageHue=%23f9f9d7&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=u16924875&amp;originHeight=249&amp;originWidth=386&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=34598&amp;status=done&amp;style=none&amp;taskId=uebab7afb-a053-4f67-bfc6-df3c9187a4a&amp;title=" alt="image.png"></p>
+<h4 id="二阶段地址转换-2">二阶段地址转换</h4>
 <ol>
-<li>GVA -&gt; GPA(IPA)：vsatp</li>
-<li>GPA -&gt; HPA：hgatp</li>
+<li class="lvl-3">
+<p>GVA -&gt; GPA(IPA)：vsatp</p>
+</li>
+<li class="lvl-3">
+<p>GPA -&gt; HPA：hgatp</p>
+</li>
 </ol>
-<h2 id="中断虚拟化"><a class="markdownIt-Anchor" href="#中断虚拟化"></a> 中断虚拟化</h2>
-<h3 id="基本概念-2"><a class="markdownIt-Anchor" href="#基本概念-2"></a> 基本概念</h3>
-<p>IPI：Inter-Processor Interrupt，处理器间中断<br />
+<h2 id="中断虚拟化">中断虚拟化</h2>
+<h3 id="基本概念-2">基本概念</h3>
+<p>IPI：Inter-Processor Interrupt，处理器间中断<br>
 MSI：Message Signaled Interrupt，消息信号中断</p>
-<h3 id="中断处理流程"><a class="markdownIt-Anchor" href="#中断处理流程"></a> 中断处理流程</h3>
+<h3 id="中断处理流程">中断处理流程</h3>
 <ol>
-<li>中断触发：中断源发生中断事件，向 CPU 发送中断信号</li>
-<li>检测中断：CPU 检测到中断，停止当前执行流程，跳转到中断向量</li>
-<li>处理中断：CPU 保存上下文，调用和执行中断处理函数，然后返回原有执行流程</li>
+<li class="lvl-3">
+<p>中断触发：中断源发生中断事件，向 CPU 发送中断信号</p>
+</li>
+<li class="lvl-3">
+<p>检测中断：CPU 检测到中断，停止当前执行流程，跳转到中断向量</p>
+</li>
+<li class="lvl-3">
+<p>处理中断：CPU 保存上下文，调用和执行中断处理函数，然后返回原有执行流程</p>
+</li>
 </ol>
 <p>中断来源不同，导致虚拟化方式不同：</p>
-<ul>
-<li>IPI：inter-processor interrupt</li>
-<li>timer 中断</li>
-<li>external 中断：包括 MSI</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>IPI：inter-processor interrupt</p>
+</li>
+<li class="lvl-2">
+<p>timer 中断</p>
+</li>
+<li class="lvl-2">
+<p>external 中断：包括 MSI</p>
+</li>
 </ul>
-<h3 id="虚拟化方法一发生-vm-exit-和中断注入"><a class="markdownIt-Anchor" href="#虚拟化方法一发生-vm-exit-和中断注入"></a> 虚拟化方法一：发生 vm exit 和中断注入</h3>
-<ul>
-<li>如果中断发生在当前 pCPU 上：如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</li>
-<li>如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式</li>
-<li>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</li>
-<li>vCPU 在 Guest CPU 模式下完成处理中断</li>
+<h3 id="虚拟化方法一：发生-vm-exit-和中断注入">虚拟化方法一：发生 vm exit 和中断注入</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>如果中断发生在当前 pCPU 上：如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</p>
+</li>
+<li class="lvl-2">
+<p>如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式</p>
+</li>
+<li class="lvl-2">
+<p>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</p>
+</li>
+<li class="lvl-2">
+<p>vCPU 在 Guest CPU 模式下完成处理中断</p>
+</li>
 </ul>
-<h4 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h4>
-<ul>
-<li>中断发生时，vCPU 会发生 vm exit，效率低</li>
-<li>在没有中断控制器的特殊支持时，大多数硬件都支持此种中断虚拟化</li>
+<h4 id="特点">特点</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>中断发生时，vCPU 会发生 vm exit，效率低</p>
+</li>
+<li class="lvl-2">
+<p>在没有中断控制器的特殊支持时，大多数硬件都支持此种中断虚拟化</p>
+</li>
 </ul>
-<h3 id="虚拟化方法二-中断直接投递给-vcpu"><a class="markdownIt-Anchor" href="#虚拟化方法二-中断直接投递给-vcpu"></a> 虚拟化方法二： 中断直接投递给 vCPU</h3>
-<ul>
-<li>如果中断发生在当前 pCPU 上：
-<ul>
-<li>如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</li>
-<li>如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式；</li>
+<h3 id="虚拟化方法二：-中断直接投递给-vCPU">虚拟化方法二： 中断直接投递给 vCPU</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>如果中断发生在当前 pCPU 上：</p>
+<ul class="lvl-2">
+<li class="lvl-4">如果 vCPU 处于运行状态，Guest CPU 不会发生 vm exit，中断直接投递给 vCPU；</li>
+<li class="lvl-4">如果 vCPU 处于等待状态，调用 kvm_kick_cpu, 唤醒 vCPU 的线程，把中断信息投递到 Guest CPU State，让 vCPU 进入 Guest CPU 模式；</li>
 </ul>
 </li>
-<li>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</li>
-<li>vCPU 在 Guest CPU 模式下完成处理中断；</li>
+<li class="lvl-2">
+<p>如果中断发生在其他 pCPU，需要向当前 pCPU 发送 IPI</p>
+</li>
+<li class="lvl-2">
+<p>vCPU 在 Guest CPU 模式下完成处理中断；</p>
+</li>
 </ul>
-<h4 id="特点-2"><a class="markdownIt-Anchor" href="#特点-2"></a> 特点</h4>
-<ul>
-<li>需要中断控制器的特殊支持；</li>
-<li>vCPU 不需要产生 vm exit，效率高；</li>
+<h4 id="特点-2">特点</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>需要中断控制器的特殊支持；</p>
+</li>
+<li class="lvl-2">
+<p>vCPU 不需要产生 vm exit，效率高；</p>
+</li>
 </ul>
-<h3 id="x86-架构-3"><a class="markdownIt-Anchor" href="#x86-架构-3"></a> x86 架构</h3>
-<h4 id="中断控制器lapic-ioapic"><a class="markdownIt-Anchor" href="#中断控制器lapic-ioapic"></a> 中断控制器：LAPIC、IOAPIC</h4>
-<p>每个 CPU 接一个 Local APIC，通过地址总线接 IOAPIC，IPAPIC 完成外部中断的投递，Local APIC 完成 IPI 或者 Timer 的处理。<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687495844493-05787ef9-b853-4540-bd7a-eb66efd91745.png#averageHue=%23f0f0f0&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=523&amp;id=uad99ab6a&amp;originHeight=784&amp;originWidth=1332&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=203827&amp;status=done&amp;style=none&amp;taskId=ua8721522-e8fb-4261-8fc9-2a1e11cbcd2&amp;title=&amp;width=888" alt="image.png" /></p>
-<h4 id="posted-interrupt"><a class="markdownIt-Anchor" href="#posted-interrupt"></a> Posted Interrupt</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496047254-e2486be0-8fdf-49af-944d-f48c1c2b1a51.png#averageHue=%23eaf2a7&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=545&amp;id=u65cb99ac&amp;originHeight=818&amp;originWidth=1435&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=546409&amp;status=done&amp;style=none&amp;taskId=u3de919c4-ec7b-4988-b423-3193df08307&amp;title=&amp;width=956.6666666666666" alt="image.png" /><br />
-外部中断到来时，中断直接投递到 VCPU 的 Posted Descriptor，Posted Descripter 利用事件通知 pCPU。<br />
-详细解释：<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496299059-ca13c193-98ee-4019-84a6-89ebfa85c168.png#averageHue=%23ededec&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=461&amp;id=u386bcb69&amp;originHeight=692&amp;originWidth=1775&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=494460&amp;status=done&amp;style=none&amp;taskId=u0161a87b-9d87-4ba3-908c-0e56f1b99e8&amp;title=&amp;width=1183.3333333333333" alt="image.png" /></p>
-<h3 id="armv8-架构-2"><a class="markdownIt-Anchor" href="#armv8-架构-2"></a> ARMv8 架构</h3>
-<h4 id="中断控制器中断注入gicv3"><a class="markdownIt-Anchor" href="#中断控制器中断注入gicv3"></a> 中断控制器：中断注入——GICv3</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496515385-f793dd1d-0567-4c24-9c08-75d1e6260fd2.png#averageHue=%23fab873&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=316&amp;id=ub791753f&amp;originHeight=474&amp;originWidth=1134&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=236317&amp;status=done&amp;style=none&amp;taskId=ub23b5385-c9ea-4214-9dc7-6387ac00773&amp;title=&amp;width=756" alt="image.png" /></p>
-<h4 id="中断控制器中断透传gicv4"><a class="markdownIt-Anchor" href="#中断控制器中断透传gicv4"></a> 中断控制器：中断透传——GICv4</h4>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496548976-5128b040-d018-4411-8659-ca46ca783b7f.png#averageHue=%23fef8ed&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=277&amp;id=uf05abee0&amp;originHeight=415&amp;originWidth=1069&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=146619&amp;status=done&amp;style=none&amp;taskId=uede37ca6-2777-4779-8028-d66ad76473a&amp;title=&amp;width=712.6666666666666" alt="image.png" /></p>
-<h3 id="risc-v-架构-3"><a class="markdownIt-Anchor" href="#risc-v-架构-3"></a> RISC-V 架构</h3>
-<h4 id="中断控制器plic"><a class="markdownIt-Anchor" href="#中断控制器plic"></a> 中断控制器：PLIC</h4>
-<ul>
-<li>不支持 MSI</li>
-<li>不支持中断虚拟化</li>
+<h3 id="x86-架构-3">x86 架构</h3>
+<h4 id="中断控制器：LAPIC、IOAPIC">中断控制器：LAPIC、IOAPIC</h4>
+<p>每个 CPU 接一个 Local APIC，通过地址总线接 IOAPIC，IPAPIC 完成外部中断的投递，Local APIC 完成 IPI 或者 Timer 的处理。<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687495844493-05787ef9-b853-4540-bd7a-eb66efd91745.png#averageHue=%23f0f0f0&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=523&amp;id=uad99ab6a&amp;originHeight=784&amp;originWidth=1332&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=203827&amp;status=done&amp;style=none&amp;taskId=ua8721522-e8fb-4261-8fc9-2a1e11cbcd2&amp;title=&amp;width=888" alt="image.png"></p>
+<h4 id="Posted-Interrupt">Posted Interrupt</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496047254-e2486be0-8fdf-49af-944d-f48c1c2b1a51.png#averageHue=%23eaf2a7&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=545&amp;id=u65cb99ac&amp;originHeight=818&amp;originWidth=1435&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=546409&amp;status=done&amp;style=none&amp;taskId=u3de919c4-ec7b-4988-b423-3193df08307&amp;title=&amp;width=956.6666666666666" alt="image.png"><br>
+外部中断到来时，中断直接投递到 VCPU 的 Posted Descriptor，Posted Descripter 利用事件通知 pCPU。详细解释：<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496299059-ca13c193-98ee-4019-84a6-89ebfa85c168.png#averageHue=%23ededec&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=461&amp;id=u386bcb69&amp;originHeight=692&amp;originWidth=1775&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=494460&amp;status=done&amp;style=none&amp;taskId=u0161a87b-9d87-4ba3-908c-0e56f1b99e8&amp;title=&amp;width=1183.3333333333333" alt="image.png"></p>
+<h3 id="ARMv8-架构-2">ARMv8 架构</h3>
+<h4 id="中断控制器：中断注入——GICv3">中断控制器：中断注入——GICv3</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496515385-f793dd1d-0567-4c24-9c08-75d1e6260fd2.png#averageHue=%23fab873&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=316&amp;id=ub791753f&amp;originHeight=474&amp;originWidth=1134&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=236317&amp;status=done&amp;style=none&amp;taskId=ub23b5385-c9ea-4214-9dc7-6387ac00773&amp;title=&amp;width=756" alt="image.png"></p>
+<h4 id="中断控制器：中断透传——GICv4">中断控制器：中断透传——GICv4</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496548976-5128b040-d018-4411-8659-ca46ca783b7f.png#averageHue=%23fef8ed&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=277&amp;id=uf05abee0&amp;originHeight=415&amp;originWidth=1069&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=146619&amp;status=done&amp;style=none&amp;taskId=uede37ca6-2777-4779-8028-d66ad76473a&amp;title=&amp;width=712.6666666666666" alt="image.png"></p>
+<h3 id="RISC-V-架构-3">RISC-V 架构</h3>
+<h4 id="中断控制器：PLIC">中断控制器：PLIC</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>不支持 MSI</p>
+</li>
+<li class="lvl-2">
+<p>不支持中断虚拟化</p>
+</li>
 </ul>
-<h4 id="aia-定义的两个控制器"><a class="markdownIt-Anchor" href="#aia-定义的两个控制器"></a> AIA 定义的两个控制器</h4>
+<h4 id="AIA-定义的两个控制器">AIA 定义的两个控制器</h4>
 <p>RISC-V Advanced Interrupt Architecture：AIA，定义了两个控制器：</p>
-<ul>
-<li>Incoming Message Signaled Interrupt Controller (IMSIC)：支持 MSI；支持 IPI 虚拟化；</li>
-<li>Advanced Platform Level Interrupt Controller (APLIC)：支持 Wired Interrupt；</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>Incoming Message Signaled Interrupt Controller (IMSIC)：支持 MSI；支持 IPI 虚拟化；</p>
+</li>
+<li class="lvl-2">
+<p>Advanced Platform Level Interrupt Controller (APLIC)：支持 Wired Interrupt；</p>
+</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496781873-0e1d5ac5-ab20-40c5-89f6-90d1ee650dbb.png#averageHue=%23ede6e3&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=476&amp;id=u0946a2a8&amp;originHeight=714&amp;originWidth=1470&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=345285&amp;status=done&amp;style=none&amp;taskId=u3b7bf02a-5f07-4706-b86e-a99be612216&amp;title=&amp;width=980" alt="image.png" /><br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496799302-064a3733-43b7-4aa0-b9ac-23170c544ea3.png#averageHue=%23f6f5f4&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=373&amp;id=u2909b1fb&amp;originHeight=559&amp;originWidth=1544&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=253557&amp;status=done&amp;style=none&amp;taskId=u6b3a3fb9-4125-432a-a8fa-39ef5fe0122&amp;title=&amp;width=1029.3333333333333" alt="image.png" /></p>
-<p>例子：KVM 通过 IMSIC 注入中断<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687497411644-6e0acb83-0dcc-45ac-b1c3-b66c8c1a8d78.png#averageHue=%23c5c09a&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=302&amp;id=uada08d49&amp;originHeight=513&amp;originWidth=1140&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=415661&amp;status=done&amp;style=none&amp;taskId=u8c35fcaf-d37c-4144-8b7f-5a239abe628&amp;title=&amp;width=670" alt="image.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496781873-0e1d5ac5-ab20-40c5-89f6-90d1ee650dbb.png#averageHue=%23ede6e3&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=476&amp;id=u0946a2a8&amp;originHeight=714&amp;originWidth=1470&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=345285&amp;status=done&amp;style=none&amp;taskId=u3b7bf02a-5f07-4706-b86e-a99be612216&amp;title=&amp;width=980" alt="image.png"><br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496799302-064a3733-43b7-4aa0-b9ac-23170c544ea3.png#averageHue=%23f6f5f4&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=373&amp;id=u2909b1fb&amp;originHeight=559&amp;originWidth=1544&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=253557&amp;status=done&amp;style=none&amp;taskId=u6b3a3fb9-4125-432a-a8fa-39ef5fe0122&amp;title=&amp;width=1029.3333333333333" alt="image.png"></p>
+<p>例子：KVM 通过 IMSIC 注入中断<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687497411644-6e0acb83-0dcc-45ac-b1c3-b66c8c1a8d78.png#averageHue=%23c5c09a&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=302&amp;id=uada08d49&amp;originHeight=513&amp;originWidth=1140&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=415661&amp;status=done&amp;style=none&amp;taskId=u8c35fcaf-d37c-4144-8b7f-5a239abe628&amp;title=&amp;width=670" alt="image.png"></p>
 <ol>
-<li>HART0 的 KVM 写 MMIO 到某 HVA</li>
-<li>HVA 通过 SATP 和转换变为 HPA</li>
-<li>写入 HARTx 的 IMSIC 的寄存器</li>
-<li>发送信号给 HARTx 的 CSR</li>
-<li>注入中断到 HARTx 的 Guest_A 的 vCPU B</li>
+<li class="lvl-3">
+<p>HART0 的 KVM 写 MMIO 到某 HVA</p>
+</li>
+<li class="lvl-3">
+<p>HVA 通过 SATP 和转换变为 HPA</p>
+</li>
+<li class="lvl-3">
+<p>写入 HARTx 的 IMSIC 的寄存器</p>
+</li>
+<li class="lvl-3">
+<p>发送信号给 HARTx 的 CSR</p>
+</li>
+<li class="lvl-3">
+<p>注入中断到 HARTx 的 Guest_A 的 vCPU B</p>
+</li>
 </ol>
-<p>例子：Guest_A vCPU_A 发送到 Guest_A vCPU_B 的 IPI 中断<br />
-<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496839077-dfa4c9bd-c377-43d6-8b93-4e3f2f877d1f.png#averageHue=%23c8c49d&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=301&amp;id=u4d152517&amp;originHeight=451&amp;originWidth=1003&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=331530&amp;status=done&amp;style=none&amp;taskId=u1d1710fb-216b-4e26-9502-2894e1e5fde&amp;title=&amp;width=670" alt="image.png" /></p>
+<p>例子：Guest_A vCPU_A 发送到 Guest_A vCPU_B 的 IPI 中断<br>
+<img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687496839077-dfa4c9bd-c377-43d6-8b93-4e3f2f877d1f.png#averageHue=%23c8c49d&amp;clientId=udc3c53fe-8f8f-4&amp;from=paste&amp;height=301&amp;id=u4d152517&amp;originHeight=451&amp;originWidth=1003&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=331530&amp;status=done&amp;style=none&amp;taskId=u1d1710fb-216b-4e26-9502-2894e1e5fde&amp;title=&amp;width=670" alt="image.png"></p>
 <ol>
-<li>HART0 的 Guest_A 的 vCPU A 写 MMIO 到某 GVA</li>
-<li>GVA 通过 VSATP 和 HGATP， 经过两次转换变为 HPA</li>
-<li>写入 HARTx 的 IMSIC 的寄存器</li>
-<li>发送信号给 HARTx 的 CSR</li>
-<li>触发 HARTx 的 Guest_A 的 vCPU B 的 IPI</li>
+<li class="lvl-3">
+<p>HART0 的 Guest_A 的 vCPU A 写 MMIO 到某 GVA</p>
+</li>
+<li class="lvl-3">
+<p>GVA 通过 VSATP 和 HGATP， 经过两次转换变为 HPA</p>
+</li>
+<li class="lvl-3">
+<p>写入 HARTx 的 IMSIC 的寄存器</p>
+</li>
+<li class="lvl-3">
+<p>发送信号给 HARTx 的 CSR</p>
+</li>
+<li class="lvl-3">
+<p>触发 HARTx 的 Guest_A 的 vCPU B 的 IPI</p>
+</li>
 </ol>
-<h2 id="设备虚拟化"><a class="markdownIt-Anchor" href="#设备虚拟化"></a> 设备虚拟化</h2>
-<h3 id="基本概念-3"><a class="markdownIt-Anchor" href="#基本概念-3"></a> 基本概念</h3>
+<h2 id="设备虚拟化">设备虚拟化</h2>
+<h3 id="基本概念-3">基本概念</h3>
 <p>IOMMU：Input-Output Memory Management Unit</p>
-<ul>
-<li>MMU：CPU 通过 VA 访问内存</li>
-<li>IOMMU：设备通过 IO VA 访问内存</li>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>MMU：CPU 通过 VA 访问内存</p>
+</li>
+<li class="lvl-2">
+<p>IOMMU：设备通过 IO VA 访问内存</p>
+</li>
 </ul>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529464858-b2e94a8d-8eef-46b3-b639-22a5453a5974.png#averageHue=%23badfb9&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=ubc573177&amp;originHeight=315&amp;originWidth=318&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=84164&amp;status=done&amp;style=none&amp;taskId=u60aef91f-9e4d-4ff7-84f5-a6cb9200dbc&amp;title=" alt="image.png" /></p>
-<h3 id="iommu-作用"><a class="markdownIt-Anchor" href="#iommu-作用"></a> IOMMU 作用</h3>
-<ul>
-<li>DMA 设备的虚拟地址转换。完成 IOVA -&gt; HPA 的转换。把设备发送的 IOVA 转换成 HPA。</li>
-<li>DMA 设备的内存写保护</li>
-<li>Interrupt remapping 和虚拟化</li>
-<li>IO 设备可以共享页表</li>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687529464858-b2e94a8d-8eef-46b3-b639-22a5453a5974.png#averageHue=%23badfb9&amp;clientId=ub730c67a-7f90-4&amp;from=paste&amp;id=ubc573177&amp;originHeight=315&amp;originWidth=318&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=84164&amp;status=done&amp;style=none&amp;taskId=u60aef91f-9e4d-4ff7-84f5-a6cb9200dbc&amp;title=" alt="image.png"></p>
+<h3 id="IOMMU-作用">IOMMU 作用</h3>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>DMA 设备的虚拟地址转换。完成 IOVA -&gt; HPA 的转换。把设备发送的 IOVA 转换成 HPA。</p>
+</li>
+<li class="lvl-2">
+<p>DMA 设备的内存写保护</p>
+</li>
+<li class="lvl-2">
+<p>Interrupt remapping 和虚拟化</p>
+</li>
+<li class="lvl-2">
+<p>IO 设备可以共享页表</p>
+</li>
 </ul>
-<h3 id="iommu-地址转换"><a class="markdownIt-Anchor" href="#iommu-地址转换"></a> IOMMU 地址转换</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687506766824-bf571e8c-386f-40d8-a543-9bf5262a8fc2.png#averageHue=%23fafaf8&amp;clientId=ud060340f-f725-4&amp;from=paste&amp;height=515&amp;id=ud0dae33e&amp;originHeight=773&amp;originWidth=1745&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=217716&amp;status=done&amp;style=none&amp;taskId=ub19f7c02-5c78-40a3-880e-b1ba9ccab55&amp;title=&amp;width=1163.3333333333333" alt="image.png" /></p>
-<ul>
-<li>X86 IOMMU：包括 dma remapping 和 interrupt remapping
-<ul>
-<li>Intel：VT-D</li>
-<li>AMD：AMD IOMMU</li>
+<h3 id="IOMMU-地址转换">IOMMU 地址转换</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687506766824-bf571e8c-386f-40d8-a543-9bf5262a8fc2.png#averageHue=%23fafaf8&amp;clientId=ud060340f-f725-4&amp;from=paste&amp;height=515&amp;id=ud0dae33e&amp;originHeight=773&amp;originWidth=1745&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=217716&amp;status=done&amp;style=none&amp;taskId=ub19f7c02-5c78-40a3-880e-b1ba9ccab55&amp;title=&amp;width=1163.3333333333333" alt="image.png"></p>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>X86 IOMMU：包括 dma remapping 和 interrupt remapping</p>
+<ul class="lvl-2">
+<li class="lvl-4">Intel：VT-D</li>
+<li class="lvl-4">AMD：AMD IOMMU</li>
 </ul>
 </li>
-<li>ARMv8：SMMUv3</li>
-<li>RISC-V：RISC-V IOMMU</li>
+<li class="lvl-2">
+<p>ARMv8：SMMUv3</p>
+</li>
+<li class="lvl-2">
+<p>RISC-V：RISC-V IOMMU</p>
+</li>
 </ul>
-<h3 id="设备透传"><a class="markdownIt-Anchor" href="#设备透传"></a> 设备透传</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687527821363-fbf7646e-6b0a-48a9-9a9c-58dabd819d40.png#averageHue=%23e9e9e8&amp;clientId=ud060340f-f725-4&amp;from=paste&amp;height=602&amp;id=ue8f73394&amp;originHeight=903&amp;originWidth=1612&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=675184&amp;status=done&amp;style=none&amp;taskId=u52f138d2-8d68-4fab-aa68-b93458d9da4&amp;title=&amp;width=1074.6666666666667" alt="image.png" />VFIO：Virtual Function I/O 是 Linux 下利用 IOMMU 构建设备直通方案。用户态进程可以使用 VFIO 驱动直接访问硬件，并且由于整个过程是在 IOMMU 的保护下进行因此十分安全， 而且非特权用户也是可以直接使用。<br />
-实现了 VM 中的 GPA 映射到 HPA，并且使用 DMA-remapping 将设备中断发送回 VM。</p>
-<h4 id="设备透传的作用"><a class="markdownIt-Anchor" href="#设备透传的作用"></a> 设备透传的作用</h4>
-<ul>
-<li>透传 GPU/网络设备给虚拟机</li>
-<li>虚机的 GPU/网络驱动，不需要做任何修改就可以直接使用透传设备</li>
-<li>性能损耗最小</li>
+<h3 id="设备透传">设备透传</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/1249968/1687527821363-fbf7646e-6b0a-48a9-9a9c-58dabd819d40.png#averageHue=%23e9e9e8&amp;clientId=ud060340f-f725-4&amp;from=paste&amp;height=602&amp;id=ue8f73394&amp;originHeight=903&amp;originWidth=1612&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=675184&amp;status=done&amp;style=none&amp;taskId=u52f138d2-8d68-4fab-aa68-b93458d9da4&amp;title=&amp;width=1074.6666666666667" alt="image.png">VFIO：Virtual Function I/O 是 Linux 下利用 IOMMU 构建设备直通方案。用户态进程可以使用 VFIO 驱动直接访问硬件，并且由于整个过程是在 IOMMU 的保护下进行因此十分安全， 而且非特权用户也是可以直接使用。实现了 VM 中的 GPA 映射到 HPA，并且使用 DMA-remapping 将设备中断发送回 VM。</p>
+<h4 id="设备透传的作用">设备透传的作用</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>透传 GPU/网络设备给虚拟机</p>
+</li>
+<li class="lvl-2">
+<p>虚机的 GPU/网络驱动，不需要做任何修改就可以直接使用透传设备</p>
+</li>
+<li class="lvl-2">
+<p>性能损耗最小</p>
+</li>
 </ul>
-<h4 id="设备透传的应用"><a class="markdownIt-Anchor" href="#设备透传的应用"></a> 设备透传的应用</h4>
-<ul>
-<li>GPU 设备透传</li>
-<li>网卡透传</li>
-<li>磁盘透传</li>
+<h4 id="设备透传的应用">设备透传的应用</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p>GPU 设备透传</p>
+</li>
+<li class="lvl-2">
+<p>网卡透传</p>
+</li>
+<li class="lvl-2">
+<p>磁盘透传</p>
+</li>
 </ul>
-<h4 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h4>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zs4y1L7KZ">硬件虚拟化在不同平台的实现：X86、ARM 和 RISC-V - 泰晓科技</a></li>
+<h4 id="参考">参考</h4>
+<ul class="lvl-0">
+<li class="lvl-2">
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Zs4y1L7KZ">硬件虚拟化在不同平台的实现：X86、ARM 和 RISC-V - 泰晓科技</a></p>
+</li>
 </ul>
 	
 		</div>
@@ -702,13 +869,18 @@ MSI：Message Signaled Interrupt，消息信号中断</p>
 							</p>
 							<p class="relate-post-content">
 								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
+用户层虚拟化
+本地 API 拦截和 API formwarding
+
 
 
 在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+
+
 让 APP 调用这个 libwrapper。如何做？
-libwrap...
+
+
+libw...
 							</p>
 						</div>
 
@@ -731,8 +903,9 @@ libwrap...
 							</p>
 							<p class="relate-post-content">
 								本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。
- I. 计数过程
-有这样一段连续时间，事件每经过$ T 时间间隔发生一次，这里用时间间隔发生一次，这里用时间间隔发生一次，这里用 N([s,t]) 代表从代表从代表从 s ...
+I. 计数过程
+有这样一段连续时间，事件每经过时间间隔发生一次，这里用代表从到时间内事件发生的次数，那么在简单模型下，事件的发生次数。
+众所周知，在实际生活中事件发生的间隔...
 							</p>
 						</div>
 
@@ -757,9 +930,9 @@ libwrap...
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -782,9 +955,9 @@ libwrap...
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -806,12 +979,12 @@ libwrap...
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -833,12 +1006,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -860,12 +1033,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -887,11 +1058,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -916,9 +1087,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 
@@ -940,9 +1111,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 4.1 保护模式概述
+								4.1 保护模式概述
 在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
-保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel...
 							</p>
 						</div>
 

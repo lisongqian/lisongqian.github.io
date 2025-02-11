@@ -71,7 +71,119 @@
 	
  
     <meta name="referrer" content="no-referrer"/>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 	<body>
 		<!-- Preloader -->
 
@@ -306,14 +418,14 @@
 					<div class="post-content">
 						
 							本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。
- BERT: Bidirectional Encoder Representations from Transformers
+BERT: Bidirectional Encoder Representations from Transformers
 
 
 上图是 BERT 提出的主要的两个点。
 
 选择encoder哪一层的信息会比较好呢？上图给出了解答。不难看出，后四层的encoder层sum之后得到了当前维度的最高F1，而concat后四层发现F1又有所提高，所以综合来看选择encoder的后几层的效果会比较好。
- Transformer-XL
-超长输入的文本会被原始...
+Transformer-XL
+超长输入的文本会被原始的 ...
 						
 					</div>
 					
@@ -363,10 +475,10 @@
 					<div class="post-content">
 						
 							本文希望从 Base-Attention 到 Transformer 逐层递进的解释其中的计算细节,从而更好的理解 Transformer 模型。本文主要对模型可能存在的盲区进行解释，可能思路有些跳跃，请谅解。参考资料见文章末尾Reference.
- Base-Attention
+Base-Attention
 
 如左图所示，为了实现Attention机制，我们需要一个 Z0Z0，与 h1h1 计算得到一个scaleα10α01，这个 α10α01 可以简单看做 hh 与 zz 的相似度.
-将 Z0Z0 与每一个 hihi 进行相乘然后 SoftmaxSoftmax 计算得到distribution αi0α0i，就变...
+将 Z0Z0 与每一个 hihi 进行相乘然后 SoftmaxSoftmax 计算得到distribution αi0α0i，就变成...
 						
 					</div>
 					
@@ -415,9 +527,9 @@
 
 					<div class="post-content">
 						
-							 原因
+							原因
 新版的 Chrome 已经默认实行强制 https 策略了，访问网页中 src 资源时中自动由 http 转为 https，但如果引用的资源无法通过 SSL 访问，Chrome 浏览器会阻断这个资源，就导致了多媒体播放失败，外部 JS 不执行等等后果。
- 产生影响的版本
+产生影响的版本
 Chrome 79 和 80 版本，主要针对多媒体和 js 资源的混合内容（mixed content）http 自动升级 https；
 Chrome 81 版本，连 img src 里的 http 图片资源都会自动强制转 https。
 
@@ -469,13 +581,13 @@ Chrome 81 版本，连 img src 里的 http 图片资源都会自动强制转 htt
 
 					<div class="post-content">
 						
-							 代码整体向后缩进
+							代码整体向后缩进
 选中多行代码 - 按下 Tab
- 代码整体向前缩进
+代码整体向前缩进
 选中多行代码 - 按下 Shift + Tab
- 查找下一条代码差异
+查找下一条代码差异
 F7
- 查找上一条代码差异
+查找上一条代码差异
 Shift + F7
 
 						
@@ -526,12 +638,12 @@ Shift + F7
 
 					<div class="post-content">
 						
-							 Nginx 跨域（不安全，但快捷）
+							Nginx 跨域（不安全，但快捷）
 123add_header Access-Control-Allow-Origin *;add_header Access-Control-Allow-Headers X-Requested-With;add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
- 更改 npm 源
+更改 npm 源
 1npm config set registry https://registry.npm.taobao.org
- docker 加速
-12345678sudo mkdir -p /etc/dockersudo tee...
+docker 加速
+12345678sudo mkdir -p /etc/dockersudo tee /e...
 						
 					</div>
 					
@@ -583,8 +695,8 @@ Shift + F7
 							
 注：本文引自：https://guodong.plus/2020/0529-002048/
 
- v1.0——基本实现
-12345678910111213class Singleton &#123; public:  static Singleton&amp; Get() &#123; return s_instance; &#125;	// 返回引用  void Function() &#123;&#125; private:  Singleton() &#123;&#125;	// 构造函数设为私有  static Singleton s_instance;&#125;;Single...
+v1.0——基本实现
+12345678910111213class Singleton &#123; public:  static Singleton&amp; Get() &#123; return s_instance; &#125;	// 返回引用  void Function() &#123;&#125; private:  Singleton() &#123;&#125;	// 构造函数设为私有  static Singleton s_instance;&#125;;Singlet...
 						
 					</div>
 					
@@ -633,12 +745,9 @@ Shift + F7
 
 					<div class="post-content">
 						
-							现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？
-注意手机需要在 iCloud 中打开同步 Safari 浏览器
+							现在 edge 和 ICloud 同步已经原生支持，最新：win10 的 edge、Chrome 如何让书签与 Safari 双向同步？注意手机需要在 iCloud 中打开同步 Safari 浏览器
 
-旧方法：
-打开注册表编辑器，定位至 计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\ 目录。
-右键选择「新建项」，将该项名称命名为 MicrosoftEdge。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 Main。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 SyncFavo...
+旧方法：打开注册表编辑器，定位至 计算机\HKEY_CURRENT_USER\Software\Policies\Microsoft\ 目录。右键选择「新建项」，将该项名称命名为 MicrosoftEdge。之后右键单击刚才新建的 Microsoft Edge 注册表项，再新建一个项，命名为 Main。然后在 Main 项中新建一个 DWORD（32 位）值，命名为 SyncFavorit...
 						
 					</div>
 					
@@ -694,15 +803,15 @@ Shift + F7
 L2 范数：
 L1 范数：
 
- 推导过程
+推导过程
 
 泰勒公式  
 
- 为什么可以减少过拟合
+为什么可以减少过拟合
 
 直观理解就是增加到足够大，会趋近于 0，但实际上是不会发生这种情况。通过正则化方法来消除或减少大量隐藏单元的影响，使这个网络变的更简单，越来越接近逻辑回归，在直觉上认为大量隐藏单元被完全消除了，但实际上是所有隐藏单元依然存在，但是他们的影响变小了。
- 正则化结果
-如果正则化参数很大，很小， 将会相对变小。由于的取值范围很小，会导致激活函数相对呈线性，整...
+正则化结果
+如果正则化参数很大，很小， 将会相对变小。由于的取值范围很小，会导致激活函数相对呈线性，整个神经...
 						
 					</div>
 					
@@ -751,21 +860,35 @@ L1 范数：
 
 					<div class="post-content">
 						
-							 I 前提
+							I 前提
 首先，我们讲服从泊松分布的事件要满足：
 
+
 事件的发生是独立的且事件的发生概率很小
+
+
 在**相同大小的时间或空间**内, 事件的发生的概率是相同的
 
- II 开始——二项分布
+
+II 开始——二项分布
 把事件的发生当做n次伯努利试验,那么事件发生k次的概率满足二项分布：
-$ \begin{align}
-P(X=k)=C_{n}{k}pk(1-p)^{n-k} \tag{1}
-\end{align} $
+
 我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为n份，每个时间间隔中事件至多发生一次。
- III 正题——泊松分布
-针对上述理解，当$ n \to \infty $时：
-$ \lim \limit...
+III 正题——泊松分布
+针对上述理解，当时：
+
+众所周知，二项分布中：，则；我们将样本均值近似看做期望，得到：
+
+所以式等于：
+
+
+由于：
+
+
+
+所以式等于：
+
+从而得到上述泊松分布的概率密度函数表达式。因此：泊松分布描述的是某段时间...
 						
 					</div>
 					

@@ -308,73 +308,92 @@
 
 		<div class="article-content" id="article-content">
 			<ol>
-<li><a target="_blank" rel="noopener" href="https://cloudnative.to/blog/bpf-intro/">eBPF 技术简介</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d0617f2bf8c1">基于 eBPF 的网络检测实践</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.debian.org/doc/manuals/debian-reference/ch02.en.html">Chapter 2. Debian package management</a>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://cloudnative.to/blog/bpf-intro/">eBPF 技术简介</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d0617f2bf8c1">基于 eBPF 的网络检测实践</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://www.debian.org/doc/manuals/debian-reference/ch02.en.html">Chapter 2. Debian package management</a></p>
 <blockquote></blockquote>
 </li>
 </ol>
-<h3 id="216-package-dependencies"><a class="markdownIt-Anchor" href="#216-package-dependencies"></a> 2.1.6. Package dependencies</h3>
+<h3 id="2-1-6-Package-dependencies">2.1.6. Package dependencies</h3>
 <blockquote>
 <p>The Debian system offers a consistent set of binary packages through its versioned binary dependency declaration mechanism in the control file fields. Here is a bit over simplified definition for them.</p>
-<ul>
-<li>“Depends”
-<ul>
-<li>This declares an absolute dependency and all of the packages listed in this field must be installed at the same time or in advance.</li>
+<ul class="lvl-1">
+<li class="lvl-2">“Depends”
+<ul class="lvl-3">
+<li class="lvl-4">This declares an absolute dependency and all of the packages listed in this field must be installed at the same time or in advance.</li>
 </ul>
 </li>
-<li>“Pre-Depends”
-<ul>
-<li>This is like Depends, except that it requires completed installation of the listed packages in advance.</li>
+<li class="lvl-2">“Pre-Depends”
+<ul class="lvl-3">
+<li class="lvl-4">This is like Depends, except that it requires completed installation of the listed packages in advance.</li>
 </ul>
 </li>
-<li>“Recommends”
-<ul>
-<li>This declares a strong, but not absolute, dependency. Most users would not want the package unless all of the packages listed in this field are installed.</li>
+<li class="lvl-2">“Recommends”
+<ul class="lvl-3">
+<li class="lvl-4">This declares a strong, but not absolute, dependency. Most users would not want the package unless all of the packages listed in this field are installed.</li>
 </ul>
 </li>
-<li>“Suggests”
-<ul>
-<li>This declares a weak dependency. Many users of this package may benefit from installing packages listed in this field but can have reasonable functions without them.</li>
+<li class="lvl-2">“Suggests”
+<ul class="lvl-3">
+<li class="lvl-4">This declares a weak dependency. Many users of this package may benefit from installing packages listed in this field but can have reasonable functions without them.</li>
 </ul>
 </li>
-<li>“Enhances”
-<ul>
-<li>This declares a weak dependency like Suggests but works in the opposite direction.</li>
+<li class="lvl-2">“Enhances”
+<ul class="lvl-3">
+<li class="lvl-4">This declares a weak dependency like Suggests but works in the opposite direction.</li>
 </ul>
 </li>
-<li>“Breaks”
-<ul>
-<li>This declares a package incompatibility usually with some version specification. Generally the resolution is to upgrade all of the packages listed in this field.</li>
+<li class="lvl-2">“Breaks”
+<ul class="lvl-3">
+<li class="lvl-4">This declares a package incompatibility usually with some version specification. Generally the resolution is to upgrade all of the packages listed in this field.</li>
 </ul>
 </li>
-<li>“Conflicts”
-<ul>
-<li>This declares an absolute incompatibility. All of the packages listed in this field must be removed to install this package.</li>
+<li class="lvl-2">“Conflicts”
+<ul class="lvl-3">
+<li class="lvl-4">This declares an absolute incompatibility. All of the packages listed in this field must be removed to install this package.</li>
 </ul>
 </li>
-<li>“Replaces”
-<ul>
-<li>This is declared when files installed by this package replace files in the listed packages.</li>
+<li class="lvl-2">“Replaces”
+<ul class="lvl-3">
+<li class="lvl-4">This is declared when files installed by this package replace files in the listed packages.</li>
 </ul>
 </li>
-<li>“Provides”
-<ul>
-<li>This is declared when this package provide all of the files and functionality in the listed packages.</li>
+<li class="lvl-2">“Provides”
+<ul class="lvl-3">
+<li class="lvl-4">This is declared when this package provide all of the files and functionality in the listed packages.</li>
 </ul>
 </li>
 </ul>
-<p>Note<br />
+<p>Note<br>
 Please note that defining “Provides”, “Conflicts” and “Replaces” simultaneously to an virtual package is the sane configuration. This ensures that only one real package providing this virtual package can be installed at any one time.</p>
 </blockquote>
 <ol start="4">
-<li><a target="_blank" rel="noopener" href="https://changkun.de/modern-cpp/zh-cn/02-usability/#decltype">现代 C++ 教程：高速上手 C++ 11/14/17/20</a></li>
-<li><a target="_blank" rel="noopener" href="https://gitlab.com/alfredchen/linux-prjc/-/tree/linux-5.10.y-prjc-lts">linux-5.10.y-prjc-lts 源码</a></li>
-<li><a target="_blank" rel="noopener" href="https://salsa.debian.org/apt-team/apt/-/tree/2.2.4">APT 2.2.4 源码</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tencent-cloud-native/p/14767478.html">Linux 内核调度器源码分析</a></li>
-<li>《操作系统真象还原》第 0/1 章</li>
-<li>《LInux 内核设计》第 2 章</li>
-<li>《Linux 内核观测技术 BPF》第 1/2 章</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://changkun.de/modern-cpp/zh-cn/02-usability/#decltype">现代 C++ 教程：高速上手 C++ 11/14/17/20</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://gitlab.com/alfredchen/linux-prjc/-/tree/linux-5.10.y-prjc-lts">linux-5.10.y-prjc-lts 源码</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://salsa.debian.org/apt-team/apt/-/tree/2.2.4">APT 2.2.4 源码</a></p>
+</li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tencent-cloud-native/p/14767478.html">Linux 内核调度器源码分析</a></p>
+</li>
+<li class="lvl-3">
+<p>《操作系统真象还原》第 0/1 章</p>
+</li>
+<li class="lvl-3">
+<p>《LInux 内核设计》第 2 章</p>
+</li>
+<li class="lvl-4">
+<p>《Linux 内核观测技术 BPF》第 1/2 章</p>
+</li>
 </ol>
 	
 		</div>
@@ -429,9 +448,14 @@ Please note that defining “Provides”, “Conflicts” and “Replaces” sim
 							</p>
 							<p class="relate-post-content">
 								
+
 “零拷贝”技术
+
+
 Sogou C++ Workflow：搜狗公司的 C++服务器引擎，支持 500k QPS
-Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比...
+
+
+Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CF...
 							</p>
 						</div>
 
@@ -454,11 +478,14 @@ Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比
 							</p>
 							<p class="relate-post-content">
 								
+
 怎样设计出一个让面试官满意的架构
+
 
 扩展视野，作者介绍了从一百个到千万级并发情况下服务端架构的演进过程，同时列举出每个演进阶段会遇到的相关技术，让读者可以对架构的演进有一个整体的认知。
 
-《Effective C++》笔记 - 条款...
+
+《Effective C++》笔记 -...
 							</p>
 						</div>
 
@@ -480,12 +507,12 @@ Reducing CPU scheduler latency in Linux：CPU 调度算法 BMQ 和 CFS 的对比
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -507,12 +534,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -534,12 +561,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -561,11 +586,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -590,9 +615,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 
@@ -614,9 +639,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 4.1 保护模式概述
+								4.1 保护模式概述
 在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
-保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel...
 							</p>
 						</div>
 
@@ -638,14 +663,21 @@ stdcall是被调用者清理参数所占的栈空间。
 								九月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 3.3 让我们对显示器说点什么吧
- 3.3.1 CPU 如何与外设通信——IO 接口
+								3.3 让我们对显示器说点什么吧
+3.3.1 CPU 如何与外设通信——IO 接口
 IO 接口功能：
 
+
 设置数据缓冲，解决 CPU 与外设的速度不匹配
+
+
 设置信号电平转换电路
+
+
 设置数据格式转换
-设置时序控制电路来同步 CPU 和外部...
+
+
+设置时序控制电路来同步 CP...
 							</p>
 						</div>
 
@@ -667,9 +699,10 @@ IO 接口功能：
 								九月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 针对汇编
+								针对汇编
 
 几个知识点：
+
 
 第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字...
 							</p>

@@ -307,51 +307,50 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<h2 id="第-0-章一些你可能正感到迷惑的问题"><a class="markdownIt-Anchor" href="#第-0-章一些你可能正感到迷惑的问题"></a> 第 0 章：一些你可能正感到迷惑的问题</h2>
+			<h2 id="第-0-章：一些你可能正感到迷惑的问题">第 0 章：一些你可能正感到迷惑的问题</h2>
 <blockquote>
 <p>摘记</p>
 </blockquote>
-<h3 id="028-mbr-ebr-dbr-和-obr-各是什么"><a class="markdownIt-Anchor" href="#028-mbr-ebr-dbr-和-obr-各是什么"></a> 0.28 MBR、EBR、DBR 和 OBR 各是什么</h3>
-<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1652066907379-8d228ad0-1c31-48b9-8156-4bcad23cb58b.png#clientId=u100bad87-09ca-4&amp;from=paste&amp;height=280&amp;id=ufdff364b&amp;originHeight=280&amp;originWidth=1133&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=115648&amp;status=done&amp;style=none&amp;taskId=uaf3fae98-0d72-4716-9025-39e3d604537&amp;title=&amp;width=1133" alt="image.png" /><br />
+<h3 id="0-28-MBR、EBR、DBR-和-OBR-各是什么">0.28 MBR、EBR、DBR 和 OBR 各是什么</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/1249968/1652066907379-8d228ad0-1c31-48b9-8156-4bcad23cb58b.png#clientId=u100bad87-09ca-4&amp;from=paste&amp;height=280&amp;id=ufdff364b&amp;originHeight=280&amp;originWidth=1133&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=115648&amp;status=done&amp;style=none&amp;taskId=uaf3fae98-0d72-4716-9025-39e3d604537&amp;title=&amp;width=1133" alt="image.png"><br>
 MBR 位于整个硬盘最开始的块， EBR 位于每个子扩展分区，各子扩展分区中只有一个逻辑分区。 MBR 和 EBR 位于分区之外的扇区，而 OBR 则属于主分区和逻辑分区最开始的扇区，每个主分区和逻辑分区中都有 OBR 引导扇区。</p>
-<h3 id="操作系统时如何被启动的"><a class="markdownIt-Anchor" href="#操作系统时如何被启动的"></a> 操作系统时如何被启动的？</h3>
-<p>计算机在接电后运行的是 BIOS，BIOS 进行一些简单的检测和初始化工作后，将存在<code>0盘0道1扇区</code>的主引导记录 MBR 加载到内存固定位置<code>0x7c00</code>，此时 BIOS 就把 CPU 使用权交给了 MBR。<br />
-MBR 扇区中除了引导程序外，还有 64 字节大小的分区表，分区表中每个分区表项占 16 字节，因此 MBR 分区表中可容纳 4 个分区。MBR 要从各分区表项中最开始的 1 字节寻找值为<code>0x80</code>的分区，此分区中存在操作系统。找到该分区后 MBR 就将 CPU 使用权交给操作系统引导记录 OBR。<br />
-每个分区的起始扇区称为 OBR 引导扇区，在 OBR 扇区的前 3 个字节存放了跳转指令，该跳转指令将 CPU 带入操作系统引导程序，至此 MBR 完成了他的工作。<br />
-需要注意的是，OBR 中的跳转指令跳往的目标地址并不固定，这是由所创建的文件系统决定的，对于 FAT32 文件系统来说，此跳转指令会跳转到本扇区便宜 0x5A 字节的操作系统引导程序处。当然不管跳转目标地址是多少，总之那里通常是操作系统的内核加载器。</p>
-<h2 id="第-1-章部署工作环境"><a class="markdownIt-Anchor" href="#第-1-章部署工作环境"></a> 第 1 章：部署工作环境</h2>
-<h3 id="软件安装"><a class="markdownIt-Anchor" href="#软件安装"></a> 软件安装</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install gcc</span><br><span class="line">sudo apt install nasm</span><br><span class="line">sudo apt install bochs*</span><br></pre></td></tr></table></figure>
-<h3 id="bochs-配置"><a class="markdownIt-Anchor" href="#bochs-配置"></a> Bochs 配置</h3>
+<h3 id="操作系统时如何被启动的？">操作系统时如何被启动的？</h3>
+<p>计算机在接电后运行的是 BIOS，BIOS 进行一些简单的检测和初始化工作后，将存在<code>0盘0道1扇区</code>的主引导记录 MBR 加载到内存固定位置<code>0x7c00</code>，此时 BIOS 就把 CPU 使用权交给了 MBR。<br>
+MBR 扇区中除了引导程序外，还有 64 字节大小的分区表，分区表中每个分区表项占 16 字节，因此 MBR 分区表中可容纳 4 个分区。MBR 要从各分区表项中最开始的 1 字节寻找值为<code>0x80</code>的分区，此分区中存在操作系统。找到该分区后 MBR 就将 CPU 使用权交给操作系统引导记录 OBR。每个分区的起始扇区称为 OBR 引导扇区，在 OBR 扇区的前 3 个字节存放了跳转指令，该跳转指令将 CPU 带入操作系统引导程序，至此 MBR 完成了他的工作。需要注意的是，OBR 中的跳转指令跳往的目标地址并不固定，这是由所创建的文件系统决定的，对于 FAT32 文件系统来说，此跳转指令会跳转到本扇区便宜 0x5A 字节的操作系统引导程序处。当然不管跳转目标地址是多少，总之那里通常是操作系统的内核加载器。</p>
+<h2 id="第-1-章：部署工作环境">第 1 章：部署工作环境</h2>
+<h3 id="软件安装">软件安装</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gcc</span><br><span class="line"><span class="built_in">sudo</span> apt install nasm</span><br><span class="line"><span class="built_in">sudo</span> apt install bochs*</span><br></pre></td></tr></table></figure>
+<h3 id="Bochs-配置">Bochs 配置</h3>
 <p>切到/usr/share/bochs 目录，将配置文件<code>/etc/bochs-init/bochsrc</code>复制过来改名为<code>bochsrc.disk</code>，我的配置文件：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">config_interface: textconfig</span><br><span class="line">display_library: sdl2</span><br><span class="line">romimage: file=/usr/share/bochs/BIOS-bochs-latest</span><br><span class="line">megs: 32</span><br><span class="line">vgaromimage: file=/usr/share/vgabios/vgabios.bin</span><br><span class="line">floppya: 1_44=/dev/fd0, status=inserted</span><br><span class="line">ata0: enabled=1, ioaddr1=0x1f0, ioaddr2=0x3f0, irq=14</span><br><span class="line">ata1: enabled=0, ioaddr1=0x170, ioaddr2=0x370, irq=15</span><br><span class="line">ata2: enabled=0, ioaddr1=0x1e8, ioaddr2=0x3e0, irq=11</span><br><span class="line">ata3: enabled=0, ioaddr1=0x168, ioaddr2=0x360, irq=9</span><br><span class="line">#ata0-master: type=disk, path=&quot;&quot;, mode=flat, cylinders=1024, heads=16, spt=63</span><br><span class="line">ata0-slave: type=cdrom, path=&quot;/dev/cdrom&quot;, status=inserted</span><br><span class="line"></span><br><span class="line">boot: disk</span><br><span class="line"></span><br><span class="line">#ips: 1000000</span><br><span class="line">floppy_bootsig_check: disabled=0</span><br><span class="line"># log: /dev/stdout</span><br><span class="line">log: bochs.out</span><br><span class="line">panic: action=ask</span><br><span class="line">error: action=report</span><br><span class="line">info: action=report</span><br><span class="line">debug: action=ignore</span><br><span class="line">debugger_log: -</span><br><span class="line">com1: enabled=1, dev=/dev/ttyS0</span><br><span class="line">parport1: enabled=1, file=&quot;/dev/lp0&quot;</span><br><span class="line">sb16: midimode=1, midi=/dev/midi00, wavemode=1, wave=/dev/dsp, loglevel=2, log=/dev/stdout, dmatimer=600000</span><br><span class="line">#vga_update_interval: 300000</span><br><span class="line">#keyboard_serial_delay: 250</span><br><span class="line">#keyboard_paste_delay: 100000</span><br><span class="line">#floppy_command_delay: 500</span><br><span class="line">mouse: enabled=0</span><br><span class="line">private_colormap: enabled=0</span><br><span class="line">#ne2k: ioaddr=0x240, irq=9, mac=b0:c4:20:00:00:00, ethmod=linux, ethdev=eth0</span><br><span class="line">#keyboard_mapping: enabled=0, map=/usr/share/bochs/keymaps/x11-pc-de.map</span><br><span class="line">#keyboard_type: mf</span><br><span class="line">#user_shortcut: keys=ctrlaltdel</span><br><span class="line">#magic_break: enabled=1</span><br><span class="line">#cmosimage: cmos.img</span><br><span class="line">#load32bitOSImage: os=nullkernel, path=../kernel.img, iolog=../vga_io.log</span><br><span class="line">#load32bitOSImage: os=linux, path=../linux.img, iolog=../vga_io.log, initrd=../initrd.img</span><br><span class="line">#i440fxsupport: enabled=1</span><br><span class="line">#usb1: enabled=1, ioaddr=0xFF80, irq=10</span><br><span class="line">#text_snapshot_check: enable</span><br><span class="line"></span><br><span class="line">#keyboard: keymap=/usr/share/bochs/keymaps/x11-pc-us.map</span><br><span class="line"># gdbstub: enabled=1, port=1234, text_base=0, data_base=0, bss_base=0</span><br></pre></td></tr></table></figure>
-<p>输入<code>bochs -f boshsrc.disk</code>启动 bochs，如果有 PANIC 报错，可以按照文末附 1 进行解决，也可以直接注释掉该行。<br />
-当命令行出现<code>&lt;bochs: 1&gt;</code>且弹出窗口无报错时，表示虚拟机成功运行。</p>
-<h3 id="创建硬盘"><a class="markdownIt-Anchor" href="#创建硬盘"></a> 创建硬盘</h3>
-<p>输入命令：<code>bximage</code><br />
-按照书中的配置：</p>
+<p>输入<code>bochs -f boshsrc.disk</code>启动 bochs，如果有 PANIC 报错，可以按照文末附 1 进行解决，也可以直接注释掉该行。当命令行出现<code>&lt;bochs: 1&gt;</code>且弹出窗口无报错时，表示虚拟机成功运行。</p>
+<h3 id="创建硬盘">创建硬盘</h3>
+<p>输入命令：<code>bximage</code>按照书中的配置：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">========================================================================</span><br><span class="line">                                bximage</span><br><span class="line">  Disk Image Creation / Conversion / Resize and Commit Tool <span class="keyword">for</span> Bochs</span><br><span class="line">         <span class="variable">$Id</span>: bximage.cc 13481 2018-03-30 21:04:04Z vruppert $</span><br><span class="line">========================================================================</span><br><span class="line"></span><br><span class="line">1. Create new floppy or hard disk image</span><br><span class="line">2. Convert hard disk image to other format (mode)</span><br><span class="line">3. Resize hard disk image</span><br><span class="line">4. Commit <span class="string">&#x27;undoable&#x27;</span> redolog to base image</span><br><span class="line">5. Disk image info</span><br><span class="line"></span><br><span class="line">0. Quit</span><br><span class="line"></span><br><span class="line">Please choose one [0] 1</span><br><span class="line"></span><br><span class="line">Create image</span><br><span class="line"></span><br><span class="line">Do you want to create a floppy disk image or a hard disk image?</span><br><span class="line">Please <span class="built_in">type</span> hd or fd. [hd]</span><br><span class="line"></span><br><span class="line">What kind of image should I create?</span><br><span class="line">Please <span class="built_in">type</span> flat, sparse, growing, vpc or vmware4. [flat]</span><br><span class="line"></span><br><span class="line">Choose the size of hard disk sectors.</span><br><span class="line">Please <span class="built_in">type</span> 512, 1024 or 4096. [512]</span><br><span class="line"></span><br><span class="line">Enter the hard disk size <span class="keyword">in</span> megabytes, between 10 and 8257535</span><br><span class="line">[10] 60</span><br><span class="line"></span><br><span class="line">What should be the name of the image?</span><br><span class="line">[c.img] hd60M.img</span><br><span class="line"></span><br><span class="line">Creating hard disk image <span class="string">&#x27;hd60M.img&#x27;</span> with CHS=121/16/63 (sector size = 512)</span><br><span class="line"></span><br><span class="line">The following line should appear <span class="keyword">in</span> your bochsrc:</span><br><span class="line">  ata0-master: <span class="built_in">type</span>=disk, path=<span class="string">&quot;hd60M.img&quot;</span>, mode=flat</span><br></pre></td></tr></table></figure>
 <p>将最后一行添加到<code>bochsrc.disk</code>配置中，至此，第一章工作完成。</p>
-<h3 id="附-1bochs-启动问题排查"><a class="markdownIt-Anchor" href="#附-1bochs-启动问题排查"></a> 附 1：Bochs 启动问题排查</h3>
-<h4 id="display-library-sdl-not-available"><a class="markdownIt-Anchor" href="#display-library-sdl-not-available"></a> display library ‘sdl’ not available</h4>
+<h3 id="附-1：Bochs-启动问题排查">附 1：Bochs 启动问题排查</h3>
+<h4 id="display-library-‘sdl’-not-available">display library ‘sdl’ not available</h4>
 <ol>
-<li>安装 sdl：<code>sudo apt install bochs-sdl</code></li>
-<li>修改配置文件中：<code>display: sdl</code>为：<code>display: sdl2</code></li>
+<li class="lvl-3">
+<p>安装 sdl：<code>sudo apt install bochs-sdl</code></p>
+</li>
+<li class="lvl-3">
+<p>修改配置文件中：<code>display: sdl</code>为：<code>display: sdl2</code></p>
+</li>
 </ol>
-<h4 id="dlopen-failed-for-module-ips-libbx_ipsso-file-not-found"><a class="markdownIt-Anchor" href="#dlopen-failed-for-module-ips-libbx_ipsso-file-not-found"></a> dlopen failed for module ‘ips’ (libbx_ips.so): file not found：</h4>
+<h4 id="dlopen-failed-for-module-‘ips’-libbx-ips-so-file-not-found：">dlopen failed for module ‘ips’ (libbx_ips.so): file not found：</h4>
 <p>注释掉 ips；</p>
-<h4 id="keyboard_mapping-is-deprecated-use-keyboard-option-instead"><a class="markdownIt-Anchor" href="#keyboard_mapping-is-deprecated-use-keyboard-option-instead"></a> ‘keyboard_mapping’ is deprecated - use ‘keyboard’ option instead.</h4>
+<h4 id="‘keyboard-mapping’-is-deprecated-use-‘keyboard’-option-instead">‘keyboard_mapping’ is deprecated - use ‘keyboard’ option instead.</h4>
 <p>将<code>keybord_mapping: enabled=1,map=/usr/share...</code>改为<code>keybord: keymap=/usr/share...</code></p>
-<h4 id="message-rom-system-bios-must-end-at-0xfffff"><a class="markdownIt-Anchor" href="#message-rom-system-bios-must-end-at-0xfffff"></a> Message: ROM: System BIOS must end at 0xfffff</h4>
-<p>问题原因：<br />
-在 2.3.5 以前的 bochs 使用的 BIOS-bochs-latest 是 64k 的，那个时候需要加上<br />
-<code>romimage: file=BIOS-bochs-latest,address=0xf0000</code><br />
-在 2.3.5 中的 BIOS-bochs-latest 更新了，变成了 128k 的，这个时候配置需要改为<br />
-<code>romimage: file=$BXSHARE/BIOS-bochs-latest</code><br />
+<h4 id="Message-ROM-System-BIOS-must-end-at-0xfffff">Message: ROM: System BIOS must end at 0xfffff</h4>
+<p>问题原因：在 2.3.5 以前的 bochs 使用的 BIOS-bochs-latest 是 64k 的，那个时候需要加上<code>romimage: file=BIOS-bochs-latest,address=0xf0000</code><br>
+在 2.3.5 中的 BIOS-bochs-latest 更新了，变成了 128k 的，这个时候配置需要改为<code>romimage: file=$BXSHARE/BIOS-bochs-latest</code><br>
 解决方法：去掉<code>romimage</code>项中的<code>address</code></p>
-<h3 id="参考文章"><a class="markdownIt-Anchor" href="#参考文章"></a> 参考文章</h3>
+<h3 id="参考文章">参考文章</h3>
 <ol>
-<li><a target="_blank" rel="noopener" href="https://www.kn0sky.com/?p=40">操作系统真象还原 读书笔记 01–环境配置</a></li>
+<li class="lvl-3">
+<p><a target="_blank" rel="noopener" href="https://www.kn0sky.com/?p=40">操作系统真象还原 读书笔记 01–环境配置</a></p>
+</li>
 </ol>
 	
 		</div>
@@ -408,9 +407,9 @@ MBR 扇区中除了引导程序外，还有 64 字节大小的分区表，分区
 								
 上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
 
- 10.1 同步机制——锁
- 10.1.1 排查 GP 异常，理解原子操作
-多线程执行刷屏时光标值越界导致...
+10.1 同步机制——锁
+10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致 G...
 							</p>
 						</div>
 
@@ -433,9 +432,9 @@ MBR 扇区中除了引导程序外，还有 64 字节大小的分区表，分区
 							</p>
 							<p class="relate-post-content">
 								线程和进程将分两部分实现，本章先讲解线程。
- 9.1 实现内核线程
- 9.1.1 执行流
-在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+9.1 实现内核线程
+9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当前处...
 							</p>
 						</div>
 
@@ -457,12 +456,12 @@ MBR 扇区中除了引导程序外，还有 64 字节大小的分区表，分区
 								一月 20日, 2023				
 							</p>
 							<p class="relate-post-content">
-								 8.1 makefile 简介
+								8.1 makefile 简介
 
 这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
 
- 8.1.1 makefile 是什么
-makefile 是 Linu...
+8.1.1 makefile 是什么
+makefile 是 Linux ...
 							</p>
 						</div>
 
@@ -484,12 +483,12 @@ makefile 是 Linu...
 								十二月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 7.1 中断是什么，为什么要有中断
+								7.1 中断是什么，为什么要有中断
 运用中断能够显著提升并发，从而大幅提升效率。
- 7.2 操作系统是中断驱动的
+7.2 操作系统是中断驱动的
 略
- 7.3 中断分类
-把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部中断。...
 							</p>
 						</div>
 
@@ -511,12 +510,10 @@ makefile 是 Linu...
 								十二月 18日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 6.1 函数调用约定简介
+								6.1 函数调用约定简介
 
-咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
-stdcall是被调用者清理参数所占的栈空间。
-举例来说：
-12int subtract(int ...
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。stdcall是被调用者清理参数所占的栈空间。举例来说：
+12int subtract(int a, ...
 							</p>
 						</div>
 
@@ -538,11 +535,11 @@ stdcall是被调用者清理参数所占的栈空间。
 								十二月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 5.3 加载内核
- 5.3.1 用 C 语言写内核
+								5.3 加载内核
+5.3.1 用 C 语言写内核
 第一个 C 语言代码：
 1234int main(void) &#123;	while(1);	return 0;&#125;
-这个内核文件什么都没做，通过while(1)这个死循...
+这个内核文件什么都没做，通过while(1)这个死循环一...
 							</p>
 						</div>
 
@@ -567,9 +564,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								
 从这一刻起，我们才算开始了真正的操作系统学习之旅
 
- 5.1 获取物理内存容量
- 5.1.1 Linux 获取内存的方法
-在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BI...
+5.1 获取物理内存容量
+5.1.1 Linux 获取内存的方法
+在 Linux 2.6 内核总是用detect_memory函数来获取内存容量的。其函数本质上是通过调用 BIOS...
 							</p>
 						</div>
 
@@ -591,9 +588,9 @@ stdcall是被调用者清理参数所占的栈空间。
 								十一月 8日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 4.1 保护模式概述
+								4.1 保护模式概述
 在本章大家会见到全局描述符表、中断描述符表、各种门结构，这是 CPU 提供给应用的，咱们用好就行。
-保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Inte...
+保护模式强调的是“保护”，它是在 Intel 80286 CPU 中首次出现，这是继 8086 之后，Intel...
 							</p>
 						</div>
 
@@ -615,14 +612,21 @@ stdcall是被调用者清理参数所占的栈空间。
 								九月 25日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 3.3 让我们对显示器说点什么吧
- 3.3.1 CPU 如何与外设通信——IO 接口
+								3.3 让我们对显示器说点什么吧
+3.3.1 CPU 如何与外设通信——IO 接口
 IO 接口功能：
 
+
 设置数据缓冲，解决 CPU 与外设的速度不匹配
+
+
 设置信号电平转换电路
+
+
 设置数据格式转换
-设置时序控制电路来同步 CPU 和外部...
+
+
+设置时序控制电路来同步 CP...
 							</p>
 						</div>
 
@@ -644,9 +648,10 @@ IO 接口功能：
 								九月 11日, 2022				
 							</p>
 							<p class="relate-post-content">
-								 针对汇编
+								针对汇编
 
 几个知识点：
+
 
 第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字...
 							</p>

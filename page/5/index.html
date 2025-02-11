@@ -71,7 +71,119 @@
 	
  
     <meta name="referrer" content="no-referrer"/>
-<meta name="generator" content="Hexo 6.3.0"></head>
+<meta name="generator" content="Hexo 6.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 	<body>
 		<!-- Preloader -->
 
@@ -253,18 +365,18 @@
 
 					<div class="post-content">
 						
-							 Logistic Regression
+							Logistic Regression
 逻辑回归的假设函数：
-$ h_{\theta}(x) =\frac{1}{1+e{-\theta{T}x}}
-$
-其中$ x 是输入,是输入,是输入, \theta $是要求解的参数。
+
+其中是输入,是要求解的参数。
 函数图像：
 
 一个机器学习模型实际上是把决策函数限定在某组条件下，这组限定条件决定了模型的假设空间，逻辑回归的假设空间：
-$ P(y=1|x;\theta) = g(\theta{T}x)=\frac{1}{1+e{-\theta^{T}x}}
-$
-它的意思是在给定的$ x 和和和 \theta 条件下,条件下,条件下, y=1 $的概率。
- Support Ve...
+
+它的意思是在给定的和条件下,的概率。
+Support Vector Machine
+直观理解：将数据点通过某个函数映射到高维空间中（我们称这个函数为核函数），这时寻找一个平面（我们称这个平面为超平面）对空间进行切分，达到同类的数据点在同一面的效果，最后将该平面与空间曲面形成的交线投影到原维度中，得到分类结果。
+直观演示视频：https://www.youtube.com/w...
 						
 					</div>
 					
@@ -313,17 +425,16 @@ $
 
 					<div class="post-content">
 						
-							 I.引言
+							I.引言
 
 值此情人节之际，祝天下有情人终成眷属。
 
 1The knowledage of this article is shallow. Please read it in an ornamental angle.
 本文使用的是 python3 下的 pandas,matplotlib,PIL,numpy 等库。由于本次的源码太乱（好吧是我懒的整理了），本文将只说明过程，不展示代码。
- II.开始
- 数据预处理
+II.开始
+数据预处理
 首先从 QQ 电脑版的消息管理器中导出了 txt 和 mht 两种格式的聊天记录，打开 txt 文件发现消息记录一共78755行。
-
-看起来消息记录的格式很规范，于是便想先...
+看起来消息记录的格式很规范，于是便想先用正则表...
 						
 					</div>
 					
@@ -372,27 +483,34 @@ $
 
 					<div class="post-content">
 						
-							 环境搭建
- 安装 Node.js
-从Node.js 官网上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。
-注：
+							环境搭建
+安装 Node.js
+从Node.js 官网上下载 Node.js for Windows(x64)的文件，一路“下一步”安装完成。注：
+
 
 使用 Win+R 输入 cmd 打开命令行输入node -v，出现版本号，则说明安装成功。
 
 
 
+
+
 包管理工具npm在安装 Node.js 时会一起安装好。
 
- 安装 Webpack
+
+安装 Webpack
 在命令行中输入npm install webpack -g。
 注：
 
+
 安装完成后webpack -v，出现版本号，则说明安装成功。
+
+
 
 若出现如下报错，执行npm install webpack-cli -D，安装 webpack-cli。
 
 
- 安装 Vu...
+
+安装...
 						
 					</div>
 					
@@ -446,10 +564,10 @@ $
 frp 客户端文件，包括：frp 客户端，winsw
 局域网内可远程连接的 Windows 计算机
 
- 开始
- 修改客户端配置
+开始
+修改客户端配置
 打开 frpc.ini 文件，将文件按照需求更改如下：
-123456789101112131415161718192021222324252627282930[common]# 你的服务端IP地址server_addr = ×.×.×.×# 服务端设置的bind_port端口号server_port = 5443# 服务端设置的tokentoken = YourToken## 本地管理页面# 管理页地址admin_addr = 127.0.0.1# 管理...
+123456789101112131415161718192021222324252627282930[common]# 你的服务端IP地址server_addr = ×.×.×.×# 服务端设置的bind_port端口号server_port = 5443# 服务端设置的tokentoken = YourToken## 本地管理页面# 管理页地址admin_addr = 127.0.0.1# 管理页端...
 						
 					</div>
 					
@@ -498,24 +616,24 @@ frp 客户端文件，包括：frp 客户端，winsw
 
 					<div class="post-content">
 						
-							 准备
+							准备
 
 CentOS Linux release 7.2
 gcc 编译器 yum install gcc-c++
 TCL yum install -y tcl
 redis 安装包 4.0.8 版本
 
- 安装
- 下载 redis 安装包
+安装
+下载 redis 安装包
 1wget http://download.redis.io/releases/redis-4.0.8.tar.gz
- 解压文件
+解压文件
 1tar zxvf redis-4.0.8.tar.gz
- 将文件拷贝到公共目录
+将文件拷贝到公共目录
 1mv redis-4.0.8 /opt/redis-4.0.8
- 编译代码
+编译代码
 12cd redis-4.0.8make
- 安装应用
-12cd s...
+安装应用
+12cd srcmake ...
 						
 					</div>
 					
@@ -565,13 +683,13 @@ redis 安装包 4.0.8 版本
 					<div class="post-content">
 						
 							CentOS6 中自带的 yum 依赖的 python 版本是 2.6.6 版本，而 python core team 已不再提供支持，且 pip 至少要求 2.7 版本,因此系统上应该有 2.6,2.7 两个版本的 python 并存。
- 一. python2.6 及 yum 安装（仅供 yum 出问题用户使用）
- 查看 Linux 发行版
+一. python2.6 及 yum 安装（仅供 yum 出问题用户使用）
+查看 Linux 发行版
 1lsb_release -a
- 卸载 Python
+卸载 Python
 12rpm -qa|grep python|xargs rpm -e --allmatches --nodepswhereis python|xargs rm -fr
- 卸载 yum
-123rp...
+卸载 yum
+123rpm -q...
 						
 					</div>
 					
@@ -624,13 +742,14 @@ redis 安装包 4.0.8 版本
 https://www.amd.com/en/technologies/infinity-hub/pytorch
 https://www.amd.com/en/technologies/infinity-hub/tensorflow
 -----------2020.04 更新-----------
- 准备
- 支持的 GPUs
+准备
+支持的 GPUs
 ROCm 正式支持使用以下芯片的 AMD GPU：
+
 
 GFX8 GPUs
 
-“Fiji” chips, such as on the AMD Radeon R9 Fury X and ...
+“Fiji” chips, such as on the AMD Radeon R9 Fury X and R...
 						
 					</div>
 					
@@ -679,18 +798,18 @@ GFX8 GPUs
 
 					<div class="post-content">
 						
-							 引言
+							引言
 正学着scrapy呢，偶然发现模拟登录知乎的教程跟实际不同，这才发觉知乎改版后在登录上添加了很多的反爬字段，于是便诞生了这篇文章。
- 准备
- Python 类库
+准备
+Python 类库
 执行 js 代码 pip install PyExecJS
 利用 requests 上传 multipart/form-data 格式文件 pip install requests_toolbelt
 用于 base64 编码图片数据的解析 import base64  #python自带类库
 用于显示图片的 PIL 或 pillow pip install pillow
- 开始
- 分析登录的 request head
+开始
+分析登录的 request head
 
-...
+发现几个不...
 						
 					</div>
 					
