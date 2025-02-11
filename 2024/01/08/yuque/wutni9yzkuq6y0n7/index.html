@@ -278,7 +278,7 @@
 
 	<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" itemprop="url">
 		<time datetime="2024-01-08T13:43:26.000Z" itemprop="dateUpdated">
-	  		2024-03-27
+	  		2025-02-11
 	  </time>
 	</a> 
 
@@ -303,12 +303,12 @@
 <h4 id="1011-排查-gp-异常理解原子操作"><a class="markdownIt-Anchor" href="#1011-排查-gp-异常理解原子操作"></a> 10.1.1 排查 GP 异常，理解原子操作</h4>
 <p>多线程执行刷屏时光标值越界导致 GP 异常。</p>
 <h4 id="1012-找出代码中的临界区-互斥-竞争条件"><a class="markdownIt-Anchor" href="#1012-找出代码中的临界区-互斥-竞争条件"></a> 10.1.2 找出代码中的临界区、互斥、竞争条件</h4>
-<p>公共资源：“显存”<br />
-临界区：put_char 的多个指令</p>
+<p>公共资源：“显存”</p>
+<p>临界区：put_char 的多个指令</p>
 <h4 id="1013-信号量"><a class="markdownIt-Anchor" href="#1013-信号量"></a> 10.1.3 信号量</h4>
-<p>信号量是个计数器，它的计数值是自然数，用来记录所积累信号的数量。<br />
-对于信号量的增减方法用 P、V 操作来表示，P 表示减少，V 表示增加。<br />
-P 操作（书中为减少操作 down）包括：</p>
+<p>信号量是个计数器，它的计数值是自然数，用来记录所积累信号的数量。</p>
+<p>对于信号量的增减方法用 P、V 操作来表示，P 表示减少，V 表示增加。</p>
+<p>P 操作（书中为减少操作 down）包括：</p>
 <ol>
 <li>判断信号量是否大于 0；</li>
 <li>若大于 0 则加 1；</li>
@@ -323,11 +323,11 @@ P 操作（书中为减少操作 down）包括：</p>
 <h4 id="1014-线程的阻塞和唤醒"><a class="markdownIt-Anchor" href="#1014-线程的阻塞和唤醒"></a> 10.1.4 线程的阻塞和唤醒</h4>
 <p>本节实现线程阻塞函数<code>thread_block</code>和线程唤醒函数<code>thread_unblock</code>。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当前线程将自己阻塞,标志其状态为stat.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread_block</span><span class="params">(<span class="keyword">enum</span> task_status stat)</span> &#123;</span><br><span class="line"><span class="comment">/* stat取值为TASK_BLOCKED,TASK_WAITING,TASK_HANGING,也就是只有这三种状态才不会被调度*/</span></span><br><span class="line">    ASSERT(((stat == TASK_BLOCKED) || (stat == TASK_WAITING) || (stat == TASK_HANGING)));</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">intr_status</span> <span class="title">old_status</span> =</span> intr_disable();</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span>* <span class="title">cur_thread</span> =</span> running_thread();</span><br><span class="line">    cur_thread-&gt;status = stat; <span class="comment">// 置其状态为stat</span></span><br><span class="line">    schedule();		      <span class="comment">// 将当前线程换下处理器</span></span><br><span class="line"><span class="comment">/* 待当前线程被解除阻塞后才继续运行下面的intr_set_status */</span></span><br><span class="line">    intr_set_status(old_status);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将线程pthread解除阻塞</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">thread_unblock</span><span class="params">(<span class="keyword">struct</span> task_struct* pthread)</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">intr_status</span> <span class="title">old_status</span> =</span> intr_disable();</span><br><span class="line">    ASSERT(((pthread-&gt;status == TASK_BLOCKED) || (pthread-&gt;status == TASK_WAITING) || (pthread-&gt;status == TASK_HANGING)));</span><br><span class="line">    <span class="keyword">if</span> (pthread-&gt;status != TASK_READY) &#123;</span><br><span class="line">        ASSERT(!elem_find(&amp;thread_ready_list, &amp;pthread-&gt;general_tag));</span><br><span class="line">        <span class="keyword">if</span> (elem_find(&amp;thread_ready_list, &amp;pthread-&gt;general_tag)) &#123;</span><br><span class="line">            PANIC(<span class="string">&quot;thread_unblock: blocked thread in ready_list\n&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        list_push(&amp;thread_ready_list, &amp;pthread-&gt;general_tag);    <span class="comment">// 放到队列的最前面,使其尽快得到调度</span></span><br><span class="line">        pthread-&gt;status = TASK_READY;</span><br><span class="line">    &#125;</span><br><span class="line">    intr_set_status(old_status);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于<code>thread_block</code>来说，阻塞线程只需要将当前线程换下 CPU 并不放入就绪队列。<br />
-而对于<code>thread_unblock</code>来说，被阻塞的线程无法唤醒自己，需要被其他线程唤醒，所以参数 pthread 指向的是目前已经被阻塞，又希望被唤醒的线程。</p>
+<p>对于<code>thread_block</code>来说，阻塞线程只需要将当前线程换下 CPU 并不放入就绪队列。</p>
+<p>而对于<code>thread_unblock</code>来说，被阻塞的线程无法唤醒自己，需要被其他线程唤醒，所以参数 pthread 指向的是目前已经被阻塞，又希望被唤醒的线程。</p>
 <h4 id="1015-锁的实现"><a class="markdownIt-Anchor" href="#1015-锁的实现"></a> 10.1.5 锁的实现</h4>
-<p>本节会实现信号量和锁。<br />
-我们创建 thread/sync.h：</p>
+<p>本节会实现信号量和锁。</p>
+<p>我们创建 thread/sync.h：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __THREAD_SYNC_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __THREAD_SYNC_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;list.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 信号量结构 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">semaphore</span> &#123;</span></span><br><span class="line">   <span class="type">uint8_t</span>  value;</span><br><span class="line">   <span class="class"><span class="keyword">struct</span>   <span class="title">list</span> <span class="title">waiters</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 锁结构 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">lock</span> &#123;</span></span><br><span class="line">   <span class="class"><span class="keyword">struct</span>   <span class="title">task_struct</span>* <span class="title">holder</span>;</span>	    <span class="comment">// 锁的持有者</span></span><br><span class="line">   <span class="class"><span class="keyword">struct</span>   <span class="title">semaphore</span> <span class="title">semaphore</span>;</span>	    <span class="comment">// 用二元信号量实现锁</span></span><br><span class="line">   <span class="type">uint32_t</span> holder_repeat_nr;		    <span class="comment">// 锁的持有者重复申请锁的次数</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_init</span><span class="params">(<span class="keyword">struct</span> semaphore* psema, <span class="type">uint8_t</span> value)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_down</span><span class="params">(<span class="keyword">struct</span> semaphore* psema)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_up</span><span class="params">(<span class="keyword">struct</span> semaphore* psema)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_init</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_acquire</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_release</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
 <p>和 thread/sync.c：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sync.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;list.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;global.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;debug.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;interrupt.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 初始化信号量 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_init</span><span class="params">(<span class="keyword">struct</span> semaphore* psema, <span class="type">uint8_t</span> value)</span> &#123;</span><br><span class="line">   psema-&gt;value = value;       <span class="comment">// 为信号量赋初值</span></span><br><span class="line">   list_init(&amp;psema-&gt;waiters); <span class="comment">//初始化信号量的等待队列</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 初始化锁plock */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_init</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span> &#123;</span><br><span class="line">   plock-&gt;holder = <span class="literal">NULL</span>;</span><br><span class="line">   plock-&gt;holder_repeat_nr = <span class="number">0</span>;</span><br><span class="line">   sema_init(&amp;plock-&gt;semaphore, <span class="number">1</span>);  <span class="comment">// 信号量初值为1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 信号量down操作 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_down</span><span class="params">(<span class="keyword">struct</span> semaphore* psema)</span> &#123;</span><br><span class="line"><span class="comment">/* 关中断来保证原子操作 */</span></span><br><span class="line">   <span class="class"><span class="keyword">enum</span> <span class="title">intr_status</span> <span class="title">old_status</span> =</span> intr_disable();</span><br><span class="line">   <span class="keyword">while</span>(psema-&gt;value == <span class="number">0</span>) &#123;	<span class="comment">// 若value为0,表示已经被别人持有</span></span><br><span class="line">      ASSERT(!elem_find(&amp;psema-&gt;waiters, &amp;running_thread()-&gt;general_tag));</span><br><span class="line">      <span class="comment">/* 当前线程不应该已在信号量的waiters队列中 */</span></span><br><span class="line">      <span class="keyword">if</span> (elem_find(&amp;psema-&gt;waiters, &amp;running_thread()-&gt;general_tag)) &#123;</span><br><span class="line">	 PANIC(<span class="string">&quot;sema_down: thread blocked has been in waiters_list\n&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line"><span class="comment">/* 若信号量的值等于0,则当前线程把自己加入该锁的等待队列,然后阻塞自己 */</span></span><br><span class="line">      list_append(&amp;psema-&gt;waiters, &amp;running_thread()-&gt;general_tag);</span><br><span class="line">      thread_block(TASK_BLOCKED);    <span class="comment">// 阻塞线程,直到被唤醒</span></span><br><span class="line">   &#125;</span><br><span class="line"><span class="comment">/* 若value为1或被唤醒后,会执行下面的代码,也就是获得了锁。*/</span></span><br><span class="line">   psema-&gt;value--;</span><br><span class="line">   ASSERT(psema-&gt;value == <span class="number">0</span>);</span><br><span class="line"><span class="comment">/* 恢复之前的中断状态 */</span></span><br><span class="line">   intr_set_status(old_status);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 信号量的up操作 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">sema_up</span><span class="params">(<span class="keyword">struct</span> semaphore* psema)</span> &#123;</span><br><span class="line"><span class="comment">/* 关中断,保证原子操作 */</span></span><br><span class="line">   <span class="class"><span class="keyword">enum</span> <span class="title">intr_status</span> <span class="title">old_status</span> =</span> intr_disable();</span><br><span class="line">   ASSERT(psema-&gt;value == <span class="number">0</span>);</span><br><span class="line">   <span class="keyword">if</span> (!list_empty(&amp;psema-&gt;waiters)) &#123;</span><br><span class="line">      <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span>* <span class="title">thread_blocked</span> =</span> elem2entry(<span class="keyword">struct</span> task_struct, general_tag, list_pop(&amp;psema-&gt;waiters));</span><br><span class="line">      thread_unblock(thread_blocked);</span><br><span class="line">   &#125;</span><br><span class="line">   psema-&gt;value++;</span><br><span class="line">   ASSERT(psema-&gt;value == <span class="number">1</span>);</span><br><span class="line"><span class="comment">/* 恢复之前的中断状态 */</span></span><br><span class="line">   intr_set_status(old_status);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 获取锁plock */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_acquire</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span> &#123;</span><br><span class="line"><span class="comment">/* 排除曾经自己已经持有锁但还未将其释放的情况。*/</span></span><br><span class="line">   <span class="keyword">if</span> (plock-&gt;holder != running_thread()) &#123;</span><br><span class="line">      sema_down(&amp;plock-&gt;semaphore);    <span class="comment">// 对信号量P操作,原子操作</span></span><br><span class="line">      plock-&gt;holder = running_thread();</span><br><span class="line">      ASSERT(plock-&gt;holder_repeat_nr == <span class="number">0</span>);</span><br><span class="line">      plock-&gt;holder_repeat_nr = <span class="number">1</span>;</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      plock-&gt;holder_repeat_nr++;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 释放锁plock */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">lock_release</span><span class="params">(<span class="keyword">struct</span> lock* plock)</span> &#123;</span><br><span class="line">   ASSERT(plock-&gt;holder == running_thread());</span><br><span class="line">   <span class="keyword">if</span> (plock-&gt;holder_repeat_nr &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      plock-&gt;holder_repeat_nr--;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   ASSERT(plock-&gt;holder_repeat_nr == <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">   plock-&gt;holder = <span class="literal">NULL</span>;	   <span class="comment">// 把锁的持有者置空放在V操作之前</span></span><br><span class="line">   plock-&gt;holder_repeat_nr = <span class="number">0</span>;</span><br><span class="line">   sema_up(&amp;plock-&gt;semaphore);	   <span class="comment">// 信号量的V操作,也是原子操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -338,43 +338,43 @@ P 操作（书中为减少操作 down）包括：</p>
 </ol>
 <p>信号量 up 操作：获取阻塞线程，将其唤醒，同时信号量+1。</p>
 <h3 id="102-用锁实现终端输出"><a class="markdownIt-Anchor" href="#102-用锁实现终端输出"></a> 10.2 用锁实现终端输出</h3>
-<p>tty 表示终端，我们登录系统后，就会在后台运行一个 tty 进程，相当于一个虚拟终端。虚拟终端通过向显卡的&quot;Start Address High Register&quot;和&quot;Start Address Low Register&quot;设置不同的 16 位地址实现显存分块显示，也就是实现多个虚拟终端。<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704465441463-ad62e273-dc32-456b-95cc-25e86398027e.png#averageHue=%23ebebeb&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=235&amp;id=uaca07d91&amp;originHeight=352&amp;originWidth=435&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=69634&amp;status=done&amp;style=none&amp;taskId=uea17da6e-9aca-47eb-9978-8eee9d18aed&amp;title=&amp;width=290" alt="image.png" /><br />
-这里要提一下，通过 ssh 登录的终端称为 pts，可以通过 who 命令输出 tty 还是 pts 来判断用户是否为远程登录。<br />
-本节没有实现终端，只是互斥访问一个终端。<br />
-device/console.h:</p>
+<p>tty 表示终端，我们登录系统后，就会在后台运行一个 tty 进程，相当于一个虚拟终端。虚拟终端通过向显卡的&quot;Start Address High Register&quot;和&quot;Start Address Low Register&quot;设置不同的 16 位地址实现显存分块显示，也就是实现多个虚拟终端。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704465441463-ad62e273-dc32-456b-95cc-25e86398027e.png" alt="" /></p>
+<p>这里要提一下，通过 ssh 登录的终端称为 pts，可以通过 who 命令输出 tty 还是 pts 来判断用户是否为远程登录。</p>
+<p>本节没有实现终端，只是互斥访问一个终端。</p>
+<p>device/console.h:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __DEVICE_CONSOLE_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __DEVICE_CONSOLE_H</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_init</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">console_acquire</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">console_release</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_str</span><span class="params">(<span class="type">char</span>* str)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_char</span><span class="params">(<span class="type">uint8_t</span> char_asci)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_int</span><span class="params">(<span class="type">uint32_t</span> num)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>device/console.c:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;console.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;print.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sync.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">lock</span> <span class="title">console_lock</span>;</span>    <span class="comment">// 控制台锁</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 初始化终端 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_init</span><span class="params">()</span> &#123;</span><br><span class="line">    lock_init(&amp;console_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 获取终端 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_acquire</span><span class="params">()</span> &#123;</span><br><span class="line">    lock_acquire(&amp;console_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 释放终端 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_release</span><span class="params">()</span> &#123;</span><br><span class="line">    lock_release(&amp;console_lock);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 终端中输出字符串 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_str</span><span class="params">(<span class="type">char</span>* str)</span> &#123;</span><br><span class="line">    console_acquire();</span><br><span class="line">    put_str(str);</span><br><span class="line">    console_release();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 终端中输出字符 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_char</span><span class="params">(<span class="type">uint8_t</span> char_asci)</span> &#123;</span><br><span class="line">    console_acquire();</span><br><span class="line">    put_char(char_asci);</span><br><span class="line">    console_release();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 终端中输出16进制整数 */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">console_put_int</span><span class="params">(<span class="type">uint32_t</span> num)</span> &#123;</span><br><span class="line">    console_acquire();</span><br><span class="line">    put_int(num);</span><br><span class="line">    console_release();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>然后在<strong>init.c</strong>中添加上<code>console_init();</code>，将<strong>main.c</strong>的 while 循环里的<code>put_str</code>函数改为<code>console_put_str</code>，运行测试：<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704467513432-966cbea9-72f1-4051-866d-b6a33f0bce38.png#averageHue=%23343434&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=325&amp;id=u6bb870f7&amp;originHeight=488&amp;originWidth=714&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=20080&amp;status=done&amp;style=none&amp;taskId=u235acaf7-ff07-4146-8206-a1d61b48e57&amp;title=&amp;width=476" alt="image.png" /></p>
+<p>然后在<strong>init.c</strong>中添加上<code>console_init();</code>，将<strong>main.c</strong>的 while 循环里的<code>put_str</code>函数改为<code>console_put_str</code>，运行测试：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704467513432-966cbea9-72f1-4051-866d-b6a33f0bce38.png" alt="" /></p>
 <h3 id="103-从键盘获取输入"><a class="markdownIt-Anchor" href="#103-从键盘获取输入"></a> 10.3 从键盘获取输入</h3>
 <h4 id="1031-键盘输入原理简介"><a class="markdownIt-Anchor" href="#1031-键盘输入原理简介"></a> 10.3.1 键盘输入原理简介</h4>
-<p>键盘是个独立的设备，其内部有个叫做键盘编码器的芯片，通常是 Intel 8048 或兼容芯片，每当键盘发生按键操作，键盘编码器就向键盘控制器报告。<br />
-键盘控制器在主机内部的主板上，通常是 Intel 8042 或兼容芯片，用于接收来自键盘编码器的按键信息并解码保存，然后向中断代理发中断，之后处理器执行相应的中断处理程序读入 8042 处理保存过的按键信息。<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704508494561-8c5029a8-2917-431c-b278-b8993c982523.png#averageHue=%23e7e7e7&amp;clientId=u589813db-0770-4&amp;from=paste&amp;id=u2c45cc01&amp;originHeight=375&amp;originWidth=515&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=74254&amp;status=done&amp;style=none&amp;taskId=u0376c7cb-fa12-404c-a8b2-17006a93423&amp;title=" alt="image.png" /><br />
-键盘上所有按键都有自己的编码，每个按键都会分配唯一的数字，这个记录“按键-数值”的编码映射表称为键盘扫描码。<br />
-同时，按键的状态有按下和弹起，所以一个键有两个编码，按键按下的编码叫通码（makecode），弹起的叫断码（breakcode）。</p>
+<p>键盘是个独立的设备，其内部有个叫做键盘编码器的芯片，通常是 Intel 8048 或兼容芯片，每当键盘发生按键操作，键盘编码器就向键盘控制器报告。</p>
+<p>键盘控制器在主机内部的主板上，通常是 Intel 8042 或兼容芯片，用于接收来自键盘编码器的按键信息并解码保存，然后向中断代理发中断，之后处理器执行相应的中断处理程序读入 8042 处理保存过的按键信息。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704508494561-8c5029a8-2917-431c-b278-b8993c982523.png" alt="" /></p>
+<p>键盘上所有按键都有自己的编码，每个按键都会分配唯一的数字，这个记录“按键-数值”的编码映射表称为键盘扫描码。</p>
+<p>同时，按键的状态有按下和弹起，所以一个键有两个编码，按键按下的编码叫通码（makecode），弹起的叫断码（breakcode）。</p>
 <h4 id="1032-键盘扫描码"><a class="markdownIt-Anchor" href="#1032-键盘扫描码"></a> 10.3.2 键盘扫描码</h4>
-<p>根据不同的编码方案，键盘扫描码有三套：scan code set 1、scan code set 2、scan code set 3.<br />
-第一套扫描码是 XT 键盘所用的扫描码，这是最早的键盘编码：<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511088566-04decf26-926c-4bc4-8933-965c4bd3684d.png#averageHue=%23bababa&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=164&amp;id=ucd6f68be&amp;originHeight=246&amp;originWidth=774&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=226037&amp;status=done&amp;style=none&amp;taskId=u111dcfc8-0b59-4435-a22b-99a276fbd39&amp;title=&amp;width=516" alt="image.png" /><br />
-第二套是 AT 键盘的扫描码，也是目前常用的扫描码：<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511149374-7a74702e-184f-4218-8cb9-58395216d31c.png#averageHue=%23ababab&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=162&amp;id=u86dfb027&amp;originHeight=243&amp;originWidth=799&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=252390&amp;status=done&amp;style=none&amp;taskId=u3f039d60-04c7-4d87-a596-8c081dd1276&amp;title=&amp;width=532.6666666666666" alt="image.png" /><br />
-第三套是 IBM PS/2 系列计算机使用的键盘扫描码，不过这种键盘已经很少看到了：<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511215698-893ef11b-5e43-4009-8b90-ac6ada5b0ab5.png#averageHue=%238a8a8a&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=255&amp;id=ube1618c7&amp;originHeight=382&amp;originWidth=1038&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=354556&amp;status=done&amp;style=none&amp;taskId=ufc622b8b-3088-44e6-a891-522f4ddb5dd&amp;title=&amp;width=692" alt="image.png" /><br />
-无论使用哪套扫描码，为了兼容，在 8042 中都会转换成第一套扫描码来使用。<br />
-大多数情况下第一套扫描码中的通码和断码都是 1 字节大小，且<strong>断码= 0x80+通码</strong>。<br />
-第二套扫描码一般通码是 1 字节大小，断码是在通码前再加 1 字节的 0xf0，共 2 字节。<br />
-有些键是 0xe0 作为前缀，不为 1 字节，这类是后来扩展进来的按键。<br />
-Intel 8042 的输出缓冲区寄存器只有 8 位宽度，所以每收到 1 字节扫描码就会向中断代理发送中断信号。<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704530367538-80e6071e-eed4-4e19-aa0f-b15d9a4f7d92.png#averageHue=%23d7d7d7&amp;clientId=u589813db-0770-4&amp;from=paste&amp;id=uc98f1793&amp;originHeight=400&amp;originWidth=430&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=187472&amp;status=done&amp;style=none&amp;taskId=u6545661c-b299-4746-8670-1af458e2f0e&amp;title=" alt="image.png" /><br />
-这里放了两套扫描码方便对比和“假设”。</p>
+<p>根据不同的编码方案，键盘扫描码有三套：scan code set 1、scan code set 2、scan code set 3.</p>
+<p>第一套扫描码是 XT 键盘所用的扫描码，这是最早的键盘编码：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511088566-04decf26-926c-4bc4-8933-965c4bd3684d.png" alt="" /></p>
+<p>第二套是 AT 键盘的扫描码，也是目前常用的扫描码：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511149374-7a74702e-184f-4218-8cb9-58395216d31c.png" alt="" /></p>
+<p>第三套是 IBM PS/2 系列计算机使用的键盘扫描码，不过这种键盘已经很少看到了：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704511215698-893ef11b-5e43-4009-8b90-ac6ada5b0ab5.png" alt="" /></p>
+<p>无论使用哪套扫描码，为了兼容，在 8042 中都会转换成第一套扫描码来使用。</p>
+<p>大多数情况下第一套扫描码中的通码和断码都是 1 字节大小，且<strong>断码= 0x80+通码</strong>。</p>
+<p>第二套扫描码一般通码是 1 字节大小，断码是在通码前再加 1 字节的 0xf0，共 2 字节。</p>
+<p>有些键是 0xe0 作为前缀，不为 1 字节，这类是后来扩展进来的按键。</p>
+<p>Intel 8042 的输出缓冲区寄存器只有 8 位宽度，所以每收到 1 字节扫描码就会向中断代理发送中断信号。<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704530367538-80e6071e-eed4-4e19-aa0f-b15d9a4f7d92.png" alt="" /></p>
+<p>这里放了两套扫描码方便对比和“假设”。</p>
 <h4 id="1033-8042-简介"><a class="markdownIt-Anchor" href="#1033-8042-简介"></a> 10.3.3 8042 简介</h4>
-<p>和键盘相关的芯片只有 8042 和 8048，它们都是独立的处理器，都有自己的寄存器和内存。<br />
-Intel 8042 芯片或兼容芯片被集成在主板上的南桥芯片中，它是键盘控制器，也就是键盘的 IO 接口，<br />
-因此它是 8048 的代理。键盘编码器 8048 芯片通过 PS/2、USB 等接口与 8042 通信，处理器通过接口与 8042 通信。<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704531564092-f8f908c1-b069-4372-8856-9d5cdb082b23.png#averageHue=%23e8e8e8&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=180&amp;id=u538cadd5&amp;originHeight=270&amp;originWidth=1401&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=137913&amp;status=done&amp;style=none&amp;taskId=u657634b1-d09b-43d2-8bb3-61e755ea7a6&amp;title=&amp;width=934" alt="image.png" /><br />
-8042 寄存器如上表所示，可以实现两个功能：</p>
+<p>和键盘相关的芯片只有 8042 和 8048，它们都是独立的处理器，都有自己的寄存器和内存。</p>
+<p>Intel 8042 芯片或兼容芯片被集成在主板上的南桥芯片中，它是键盘控制器，也就是键盘的 IO 接口，</p>
+<p>因此它是 8048 的代理。键盘编码器 8048 芯片通过 PS/2、USB 等接口与 8042 通信，处理器通过接口与 8042 通信。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704531564092-f8f908c1-b069-4372-8856-9d5cdb082b23.png" alt="" /></p>
+<p>8042 寄存器如上表所示，可以实现两个功能：</p>
 <ul>
 <li>当需要把数据从处理器发到 8042 时 （数据传送尚未发生时）， 0x60 端口的作用是输入缓冲区，此时应该用 out 指令写入 0x60 端口。</li>
 <li>当数据己从 8048 发到 8042 时， 0x60 端口的作用是输出缓冲区，此时应该用 in 指令从 8042 的 0x60 端口（输出缓冲区寄存器〉读取 8048 的输出结果。</li>
@@ -402,14 +402,14 @@ Intel 8042 芯片或兼容芯片被集成在主板上的南桥芯片中，它是
 <li>位 7：保留位，默认为 0 。</li>
 </ol>
 <h4 id="1034-测试键盘中断处理程序"><a class="markdownIt-Anchor" href="#1034-测试键盘中断处理程序"></a> 10.3.4 测试键盘中断处理程序</h4>
-<p>本节完成一个键盘中断处理程序。<br />
-首先添加足够的中断向量号，在 kernel/kernel.S 中添加：</p>
+<p>本节完成一个键盘中断处理程序。</p>
+<p>首先添加足够的中断向量号，在 kernel/kernel.S 中添加：</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">VECTOR <span class="number">0</span>x20, ZERO	;时钟中断对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x21, ZERO	;键盘中断对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x22, ZERO	;级联用的</span><br><span class="line">VECTOR <span class="number">0</span>x23, ZERO	;串口<span class="number">2</span>对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x24, ZERO	;串口<span class="number">1</span>对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x25, ZERO	;并口<span class="number">2</span>对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x26, ZERO	;软盘对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x27, ZERO	;并口<span class="number">1</span>对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x28, ZERO	;实时时钟对应的入口</span><br><span class="line">VECTOR <span class="number">0</span>x29, ZERO	;重定向</span><br><span class="line">VECTOR <span class="number">0</span>x2a, ZERO	;保留</span><br><span class="line">VECTOR <span class="number">0</span>x2b, ZERO	;保留</span><br><span class="line">VECTOR <span class="number">0</span>x2c, ZERO	;ps/<span class="number">2</span>鼠标</span><br><span class="line">VECTOR <span class="number">0</span>x2d, ZERO	;fpu浮点单元异常</span><br><span class="line">VECTOR <span class="number">0</span>x2e, ZERO	;硬盘</span><br><span class="line">VECTOR <span class="number">0</span>x2f, ZERO	;保留</span><br></pre></td></tr></table></figure>
-<p>这 16 个中断向量号正好对应两个 8259A 芯片的 16 个引脚，有关 8259A 的介绍见<a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2022/12/25/yuque/gf0t07d01kr4oe9r/">《操作系统真象还原》：第七章 中断 | Songqian Li’s Blog</a>。<br />
-添加完中断向量号后，需要在中断描述符表中注册中断入口程序。我们需要先更改<code>IDT_DESC_CNT</code>的值即目前支持的总中断数为<code>0x30</code>，然后开启 8259A 对键盘中断的屏蔽：</p>
+<p>这 16 个中断向量号正好对应两个 8259A 芯片的 16 个引脚，有关 8259A 的介绍见<a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2022/12/25/yuque/gf0t07d01kr4oe9r/">《操作系统真象还原》：第七章 中断 | Songqian Li’s Blog</a>。</p>
+<p>添加完中断向量号后，需要在中断描述符表中注册中断入口程序。我们需要先更改<code>IDT_DESC_CNT</code>的值即目前支持的总中断数为<code>0x30</code>，然后开启 8259A 对键盘中断的屏蔽：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">outb(PIC_M_DATA, <span class="number">0xfc</span>);        <span class="comment">//OCW1: 1111 1100</span></span><br></pre></td></tr></table></figure>
-<p>同时在 init.c 中加入<code>keyboard_init()</code>函数，为了显示直观，可以注释掉在 main.c 中的输出代码。最终运行得到：<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704555279598-ebbd8667-dd94-4c22-b962-7d6f847c4b42.png#averageHue=%2320201f&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=321&amp;id=uebfe10d5&amp;originHeight=482&amp;originWidth=718&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=18729&amp;status=done&amp;style=none&amp;taskId=ua7332006-0f4c-463c-97ca-2489124f8bc&amp;title=&amp;width=478.6666666666667" alt="image.png" /></p>
+<p>同时在 init.c 中加入<code>keyboard_init()</code>函数，为了显示直观，可以注释掉在 main.c 中的输出代码。最终运行得到：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704555279598-ebbd8667-dd94-4c22-b962-7d6f847c4b42.png" alt="" /></p>
 <h3 id="104-编写键盘驱动"><a class="markdownIt-Anchor" href="#104-编写键盘驱动"></a> 10.4 编写键盘驱动</h3>
 <p>本节将编写键盘中断处理程序。</p>
 <h4 id="1041-转义字符介绍"><a class="markdownIt-Anchor" href="#1041-转义字符介绍"></a> 10.4.1 转义字符介绍</h4>
@@ -433,18 +433,19 @@ Intel 8042 芯片或兼容芯片被集成在主板上的南桥芯片中，它是
 <h4 id="1051-生产者与消费者问题简述"><a class="markdownIt-Anchor" href="#1051-生产者与消费者问题简述"></a> 10.5.1 生产者与消费者问题简述</h4>
 <p>略</p>
 <h4 id="1052-环形缓冲区实现"><a class="markdownIt-Anchor" href="#1052-环形缓冲区实现"></a> 10.5.2 环形缓冲区实现</h4>
-<p>内存中的缓冲区就是用来暂存数据的一片内存区域，内存是按地址来访问的，因此内存缓冲区实际上是线性存储。但是我们可以设计出逻辑上非线性的内存缓冲区，通过合理的操作方式可以构造出任何我们想要的数据结构，故这里引入环形缓冲区的概念。<br />
-环形缓冲区本质上依然是线性缓冲区，但其使用方式像环一样，没有固定的起始地址和终止地址，环内任何地址都可以作为起始和结束。对于缓冲区访问这里提供两个指针，一个头指针，用于往缓冲区写数据，也可称为写指针；一个尾指针，用户往缓冲区读数据，也可称为读指针。<br />
-<img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704613691547-cd283140-8099-4233-8ff6-6295741742ca.png#averageHue=%23eeeeee&amp;clientId=u589813db-0770-4&amp;from=paste&amp;height=197&amp;id=u0ca96dc2&amp;originHeight=295&amp;originWidth=402&amp;originalType=binary%E2%88%B6=1.5&amp;rotation=0&amp;showTitle=false&amp;size=57331&amp;status=done&amp;style=none&amp;taskId=u25e844d0-c406-4da7-809d-e86bf72eed1&amp;title=&amp;width=268" alt="image.png" /><br />
-我们在 device 目录下实现 ioqueue<br />
-ioqueue.h：</p>
+<p>内存中的缓冲区就是用来暂存数据的一片内存区域，内存是按地址来访问的，因此内存缓冲区实际上是线性存储。但是我们可以设计出逻辑上非线性的内存缓冲区，通过合理的操作方式可以构造出任何我们想要的数据结构，故这里引入环形缓冲区的概念。</p>
+<p>环形缓冲区本质上依然是线性缓冲区，但其使用方式像环一样，没有固定的起始地址和终止地址，环内任何地址都可以作为起始和结束。对于缓冲区访问这里提供两个指针，一个头指针，用于往缓冲区写数据，也可称为写指针；一个尾指针，用户往缓冲区读数据，也可称为读指针。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2024/png/1249968/1704613691547-cd283140-8099-4233-8ff6-6295741742ca.png" alt="" /></p>
+<p>我们在 device 目录下实现 ioqueue</p>
+<p>ioqueue.h：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __DEVICE_IOQUEUE_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> __DEVICE_IOQUEUE_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stdint.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;thread.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;sync.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> bufsize 64</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 环形队列 */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ioqueue</span> &#123;</span></span><br><span class="line"><span class="comment">// 生产者消费者问题</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">lock</span> <span class="title">lock</span>;</span></span><br><span class="line">    <span class="comment">/* 生产者,缓冲区不满时就继续往里面放数据,</span></span><br><span class="line"><span class="comment">     * 否则就睡眠,此项记录哪个生产者在此缓冲区上睡眠。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span>* <span class="title">producer</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 消费者,缓冲区不空时就继续从往里面拿数据,</span></span><br><span class="line"><span class="comment">     * 否则就睡眠,此项记录哪个消费者在此缓冲区上睡眠。*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span>* <span class="title">consumer</span>;</span></span><br><span class="line">    <span class="type">char</span> buf[bufsize];			    <span class="comment">// 缓冲区大小</span></span><br><span class="line">    <span class="type">int32_t</span> head;			    <span class="comment">// 队首,数据往队首处写入</span></span><br><span class="line">    <span class="type">int32_t</span> tail;			    <span class="comment">// 队尾,数据从队尾处读出</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">ioqueue_init</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">ioq_full</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span>;</span><br><span class="line"><span class="type">bool</span> <span class="title function_">ioq_empty</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span>;</span><br><span class="line"><span class="type">char</span> <span class="title function_">ioq_getchar</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span>;</span><br><span class="line"><span class="type">void</span> <span class="title function_">ioq_putchar</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq, <span class="type">char</span> byte)</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-<p>这里定义环形缓冲区有六个成员变量<br />
-ioqueue.c:</p>
+<p>这里定义环形缓冲区有六个成员变量</p>
+<p>ioqueue.c:</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ioqueue.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;interrupt.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;global.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;debug.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* 初始化io队列ioq */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ioqueue_init</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span> &#123;</span><br><span class="line">    lock_init(&amp;ioq-&gt;lock);     <span class="comment">// 初始化io队列的锁</span></span><br><span class="line">    ioq-&gt;producer = ioq-&gt;consumer = <span class="literal">NULL</span>;  <span class="comment">// 生产者和消费者置空</span></span><br><span class="line">    ioq-&gt;head = ioq-&gt;tail = <span class="number">0</span>; <span class="comment">// 队列的首尾指针指向缓冲区数组第0个位置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 返回pos在缓冲区中的下一个位置值 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">int32_t</span> <span class="title function_">next_pos</span><span class="params">(<span class="type">int32_t</span> pos)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (pos + <span class="number">1</span>) % bufsize;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 判断队列是否已满 */</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">ioq_full</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span> &#123;</span><br><span class="line">    ASSERT(intr_get_status() == INTR_OFF);</span><br><span class="line">    <span class="keyword">return</span> next_pos(ioq-&gt;head) == ioq-&gt;tail;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 判断队列是否已空 */</span></span><br><span class="line"><span class="type">bool</span> <span class="title function_">ioq_empty</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span> &#123;</span><br><span class="line">    ASSERT(intr_get_status() == INTR_OFF);</span><br><span class="line">    <span class="keyword">return</span> ioq-&gt;head == ioq-&gt;tail;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 使当前生产者或消费者在此缓冲区上等待 */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">ioq_wait</span><span class="params">(<span class="keyword">struct</span> task_struct** waiter)</span> &#123;</span><br><span class="line">    ASSERT(*waiter == <span class="literal">NULL</span> &amp;&amp; waiter != <span class="literal">NULL</span>);</span><br><span class="line">    *waiter = running_thread();</span><br><span class="line">    thread_block(TASK_BLOCKED);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 唤醒waiter */</span></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> <span class="title function_">wakeup</span><span class="params">(<span class="keyword">struct</span> task_struct** waiter)</span> &#123;</span><br><span class="line">    ASSERT(*waiter != <span class="literal">NULL</span>);</span><br><span class="line">    thread_unblock(*waiter);</span><br><span class="line">    *waiter = <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 消费者从ioq队列中获取一个字符 */</span></span><br><span class="line"><span class="type">char</span> <span class="title function_">ioq_getchar</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq)</span> &#123;</span><br><span class="line">    ASSERT(intr_get_status() == INTR_OFF);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 若缓冲区(队列)为空,把消费者ioq-&gt;consumer记为当前线程自己,</span></span><br><span class="line"><span class="comment"> * 目的是将来生产者往缓冲区里装商品后,生产者知道唤醒哪个消费者,</span></span><br><span class="line"><span class="comment"> * 也就是唤醒当前线程自己*/</span></span><br><span class="line">    <span class="keyword">while</span> (ioq_empty(ioq)) &#123;</span><br><span class="line">        lock_acquire(&amp;ioq-&gt;lock);</span><br><span class="line">        ioq_wait(&amp;ioq-&gt;consumer);</span><br><span class="line">        lock_release(&amp;ioq-&gt;lock);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> byte = ioq-&gt;buf[ioq-&gt;tail];	  <span class="comment">// 从缓冲区中取出</span></span><br><span class="line">    ioq-&gt;tail = next_pos(ioq-&gt;tail);	  <span class="comment">// 把读游标移到下一位置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioq-&gt;producer != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        wakeup(&amp;ioq-&gt;producer);		  <span class="comment">// 唤醒生产者</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> byte;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 生产者往ioq队列中写入一个字符byte */</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">ioq_putchar</span><span class="params">(<span class="keyword">struct</span> ioqueue* ioq, <span class="type">char</span> byte)</span> &#123;</span><br><span class="line">    ASSERT(intr_get_status() == INTR_OFF);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 若缓冲区(队列)已经满了,把生产者ioq-&gt;producer记为自己,</span></span><br><span class="line"><span class="comment"> * 为的是当缓冲区里的东西被消费者取完后让消费者知道唤醒哪个生产者,</span></span><br><span class="line"><span class="comment"> * 也就是唤醒当前线程自己*/</span></span><br><span class="line">    <span class="keyword">while</span> (ioq_full(ioq)) &#123;</span><br><span class="line">        lock_acquire(&amp;ioq-&gt;lock);</span><br><span class="line">        ioq_wait(&amp;ioq-&gt;producer);</span><br><span class="line">        lock_release(&amp;ioq-&gt;lock);</span><br><span class="line">    &#125;</span><br><span class="line">    ioq-&gt;buf[ioq-&gt;head] = byte;      <span class="comment">// 把字节放入缓冲区中</span></span><br><span class="line">    ioq-&gt;head = next_pos(ioq-&gt;head); <span class="comment">// 把写游标移到下一位置</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (ioq-&gt;consumer != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        wakeup(&amp;ioq-&gt;consumer);          <span class="comment">// 唤醒消费者</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="1053-添加键盘输入缓冲区"><a class="markdownIt-Anchor" href="#1053-添加键盘输入缓冲区"></a> 10.5.3 添加键盘输入缓冲区</h4>
-<p>修改 keyboard.c 中<code>intr_keyboard_handler()</code>函数的 if(cur_char)语句内容：<br />
-并且在<code>keyboard_init()</code>的 register_handler 前对 ioqueue 初始化：</p>
+<p>修改 keyboard.c 中<code>intr_keyboard_handler()</code>函数的 if(cur_char)语句内容：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p>并且在<code>keyboard_init()</code>的 register_handler 前对 ioqueue 初始化：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;ioqueue.h&quot;</span></span></span><br><span class="line">...</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ioqueue</span> <span class="title">kbd_buf</span>;</span>	   <span class="comment">// 定义键盘缓冲区</span></span><br><span class="line">...</span><br><span class="line">ioqueue_init(&amp;kbd_buf);</span><br></pre></td></tr></table></figure>
 <h4 id="1054-生产者与消费者测试"><a class="markdownIt-Anchor" href="#1054-生产者与消费者测试"></a> 10.5.4 生产者与消费者测试</h4>
 <p>在 keyboard.h 中添加 kbd_buf 的外部声明：</p>
@@ -469,6 +470,10 @@ ioqueue.c:</p>
 					
 	<span>
 		<a id="totop-post-page">返回顶部</a>
+		
+			<a href="/2025/02/11/yuque/ucyk9sllp182634c/" title="泊松过程推导" rel="prev">
+				&laquo;上一篇
+			</a>
 		
 		
 			<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" title="《操作系统真象还原》：第九章 线程" rel="next">
@@ -511,76 +516,6 @@ ioqueue.c:</p>
 							<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" title="《操作系统真象还原》：第九章 线程">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第九章 线程"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">
-								GPU虚拟化			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 26日, 2023				
-							</p>
-							<p class="relate-post-content">
-								
- 用户层虚拟化
- 本地 API 拦截和 API formwarding
-
-
-在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
-让 APP 调用这个 libwrapper。如何做？
-libwrap...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="GPU虚拟化"/>
-							</a>
-						</div>
-					</li>												
-			
-					<li>
-						<div class="relate-post-text">
-							<a class="relate-post-title" href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">
-								硬件虚拟化			
-							</a>
-							<p class="relate-post-date">
-								<i class="fa fa-calendar"></i>
-								六月 23日, 2023				
-							</p>
-							<p class="relate-post-content">
-								 硬件虚拟化介绍
- 硬件虚拟化要做的事情
- 体系结构支持
-
-
-
-体系结构
-实现功能
-作用
-
-
-
-
-模式切换
-Host CPU &lt;-&gt; Guest CPU 切换
-CPU 资源隔离
-
-
-二阶段地址转换
-GVA-&gt; GPA...
-							</p>
-						</div>
-
-						<div class="relate-post-cover">
-							<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">				
-								
-								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="硬件虚拟化"/>
 							</a>
 						</div>
 					</li>												
@@ -768,6 +703,55 @@ IO 接口功能：
 							<a href="/2022/09/25/yuque/fvxk1z/" title="《操作系统真象还原》：第三章 完善MBR——I/O接口">				
 								
 								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——I/O接口"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">
+								《操作系统真象还原》：第三章 完善MBR——CPU的实模式			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								 针对汇编
+
+几个知识点：
+
+第 1 行和第 4 行的 mov 操作，机器码第 1 个宇节都是B8，而另外第 2、3 行同样是 mov 指令，机器码却有天壤之别，似乎找不到共性。原因是机器码是由很多部分组成的，比如指令前缀、主操作码字...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/09/11/yuque/xa16pm/" title="《操作系统真象还原》：第三章 完善MBR——CPU的实模式">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第三章 完善MBR——CPU的实模式"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第二章 编写 MBR">
+								《操作系统真象还原》：第二章 编写 MBR			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 23日, 2022				
+							</p>
+							<p class="relate-post-content">
+								 先了解 CPU 的两种工作模式：实模式和保护模式
+实模式（英语：Real mode）是 Intel 80286 和之后的 x86 兼容 CPU 的操作模式。实模式的特性是一个 20 比特的区段存储器地址空间（意思为只有 1MB 的存...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/05/23/yuque/bfwmot/" title="《操作系统真象还原》：第二章 编写 MBR">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第二章 编写 MBR"/>
 							</a>
 						</div>
 					</li>												
@@ -988,7 +972,7 @@ IO 接口功能：
 		<p>
 		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
 			 
-				&copy;2017 - 2024, content by SongqianLi. All Rights Reserved.
+				&copy;2017 - 2025, content by SongqianLi. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.

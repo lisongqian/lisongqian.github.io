@@ -1,0 +1,1077 @@
+<!--
+	作者：Sariay
+	时间：2018-08-26
+	描述：There may be a bug, but don't worry, Qiling(器灵) says that it can work normally! aha!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      泊松过程推导 | Songqian Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Songqian Li">
+  <meta name="keywords" content="" />
+  <meta name="description" content="去历史上留点故事" />
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+<!--  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900">-->
+  <link rel="stylesheet" href="https://fonts.font.im/css?family=Playfair+Display:400,700,900">
+  <!-- css -->
+  
+<link rel="stylesheet" href="/css/Annie.css">
+
+  
+  <!-- jquery -->
+	
+<script src="/plugin/jquery/jquery.min.js"></script>
+
+
+<script>
+    const CONFIG_BGIMAGE = {
+      mode: 'normal',
+      normalSrc: '/img/header-bg.jpg',
+      randomYouMax: 110,
+      randomYouSrc: 'https://sariay.github.io/Random-img/',
+	  randomOtherSrc: 'https://api.berryapi.net/?service=App.Bing.Images&day=-0',
+	  preloaderEnable: false
+    }
+	
+    const CONFIG_LEACLOUD_COUNT = {
+      enable: false,
+	  appId: 'L0W62cCkHAgT0VsIX6WztMhp-gzGzoHsz',
+	  appKey: 'n1lX9eWfotXltQ6Cab3ngGfk',
+	  serverURLs: 'https://l0w62cck.lc-cn-n1-shared.com' || ' '
+    }
+  </script>
+  <!-- site analysis -->
+  
+
+	<!-- site-analysis -->
+	
+	<script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "//hm.baidu.com/hm.js?b702b9b0aa72233c214dcbade17a5a27";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+
+	
+	
+	
+	
+ 
+    <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 6.3.0"></head>
+	<body>
+		<!-- Preloader -->
+
+
+<!-- header -->
+<header class="fixbackground">
+		<div class="header-wrapper">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="mask">
+	<div class="banner-frame border-image" style="border-image-source: url('/img/mask.png');"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="align">
+						<h1 class="h1 light">Songqian Li&#39;s Blog</h1>
+						<div class="empty-space col-xs-b15"></div>
+						<div class="sa light large">去历史上留点故事</div>
+						<div class="empty-space col-xs-b30"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- motto -->
+		<div class="h-body">	
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more" class="scroll-down">
+				<span class="icon-anchor1 animation-scroll-down"></span>
+			</a>
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><span>0.0%</span></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			「泊松过程推导」
+		
+	</p>
+
+	
+	
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<!--<span class="logo"> 
+			<img src="/img/logo.png">
+		</span> -->
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	
+	<div class="nav-body">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	
+	<div class="nav-footer">
+		<ul id="global-social">
+	
+		<li>
+			<a href="//github.com/lisongqian" target="_blank">
+				<span class="icon-github"></span>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<span class="icon-rss"></span>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+<script src="/plugin/toc/katelog.min.js"></script>
+
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+		<div class="article-title">
+			
+	<a href="/2025/02/11/yuque/ucyk9sllp182634c/" itemprop="url">
+		泊松过程推导
+	</a>
+
+		</div>
+
+		<div class="article-meta">
+			<span>
+				<i class="icon-calendar1"></i>
+				
+				
+
+
+
+
+	更新于
+
+	<a href="/2025/02/11/yuque/ucyk9sllp182634c/" itemprop="url">
+		<time datetime="2025-02-11T08:22:02.000Z" itemprop="dateUpdated">
+	  		2025-02-11
+	  </time>
+	</a> 
+
+
+
+			</span>
+			<span>
+				
+	<i class="icon-price-tags"></i>
+	
+		<a href="/tags/Thought/" class=" ">
+			Thought
+		</a>
+	
+		
+			</span>
+			
+			
+
+
+
+		</div>
+
+		<div class="article-content" id="article-content">
+			<p>本文将通过计数过程推导 t 时刻事件发生 k 次的概率公式。</p>
+<h2 id="i-计数过程"><a class="markdownIt-Anchor" href="#i-计数过程"></a> I. 计数过程</h2>
+<p>有这样一段连续时间，事件每经过$ T <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>时间间隔发生一次，这里用</mtext></mrow><annotation encoding="application/x-tex">时间间隔发生一次，这里用</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">隔</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">这</span><span class="mord cjk_fallback">里</span><span class="mord cjk_fallback">用</span></span></span></span> N([s,t]) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>代表从</mtext></mrow><annotation encoding="application/x-tex">代表从</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">代</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">从</span></span></span></span> s <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>到</mtext></mrow><annotation encoding="application/x-tex">到</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">到</span></span></span></span> t <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>时间内事件发生的次数，那么在简单模型下，事件的发生次数</mtext></mrow><annotation encoding="application/x-tex">时间内事件发生的次数，那么在简单模型下，事件的发生次数</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord cjk_fallback">在</span><span class="mord cjk_fallback">简</span><span class="mord cjk_fallback">单</span><span class="mord cjk_fallback">模</span><span class="mord cjk_fallback">型</span><span class="mord cjk_fallback">下</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span></span></span></span> N([s,t])= \frac{t-s}{T} $。</p>
+<p>众所周知，在实际生活中事件发生的间隔不会是相同的，例如网站中的用户登录事件、路由器中的数据包到达事件等。所以这里我们把发生事件的间隔定义为$ T_k <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，表示第</mtext></mrow><annotation encoding="application/x-tex">，表示第</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">示</span><span class="mord cjk_fallback">第</span></span></span></span> k <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>个事件发生后，经过</mtext></mrow><annotation encoding="application/x-tex">个事件发生后，经过</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">经</span><span class="mord cjk_fallback">过</span></span></span></span> T_k <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>个时间间隔第</mtext></mrow><annotation encoding="application/x-tex">个时间间隔第</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">隔</span><span class="mord cjk_fallback">第</span></span></span></span> k+1 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>个事件发生，这时</mtext></mrow><annotation encoding="application/x-tex">个事件发生，这时</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">这</span><span class="mord cjk_fallback">时</span></span></span></span> T_k <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>为一个随机变量，此时事件的发生次数可以表示为</mtext></mrow><annotation encoding="application/x-tex">为一个随机变量，此时事件的发生次数可以表示为</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">为</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">随</span><span class="mord cjk_fallback">机</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">此</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">以</span><span class="mord cjk_fallback">表</span><span class="mord cjk_fallback">示</span><span class="mord cjk_fallback">为</span></span></span></span> N(t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，代表</mtext></mrow><annotation encoding="application/x-tex">，代表</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">代</span><span class="mord cjk_fallback">表</span></span></span></span> [0,t] $时间内发生事件的次数，这个随机过程就称为计数过程。</p>
+<h2 id="ii-计数过程的条件"><a class="markdownIt-Anchor" href="#ii-计数过程的条件"></a> II. 计数过程的条件</h2>
+<p>由定义可知，$ N(t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>代表</mtext></mrow><annotation encoding="application/x-tex">代表</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">代</span><span class="mord cjk_fallback">表</span></span></span></span> [0,t] <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>时间内发生事件的次数，那么</mtext></mrow><annotation encoding="application/x-tex">时间内发生事件的次数，那么</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span></span></span></span> N(0)=0 $。</p>
+<p>计数过程还需满足：</p>
+<ol>
+<li>独立增量过程。独立增量过程表示事件发生的前一过程对后一过程没有影响，$ \forall t_1&lt;t_2&lt;t_3&lt;t_4,\quad X(t_4)-X(t_3)\perp !!! \perp X(t_2)-X(t_1) $</li>
+<li>平稳增量过程。$ X(t)-X(s) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>是一个离散的随机变量，该变量的统计分布只依赖与事件长度，与具体的位置无关，</mtext></mrow><annotation encoding="application/x-tex">是一个离散的随机变量，该变量的统计分布只依赖与事件长度，与具体的位置无关，</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">个</span><span class="mord cjk_fallback">离</span><span class="mord cjk_fallback">散</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">随</span><span class="mord cjk_fallback">机</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">该</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">统</span><span class="mord cjk_fallback">计</span><span class="mord cjk_fallback">分</span><span class="mord cjk_fallback">布</span><span class="mord cjk_fallback">只</span><span class="mord cjk_fallback">依</span><span class="mord cjk_fallback">赖</span><span class="mord cjk_fallback">与</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">长</span><span class="mord cjk_fallback">度</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">与</span><span class="mord cjk_fallback">具</span><span class="mord cjk_fallback">体</span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">位</span><span class="mord cjk_fallback">置</span><span class="mord cjk_fallback">无</span><span class="mord cjk_fallback">关</span><span class="mord cjk_fallback">，</span></span></span></span> X(t)-X(s) \sim P(t-s) $</li>
+<li>稀疏性。稀疏性具体表现在事件在小间隔内发生多次的概率很低。</li>
+</ol>
+<p>以上三个条件都是不现实的，均是为了简化计算而设立的简单过程。</p>
+<h2 id="iii-概率公式推导"><a class="markdownIt-Anchor" href="#iii-概率公式推导"></a> III. 概率公式推导</h2>
+<p>根据计数过程的定义，可以推导出经过时间$ t <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>后事件发生</mtext></mrow><annotation encoding="application/x-tex">后事件发生</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">后</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span></span></span></span> k $次的概率。</p>
+<p>由于计数过程是离散的，故这里使用的方法是概率母函数：</p>
+<p>$ G_x(\mathcal{z})=E(\mathcal{z}^X),\quad \mathcal{z} \in \mathbb{C} $</p>
+<p>对母函数进行$ \mathcal{Z} $变换：</p>
+<p>$ G_x(\mathcal{Z})=E(\mathcal{Z}^X)= \sum_k\mathcal{Z}^kP(X=k),\quad \mathcal{z} \in \mathbb{C} $</p>
+<p>将计数过程带入母函数，并对母函数求微分：</p>
+<p>$ G*{N(t)}(\mathcal{Z})=E(\mathcal{Z}^{N(t)}) \quad \Rightarrow \quad \frac{1}{\Delta t}[ G*{N(t+\Delta t)}(\mathcal{Z})-G_{N(t)}(\mathcal{Z})], \quad \Delta t \to 0 \tag{1} $</p>
+<p>$ =\frac{1}{\Delta t}[ E(\mathcal{Z}^{N(t+\Delta t)})-E(\mathcal{Z}^{N(t)})] \tag{2} $</p>
+<p>由期望的线性性质得上式：</p>
+<p>$ \begin{aligned}<br />
+&amp;=\frac{1}{\Delta t}[ E(\mathcal{Z}^{N(t+\Delta t)}-<br />
+\mathcal{Z}^{N(t)})] \<br />
+&amp;= \frac{1}{\Delta t}[ E(\mathcal{Z}<sup>{N(t)}(\mathcal{Z}</sup>{N(t+\Delta t)-N(t)}-1))] \tag{3}<br />
+\end{aligned} $</p>
+<p>由于计数过程是独立增量过程，故$ [0,t] <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>与</mtext></mrow><annotation encoding="application/x-tex">与</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">与</span></span></span></span> [t,t+\Delta t] $过程独立，上式：</p>
+<p>$ \begin{aligned}<br />
+&amp;= \frac{1}{\Delta t}[ E(\mathcal{Z}<sup>{N(t)})E(\mathcal{Z}</sup>{N(t+\Delta t)-N(t)}-1)] \<br />
+&amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(t+\Delta t)-N(t)}-1)] \tag{4}<br />
+\end{aligned} $</p>
+<p>由于计数过程是平稳增量过程，$ N(t+\Delta t)-N(t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>的统计分布和</mtext></mrow><annotation encoding="application/x-tex">的统计分布和</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">统</span><span class="mord cjk_fallback">计</span><span class="mord cjk_fallback">分</span><span class="mord cjk_fallback">布</span><span class="mord cjk_fallback">和</span></span></span></span> N(\Delta t)-N(0) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>相同，且</mtext></mrow><annotation encoding="application/x-tex">相同，且</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">相</span><span class="mord cjk_fallback">同</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">且</span></span></span></span> N(0)=0 $，故上式：</p>
+<p>$ \begin{aligned}<br />
+&amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)-N(0)}-1)] \<br />
+&amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)}-1)] \tag{5}<br />
+\end{aligned} $</p>
+<h3 id="对-emathcalzndelta-t-1-进行推导"><a class="markdownIt-Anchor" href="#对-emathcalzndelta-t-1-进行推导"></a> 对$ E(\mathcal{Z}^{N(\Delta t)}-1) $进行推导</h3>
+<p>$ E(\mathcal{Z}^{N(\Delta t)}-1) = P(N(\Delta t)=0) \mathcal{Z}^0 + P(N(\Delta t)=1) \mathcal{Z}^1 + \sum_{k \geqslant 2} P(N(\Delta t) = k) \mathcal{Z}^k -1 $</p>
+<p>这里需要对$ P(N(\Delta t)=0) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>、</mtext></mrow><annotation encoding="application/x-tex">、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">、</span></span></span></span> P(N(\Delta t)=1) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>、</mtext></mrow><annotation encoding="application/x-tex">、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">、</span></span></span></span> \sum_{k \geqslant 2} P(N(\Delta t) = k) $分别求解。</p>
+<h4 id="1-解-pndelta-t0"><a class="markdownIt-Anchor" href="#1-解-pndelta-t0"></a> 1. 解$ P(N(\Delta t)=0) $</h4>
+<ul>
+<li>若在$ \Delta t <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>时间内事件发生次数为</mtext><mn>0</mn><mtext>，那么在</mtext></mrow><annotation encoding="application/x-tex">时间内事件发生次数为0，那么在</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">间</span><span class="mord cjk_fallback">内</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">发</span><span class="mord cjk_fallback">生</span><span class="mord cjk_fallback">次</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">为</span><span class="mord">0</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">那</span><span class="mord cjk_fallback">么</span><span class="mord cjk_fallback">在</span></span></span></span> (0,\Delta t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>中任取一点</mtext></mrow><annotation encoding="application/x-tex">中任取一点</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">中</span><span class="mord cjk_fallback">任</span><span class="mord cjk_fallback">取</span><span class="mord cjk_fallback">一</span><span class="mord cjk_fallback">点</span></span></span></span> s <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，则事件在</mtext></mrow><annotation encoding="application/x-tex">，则事件在</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">则</span><span class="mord cjk_fallback">事</span><span class="mord cjk_fallback">件</span><span class="mord cjk_fallback">在</span></span></span></span> [0,s] <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>和</mtext></mrow><annotation encoding="application/x-tex">和</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">和</span></span></span></span> [s,\Delta t] $时间内事件发生次数也为 0；</li>
+<li>由于两段时间无重叠部分，事件独立，故可写为两个事件概率相乘；</li>
+<li>由于是平稳增量过程，$ N(\Delta t)-N(s) = N(\Delta t-s) $</li>
+</ul>
+<p>$ \begin{aligned}<br />
+P(N(\Delta t)=0) &amp;= P\lgroup N(s)=0,N(\Delta t)-N(s)=0 \rgroup \quad \forall s \in (0,\Delta t) \<br />
+&amp;= P(N(s)=0)P(N(\Delta t)-N(s)=0) \<br />
+&amp;= P(N(s)=0)P(N(\Delta t-s)=0)<br />
+\end{aligned} $</p>
+<p>这里我们令$ g(\Delta t) = P(N(\Delta t)=0) $，根据上式可得：</p>
+<p>$ g(\Delta t)=g(s)g(\Delta t-s) \Rightarrow g(t+s) = g(t)g(s), \quad \forall v,st \geqslant0 $</p>
+<p>而满足$ g(t+s) = g(t)g(s) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>的函数只有指数函数，故</mtext></mrow><annotation encoding="application/x-tex">的函数只有指数函数，故</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">函</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">只</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">指</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">函</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">故</span></span></span></span> g(t) = e^{-\lambda t}, \lambda &gt; 0 $</p>
+<blockquote>
+<p>关于满足$ g(t+s) = g(t)g(s) $的函数是指数函数的证明：</p>
+<ol>
+<li>令$ h(t)=log[g(t)] <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，则</mtext></mrow><annotation encoding="application/x-tex">，则</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">则</span></span></span></span> h(t+s)=h(t)+h(s) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，此时需判断</mtext></mrow><annotation encoding="application/x-tex">，此时需判断</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">此</span><span class="mord cjk_fallback">时</span><span class="mord cjk_fallback">需</span><span class="mord cjk_fallback">判</span><span class="mord cjk_fallback">断</span></span></span></span> g(t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>可取</mtext><mi>l</mi><mi>o</mi><mi>g</mi><mtext>，即证</mtext></mrow><annotation encoding="application/x-tex">可取log，即证</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord cjk_fallback">可</span><span class="mord cjk_fallback">取</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">即</span><span class="mord cjk_fallback">证</span></span></span></span> g(t)&gt;0 $
+<ol>
+<li>$ g(t)=g(\frac{t}{2})+g(\frac{t}{2})=g^2(\frac{t}{2}) \geqslant 0 $</li>
+<li>假设$ g(t_0)=0 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，则</mtext></mrow><annotation encoding="application/x-tex">，则</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">则</span></span></span></span> g(\frac{t_0}{2})=0 \Rightarrow g(\frac{t_0}{4})=0 \Rightarrow g(\frac{t_0}{2^n})=0 \Rightarrow g(0)=0 $</li>
+<li>那么$ g(t)=g(t)g(0)=0 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，故</mtext></mrow><annotation encoding="application/x-tex">，故</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">故</span></span></span></span> g(t)=0 $不考虑。</li>
+</ol>
+</li>
+<li>对不同数域下的 t,s 进行分别证明：
+<ol>
+<li>$ t,s \in \N $</li>
+<li>$ t,s \in \Z $</li>
+<li>$ t,s \in \mathbb{Q} $</li>
+<li>$ t,s \in \R $</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h4 id="2-解-sum_k-geqslant-2-pndelta-t-k"><a class="markdownIt-Anchor" href="#2-解-sum_k-geqslant-2-pndelta-t-k"></a> 2. 解$ \sum_{k \geqslant 2} P(N(\Delta t) = k) $</h4>
+<p>$ \begin{aligned}<br />
+&amp; P(N(\Delta t)=1) \mathcal{Z}^1 + \sum*{k \geqslant 2} P(N(\Delta t) = k) \mathcal{Z}^k \<br />
+&amp;= P(N(\Delta t)=1)[\mathcal{Z}^1 + \frac{\sum*{k \geqslant 2} P(N(\Delta t) = k)}{P(N(\Delta t)=1)}\mathcal{Z}^k]<br />
+\end{aligned} $</p>
+<p>在对母函数进行 Z 变换时，存在一个收敛域的条件，即：$ |\mathcal{Z}| \leqslant 1 $，故：</p>
+<p>$ \begin{aligned}<br />
+\left| \sum*{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)}\mathcal{Z}^k \right| &amp; \leqslant<br />
+\sum*{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)}\left| \mathcal{Z}\right|^k \<br />
+&amp; \leqslant \sum_{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)} =\frac{P(N(\Delta t) \geqslant 2)}{P(N(\Delta t)=1)} \xrightarrow{\Delta t \to 0} 0<br />
+\end{aligned} $</p>
+<p>故原式：</p>
+<p>$ \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)}-1)]<br />
+= G_{N(t)}(\mathcal{Z}) \frac{1}{\Delta t}[ e^{-\lambda t} +P(N(\Delta t)=1)(\mathcal{Z}+O(\Delta t)) -1] $</p>
+<h4 id="3-解-pndelta-t1"><a class="markdownIt-Anchor" href="#3-解-pndelta-t1"></a> 3. 解$ P(N(\Delta t)=1) $</h4>
+<p>由概率和等于 1 可知：$ P(N(\Delta t)=0)+ P(N(\Delta t)=1)+P(N(\Delta t)\geqslant 2) = 1 $</p>
+<p>$ \begin{aligned}<br />
+&amp;\Rightarrow P(N(\Delta t)=1)(1+\frac{P(N(\Delta t)\geqslant 2)}{P(N(\Delta t)=1)} = 1 - P(N(\Delta t)=0) \<br />
+&amp; \Rightarrow \frac{P(N(\Delta t)=1)}{\Delta t}(1+\frac{P(N(\Delta t)\geqslant 2)}{P(N(\Delta t)=1)} = \frac{1 - e^{-\lambda \Delta t}}{\Delta t} \<br />
+&amp;\xrightarrow{\Delta t \to 0} \lim_{\Delta t \to 0} \frac{P(N(\Delta t)=1)}{\Delta t} = \lambda<br />
+\end{aligned} $</p>
+<p>对$ E(\mathcal{Z}^{N(\Delta t)}-1) $推导完成。</p>
+<h3 id="对原式进行推导"><a class="markdownIt-Anchor" href="#对原式进行推导"></a> 对原式进行推导</h3>
+<p>$ \begin{aligned}<br />
+\frac{d}{dt} G*{N(t)}(\mathcal{Z}) &amp;= \lim*{\Delta t \to 0}\frac{G*{N(t+\Delta t)}(\mathcal{Z})-G*{N(t)}(\mathcal{Z})}{\Delta t} \<br />
+&amp;= G*{N(t)}(\mathcal{Z}) \lim*{\Delta \to 0} \frac{1}{\Delta t}[E(\mathcal{Z}^{N(\Delta t)})-1] \<br />
+&amp;= G*{N(t)}(\mathcal{Z}) \lim*{\Delta \to 0} \frac{1}{\Delta t} [e^{-\lambda \Delta t} -1 + P(N(\Delta t)=1)(\mathcal{Z}+O(\Delta t))] \<br />
+&amp;= G*{N(t)}(\mathcal{Z})\left[\lim*{\Delta \to 0}\frac{e^{-\lambda \Delta t}-1}{\Delta t}+\lim*{\Delta \to 0}\frac{P(N(\Delta t)=1)}{\Delta t}(\mathcal{Z}+O(\Delta t)) \right] \<br />
+&amp;= G*{N(t)}(\mathcal{Z})(-\lambda+\lambda \mathcal{Z}) \tag{6}<br />
+\end{aligned} $</p>
+<p>即：$ \frac{d}{dt} G*{N(t)}(\mathcal{Z}) = G*{N(t)}(\mathcal{Z})(-\lambda+\lambda \mathcal{Z}) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，自变量为</mtext></mrow><annotation encoding="application/x-tex">，自变量为</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">自</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">为</span></span></span></span> t $，解常系数微分方程：</p>
+<p>$ G*{N(t)}(\mathcal{Z}) = G*{N(0)}(\mathcal{Z}) \cdot e^{(-\lambda + \lambda \mathcal{Z})t} \tag{7} $</p>
+<p>而$ G_{N(0)}(\mathcal{Z})=E(\mathcal{Z}<sup>{N(0)})=E(\mathcal{Z}</sup>0)=E(1)=1 $，那么：</p>
+<p>$ G_{N(t)}(\mathcal{Z}) = e^{(-\lambda + \lambda \mathcal{Z})t} \tag{8} $</p>
+<p>上式对$ \mathcal{Z} $展开：</p>
+<p>$ G*{N(t)}(\mathcal{Z}) = e^{-\lambda t} \sum*{k=0}^{\infty} \frac{(\lambda t)<sup>k}{k!}\mathcal{Z}</sup>k \tag{9} $</p>
+<p>而由母函数 Z 变换式子$ G_{N(t)}(\mathcal{Z})=E(\mathcal{Z}^{N(t)})= \sum_k\mathcal{Z}^kP({N(t)}=k),\quad \mathcal{Z} \in \mathbb{C} $可得：</p>
+<p>$ P({N(t)}=k) = \frac{(\lambda t)<sup>k}{k!}e</sup>{-\lambda t} \tag{10} $</p>
+<p>$ (10) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>即参数为</mtext></mrow><annotation encoding="application/x-tex">即参数为</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">即</span><span class="mord cjk_fallback">参</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">为</span></span></span></span> \lambda t $的泊松过程。</p>
+	
+		</div>
+		
+		<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+		<!-- relate post, comment...-->
+		<div class="investment-container">
+			<div class="investment-header">
+				<div class="investment-title-1">
+					<div class="on">相关文章</div>
+					<div>评论</div>
+					<div>分享</div>
+				</div>
+				<div class="investment-title-2">	            
+					
+	<span>
+		<a id="totop-post-page">返回顶部</a>
+		
+		
+			<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" title="《操作系统真象还原》：第十章 输入输出系统" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+				</div>	
+			</div>
+			
+			<div class="investment-content">
+				<div class="investment-content-list">
+					
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">
+								[转]你想住在中国哪里？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 11日, 2022				
+							</p>
+							<p class="relate-post-content">
+								
+科技爱好者周刊（第 180 期）：你想住在中国哪里？
+
+
+如果希望赚取高收入，愿意忍受大城市的高竞争、高压力、狭小嘈杂，那么选择一线大城市；
+如果希望竞争小一些、生活轻松一点，可以选择沿海省份和中西部的中心城市；
+如果希望享受宁静悠...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/11/yuque/hlgqdt/" title="[转]你想住在中国哪里？">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="[转]你想住在中国哪里？"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">
+								滑坡谬误			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								二月 9日, 2022				
+							</p>
+							<p class="relate-post-content">
+								滑坡谬误（Slippery slope）指的是使用一连串的因果推论，夸大了每个环节的因果强度，而得到不合理的结论。
+
+它的典型形式是，“如果发生 A1，接着就会发生 A2，接着就会发生 A3，接着就会发生 A4，……，接着就会发生 A...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/02/09/yuque/ga3q0g/" title="滑坡谬误">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="滑坡谬误"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2020/04/07/yuque/se4ygk/" title="为何日常生活多数服从泊松分布">
+								为何日常生活多数服从泊松分布			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 7日, 2020				
+							</p>
+							<p class="relate-post-content">
+								 I 前提
+首先，我们讲服从泊松分布的事件要满足：
+
+事件的发生是独立的且事件的发生概率很小
+在相同大小的时间或空间内, 事件的发生的概率是相同的
+
+ II 开始——二项分布
+把事件的发生当做n次伯努利试验,那么事件发生k次的概率满足...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2020/04/07/yuque/se4ygk/" title="为何日常生活多数服从泊松分布">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="为何日常生活多数服从泊松分布"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" title="《操作系统真象还原》：第十章 输入输出系统">
+								《操作系统真象还原》：第十章 输入输出系统			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 8日, 2024				
+							</p>
+							<p class="relate-post-content">
+								
+上一章中我们遇到的字符混乱和 GP 异常问题，根本原因是由于临界区代码的资源竞争，这需要一些互斥的方法来保证操作的原子性。
+
+ 10.1 同步机制——锁
+ 10.1.1 排查 GP 异常，理解原子操作
+多线程执行刷屏时光标值越界导致...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2024/01/08/yuque/wutni9yzkuq6y0n7/" title="《操作系统真象还原》：第十章 输入输出系统">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第十章 输入输出系统"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/10/30/yuque/roml7fefy7cyczd4/" title="《操作系统真象还原》：第九章 线程">
+								《操作系统真象还原》：第九章 线程			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 30日, 2023				
+							</p>
+							<p class="relate-post-content">
+								线程和进程将分两部分实现，本章先讲解线程。
+ 9.1 实现内核线程
+ 9.1.1 执行流
+在处理器数量不变的情况下，多任务操作系统采用多道程序设计的方式，使处理器在所有任务之间来回切换，这称为“伪并行”，由操作系统中的任务调度器决定当...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/10/30/yuque/roml7fefy7cyczd4/" title="《操作系统真象还原》：第九章 线程">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第九章 线程"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">
+								GPU虚拟化			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 26日, 2023				
+							</p>
+							<p class="relate-post-content">
+								
+ 用户层虚拟化
+ 本地 API 拦截和 API formwarding
+
+
+在用户态实现一个函数库，假设叫 libwrapper， 它要实现底层库的所有 API；
+让 APP 调用这个 libwrapper。如何做？
+libwrap...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/26/yuque/gflddumddhykfgqo/" title="GPU虚拟化">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="GPU虚拟化"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">
+								硬件虚拟化			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 23日, 2023				
+							</p>
+							<p class="relate-post-content">
+								 硬件虚拟化介绍
+ 硬件虚拟化要做的事情
+ 体系结构支持
+
+
+
+体系结构
+实现功能
+作用
+
+
+
+
+模式切换
+Host CPU &lt;-&gt; Guest CPU 切换
+CPU 资源隔离
+
+
+二阶段地址转换
+GVA-&gt; GPA...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/06/23/yuque/tgft5m5mgh787k7d/" title="硬件虚拟化">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="硬件虚拟化"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="《操作系统真象还原》：第八章 内存管理系统">
+								《操作系统真象还原》：第八章 内存管理系统			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								一月 20日, 2023				
+							</p>
+							<p class="relate-post-content">
+								 8.1 makefile 简介
+
+这部分可参考阮一峰的讲解：https://www.ruanyifeng.com/blog/2015/02/make.html
+
+ 8.1.1 makefile 是什么
+makefile 是 Linu...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2023/01/20/yuque/dch1fprebtaxtqq8/" title="《操作系统真象还原》：第八章 内存管理系统">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第八章 内存管理系统"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" title="《操作系统真象还原》：第七章 中断">
+								《操作系统真象还原》：第七章 中断			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 25日, 2022				
+							</p>
+							<p class="relate-post-content">
+								 7.1 中断是什么，为什么要有中断
+运用中断能够显著提升并发，从而大幅提升效率。
+ 7.2 操作系统是中断驱动的
+略
+ 7.3 中断分类
+把中断按事件来源分类，来自 CPU 外部的中断就称为外部中断，来自 CPU 内部的中断称为内部...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/25/yuque/gf0t07d01kr4oe9r/" title="《操作系统真象还原》：第七章 中断">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第七章 中断"/>
+							</a>
+						</div>
+					</li>												
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">
+								《操作系统真象还原》：第六章 完善内核			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十二月 18日, 2022				
+							</p>
+							<p class="relate-post-content">
+								 6.1 函数调用约定简介
+
+咱们实验使用cdecl。这里提一下stdcall，cdecl与stdcall的区别在于由谁来回收栈空间。
+stdcall是被调用者清理参数所占的栈空间。
+举例来说：
+12int subtract(int ...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2022/12/18/yuque/yh5mcml2bb6o3kpg/" title="《操作系统真象还原》：第六章 完善内核">				
+								
+								<img class="lazy" src="/img/lazy.gif" data-src="/img/cart_cover.jpg" alt="《操作系统真象还原》：第六章 完善内核"/>
+							</a>
+						</div>
+					</li>												
+			
+		</ul>
+	
+</div>	
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-comment">
+
+	
+
+		
+
+			<!-- gitalk comment -->
+			<!-- show gitalk comment -->
+<div id="gitalk-container"></div>
+
+<!-- gitalk`s css & js -->
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<link rel="stylesheet" href="/css/comment.css">
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<script type="text/javascript">
+
+	(function gitalkComment(){
+		//Thanks O-R
+		//https://github.com/gitalk/gitalk/issues/102#issuecomment-382970552
+		//去除尾部匹配正则数组的字符串  
+		//Remove redundant characters
+		String.prototype.trimEnd = function(regStr) {
+			let result = this;
+			if(regStr == undefined || regStr == null || regStr == "") {
+				return result;
+			}
+			let array = regStr.split(',');
+
+			if(array.length > 0) {
+
+				let c = array.shift(), 
+					str = this,
+					i = str.length,
+					rg = new RegExp(c),
+					matchArr = str.match(rg);
+
+				if(matchArr != undefined && matchArr != null && matchArr.length > 0) {
+					let matchStr = matchArr[0].replace(/\\/g, "\\\\").replace(/\*/g, "\\*")
+						.replace(/\+/g, "\\+").replace(/\|/g, "\\|")
+						.replace(/\{/g, "\\{").replace(/\}/g, "\\}")
+						.replace(/\(/g, "\\(").replace(/\)/g, "\\)")
+						.replace(/\^/g, "\\^").replace(/\$/g, "\\$")
+						.replace(/\[/g, "\\[").replace(/\]/g, "\\]")
+						.replace(/\?/g, "\\?").replace(/\,/g, "\\,")
+						.replace(/\./g, "\\.").replace(/\&/g, "\\&");
+					matchStr = matchStr + '$';
+					result = str.replace(new RegExp(matchStr), "");
+				}
+
+				if(array.length > 0) {
+					return result.trimEnd(array.join())
+				} else {
+					return result;
+				}
+			}
+		};
+
+		//Create gitalk
+		let gitalk = new Gitalk({
+			clientID: '693063c1941dbc1701d3',
+			clientSecret: 'f88ddf502ef33ce91ce9d8c140dbc7e3a0653b7e',
+			//id: window.location.pathname,
+			//id: decodeURI(window.location.pathname),
+			//id: (window.location.pathname).split("/").pop().substring(0, 49),
+			id: decodeURI( md5( location.href.trimEnd('#.*$,\\?.*$,index.html$') ) ),
+			repo: 'lisongqian.github.io',
+			owner: 'lisongqian',
+			admin: 'lisongqian',
+			distractionFreeMode: 'false',
+		})
+		gitalk.render('gitalk-container');		
+	})();
+</script>
+
+		
+		
+	
+
+</div>
+				</div>
+				<div class="investment-content-list">
+					<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>
+
+<!-- show math formula -->
+
+
+
+	
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+
+
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+
+<script type="text/javascript">
+	(function gallerySet(){
+		let titleID = $('.article-title a'),
+			imageID = $('.article-content img'),
+			videoID = $('.article-content video');
+		
+		let postTitle = titleID.text() ? titleID.text() : "No post title!";
+		
+		imageID.each(function() {
+			let imgPath = $(this).attr('src'),
+				imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox="gallery" data-caption="《 ' + postTitle + ' 》' + imgTitle + '"href="' + imgPath + '"> </a>');
+		});
+		
+		videoID.each(function() {
+			let videoPath = $(this).attr('src');
+		
+			//给每个匹配的<img>元素打包, 即添加父元素<a>
+			$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+		});
+		
+		//TODO：支持html5 video
+
+		if($('#layout-post').length) {
+			$('[data-fancybox="gallery"]').fancybox({
+				loop: true,
+				buttons: [
+					"zoom",
+					"share",
+					"slideShow",
+					"fullScreen",
+					//"download",
+					"thumbs",
+					"close"
+				],
+				protect: true
+			});
+		}
+	})();
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div id="navigation-show">
+		<ul id="global-nav">
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home" target="_blank">主页</a>
+		</li>
+		
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive" target="_blank">归档</a>
+		</li>
+		
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories" target="_blank">分类</a>
+		</li>
+		
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags" target="_blank">标签</a>
+		</li>
+		
+	
+		<li class="menu-about">
+			<a href="/about" class="menu-item-about" target="_blank">关于</a>
+		</li>
+		
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+
+	<div class="copyright">
+		<p>
+		<a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener">鲁ICP备16042410号</a>
+			 
+				&copy;2017 - 2025, content by SongqianLi. All Rights Reserved.
+			
+			
+				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			
+		</p>
+		<p>
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+
+
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+
+<!-- love effect -->
+
+
+<!-- back to top -->
+
+	<div id="totop">
+	<span class="icon-circle-up"></span>
+</div>
+
+
+
+
+<!-- leancloud -->
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+  
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup scrollbar" >
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/js/search.js"></script>
+
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/search.zip',
+		version_Path = '/searchVersion.txt',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imagelazyloader/yall.min.js"></script>
+<script src="/plugin/imageloaded/imagesloaded.pkgd.min.js"></script>
+<script src="/plugin/resizediv/resizediv.js"></script>
+<script src="/js/main.js"></script>
+
+	</body>	
+</html>
