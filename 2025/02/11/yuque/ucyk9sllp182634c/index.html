@@ -332,15 +332,15 @@
 &amp;= \frac{1}{\Delta t}[ E(\mathcal{Z}<sup>{N(t)}(\mathcal{Z}</sup>{N(t+\Delta t)-N(t)}-1))] \tag{3}<br />
 \end{align} $</p>
 <p>由于计数过程是独立增量过程，故$ [0,t] <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>与</mtext></mrow><annotation encoding="application/x-tex">与</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">与</span></span></span></span> [t,t+\Delta t] $过程独立，上式：</p>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 &amp;= \frac{1}{\Delta t}[ E(\mathcal{Z}<sup>{N(t)})E(\mathcal{Z}</sup>{N(t+\Delta t)-N(t)}-1)] \<br />
 &amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(t+\Delta t)-N(t)}-1)] \tag{4}<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <p>由于计数过程是平稳增量过程，$ N(t+\Delta t)-N(t) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>的统计分布和</mtext></mrow><annotation encoding="application/x-tex">的统计分布和</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">统</span><span class="mord cjk_fallback">计</span><span class="mord cjk_fallback">分</span><span class="mord cjk_fallback">布</span><span class="mord cjk_fallback">和</span></span></span></span> N(\Delta t)-N(0) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>相同，且</mtext></mrow><annotation encoding="application/x-tex">相同，且</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">相</span><span class="mord cjk_fallback">同</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">且</span></span></span></span> N(0)=0 $，故上式：</p>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 &amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)-N(0)}-1)] \<br />
 &amp;= \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)}-1)] \tag{5}<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <h3 id="对-emathcalzndelta-t-1-进行推导"><a class="markdownIt-Anchor" href="#对-emathcalzndelta-t-1-进行推导"></a> 对$ E(\mathcal{Z}^{N(\Delta t)}-1) $进行推导</h3>
 <p>$ E(\mathcal{Z}^{N(\Delta t)}-1) = P(N(\Delta t)=0) \mathcal{Z}^0 + P(N(\Delta t)=1) \mathcal{Z}^1 + \sum_{k \geqslant 2} P(N(\Delta t) = k) \mathcal{Z}^k -1 $</p>
 <p>这里需要对$ P(N(\Delta t)=0) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>、</mtext></mrow><annotation encoding="application/x-tex">、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">、</span></span></span></span> P(N(\Delta t)=1) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>、</mtext></mrow><annotation encoding="application/x-tex">、</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">、</span></span></span></span> \sum_{k \geqslant 2} P(N(\Delta t) = k) $分别求解。</p>
@@ -350,11 +350,11 @@
 <li>由于两段时间无重叠部分，事件独立，故可写为两个事件概率相乘；</li>
 <li>由于是平稳增量过程，$ N(\Delta t)-N(s) = N(\Delta t-s) $</li>
 </ul>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 P(N(\Delta t)=0) &amp;= P\lgroup N(s)=0,N(\Delta t)-N(s)=0 \rgroup \quad \forall s \in (0,\Delta t) \<br />
 &amp;= P(N(s)=0)P(N(\Delta t)-N(s)=0) \<br />
 &amp;= P(N(s)=0)P(N(\Delta t-s)=0)<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <p>这里我们令$ g(\Delta t) = P(N(\Delta t)=0) $，根据上式可得：</p>
 <p>$ g(\Delta t)=g(s)g(\Delta t-s) \Rightarrow g(t+s) = g(t)g(s), \quad \forall v,st \geqslant0 $</p>
 <p>而满足$ g(t+s) = g(t)g(s) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>的函数只有指数函数，故</mtext></mrow><annotation encoding="application/x-tex">的函数只有指数函数，故</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">的</span><span class="mord cjk_fallback">函</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">只</span><span class="mord cjk_fallback">有</span><span class="mord cjk_fallback">指</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">函</span><span class="mord cjk_fallback">数</span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">故</span></span></span></span> g(t) = e^{-\lambda t}, \lambda &gt; 0 $</p>
@@ -384,30 +384,30 @@ P(N(\Delta t)=0) &amp;= P\lgroup N(s)=0,N(\Delta t)-N(s)=0 \rgroup \quad \forall
 &amp;= P(N(\Delta t)=1)[\mathcal{Z}^1 + \frac{\sum*{k \geqslant 2} P(N(\Delta t) = k)}{P(N(\Delta t)=1)}\mathcal{Z}^k]<br />
 \end{aligned} $</p>
 <p>在对母函数进行 Z 变换时，存在一个收敛域的条件，即：$ |\mathcal{Z}| \leqslant 1 $，故：</p>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 \left| \sum*{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)}\mathcal{Z}^k \right| &amp; \leqslant<br />
 \sum*{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)}\left| \mathcal{Z}\right|^k \<br />
 &amp; \leqslant \sum_{k \geqslant 2} \frac{P(N(\Delta t)=k)}{P(N(\Delta t)=1)} =\frac{P(N(\Delta t) \geqslant 2)}{P(N(\Delta t)=1)} \xrightarrow{\Delta t \to 0} 0<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <p>故原式：</p>
 <p>$ \frac{1}{\Delta t}[ G_{N(t)}(\mathcal{Z})E(\mathcal{Z}^{N(\Delta t)}-1)]<br />
 = G_{N(t)}(\mathcal{Z}) \frac{1}{\Delta t}[ e^{-\lambda t} +P(N(\Delta t)=1)(\mathcal{Z}+O(\Delta t)) -1] $</p>
 <h4 id="3-解-pndelta-t1"><a class="markdownIt-Anchor" href="#3-解-pndelta-t1"></a> 3. 解$ P(N(\Delta t)=1) $</h4>
 <p>由概率和等于 1 可知：$ P(N(\Delta t)=0)+ P(N(\Delta t)=1)+P(N(\Delta t)\geqslant 2) = 1 $</p>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 &amp;\Rightarrow P(N(\Delta t)=1)(1+\frac{P(N(\Delta t)\geqslant 2)}{P(N(\Delta t)=1)} = 1 - P(N(\Delta t)=0) \<br />
 &amp; \Rightarrow \frac{P(N(\Delta t)=1)}{\Delta t}(1+\frac{P(N(\Delta t)\geqslant 2)}{P(N(\Delta t)=1)} = \frac{1 - e^{-\lambda \Delta t}}{\Delta t} \<br />
 &amp;\xrightarrow{\Delta t \to 0} \lim_{\Delta t \to 0} \frac{P(N(\Delta t)=1)}{\Delta t} = \lambda<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <p>对$ E(\mathcal{Z}^{N(\Delta t)}-1) $推导完成。</p>
 <h3 id="对原式进行推导"><a class="markdownIt-Anchor" href="#对原式进行推导"></a> 对原式进行推导</h3>
-<p>$ \begin{aligned}<br />
+<p>$ \begin{align}<br />
 \frac{d}{dt} G*{N(t)}(\mathcal{Z}) &amp;= \lim*{\Delta t \to 0}\frac{G*{N(t+\Delta t)}(\mathcal{Z})-G*{N(t)}(\mathcal{Z})}{\Delta t} \<br />
 &amp;= G*{N(t)}(\mathcal{Z}) \lim*{\Delta \to 0} \frac{1}{\Delta t}[E(\mathcal{Z}^{N(\Delta t)})-1] \<br />
 &amp;= G*{N(t)}(\mathcal{Z}) \lim*{\Delta \to 0} \frac{1}{\Delta t} [e^{-\lambda \Delta t} -1 + P(N(\Delta t)=1)(\mathcal{Z}+O(\Delta t))] \<br />
 &amp;= G*{N(t)}(\mathcal{Z})\left[\lim*{\Delta \to 0}\frac{e^{-\lambda \Delta t}-1}{\Delta t}+\lim*{\Delta \to 0}\frac{P(N(\Delta t)=1)}{\Delta t}(\mathcal{Z}+O(\Delta t)) \right] \<br />
 &amp;= G*{N(t)}(\mathcal{Z})(-\lambda+\lambda \mathcal{Z}) \tag{6}<br />
-\end{aligned} $</p>
+\end{align} $</p>
 <p>即：$ \frac{d}{dt} G*{N(t)}(\mathcal{Z}) = G*{N(t)}(\mathcal{Z})(-\lambda+\lambda \mathcal{Z}) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，自变量为</mtext></mrow><annotation encoding="application/x-tex">，自变量为</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">自</span><span class="mord cjk_fallback">变</span><span class="mord cjk_fallback">量</span><span class="mord cjk_fallback">为</span></span></span></span> t $，解常系数微分方程：</p>
 <p>$ G*{N(t)}(\mathcal{Z}) = G*{N(0)}(\mathcal{Z}) \cdot e^{(-\lambda + \lambda \mathcal{Z})t} \tag{7} $</p>
 <p>而$ G_{N(0)}(\mathcal{Z})=E(\mathcal{Z}<sup>{N(0)})=E(\mathcal{Z}</sup>0)=E(1)=1 $，那么：</p>
@@ -853,6 +853,17 @@ stdcall是被调用者清理参数所占的栈空间。
 </div>
 
 <!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
 
 
 
