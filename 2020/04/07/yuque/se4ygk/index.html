@@ -307,39 +307,50 @@
 <p>首先，我们讲服从泊松分布的事件要满足：</p>
 <ol>
 <li><strong>事件的发生是独立的且事件的发生概率很小</strong></li>
-<li><strong>在相同大小的时间或空间内, 事件的发生的概率是相同的</strong></li>
+<li><strong>在**<strong>相同大小的时间或空间*</strong>*内, 事件的发生的概率是相同的</strong></li>
 </ol>
 <h3 id="ii-开始二项分布"><a class="markdownIt-Anchor" href="#ii-开始二项分布"></a> II 开始——二项分布</h3>
 <p>把事件的发生当做<code>n</code>次伯努利试验,那么事件发生<code>k</code>次的概率满足二项分布：</p>
-<p><img src="https://g.yuque.com/gr/latex?P(X%3Dk)%3DC_%7Bn%7D%5E%7Bk%7Dp%5Ek(1-p)%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A#card=math&amp;code=P%28X%3Dk%29%3DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20%5Ctag%7B1%7D%0A&amp;height=28&amp;id=g2m1P" alt="" /></p>
+<p>$ \begin{align}<br />
+P(X=k)=C_{n}<sup>{k}p</sup>k(1-p)^{n-k} \tag{1}<br />
+\end{align} $</p>
 <p>我们也可以这样理解：我们讲事件发生的时间间隔或空间间隔分为<code>n</code>份，每个时间间隔中事件至多发生一次。</p>
 <h3 id="iii-正题泊松分布"><a class="markdownIt-Anchor" href="#iii-正题泊松分布"></a> III 正题——泊松分布</h3>
-<p>针对上述理解，当<img src="https://g.yuque.com/gr/latex?n%20%5Cto%20%5Cinfty#card=math&amp;code=n%20%5Cto%20%5Cinfty&amp;height=16&amp;id=VGwyF" alt="" />时：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/394c864bf1b9dd8e6313701c43755795.svg#card=math&amp;code=%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%20&amp;height=30&amp;id=aGzLn" alt="" /></p>
-<p>众所周知，二项分布中：<img src="https://cdn.nlark.com/yuque/__latex/20d2c4fc2ec439aca6defc867945968a.svg#card=math&amp;code=EX%20%3D%20np&amp;id=a01fZ" alt="" />，则<img src="https://cdn.nlark.com/yuque/__latex/c9cc1921ff3db885b77a1d59fe4d3419.svg#card=math&amp;code=%5Cdisplaystyle%20p%3D%5Cfrac%7BEX%7D%7Bn%7D&amp;id=RUrM0" alt="" />；我们将样本均值<img src="https://g.yuque.com/gr/latex?%5Cmu#card=math&amp;code=%5Cmu&amp;height=19&amp;id=Iaq5x" alt="" />近似看做期望，得到：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/6dbca942dc50d2d19d154d64d9a21474.svg#card=math&amp;code=%5Cdisplaystyle%20p%20%3D%20%5Cfrac%7B%5Cmu%7D%7Bn%7D%20%5Ctag%7B2%7D%0A&amp;height=35&amp;id=wzbSi" alt="" /></p>
-<p>所以<img src="https://cdn.nlark.com/yuque/__latex/7acce3193127d4b71a6c2b140c22dc95.svg#card=math&amp;code=%281%29&amp;height=20&amp;id=OTkiq" alt="" />式等于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/5b2dd558c02c15365e3a5f93b5b6f818.svg#card=math&amp;code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%20%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7DC_%7Bn%7D%5E%7Bk%7Dp%5Ek%281-p%29%5E%7Bn-k%7D%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20%5Cfrac%7Bn%28n-1%29%28n-2%29%20%5Ccdots%28n-k%2B1%29%7D%7Bk%21%7D%20%28%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5Ek%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%5Cdisplaystyle&amp;height=42&amp;id=HApZA" alt="" /></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/eb54386d32ba90a975665b3c7fbeba18.svg#card=math&amp;code=%5Cdisplaystyle%20%3D%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn-k%7D%20%20%5Ctag%7B3%7D%0A&amp;height=42&amp;id=SsRun" alt="" /></p>
+<p>针对上述理解，当$ n \to \infty $时：</p>
+<p>$ \lim \limits*{n \to \infty}C*{n}<sup>{k}p</sup>k(1-p)^{n-k} $</p>
+<p>众所周知，二项分布中：$ EX = np <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，则</mtext></mrow><annotation encoding="application/x-tex">，则</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">则</span></span></span></span> \displaystyle p=\frac{EX}{n} <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>；我们将样本均值</mtext></mrow><annotation encoding="application/x-tex">；我们将样本均值</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">；</span><span class="mord cjk_fallback">我</span><span class="mord cjk_fallback">们</span><span class="mord cjk_fallback">将</span><span class="mord cjk_fallback">样</span><span class="mord cjk_fallback">本</span><span class="mord cjk_fallback">均</span><span class="mord cjk_fallback">值</span></span></span></span> \mu $近似看做期望，得到：</p>
+<p>$ \begin{align}<br />
+\displaystyle p = \frac{\mu}{n} \tag{2}<br />
+\end{align} $</p>
+<p>所以$ (1) $式等于：</p>
+<p>$ \displaystyle P(X=k)= \lim \limits*{n \to \infty}C*{n}<sup>{k}p</sup>k(1-p)^{n-k}=\lim \limits_{n \to \infty} \frac{n(n-1)(n-2) \cdots(n-k+1)}{k!} (\frac{\mu}{n})<sup>k(1-\frac{\mu}{n})</sup>{n-k}\displaystyle $</p>
+<p>$ \begin{align}<br />
+\displaystyle =\lim \limits_{n \to \infty}\frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-k+1}{n}\frac{\mu<sup>k}{k!}(1-\frac{\mu}{n})</sup>{n-k} \tag{3}<br />
+\end{align} $</p>
 <p>由于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/0c82ac30ef17a60c91a83034ba9b5747.svg#card=math&amp;code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%5Cfrac%7Bn%7D%7Bn%7D%20%5Ccdot%20%5Cfrac%7Bn-1%7D%7Bn%7D%20%5Ccdots%20%5Cfrac%7Bn-k%2B1%7D%7Bn%7D%3D1%20%20%0A&amp;height=38&amp;id=cStC8" alt="" /></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/18034630c63203f24847786adfd2fc9c.svg#card=math&amp;code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7B-k%7D%3D1%20%20%0A&amp;height=35&amp;id=WXOq5" alt="" /></p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/7f5c9f7cbe8e18f1792304cb15618b8c.svg#card=math&amp;code=%5Cdisplaystyle%20%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%281-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%5E%7Bn%7D%3D%20%20%20e%5E%7B%5Clim%20%5Climits_%7Bn%20%5Cto%20%5Cinfty%7D%20n%20%5Ccdot%20%28-%5Cfrac%7B%5Cmu%7D%7Bn%7D%29%7D%3De%5E%7B-%5Cmu%7D%20%0A&amp;height=37&amp;id=Yf0wv" alt="" /></p>
-<p>所以<img src="https://cdn.nlark.com/yuque/__latex/38560d3d403d928e8b6a1e4e8f9e93e1.svg#card=math&amp;code=%283%29&amp;height=20&amp;id=ByXNz" alt="" />式等于：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/d2fb5eb22cc1c93826ec29d59d89e79f.svg#card=math&amp;code=%5Cdisplaystyle%20P%28X%3Dk%29%3D%5Cfrac%7B%5Cmu%5Ek%7D%7Bk%21%7De%5E%7B-%5Cmu%7D%20%5Ctag%7B4%7D%0A&amp;height=42&amp;id=Yhw2G" alt="" /></p>
+<p>$ \displaystyle \lim \limits_{n \to \infty}\frac{n}{n} \cdot \frac{n-1}{n} \cdots \frac{n-k+1}{n}=1<br />
+$</p>
+<p>$ \displaystyle \lim \limits_{n \to \infty}(1-\frac{\mu}{n})^{-k}=1<br />
+$</p>
+<p>$ \displaystyle \lim \limits*{n \to \infty}(1-\frac{\mu}{n})^{n}= e^{\lim \limits*{n \to \infty} n \cdot (-\frac{\mu}{n})}=e^{-\mu}<br />
+$</p>
+<p>所以$ (3) $式等于：</p>
+<p>$ \begin{align}<br />
+\displaystyle P(X=k)=\frac{\mu<sup>k}{k!}e</sup>{-\mu} \tag{4}<br />
+\end{align} $</p>
 <p>从而得到上述泊松分布的概率密度函数表达式。因此：<strong>泊松分布描述的是某段时间内，事件具体的发生概率。</strong></p>
 <h3 id="iv-延伸指数分布"><a class="markdownIt-Anchor" href="#iv-延伸指数分布"></a> IV 延伸——指数分布</h3>
 <blockquote>
 <p>指数分布描述的是事件发生的时间间隔的概率</p>
 </blockquote>
-<p><strong>指数分布描述的是一个事件发生后，间隔时间</strong><img src="https://g.yuque.com/gr/latex?t#card=math&amp;code=t&amp;height=17&amp;id=YVEBP" alt="" /><strong>后该时间再次发生的概率。</strong></p>
-<p>也就是在时间段<img src="https://g.yuque.com/gr/latex?t#card=math&amp;code=t&amp;height=17&amp;id=kRh7S" alt="" />内没有事件发生，用公式表示为：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/3ce8d7c267c8d007691232a4a85ec6e7.svg#card=math&amp;code=%5Cdisplaystyle%20P%28X%3Et%29%3DP%7BN%28t%29%3D0%7D%3D%20%5Cfrac%7B%28%5Clambda%20t%29%5E0%20e%5E%7B-%5Clambda%20t%7D%7D%7B0%21%7D%3De%5E%7B-%5Clambda%20t%7D&amp;id=Ln8DC" alt="" /></p>
-<p>那么在时间<img src="https://g.yuque.com/gr/latex?t#card=math&amp;code=t&amp;height=17&amp;id=JO6Fb" alt="" />内发生的概率即为指数分布的分布函数表达式：</p>
-<p><img src="https://cdn.nlark.com/yuque/__latex/2e5324036ef1635150806adc651042a6.svg#card=math&amp;code=P%28x%20%5Cleqslant%20t%29%3D%201-P%28X%3Et%29%3D1-e%5E%7B-%5Clambda%20t%7D&amp;id=ilCJe" alt="" /></p>
+<p><strong>指数分布描述的是一个事件发生后，间隔时间</strong>$ t $<strong>后该时间再次发生的概率。</strong></p>
+<p>也就是在时间段$ t $内没有事件发生，用公式表示为：</p>
+<p>$ \displaystyle P(X&gt;t)=P{N(t)=0}= \frac{(\lambda t)^0 e^{-\lambda t}}{0!}=e^{-\lambda t} $</p>
+<p>那么在时间$ t $内发生的概率即为指数分布的分布函数表达式：</p>
+<p>$ P(x \leqslant t)= 1-P(X&gt;t)=1-e^{-\lambda t} $</p>
 <h3 id="v-延伸正态分布"><a class="markdownIt-Anchor" href="#v-延伸正态分布"></a> V 延伸——正态分布</h3>
-<p>如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&amp;code=np&amp;height=14&amp;id=ncT7w" alt="" />存在有限极限 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&amp;code=%CE%BB&amp;height=19&amp;id=IhjdA" alt="" />，则这列二项分布就趋于参数为 <img src="https://g.yuque.com/gr/latex?%CE%BB#card=math&amp;code=%CE%BB&amp;height=19&amp;id=ULMl4" alt="" /> 的 泊松分布。反之，如果<img src="https://cdn.nlark.com/yuque/__latex/cf3fc916339b02ad9c14aca2425ccf53.svg#card=math&amp;code=np&amp;height=14&amp;id=oupLf" alt="" />趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。<br />
-<img src="http://cdn.lisongqian.cn/gailvfenbu.jpg#height=960&amp;id=Rm9ML&amp;originHeight=960&amp;originWidth=720&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;status=done&amp;style=none&amp;title=&amp;width=720" alt="" /></p>
+<p>如果$ np $存在有限极限 $ λ $，则这列二项分布就趋于参数为 $ λ $ 的 泊松分布。反之，如果$ np $趋于无限大（如 p 是一个定值），那么根据拉普拉斯中心极限定理，这列二项分布将趋近于正态分布。相关关系如图所示。</p>
+<p><img src="http://cdn.lisongqian.cn/gailvfenbu.jpg" alt="" /></p>
 	
 		</div>
 		
@@ -775,6 +786,17 @@ stdcall是被调用者清理参数所占的栈空间。
 </div>
 
 <!-- show math formula -->
+
+	<script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config(
+			{ 
+				tex2jax: {
+					inlineMath: [['$','$'], ['\\(','\\)']]
+				} 
+			}
+		);
+	</script>
 
 
 

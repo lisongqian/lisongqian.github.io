@@ -308,73 +308,72 @@
 
 		<div class="article-content" id="article-content">
 			<p>本文主要是针对近年来序列模型的发展，例如 BERT、Transformer-XL、XLNet、RoBERTa 以及 XLM 等模型的思路整理。</p>
-<h2 id="bert-bidirectional-encoder-representations-from-transformers"><a class="markdownIt-Anchor" href="#bert-bidirectional-encoder-representations-from-transformers"></a> BERT: Bidirectional Encoder Representations from Transformers</h2>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415190625530.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445189-30791861-56d7-49e8-b8fb-b2b244565005.png#height=834&amp;id=Q1sAi&amp;originHeight=834&amp;originWidth=1486&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1486" alt="" /></a><br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200415192917464.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445306-3d6a58df-20d9-4866-9919-8a8fcf4c6f52.png#height=804&amp;id=B6xbe&amp;originHeight=804&amp;originWidth=1183&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1183" alt="" /></a><br />
-上图是 BERT 提出的主要的两个点。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416094110056.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445106-4d502e12-a548-4181-ae19-43a98aedea3f.png#height=831&amp;id=yQ4tI&amp;originHeight=831&amp;originWidth=1483&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1483" alt="" /></a><br />
-选择<code>encoder</code>哪一层的信息会比较好呢？上图给出了解答。不难看出，后四层的<code>encoder</code>层<code>sum</code>之后得到了当前维度的最高<code>F1</code>，而<code>concat</code>后四层发现<code>F1</code>又有所提高，所以综合来看选择<code>encoder</code>的后几层的效果会比较好。</p>
-<h2 id="transformer-xl"><a class="markdownIt-Anchor" href="#transformer-xl"></a> Transformer-XL</h2>
-<p>超长输入的文本会被原始的 transformer 切掉，而且如果进行切分的时候也没有很好的解决切分的边界问题。<code>Transformer-XL</code>就是要解决这个问题。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/transformerxl.gif"><img src="https://cdn.nlark.com/yuque/0/2021/gif/1249968/1613981445221-fc7ecb03-c7e1-4274-b9f2-a25651968e47.gif#height=396&amp;id=FcIm5&amp;originHeight=396&amp;originWidth=794&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=794" alt="" /></a><br />
-<code>Tranformer-XL</code>的解决方式如上图所示，在训练下一个<code>segment</code>时，从上一个<code>segment</code>读取参数进行重用，这样可以使得<code>dependency</code>的长度可以扩展到<code>N</code>倍，<code>N</code>是神经网络的深度。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416110929660.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445229-eca05f9f-50f4-4dee-ab3f-3255781a7a32.png#height=802&amp;id=kL8mS&amp;originHeight=802&amp;originWidth=1484&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1484" alt="" /></a><br />
-模型优点的比较：在<code>Vanilla</code>版本<code>Train phase</code>时，两个<code>segment</code>是互相独立的，在跨越两个<code>seqment</code>的<code>dependency</code>就没有被考虑；而在<code>Evaluation</code>时，如果要输出的长度为 6，而学习的一个<code>segment</code>只有 4 的时候，就会出现预测的序列只能看到前后 4 个点的权值。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416160316230.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445315-3b3bfb23-08e0-4d41-8927-edd631454b20.png#height=770&amp;id=PUDTU&amp;originHeight=770&amp;originWidth=1484&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1484" alt="" /></a><br />
-让模型去考虑相对位置的关系，而不是绝对位置的关系。ExiExi 是<code>word embedding</code>，UiUi 是<code>position embedding</code>，在相对位置关系中会选定一个基准点作为基准向量 uTuT、vTvT,然后用 Ri−jRi−j 来表示 i,ji,j 两个位置之间的差异，这里 uT,vT,Ri−juT,vT,Ri−j 都是需要训练的。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416160837907.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445289-88232a7b-4219-4409-af9b-8cfa25bee53a.png#height=562&amp;id=iJHs8&amp;originHeight=562&amp;originWidth=1495&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1495" alt="" /></a></p>
-<h2 id="xlnetgeneralized-autoregressive-pretraining-for-language-understanding"><a class="markdownIt-Anchor" href="#xlnetgeneralized-autoregressive-pretraining-for-language-understanding"></a> XLNet：Generalized Autoregressive Pretraining for Language Understanding</h2>
+<h2 id=""><a class="markdownIt-Anchor" href="#"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#BERT-Bidirectional-Encoder-Representations-from-Transformers"></a>BERT: Bidirectional Encoder Representations from Transformers</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445189-30791861-56d7-49e8-b8fb-b2b244565005.png" alt="" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445306-3d6a58df-20d9-4866-9919-8a8fcf4c6f52.png" alt="" /></p>
+<p>上图是 BERT 提出的主要的两个点。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445106-4d502e12-a548-4181-ae19-43a98aedea3f.png" alt="" /></p>
+<p>选择<code>encoder</code>哪一层的信息会比较好呢？上图给出了解答。不难看出，后四层的<code>encoder</code>层<code>sum</code>之后得到了当前维度的最高<code>F1</code>，而<code>concat</code>后四层发现<code>F1</code>又有所提高，所以综合来看选择<code>encoder</code>的后几层的效果会比较好。</p>
+<h2 id="-2"><a class="markdownIt-Anchor" href="#-2"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#Transformer-XL"></a>Transformer-XL</h2>
+<p>超长输入的文本会被原始的 transformer 切掉，而且如果进行切分的时候也没有很好的解决切分的边界问题。<code>Transformer-XL</code>就是要解决这个问题。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/gif/1249968/1613981445221-fc7ecb03-c7e1-4274-b9f2-a25651968e47.gif" alt="" /></p>
+<p><code>Tranformer-XL</code>的解决方式如上图所示，在训练下一个<code>segment</code>时，从上一个<code>segment</code>读取参数进行重用，这样可以使得<code>dependency</code>的长度可以扩展到<code>N</code>倍，<code>N</code>是神经网络的深度。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445229-eca05f9f-50f4-4dee-ab3f-3255781a7a32.png" alt="" /></p>
+<p>模型优点的比较：在<code>Vanilla</code>版本<code>Train phase</code>时，两个<code>segment</code>是互相独立的，在跨越两个<code>seqment</code>的<code>dependency</code>就没有被考虑；而在<code>Evaluation</code>时，如果要输出的长度为 6，而学习的一个<code>segment</code>只有 4 的时候，就会出现预测的序列只能看到前后 4 个点的权值。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445315-3b3bfb23-08e0-4d41-8927-edd631454b20.png" alt="" /></p>
+<p>让模型去考虑相对位置的关系，而不是绝对位置的关系。ExiExi 是<code>word embedding</code>，UiUi 是<code>position embedding</code>，在相对位置关系中会选定一个基准点作为基准向量 uTuT、vTvT,然后用 Ri−jRi−j 来表示 i,ji,j 两个位置之间的差异，这里 uT,vT,Ri−juT,vT,Ri−j 都是需要训练的。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445289-88232a7b-4219-4409-af9b-8cfa25bee53a.png" alt="" /></p>
+<h2 id="-3"><a class="markdownIt-Anchor" href="#-3"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#XLNet%EF%BC%9AGeneralized-Autoregressive-Pretraining-for-Language-Understanding"></a>XLNet：Generalized Autoregressive Pretraining for Language Understanding</h2>
 <p>在说 XLNet 之前要先提一下 AR 和 AE 模型的概念。</p>
-<h3 id="auto-regressivear"><a class="markdownIt-Anchor" href="#auto-regressivear"></a> Auto-Regressive(AR)</h3>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416204425838.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445391-1854e5a8-a984-4c97-a0c6-5ae03362504f.png#height=759&amp;id=bTDUo&amp;originHeight=759&amp;originWidth=1508&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1508" alt="" /></a><br />
-模型在预测 XtXt 的时候，只会看到前半部分或者后半部分考虑的<code>information</code>。</p>
-<h3 id="auto-encodingae"><a class="markdownIt-Anchor" href="#auto-encodingae"></a> Auto-Encoding(AE)</h3>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416205713669.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445306-23eb2886-f2a6-455d-94b2-09574a18266a.png#height=841&amp;id=zpXJU&amp;originHeight=841&amp;originWidth=1402&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1402" alt="" /></a><br />
-从一个有<code>noise</code>的样本预测原本的值，是可以看到左右两部分的信息。<br />
-AE 存在的问题是：</p>
+<h3 id="-4"><a class="markdownIt-Anchor" href="#-4"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#Auto-Regressive-AR"></a>Auto-Regressive(AR)</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445391-1854e5a8-a984-4c97-a0c6-5ae03362504f.png" alt="" /></p>
+<p>模型在预测 XtXt 的时候，只会看到前半部分或者后半部分考虑的<code>information</code>。</p>
+<h3 id="-5"><a class="markdownIt-Anchor" href="#-5"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#Auto-Encoding-AE"></a>Auto-Encoding(AE)</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445306-23eb2886-f2a6-455d-94b2-09574a18266a.png" alt="" /></p>
+<p>从一个有<code>noise</code>的样本预测原本的值，是可以看到左右两部分的信息。</p>
+<p>AE 存在的问题是：</p>
 <ol>
 <li>AE 模型认为不同位置的<code>[MASK]</code>是互相独立的，认为模型预测前一个<code>[MASK]</code>的词不会影响到后一个<code>[MASK]</code>，但是实际上是有可能两个位置的<code>[MASK]</code>互相关联。</li>
 <li>在<code>pre-training</code>和<code>fine-tuning</code>之间存在差异。具体表现在<code>pre-training</code>过程中有<code>[MASK]</code>标签，而在<code>fine-tuning</code>过程中是没有<code>[MASK]</code>的，这就存在了一种<code>input noise</code>的情况。</li>
 </ol>
-<h3 id="xlnet"><a class="markdownIt-Anchor" href="#xlnet"></a> XLNet</h3>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416211234288.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445298-1780d594-d845-4916-83fa-5ad91b477fe3.png#height=805&amp;id=jumgb&amp;originHeight=805&amp;originWidth=1503&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1503" alt="" /></a><br />
-XLNet 目标是使用 AR 模型，但同时也能够使用<code>bidirectional contexts</code>。方法是随机排列这段<code>sequence</code>的每个单词，让模型去学习每个随机后的<code>sequence</code>，这样在第 tt 个位置之后的信息也有可能随机到 tt 前面而被模型学习到。<br />
-例如图中三种情况：</p>
+<h3 id="-6"><a class="markdownIt-Anchor" href="#-6"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#XLNet"></a>XLNet</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445298-1780d594-d845-4916-83fa-5ad91b477fe3.png" alt="" /></p>
+<p>XLNet 目标是使用 AR 模型，但同时也能够使用<code>bidirectional contexts</code>。方法是随机排列这段<code>sequence</code>的每个单词，让模型去学习每个随机后的<code>sequence</code>，这样在第 tt 个位置之后的信息也有可能随机到 tt 前面而被模型学习到。</p>
+<p>例如图中三种情况：</p>
 <ol>
 <li>序列为<code>3-2-4-1</code>：以 3 为例，此时 3 为开头，模型只能看到起始符，看不到其他任何符号；</li>
 <li>序列为<code>2-4-3-1</code>：以 3 为例，此时 3 可以看到 2 和 4；</li>
 <li>序列为<code>1-4-2-3</code>：以 3 为例，此时可以看到序列的全部其他信息(1,4,2)。</li>
 </ol>
-<h4 id="实现细节"><a class="markdownIt-Anchor" href="#实现细节"></a> 实现细节</h4>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200416212906233.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445237-eb30a06b-6666-4d70-b9f9-ce32b14f755d.png#height=828&amp;id=ID0Z4&amp;originHeight=828&amp;originWidth=1448&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1448" alt="" /></a><br />
-上述的乱序过程实质上就是改变了每个节点的<code>Attention</code>可以看到哪些节点的信息，也就是改变了<code>Attention mask</code>矩阵的值。因此在实现<code>Positional Encoding</code>时，没有打乱 x1,…,x4x1,…,x4 的顺序，而是将每个节点可以看到的信息依次填入了正常的<code>Positional Encoding</code>矩阵。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417093522502.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445325-40f127d3-3a19-45f3-ac48-9f953d6b3379.png#height=783&amp;id=CM0Fq&amp;originHeight=783&amp;originWidth=1508&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1508" alt="" /></a><br />
-但是实现这种随机乱序存在的问题是模型不知道 P(x3|x1,x2)P(x3|x1,x2)和 P(x4|x1,x2)P(x4|x1,x2)的区别，模型不知道预测的下一个<code>token</code>是第三个位置的还是第四个位置的，为了解决这个问题就引入了<code>Two-Stream Self-Attnetion</code>来引入<code>position</code>信息 ztzt。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417145435974.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445207-80136a05-2453-4dcb-86d8-0e1edf50f9ff.png#height=851&amp;id=RH6lY&amp;originHeight=851&amp;originWidth=1523&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1523" alt="" /></a><br />
-两个<code>Stream</code>分别是能看到自身的<code>Content stream</code>hh 和不能看到自身的<code>Query stream</code>gg。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417150044950.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445217-3d7390ba-5f09-4ee0-8ed0-339abc758cc9.png#height=842&amp;id=xPCAf&amp;originHeight=842&amp;originWidth=1518&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1518" alt="" /></a><br />
-上图能够更清楚的展示出<code>Content stream</code>和<code>Query stream</code>的区别。最终模型在<code>pre-training</code>阶段时，因为<code>sequence</code>中存在<code>[MASK]</code>，所以就使用<code>Query stream</code>来学习信息；在<code>fine-tuning</code>时由于可以看到所有的输入所以就使用<code>Content stream</code>。<br />
-个人理解：XLNet 利用两种<code>Attention</code>来解决<code>pre-training</code>和<code>fine-tuning</code>阶段中存在的<code>input noise</code>问题，在预测<code>[MASK]</code>位置的信息时使用<code>Query stream</code>，在预测其他位置的信息时使用<code>Content stream</code>。<br />
-<a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417151803301.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445495-441addb8-a57b-4d4b-9c6d-7a7aee1bdd3a.png#height=596&amp;id=tMHCZ&amp;originHeight=596&amp;originWidth=1227&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1227" alt="" /></a></p>
-<h2 id="robertaa-robustly-optimized-bert-pretraining-approach"><a class="markdownIt-Anchor" href="#robertaa-robustly-optimized-bert-pretraining-approach"></a> RoBERTa：A Robustly Optimized BERT Pretraining Approach</h2>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417174121038.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445348-f3b7d777-b0f1-47f0-b17e-3e5c9a6f7380.png#height=783&amp;id=RWbzE&amp;originHeight=783&amp;originWidth=1508&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1508" alt="" /></a></p>
-<h4 id="contributions"><a class="markdownIt-Anchor" href="#contributions"></a> Contributions:</h4>
+<h4 id="-7"><a class="markdownIt-Anchor" href="#-7"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82"></a>实现细节</h4>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445237-eb30a06b-6666-4d70-b9f9-ce32b14f755d.png" alt="" /></p>
+<p>上述的乱序过程实质上就是改变了每个节点的<code>Attention</code>可以看到哪些节点的信息，也就是改变了<code>Attention mask</code>矩阵的值。因此在实现<code>Positional Encoding</code>时，没有打乱 x1,…,x4x1,…,x4 的顺序，而是将每个节点可以看到的信息依次填入了正常的<code>Positional Encoding</code>矩阵。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445325-40f127d3-3a19-45f3-ac48-9f953d6b3379.png" alt="" /></p>
+<p>但是实现这种随机乱序存在的问题是模型不知道 P(x3|x1,x2)P(x3|x1,x2)和 P(x4|x1,x2)P(x4|x1,x2)的区别，模型不知道预测的下一个<code>token</code>是第三个位置的还是第四个位置的，为了解决这个问题就引入了<code>Two-Stream Self-Attnetion</code>来引入<code>position</code>信息 ztzt。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445207-80136a05-2453-4dcb-86d8-0e1edf50f9ff.png" alt="" /></p>
+<p>两个<code>Stream</code>分别是能看到自身的<code>Content stream</code>hh 和不能看到自身的<code>Query stream</code>gg。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445217-3d7390ba-5f09-4ee0-8ed0-339abc758cc9.png" alt="" /></p>
+<p>上图能够更清楚的展示出<code>Content stream</code>和<code>Query stream</code>的区别。最终模型在<code>pre-training</code>阶段时，因为<code>sequence</code>中存在<code>[MASK]</code>，所以就使用<code>Query stream</code>来学习信息；在<code>fine-tuning</code>时由于可以看到所有的输入所以就使用<code>Content stream</code>。</p>
+<p>个人理解：XLNet 利用两种<code>Attention</code>来解决<code>pre-training</code>和<code>fine-tuning</code>阶段中存在的<code>input noise</code>问题，在预测<code>[MASK]</code>位置的信息时使用<code>Query stream</code>，在预测其他位置的信息时使用<code>Content stream</code>。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445495-441addb8-a57b-4d4b-9c6d-7a7aee1bdd3a.png" alt="" /></p>
+<h2 id="-8"><a class="markdownIt-Anchor" href="#-8"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#RoBERTa%EF%BC%9AA-Robustly-Optimized-BERT-Pretraining-Approach"></a>RoBERTa：A Robustly Optimized BERT Pretraining Approach</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445348-f3b7d777-b0f1-47f0-b17e-3e5c9a6f7380.png" alt="" /></p>
+<h4 id="-9"><a class="markdownIt-Anchor" href="#-9"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#Contributions"></a>Contributions:</h4>
 <ol>
 <li>pre-training 使用十次不同的 mask 结果；</li>
 <li>调参；</li>
-<li><strong>增大数据量，只训练完整的序列。</strong>（个人感觉最大的优点，数据量大）
+<li><strong>增大数据量，只训练完整的序列。</strong>（个人感觉最大的优点，数据量大）</li>
+</ol>
 <blockquote>
 <p>下面是 BERT 模型的其他变种：</p>
 </blockquote>
-</li>
-</ol>
-<h2 id="spanbert-improving-pre-training-by-representing-and-predicting-spans"><a class="markdownIt-Anchor" href="#spanbert-improving-pre-training-by-representing-and-predicting-spans"></a> SpanBERT: Improving Pre-training by Representing and Predicting Spans</h2>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417201831583.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445464-073ffbfa-4fb0-49d1-943d-21113c91daf6.png#height=832&amp;id=PbvuY&amp;originHeight=832&amp;originWidth=1520&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1520" alt="" /></a></p>
-<h2 id="xlm-enhancing-bert-for-cross-lingual-language-model"><a class="markdownIt-Anchor" href="#xlm-enhancing-bert-for-cross-lingual-language-model"></a> XLM: Enhancing BERT for Cross-lingual Language Model</h2>
-<p><a target="_blank" rel="noopener" href="http://cdn.lisongqian.cn/img/image-20200417202929428.png"><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445416-17bef0fc-6843-48d9-8702-47b058eaa319.png#height=837&amp;id=ZmeYX&amp;originHeight=837&amp;originWidth=1313&amp;originalType=binary%E2%88%B6=1&amp;rotation=0&amp;showTitle=false&amp;size=0&amp;status=done&amp;style=none&amp;title=&amp;width=1313" alt="" /></a></p>
-<h3 id="reference"><a class="markdownIt-Anchor" href="#reference"></a> REFERENCE</h3>
-<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2019-05-29">Facebook AI Research 的 XLM 模型：将 BERT 扩展成跨语言模型</a><br />
-<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19g4y1b7vx?p=36">台大《应用深度学习》国语课程(2020) by 陈蕴侬</a></p>
+<h2 id="-10"><a class="markdownIt-Anchor" href="#-10"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#SpanBERT-Improving-Pre-training-by-Representing-and-Predicting-Spans"></a>SpanBERT: Improving Pre-training by Representing and Predicting Spans</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445464-073ffbfa-4fb0-49d1-943d-21113c91daf6.png" alt="" /></p>
+<h2 id="-11"><a class="markdownIt-Anchor" href="#-11"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#XLM-Enhancing-BERT-for-Cross-lingual-Language-Model"></a>XLM: Enhancing BERT for Cross-lingual Language Model</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/1249968/1613981445416-17bef0fc-6843-48d9-8702-47b058eaa319.png" alt="" /></p>
+<h3 id="-12"><a class="markdownIt-Anchor" href="#-12"></a> <a target="_blank" rel="noopener" href="https://blog.lisongqian.cn/2020/04/17/bert/#REFERENCE"></a>REFERENCE</h3>
+<p><a target="_blank" rel="noopener" href="https://www.jiqizhixin.com/articles/2019-05-29">Facebook AI Research 的 XLM 模型：将 BERT 扩展成跨语言模型</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19g4y1b7vx?p=36">台大《应用深度学习》国语课程(2020) by 陈蕴侬</a></p>
 	
 		</div>
 		
